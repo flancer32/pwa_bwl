@@ -1,0 +1,13 @@
+[Unit]
+Description=Tequila PWA.
+After=network.target
+
+[Service]
+Type=simple
+Restart=always
+PIDFile=/run/pwa_tequila.pid
+WorkingDirectory=/home/live/inst/project/live
+ExecStart=/usr/bin/node /home/live/inst/project/live/bin/tequila.mjs start
+
+[Install]
+WantedBy=multi-user.target

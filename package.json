@@ -1,0 +1,50 @@
+{
+  "name": "teqfw-app-sample",
+  "version": "0.1.0",
+  "description": "Sample TeqFW based application.",
+  "homepage": "https://your.project.com/",
+  "bugs": {
+    "url": "https://github.com/vendor/project/issues",
+    "email": "alex@flancer32.com"
+  },
+  "license": "GPL-3.0",
+  "author": {
+    "name": "Alex Gusev",
+    "email": "alex@flancer64.com",
+    "url": "https://github.com/flancer64"
+  },
+  "repository": "github:vendor/project",
+  "scripts": {
+    "db-upgrade": "node --experimental-modules ./bin/tequila.mjs db-schema-upgrade",
+    "docs": "./node_modules/jsdoc/jsdoc.js --debug -p -c ./jsdoc.conf.json",
+    "rebuild": "rm -fr node_modules package-lock.json && npm install",
+    "start": "node --experimental-modules ./bin/tequila.mjs start",
+    "stop": "node --experimental-modules ./bin/tequila.mjs stop",
+    "test": "./node_modules/mocha/bin/mocha --require esm --recursive './test/**/*.test.js'"
+  },
+  "dependencies": {
+    "@teqfw/core-app": "github:teqfw/core-app",
+    "@teqfw/di": "github:teqfw/di",
+    "i18next": "*",
+    "i18next-browser-languagedetector": "*",
+    "marked": "*",
+    "mime-types": "*",
+    "mysql2": "*",
+    "node-fetch": "*",
+    "sanitize-html": "*",
+    "serve-static": "*",
+    "vue": "^3.0.5",
+    "vue-router": "^4.0.3",
+    "vuex": "^4.0.0-rc.2"
+  },
+  "devDependencies": {
+    "jest": "*",
+    "jsdoc": "*"
+  },
+  "teqfw": {
+    "autoload": {
+      "ns": "Vendor_Project",
+      "path": "./src"
+    }
+  }
+}

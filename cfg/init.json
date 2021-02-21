@@ -1,0 +1,31 @@
+{
+  "app": {},
+  "db": {
+    "main": {
+      "client": "mysql2",
+      "connection": {
+        "host": "127.0.0.1",
+        "user": "...",
+        "password": "...",
+        "database": "..."
+      }
+    }
+  },
+  "server": {
+    "port": 3000
+  },
+  "service": {
+    "google": {
+      "api": {
+        "access": {
+          "email": "client@email.com",
+          "key": "-----BEGIN PRIVATE KEY-----\n ... -----END PRIVATE KEY-----\n"
+        },
+        "calendarId": "...@group.calendar.google"
+      }
+    }
+  },
+  "web": {
+    "urlBase": "project.com"
+  }
+}

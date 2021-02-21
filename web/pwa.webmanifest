@@ -1,0 +1,17 @@
+{
+  "name": "TeqFW App",
+  "short_name": "TeqFW App",
+  "theme_color": "#FB9902",
+  "background_color": "#FB9902",
+  "display": "minimal-ui",
+  "scope": "./",
+  "start_url": "./",
+  "icons": [
+      {
+        "src": "./favicon.png",
+        "sizes": "128x128",
+        "type": "image/png"
+      }
+  ],
+  "splash_pages": null
+}

@@ -1,0 +1,3 @@
+# TODOs for the project
+
+* `init/bin/pwa-tequila.service`: parametrize options like `Description`, `PIDFile`, `WorkingDirectory`, `ExecStart`...
