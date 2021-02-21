@@ -3,12 +3,12 @@ import $bcrypt from 'bcrypt';
 /**
  * Factory class to create CLI command to reset database structures and initialize test data.
  */
-export default class Vendor_Project_Cli_Db_Reset {
+export default class Fl32_Bwl_Cli_Db_Reset {
 
     constructor(spec) {
         // CONSTRUCTOR INJECTED DEPS
-        /** @type {Vendor_Project_Defaults} */
-        const DEF = spec['Vendor_Project_Defaults$'];   // instance singleton
+        /** @type {Fl32_Bwl_Defaults} */
+        const DEF = spec['Fl32_Bwl_Defaults$'];   // instance singleton
         /** @type {Fl32_Teq_User_Defaults} */
         const DEF_USER = spec['Fl32_Teq_User_Defaults$'];   // instance singleton
         /** @type {typeof TeqFw_Core_App_Cli_Command_Data} */

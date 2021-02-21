@@ -21,7 +21,7 @@ const container = new Container();
 const srcCore = $path.join(root, 'node_modules/@teqfw/core-app/src');
 container.addSourceMapping('TeqFw_Core_App', srcCore, true, 'mjs');
 
-// Manually create bootstrap configuration object (used in constructor of 'Vendor_Project_App')
+// Manually create bootstrap configuration object (used in constructor of 'Fl32_Bwl_App')
 /** @type {TeqFw_Core_App_Launcher.Bootstrap} */
 const bootstrap = {version: VERSION, root};
 container.set('bootstrap', bootstrap);

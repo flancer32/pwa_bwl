@@ -1,4 +1,4 @@
-export default class Vendor_Project_Defaults {
+export default class Fl32_Bwl_Defaults {
     BACK_REALM = 'app';  // realm for API services ('/api/app/...') and CLI commands ('app-...')
     DATA_USER_ID_ADMIN = 1; // app's sample data
     DATA_USER_ID_CUST = 2;

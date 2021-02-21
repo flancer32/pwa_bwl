@@ -1,0 +1,46 @@
+name: Deploy PWA to pilot
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  test_and_deploy:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Check-out repo under '$GITHUB_WORKSPACE'.
+        uses: actions/checkout@v2
+
+      #      - name: Build application on '$GITHUB_WORKSPACE'.
+      #        run: |
+      #          npm install
+
+      - name: Copy files to Remote Server.
+        uses: easingthemes/ssh-deploy@v2.0.7
+        env:
+          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+          REMOTE_USER: ${{ secrets.REMOTE_USER }}
+          SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
+          ARGS: "-rltgoDzvO"
+          SOURCE: "/"
+          TARGET: "/home/github/bwl.new/"
+
+      - name: Replace old backend files with new ones on Remote Server.
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.REMOTE_HOST }}
+          username: ${{ secrets.REMOTE_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          script: |
+            cd /home/github/bwl.new/
+            cp ~/cfg/bwl.local.json ./cfg/local.json
+            npm install
+            cd /home/github/bwl/
+            npm stop
+            cd /home/github/
+            rm -fr ./bwl
+            mv ./bwl.new ./bwl
+            cd ./bwl/
+            npm run db-upgrade
+            nohup npm start > ./output.log 2>&1 &

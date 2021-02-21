@@ -99,12 +99,12 @@
              *
              * @param {Object} app
              * @param {TeqFw_Di_Container} container
-             * @param {Vendor_Project_Defaults} DEF
+             * @param {Fl32_Bwl_Defaults} DEF
              * @param {Object} Vuex
              */
             async function initVuex(app, container, DEF, Vuex) {
-                /** @type {Vendor_Project_Front_State} */
-                const state = await container.get('Vendor_Project_Front_State$'); // object singleton
+                /** @type {Fl32_Bwl_Front_State} */
+                const state = await container.get('Fl32_Bwl_Front_State$'); // object singleton
                 const store = Vuex.createStore(state);
                 container.set(DEF.DI_STORE, store);
                 app.use(store);
@@ -114,8 +114,8 @@
             try {
                 // initialize objects loader (Dependency Injection container)
                 const container = await initDiContainer();
-                /** @type {Vendor_Project_Defaults} */
-                const DEF = await container.get('Vendor_Project_Defaults$');  // instance singleton
+                /** @type {Fl32_Bwl_Defaults} */
+                const DEF = await container.get('Fl32_Bwl_Defaults$');  // instance singleton
                 // load configuration from server and place it into DI container
                 const config = await loadConfig(container);
                 container.set(DEF.MOD_CORE.DI_CONFIG, config);
@@ -141,7 +141,7 @@
                 await session.init();
                 container.set(DEF.MOD_USER.DI_SESSION, session);    // TMP: put into container as singleton
                 // load root component and mount frontend application to DOM
-                const appRoot = await container.get('Vendor_Project_Front_App$$');   // new component
+                const appRoot = await container.get('Fl32_Bwl_Front_App$$');   // new component
                 app.component('appRoot', appRoot);
                 // mount Vue application to the page
                 app.mount('BODY > DIV');

@@ -4,7 +4,7 @@
  * @param {TeqFw_Di_SpecProxy} spec
  * @return {Object}
  */
-function Vendor_Project_Front_State(spec) {
+function Fl32_Bwl_Front_State(spec) {
     /** @type {Fl32_Teq_User_Front_State} */
     const user = spec['Fl32_Teq_User_Front_State$'];   // singleton object
 
@@ -19,4 +19,4 @@ function Vendor_Project_Front_State(spec) {
 }
 
 // We should place function separately to allow JSDoc & IDEA hints & navigation.
-export default Vendor_Project_Front_State;
+export default Fl32_Bwl_Front_State;
