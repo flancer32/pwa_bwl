@@ -15,6 +15,7 @@ jobs:
       #      - name: Build application on '$GITHUB_WORKSPACE'.
       #        run: |
       #          npm install
+      # commit to test actions
 
       - name: Copy files to Remote Server.
         uses: easingthemes/ssh-deploy@v2.0.7
