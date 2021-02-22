@@ -12,7 +12,7 @@ function Fl32_Bwl_Front_State(spec) {
         namespaced: true,
         state: {
             lang: 'en-US',
-            title: 'TeqFW App',
+            title: 'Weight Loss',
         },
         modules: {user},
     };

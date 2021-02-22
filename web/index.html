@@ -110,6 +110,15 @@
                 app.use(store);
             }
 
+            async function initSession(container, DEF) {
+                // setup session (load user permissions from server)
+                /** @type {Fl32_Teq_User_Front_App_Session} */
+                const session = await container.get('Fl32_Teq_User_Front_App_Session$'); // instance singleton
+                session.setRouteToSignIn(DEF.ROUTE_SIGN_IN);
+                await session.init();
+                container.set(DEF.MOD_USER.DI_SESSION, session);    // TMP: put into container as singleton
+            }
+
             // MAIN FUNCTIONALITY
             try {
                 // initialize objects loader (Dependency Injection container)
@@ -134,12 +143,7 @@
                 self.Quasar.iconSet.set(self.Quasar.iconSet.svgMaterialIcons);
                 container.set(DEF.MOD_CORE.DI_QUASAR, self.Quasar);
                 await initVuex(app, container, DEF, self.Vuex);
-                // setup session (load user permissions from server)
-                /** @type {Fl32_Teq_User_Front_App_Session} */
-                const session = await container.get('Fl32_Teq_User_Front_App_Session$'); // instance singleton
-                session.setRouteToSignIn('/user/sign/in');
-                await session.init();
-                container.set(DEF.MOD_USER.DI_SESSION, session);    // TMP: put into container as singleton
+                await initSession(container, DEF);
                 // load root component and mount frontend application to DOM
                 const appRoot = await container.get('Fl32_Bwl_Front_App$$');   // new component
                 app.component('appRoot', appRoot);
