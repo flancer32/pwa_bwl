@@ -7,7 +7,7 @@ Type=simple
 Restart=always
 PIDFile=/run/pwa_bwl.pid
 WorkingDirectory=/home/live/inst/bwl/live
-ExecStart=/usr/bin/node /home/live/inst/bwl/live/bin/tequila.mjs start
+ExecStart=/usr/bin/node /home/live/inst/bwl/live/bin/tequila.mjs http2-start
 
 [Install]
 WantedBy=multi-user.target
