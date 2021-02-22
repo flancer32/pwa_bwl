@@ -12,13 +12,13 @@
 #      -rw-rw-r-- 1 live live  591 Jan  5 15:40 local.json
 #      -rwxrwxr-x 1 live live  409 Jan  5 15:40 local.sh
 ##
-REPO="git@github.com:flancer32/pwa_app.git"
-SUFFIX="$(date '+%Y%m%d')"
+REPO="git@github.com:flancer32/pwa_bwl.git"
+SUFFIX="$(date '+%Y%m%d_%H%M')"
 DIR_PRJ="teq_${SUFFIX}"
 
 git clone "${REPO}" "${DIR_PRJ}"
-cp local.json "${DIR_PRJ}/cfg/"
-cp local.sh "${DIR_PRJ}/cfg/"
+cp "local.json" "${DIR_PRJ}/cfg/"
+cp "local.sh" "${DIR_PRJ}/cfg/"
 cd "${DIR_PRJ}" || exit
 bash ./bin/deploy/live.sh
 cd ..
