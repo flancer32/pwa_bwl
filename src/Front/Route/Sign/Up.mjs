@@ -1,7 +1,9 @@
 const template = `
-<layout-centered>
-    SIGN UP
-</layout-centered>
+<div>
+    <user-sign-up
+        :input="signUp"
+    ></user-sign-up>
+</div>
 `;
 
 export default function Fl32_Bwl_Front_Route_Sign_Up(spec) {
@@ -11,26 +13,23 @@ export default function Fl32_Bwl_Front_Route_Sign_Up(spec) {
     const session = spec[DEF.MOD_USER.DI_SESSION];  // named singleton
     /** @type {TeqFw_Core_App_Front_Widget_Layout_Centered} */
     const layoutCentered = spec['TeqFw_Core_App_Front_Widget_Layout_Centered$'];    // Vue component singleton
-    /** @type {Fl32_Teq_User_Front_Widget_SignIn} */
-    const userSignIn = spec['Fl32_Teq_User_Front_Widget_SignIn$'];  // Vue component singleton
-    /** @type {typeof Fl32_Teq_User_Front_Widget_SignIn_Props} */
-    const SignInProps = spec['Fl32_Teq_User_Front_Widget_SignIn#Props'];  // class constructor
+    /** @type {Fl32_Teq_User_Front_Widget_SignUp} */
+    const userSignUp = spec['Fl32_Teq_User_Front_Widget_SignUp$'];  // Vue component singleton
+    /** @type {typeof Fl32_Teq_User_Front_Widget_SignUp_Props} */
+    const SignUpProps = spec['Fl32_Teq_User_Front_Widget_SignUp#Props'];  // class constructor
     const {mapMutations, mapState} = spec[DEF.MOD_VUE.DI_VUEX];
 
     return {
         name: 'RouteSignIn',
         template,
-        components: {layoutCentered, userSignIn},
+        components: {layoutCentered, userSignUp},
         data: function () {
             return {
                 out: 'Fl32_Bwl_Front_App',
-                signIn: new SignInProps(),
+                signUp: new SignUpProps(),
             };
         },
         computed: {
-            url() {
-                return './img/moon.png';
-            },
             ...mapState({
                 stateUserAuthenticated: state => state.user.authenticated,
             })
