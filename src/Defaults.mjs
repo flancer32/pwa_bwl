@@ -1,11 +1,12 @@
 export default class Fl32_Bwl_Defaults {
     BACK_REALM = 'app';  // realm for API services ('/api/app/...') and CLI commands ('app-...')
+    DATA_REF_CODE_ROOT = 'root';
     DATA_USER_ID_ADMIN = 1; // app's sample data
     DATA_USER_ID_CUST = 2;
 
     ROUTE_HOME = '/'; // frontend routes
     ROUTE_SIGN_IN = '/sign/in';
-    ROUTE_SIGN_UP = '/sign/up';
+    ROUTE_SIGN_UP = '/sign/up/:refCode?';
 
     /** @type {TeqFw_Core_App_Defaults} */
     MOD_CORE;

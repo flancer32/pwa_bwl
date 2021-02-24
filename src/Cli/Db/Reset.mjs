@@ -78,7 +78,7 @@ export default class Fl32_Bwl_Cli_Db_Reset {
                             },
                         ]);
                         await trx(eIdEmail.ENTITY).insert({
-                            [eIdEmail.A_EMAIL]: 'alex@flancer64.com',
+                            [eIdEmail.A_EMAIL]: 'alex@wiredgeese.com',
                             [eIdEmail.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
                         });
                         await trx(eIdPhone.ENTITY).insert({
@@ -87,7 +87,7 @@ export default class Fl32_Bwl_Cli_Db_Reset {
                         });
                         await trx(eRefLink.ENTITY).insert({
                             [eRefLink.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
-                            [eRefLink.A_CODE]: 'root',
+                            [eRefLink.A_CODE]: DEF.DATA_REF_CODE_ROOT,
                         });
                         // users tree
                         await trx(eRefTree.ENTITY).insert([
