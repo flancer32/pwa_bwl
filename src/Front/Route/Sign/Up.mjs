@@ -1,11 +1,26 @@
+const I18N_BUNDLE = {
+    registered: 'You are registered!',
+};
+const TIMEOUT = 2000;
 const template = `
-<div>
+<layout-centered>
     <user-sign-up
-        :input="signUp"
-        @onSuccess="onSuccess($event)"
-        @onFailure="onFailure($event)"
+            v-show="!showInterim"
+            :input="signUp"
+            @onSuccess="onSuccess($event)"
+            @onFailure="onFailure($event)"
     ></user-sign-up>
-</div>
+    <div style="width: 75vw; height: 75vh;" v-show="showInterim">
+        <q-img
+                src="./img/2girls.jpg"
+                style="width: 100%; height: 100%"
+                fit="scale-down">
+            <div class="absolute-top text-center">
+                {{$t('registered')}}
+            </div>
+        </q-img>
+    </div>
+</layout-centered>
 `;
 
 /* Overwrite template for Fl32_Teq_User_Front_Widget_SignUp */
@@ -57,6 +72,7 @@ export default function Fl32_Bwl_Front_Route_Sign_Up(spec) {
     const DEF = spec['Fl32_Bwl_Defaults$'];    // instance singleton
     /** @type {Fl32_Teq_User_Front_App_Session} */
     const session = spec[DEF.MOD_USER.DI_SESSION];  // named singleton
+    const i18next = spec[DEF.MOD_CORE.DI_I18N];   // named singleton
     const {isEmpty} = spec['TeqFw_Core_App_Shared_Util'];
     /** @type {TeqFw_Core_App_Front_Widget_Layout_Centered} */
     const layoutCentered = spec['TeqFw_Core_App_Front_Widget_Layout_Centered$'];    // Vue component singleton
@@ -101,7 +117,6 @@ export default function Fl32_Bwl_Front_Route_Sign_Up(spec) {
             }
         }
     };
-
     userSignUp.methods.createSignUpRequest = function () {
         // this => Fl32_Teq_User_Front_Widget_SignUp
         /** @type {Fl32_Teq_User_Shared_Service_Route_Sign_Up_Request} */
@@ -114,13 +129,16 @@ export default function Fl32_Bwl_Front_Route_Sign_Up(spec) {
         return result;
     };
 
+    // add I18N bundle
+    i18next.addResourceBundle('dev', 'translation', I18N_BUNDLE, true);
+
     return {
         name: 'RouteSignIn',
         template,
         components: {layoutCentered, userSignUp},
         data: function () {
             return {
-                out: 'Fl32_Bwl_Front_App',
+                showInterim: false, // show interim screen after success sign up
                 signUp: new SignUpProps(),
             };
         },
@@ -140,7 +158,12 @@ export default function Fl32_Bwl_Front_Route_Sign_Up(spec) {
                 // session is initiated in 'Fl32_Teq_User_Front_Widget_SignIn' before @success event.
                 const user = session.getUser();
                 this.setStateUserAuthenticated(user);
-                this.$router.push('/');
+                this.showInterim = true;
+                setTimeout(() => {
+                    this.showInterim = false;
+                    this.$router.push('/');
+                }, TIMEOUT);
+
             },
             ...mapMutations({
                 setStateUserAuthenticated: 'user/setAuthenticated',
