@@ -19,20 +19,22 @@ export default class Fl32_Bwl_Cli_Db_Reset {
         const logger = spec['TeqFw_Core_App_Logger$'];  // instance singleton
         /** @type {Fl32_Teq_User_Plugin_Store_RDb_Setup} */
         const setupTeqUser = spec['Fl32_Teq_User_Plugin_Store_RDb_Setup$']; // instance singleton
+        /** @type {Fl32_Bwl_Plugin_Store_RDb_Setup} */
+        const setupApp = spec['Fl32_Bwl_Plugin_Store_RDb_Setup$']; // instance singleton
         /** @type {Fl32_Teq_User_Store_RDb_Schema_Auth_Password} */
         const eAuthPassword = spec['Fl32_Teq_User_Store_RDb_Schema_Auth_Password$'];
         /** @type {Fl32_Teq_User_Store_RDb_Schema_Id_Email} */
-        const eIdEmail = spec.Fl32_Teq_User_Store_RDb_Schema_Id_Email$;
+        const eIdEmail = spec['Fl32_Teq_User_Store_RDb_Schema_Id_Email$']; // instance singleton
         /** @type {Fl32_Teq_User_Store_RDb_Schema_Id_Phone} */
-        const eIdPhone = spec.Fl32_Teq_User_Store_RDb_Schema_Id_Phone$;
+        const eIdPhone = spec['Fl32_Teq_User_Store_RDb_Schema_Id_Phone$']; // instance singleton
         /** @type {Fl32_Teq_User_Store_RDb_Schema_Profile} */
-        const eProfile = spec.Fl32_Teq_User_Store_RDb_Schema_Profile$;
+        const eProfile = spec['Fl32_Teq_User_Store_RDb_Schema_Profile$']; // instance singleton
         /** @type {Fl32_Teq_User_Store_RDb_Schema_Ref_Link} */
-        const eRefLink = spec.Fl32_Teq_User_Store_RDb_Schema_Ref_Link$;
+        const eRefLink = spec['Fl32_Teq_User_Store_RDb_Schema_Ref_Link$']; // instance singleton
         /** @type {Fl32_Teq_User_Store_RDb_Schema_Ref_Tree} */
-        const eRefTree = spec.Fl32_Teq_User_Store_RDb_Schema_Ref_Tree$;
+        const eRefTree = spec['Fl32_Teq_User_Store_RDb_Schema_Ref_Tree$']; // instance singleton
         /** @type {Fl32_Teq_User_Store_RDb_Schema_User} */
-        const eUser = spec.Fl32_Teq_User_Store_RDb_Schema_User$;
+        const eUser = spec['Fl32_Teq_User_Store_RDb_Schema_User$']; // instance singleton
 
         // DEFINE THIS INSTANCE METHODS (NOT IN PROTOTYPE)
 
@@ -114,16 +116,15 @@ export default class Fl32_Bwl_Cli_Db_Reset {
                     const builder = connector.getSchema();
 
                     // drop tables considering relations (1) then drop base registries (0)
-                    // setupApp.dropTables1(schema);
-                    // setupTeqAcl.dropTables1(schema);
+                    // (1)
+                    setupApp.dropTables1(builder);
                     setupTeqUser.dropTables1(builder);
-                    // setupApp.dropTables0(schema);
-                    // setupTeqAcl.dropTables0(schema);
+                    // (0)
+                    setupApp.dropTables0(builder);
                     setupTeqUser.dropTables0(builder);
                     // create tables
                     setupTeqUser.createStructure(knex, builder);
-                    // setupTeqAcl.createStructure(knex, schema);
-                    // setupApp.createStructure(knex, schema);
+                    setupApp.createStructure(knex, builder);
                     // perform queries to recreate DB structure
                     await builder;
 
