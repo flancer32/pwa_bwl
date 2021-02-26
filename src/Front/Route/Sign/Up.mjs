@@ -1,7 +1,7 @@
 const I18N_BUNDLE = {
     registered: 'You are registered!',
 };
-const TIMEOUT = 2000;
+const TIMEOUT = 4000;
 const template = `
 <layout-centered>
     <user-sign-up
@@ -74,8 +74,6 @@ export default function Fl32_Bwl_Front_Route_Sign_Up(spec) {
     const session = spec[DEF.MOD_USER.DI_SESSION];  // named singleton
     const i18next = spec[DEF.MOD_CORE.DI_I18N];   // named singleton
     const {isEmpty} = spec['TeqFw_Core_App_Shared_Util'];
-    /** @type {TeqFw_Core_App_Front_Widget_Layout_Centered} */
-    const layoutCentered = spec['TeqFw_Core_App_Front_Widget_Layout_Centered$'];    // Vue component singleton
     /** @type {Fl32_Teq_User_Front_Widget_SignUp} */
     const userSignUp = spec['Fl32_Teq_User_Front_Widget_SignUp$'];  // Vue component singleton
     /** @type {typeof Fl32_Teq_User_Front_Widget_SignUp_Props} */
@@ -135,7 +133,7 @@ export default function Fl32_Bwl_Front_Route_Sign_Up(spec) {
     return {
         name: 'RouteSignIn',
         template,
-        components: {layoutCentered, userSignUp},
+        components: {userSignUp},
         data: function () {
             return {
                 showInterim: false, // show interim screen after success sign up
@@ -161,7 +159,7 @@ export default function Fl32_Bwl_Front_Route_Sign_Up(spec) {
                 this.showInterim = true;
                 setTimeout(() => {
                     this.showInterim = false;
-                    this.$router.push('/');
+                    this.$router.push(DEF.ROUTE_SIGN_UP_INIT);
                 }, TIMEOUT);
 
             },

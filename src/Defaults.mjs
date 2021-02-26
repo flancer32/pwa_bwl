@@ -7,6 +7,7 @@ export default class Fl32_Bwl_Defaults {
     ROUTE_HOME = '/'; // frontend routes
     ROUTE_SIGN_IN = '/sign/in';
     ROUTE_SIGN_UP = '/sign/up/:refCode?';
+    ROUTE_SIGN_UP_INIT = '/sign/up/init';
 
     /** @type {TeqFw_Core_App_Defaults} */
     MOD_CORE;

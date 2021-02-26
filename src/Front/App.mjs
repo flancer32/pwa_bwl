@@ -20,7 +20,15 @@ export default function Fl32_Bwl_Front_App(spec) {
     // setup application routes
     router.addRoute({path: '/', component: () => container.get('Fl32_Bwl_Front_Route_Home$')});
     router.addRoute({path: DEF.ROUTE_SIGN_IN, component: () => container.get('Fl32_Bwl_Front_Route_Sign_In$')});
-    router.addRoute({path: DEF.ROUTE_SIGN_UP, props: true, component: () => container.get('Fl32_Bwl_Front_Route_Sign_Up$')});
+    router.addRoute({
+        path: DEF.ROUTE_SIGN_UP,
+        props: true,
+        component: () => container.get('Fl32_Bwl_Front_Route_Sign_Up$')
+    });
+    router.addRoute({
+        path: DEF.ROUTE_SIGN_UP_INIT,
+        component: () => container.get('Fl32_Bwl_Front_Route_Sign_Up_Init$')
+    });
     app.use(router);
 
     return {
@@ -28,9 +36,7 @@ export default function Fl32_Bwl_Front_App(spec) {
         template,
         components: {layoutMain},
         data() {
-            return {
-
-            };
+            return {};
         },
         computed: {
             isAuthenticated() {
