@@ -14,6 +14,12 @@ export default class Fl32_Bwl_Plugin_Init {
             ];
         };
 
+        this.getServicesList = function () {
+            return [
+                'Fl32_Bwl_Back_Service_SignUp_Init$',
+            ];
+        };
+
         /**
          * Realm for plugin's services in the integrated API.
          *
@@ -22,6 +28,5 @@ export default class Fl32_Bwl_Plugin_Init {
         this.getServicesRealm = function () {
             return DEF.BACK_REALM;
         };
-
     }
 }

@@ -9,6 +9,8 @@ export default class Fl32_Bwl_Defaults {
     ROUTE_SIGN_UP = '/sign/up/:refCode?';
     ROUTE_SIGN_UP_INIT = '/sign/up/init';
 
+    SERV_SIGN_UP_INIT = '/signUp/init';
+
     /** @type {TeqFw_Core_App_Defaults} */
     MOD_CORE;
     /** @type {Fl32_Teq_User_Defaults} */

@@ -1,8 +1,8 @@
 export default class Fl32_Bwl_Plugin_Store_RDb_Setup {
     constructor(spec) {
         const {NameForForeignKey: utilFKName} = spec['TeqFw_Core_App_Util_Store_RDb'];
-        /** @type {Fl32_Bwl_Store_RDb_Schema_Profile} */
-        const eProfile = spec['Fl32_Bwl_Store_RDb_Schema_Profile$']; // instance singleton
+        /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Profile} */
+        const EProfile = spec['Fl32_Bwl_Store_RDb_Schema_Profile#']; // class constructor
         /** @type {Fl32_Teq_User_Store_RDb_Schema_User} */
         const eUser = spec['Fl32_Teq_User_Store_RDb_Schema_User$']; // instance singleton
 
@@ -17,7 +17,7 @@ export default class Fl32_Bwl_Plugin_Store_RDb_Setup {
         };
         this.dropTables1 = function (schema) {
             /* drop related tables (foreign keys) */
-            schema.dropTableIfExists(eProfile.ENTITY);
+            schema.dropTableIfExists(EProfile.ENTITY);
         };
 
         /**
@@ -35,23 +35,23 @@ export default class Fl32_Bwl_Plugin_Store_RDb_Setup {
              * @param knex
              */
             function createTblProfile(builder, knex) {
-                builder.createTable(eProfile.ENTITY, (table) => {
-                    table.integer(eProfile.A_USER_REF).unsigned().notNullable().primary();
-                    table.dateTime(eProfile.A_DATE_UPDATED).notNullable().defaultTo(knex.fn.now())
+                builder.createTable(EProfile.ENTITY, (table) => {
+                    table.integer(EProfile.A_USER_REF).unsigned().notNullable().primary();
+                    table.dateTime(EProfile.A_DATE_UPDATED).notNullable().defaultTo(knex.fn.now())
                         .comment('Date-time for the last update.');
-                    table.integer(eProfile.A_AGE).unsigned().notNullable()
+                    table.integer(EProfile.A_AGE).unsigned().notNullable()
                         .comment('Full ages for the update moment.');
-                    table.boolean(eProfile.A_GENDER).notNullable().defaultTo(true)
+                    table.boolean(EProfile.A_IS_FEMALE).notNullable().defaultTo(true)
                         .comment('true - for women (XX).');
-                    table.integer(eProfile.A_HEIGHT).unsigned().notNullable()
+                    table.integer(EProfile.A_HEIGHT).unsigned().notNullable()
                         .comment('Height in cm.');
-                    table.decimal(eProfile.A_WEIGHT_INIT, 4, 1).notNullable()
+                    table.decimal(EProfile.A_WEIGHT_INIT, 4, 1).notNullable()
                         .comment('Initial weight.');
-                    table.decimal(eProfile.A_WEIGHT_TARGET, 4, 1)
+                    table.decimal(EProfile.A_WEIGHT_TARGET, 4, 1)
                         .comment('Target weight.');
-                    table.foreign(eProfile.A_USER_REF).references(eUser.A_ID).inTable(eUser.ENTITY)
+                    table.foreign(EProfile.A_USER_REF).references(eUser.A_ID).inTable(eUser.ENTITY)
                         .onDelete('CASCADE').onUpdate('CASCADE')
-                        .withKeyName(utilFKName(eProfile.ENTITY, eProfile.A_USER_REF, eUser.ENTITY, eUser.A_ID));
+                        .withKeyName(utilFKName(EProfile.ENTITY, EProfile.A_USER_REF, eUser.ENTITY, eUser.A_ID));
                     table.comment('Application level profile (gender, height, ...).');
                 });
             }
