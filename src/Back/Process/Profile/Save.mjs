@@ -28,6 +28,7 @@ export default class Fl32_Bwl_Back_Process_Profile_Save {
 
             // MAIN FUNCTIONALITY
             if (await profileExists(trx, input[EProfile.A_USER_REF])) {
+                input.date_updated = new Date();
                 await trx(EProfile.ENTITY)
                     .update(input)
                     .where({[EProfile.A_USER_REF]: input[EProfile.A_USER_REF]});

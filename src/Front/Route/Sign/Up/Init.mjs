@@ -1,13 +1,16 @@
 const I18N_BUNDLE = {
     ageHint: 'From 1 to 127 years: 32',
     ageLabel: 'Your age',
+    error: 'Error',
     errRequired: 'Please type something',
     heightHint: 'From 32 cm to 256 cm: 168',
     heightLabel: 'Your height',
     sexHint: 'XX - natural female, XY - natural male',
     sexLabel: 'Your gender',
-    weightHint: 'From 32 kg to 256 kg: 64.8',
-    weightLabel: 'Your weight',
+    weightCurrentHint: 'From 32 kg to 256 kg: 95.5',
+    weightCurrentLabel: 'Your current weight',
+    weightTargetHint: 'From 32 kg to 256 kg: 75.0',
+    weightTargetLabel: 'Your desired weight',
 };
 
 const template = `
@@ -21,7 +24,7 @@ const template = `
             <div class="t-grid cols align-items-center" style="">
                 <div class="">{{$t('sexLabel')}}:</div>
                 <q-radio v-model="sex" val="women" color="pink" label="XX"></q-radio>
-                <q-radio v-model="sex" val="men" color="light-blue" label="XY"></q-radio>
+                <q-radio v-model="sex" val="notWomen" color="light-blue" label="XY"></q-radio>
             </div>
             <div class="hint">{{$t('sexHint')}}</div>
         </div>
@@ -36,17 +39,6 @@ const template = `
                  v-model="age"
         ></q-input>
 
-        <q-input class="id-weight"
-                 :hint="$t('weightHint')"
-                 :label="$t('weightLabel') + ' *'"
-                 :rules="rulesNum"
-                 lazy-rules
-                 outlined
-                 step="0.1"
-                 type="number"
-                 v-model="weight"
-        ></q-input>
-
         <q-input class="id-height"
                  :hint="$t('heightHint')"
                  :label="$t('heightLabel') + ' *'"
@@ -56,12 +48,35 @@ const template = `
                  type="number"
                  v-model="height"
         ></q-input>
+        
+        <q-input class="id-weight-current"
+                 :hint="$t('weightCurrentHint')"
+                 :label="$t('weightCurrentLabel') + ' *'"
+                 :rules="rulesNum"
+                 lazy-rules
+                 outlined
+                 step="0.1"
+                 type="number"
+                 v-model="weightCurrent"
+        ></q-input>
+        
+        <q-input class="id-weighttTarget"
+                 :hint="$t('weightTargetHint')"
+                 :label="$t('weightTargetLabel') + ' *'"
+                 :rules="rulesNum"
+                 lazy-rules
+                 outlined
+                 step="0.1"
+                 type="number"
+                 v-model="weightTarget"
+        ></q-input>
 
         <div>
             <q-btn label="Submit" type="submit" color="primary"></q-btn>
             <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm"></q-btn>
         </div>
     </q-form>
+    
 </layout-centered>
 `;
 
@@ -78,9 +93,12 @@ export default function Fl32_Bwl_Front_Route_Sign_Up_Init(spec) {
     /** @type {Fl32_Teq_User_Front_App_Session} */
     const session = spec[DEF.MOD_USER.DI_SESSION];  // named singleton
     const i18next = spec[DEF.MOD_CORE.DI_I18N];   // named singleton
-    const {isEmpty} = spec['TeqFw_Core_App_Shared_Util'];
-
-    const {mapMutations, mapState} = spec[DEF.MOD_VUE.DI_VUEX];
+    /** @type {Fl32_Bwl_Front_Gate_SignUp_Init.gate} */
+    const gate = spec['Fl32_Bwl_Front_Gate_SignUp_Init$']; // function singleton
+    /** @type {typeof Fl32_Bwl_Shared_Service_Route_SignUp_Init_Request} */
+    const Request = spec['Fl32_Bwl_Shared_Service_Route_SignUp_Init#Request']; // class constructor
+    /** @type {typeof Fl32_Bwl_Shared_Service_Route_SignUp_Init_Response} */
+    const Response = spec['Fl32_Bwl_Shared_Service_Route_SignUp_Init#Response']; // class constructor
 
     // add I18N bundle
     i18next.addResourceBundle('dev', 'translation', I18N_BUNDLE, true);
@@ -94,7 +112,8 @@ export default function Fl32_Bwl_Front_Route_Sign_Up_Init(spec) {
                 age: null,
                 height: null,
                 sex: null,
-                weight: null,
+                weightCurrent: null,
+                weightTarget: null,
             };
         },
         computed: {
@@ -106,20 +125,25 @@ export default function Fl32_Bwl_Front_Route_Sign_Up_Init(spec) {
             }
         },
         methods: {
-            rulesNumber() {
-                return;
-            },
             onReset() {
                 console.log('Reset');
             },
-            onSubmit() {
-                console.log('Submit');
+            async onSubmit() {
+                const req = new Request();
+                req.age = this.age;
+                req.height = this.height;
+                req.isFemale = (this.sex === 'women');
+                req.weightInit = this.weightCurrent;
+                req.weightTarget = this.weightTarget;
+                const res = await gate(req);
+                if (res instanceof Response) {
+                    this.$router.push(DEF.ROUTE_HOME);
+                }
             },
         },
         async mounted() {
-            if (await session.checkUserAuthenticated(this.$router)) {
-                console.log('authenticated.');
-            }
+            // redirect to authentication if not authenticated
+            await session.checkUserAuthenticated(this.$router);
         },
     };
 }
