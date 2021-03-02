@@ -3,6 +3,8 @@ export default class Fl32_Bwl_Plugin_Store_RDb_Setup {
         const {NameForForeignKey: utilFKName} = spec['TeqFw_Core_App_Util_Store_RDb'];
         /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Profile} */
         const EProfile = spec['Fl32_Bwl_Store_RDb_Schema_Profile#']; // class constructor
+        /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Weight_Stat} */
+        const EWeightStat = spec['Fl32_Bwl_Store_RDb_Schema_Weight_Stat#']; // class constructor
         /** @type {Fl32_Teq_User_Store_RDb_Schema_User} */
         const eUser = spec['Fl32_Teq_User_Store_RDb_Schema_User$']; // instance singleton
 
@@ -18,6 +20,7 @@ export default class Fl32_Bwl_Plugin_Store_RDb_Setup {
         this.dropTables1 = function (schema) {
             /* drop related tables (foreign keys) */
             schema.dropTableIfExists(EProfile.ENTITY);
+            schema.dropTableIfExists(EWeightStat.ENTITY);
         };
 
         /**
@@ -56,11 +59,30 @@ export default class Fl32_Bwl_Plugin_Store_RDb_Setup {
                 });
             }
 
+            /**
+             * @param {SchemaBuilder} builder
+             * @param knex
+             */
+            function createTblWeightStat(builder, knex) {
+                builder.createTable(EWeightStat.ENTITY, (table) => {
+                    table.integer(EWeightStat.A_USER_REF).unsigned().notNullable().primary();
+                    table.dateTime(EWeightStat.A_DATE).notNullable().defaultTo(knex.fn.now())
+                        .comment('Date-time for the value.');
+                    table.decimal(EWeightStat.A_VALUE, 4, 1).notNullable()
+                        .comment('Statistical value for the weight in kg: 75.4.');
+                    table.foreign(EWeightStat.A_USER_REF).references(eUser.A_ID).inTable(eUser.ENTITY)
+                        .onDelete('CASCADE').onUpdate('CASCADE')
+                        .withKeyName(utilFKName(EWeightStat.ENTITY, EWeightStat.A_USER_REF, eUser.ENTITY, eUser.A_ID));
+                    table.comment('Weight values by date (kg).');
+                });
+            }
+
             // MAIN FUNCTIONALITY
             // compose queries to create main tables (registries)
             // compose queries to create main tables (registries)
             // compose queries to create additional tables (relations and details)
             createTblProfile(builder, knex);
+            createTblWeightStat(builder, knex);
         };
     }
 }
