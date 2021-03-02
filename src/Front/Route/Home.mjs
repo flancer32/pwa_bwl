@@ -1,6 +1,11 @@
 const template = `
 <p>HOME</p>
 <canvas id="myChart" width="100" height="100"></canvas>
+<q-btn round color="primary" icon="add" v-on:click="dialogWeightAdd=true"></q-btn>
+<add-weight 
+    :init="dialogWeightAdd"
+     @onHide="dialogWeightAdd=false"
+></add-weight>
 `;
 
 export default function Fl32_Bwl_Front_Route_Home(spec) {
@@ -8,14 +13,18 @@ export default function Fl32_Bwl_Front_Route_Home(spec) {
     const DEF = spec['Fl32_Bwl_Defaults$'];    // instance singleton
     /** @type {Fl32_Teq_User_Front_App_Session} */
     const session = spec[DEF.MOD_USER.DI_SESSION];  // named singleton
+    /** @type {Fl32_Bwl_Front_Widget_AddWeight} */
+    const addWeight = spec['Fl32_Bwl_Front_Widget_AddWeight$'];
     const {mapMutations, mapState} = spec[DEF.MOD_VUE.DI_VUEX];
 
     return {
         name: 'RouteHome',
         template,
-        components: {},
+        components: {addWeight},
         data: function () {
-            return {};
+            return {
+                dialogWeightAdd: false,
+            };
         },
         computed: {
             ...mapState({
