@@ -65,11 +65,12 @@ export default class Fl32_Bwl_Plugin_Store_RDb_Setup {
              */
             function createTblWeightStat(builder, knex) {
                 builder.createTable(EWeightStat.ENTITY, (table) => {
-                    table.integer(EWeightStat.A_USER_REF).unsigned().notNullable().primary();
-                    table.dateTime(EWeightStat.A_DATE).notNullable().defaultTo(knex.fn.now())
+                    table.integer(EWeightStat.A_USER_REF).unsigned().notNullable();
+                    table.date(EWeightStat.A_DATE).notNullable().defaultTo(knex.fn.now())
                         .comment('Date-time for the value.');
                     table.decimal(EWeightStat.A_VALUE, 4, 1).notNullable()
                         .comment('Statistical value for the weight in kg: 75.4.');
+                    table.primary([EWeightStat.A_USER_REF, EWeightStat.A_DATE]);
                     table.foreign(EWeightStat.A_USER_REF).references(eUser.A_ID).inTable(eUser.ENTITY)
                         .onDelete('CASCADE').onUpdate('CASCADE')
                         .withKeyName(utilFKName(EWeightStat.ENTITY, EWeightStat.A_USER_REF, eUser.ENTITY, eUser.A_ID));
