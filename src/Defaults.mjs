@@ -1,6 +1,9 @@
 export default class Fl32_Bwl_Defaults {
     BACK_REALM = 'app';  // realm for API services ('/api/app/...') and CLI commands ('app-...')
+
     DATA_REF_CODE_ROOT = 'root';
+    DATA_SHARING_MODE_ALL = 'a'; // all info is available for sharing in groups (user weight)
+    DATA_SHARING_MODE_PERCENT = 'p'; // only relative info is available for sharing in groups (percentage)
     DATA_USER_ID_ADMIN = 1; // app's sample data
     DATA_USER_ID_CUST = 2;
 
