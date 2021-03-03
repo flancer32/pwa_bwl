@@ -10,7 +10,10 @@ export default class Fl32_Bwl_Defaults {
     DATA_USER_ID_ADMIN = 1;
     DATA_USER_ID_CUST = 2;
 
-    ROUTE_HOME = '/'; // frontend routes
+    ROUTE_GROUPS = '/groups'; // frontend routes
+    ROUTE_HISTORY = '/history';
+    ROUTE_HOME = '/';
+    ROUTE_SETTINGS = '/settings';
     ROUTE_SIGN_IN = '/sign/in';
     ROUTE_SIGN_UP = '/sign/up/:refCode?';
     ROUTE_SIGN_UP_INIT = '/sign/up/init';
