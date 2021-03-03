@@ -35,6 +35,16 @@ export default class Fl32_Bwl_Cli_Db_Reset {
         const eRefTree = spec['Fl32_Teq_User_Store_RDb_Schema_Ref_Tree$']; // instance singleton
         /** @type {Fl32_Teq_User_Store_RDb_Schema_User} */
         const eUser = spec['Fl32_Teq_User_Store_RDb_Schema_User$']; // instance singleton
+        /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Group} */
+        const EGroup = spec['Fl32_Bwl_Store_RDb_Schema_Group#']; // class constructor
+        /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Group_User} */
+        const EGroupUser = spec['Fl32_Bwl_Store_RDb_Schema_Group_User#']; // class constructor
+        /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Profile} */
+        const EProfile = spec['Fl32_Bwl_Store_RDb_Schema_Profile#']; // class constructor
+        /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Profile_Group_User} */
+        const EProfileGroupUser = spec['Fl32_Bwl_Store_RDb_Schema_Profile_Group_User#']; // class constructor
+        /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Weight_Stat} */
+        const EWeightStat = spec['Fl32_Bwl_Store_RDb_Schema_Weight_Stat#']; // class constructor
 
         // DEFINE THIS INSTANCE METHODS (NOT IN PROTOTYPE)
 
@@ -57,6 +67,80 @@ export default class Fl32_Bwl_Cli_Db_Reset {
                  */
                 async function populateWithData(trx) {
                     // DEFINE INNER FUNCTIONS
+                    async function insertGroups(trx) {
+                        await trx(EGroup.ENTITY).insert([{
+                            [EGroup.A_ID]: DEF.DATA_GROUP_ID_ADMIN,
+                            [EGroup.A_ADMIN_REF]: DEF.DATA_USER_ID_ADMIN,
+                            [EGroup.A_DATE_CREATED]: '2021-02-01',
+                            [EGroup.A_MODE]: DEF.DATA_SHARING_MODE_PERCENT,
+                            [EGroup.A_NAME]: 'Percentage only',
+                        }, {
+                            [EGroup.A_ID]: DEF.DATA_GROUP_ID_CUST,
+                            [EGroup.A_ADMIN_REF]: DEF.DATA_USER_ID_CUST,
+                            [EGroup.A_DATE_CREATED]: '2021-02-01',
+                            [EGroup.A_MODE]: DEF.DATA_SHARING_MODE_ALL,
+                            [EGroup.A_NAME]: 'Sample',
+                        }]);
+                    }
+
+                    async function insertGroupUsers(trx) {
+                        await trx(EGroupUser.ENTITY).insert([{
+                            [EGroupUser.A_GROUP_REF]: DEF.DATA_GROUP_ID_ADMIN,
+                            [EGroupUser.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                            [EGroupUser.A_ACTIVE]: true,
+                            [EGroupUser.A_NICK]: 'alex',
+                        }, {
+                            [EGroupUser.A_GROUP_REF]: DEF.DATA_GROUP_ID_ADMIN,
+                            [EGroupUser.A_USER_REF]: DEF.DATA_USER_ID_CUST,
+                            [EGroupUser.A_ACTIVE]: false,
+                            [EGroupUser.A_NICK]: 'tanja',
+                        }, {
+                            [EGroupUser.A_GROUP_REF]: DEF.DATA_GROUP_ID_CUST,
+                            [EGroupUser.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                            [EGroupUser.A_ACTIVE]: true,
+                            [EGroupUser.A_NICK]: 'alex',
+                        }, {
+                            [EGroupUser.A_GROUP_REF]: DEF.DATA_GROUP_ID_CUST,
+                            [EGroupUser.A_USER_REF]: DEF.DATA_USER_ID_CUST,
+                            [EGroupUser.A_ACTIVE]: true,
+                            [EGroupUser.A_NICK]: 'tanja',
+                        }]);
+                    }
+
+                    async function insertProfiles(trx) {
+                        await trx(EProfile.ENTITY).insert([{
+                            [EProfile.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                            [EProfile.A_AGE]: 48,
+                            [EProfile.A_HEIGHT]: 175,
+                            [EProfile.A_IS_FEMALE]: false,
+                            [EProfile.A_WEIGHT_INIT]: 95,
+                            [EProfile.A_WEIGHT_TARGET]: 75,
+                        }, {
+                            [EProfile.A_USER_REF]: DEF.DATA_USER_ID_CUST,
+                            [EProfile.A_AGE]: 47,
+                            [EProfile.A_HEIGHT]: 165,
+                            [EProfile.A_IS_FEMALE]: true,
+                            [EProfile.A_WEIGHT_INIT]: 61,
+                            [EProfile.A_WEIGHT_TARGET]: 58,
+                        }]);
+                    }
+
+                    async function insertProfileGroupUsers(trx) {
+                        await trx(EProfileGroupUser.ENTITY).insert([{
+                            [EProfileGroupUser.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                            [EProfileGroupUser.A_GROUP_REF]: DEF.DATA_GROUP_ID_ADMIN,
+                            [EProfileGroupUser.A_GROUP_USER_REF]: DEF.DATA_USER_ID_CUST,
+                            [EProfileGroupUser.A_COLOR]: 65535,
+                            [EProfileGroupUser.A_NICK]: 'Wife',
+                        }, {
+                            [EProfileGroupUser.A_USER_REF]: DEF.DATA_USER_ID_CUST,
+                            [EProfileGroupUser.A_GROUP_REF]: DEF.DATA_GROUP_ID_CUST,
+                            [EProfileGroupUser.A_GROUP_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                            [EProfileGroupUser.A_COLOR]: 65535,
+                            [EProfileGroupUser.A_NICK]: 'Husband',
+                        }]);
+                    }
+
                     async function insertUsers(trx) {
                         await trx(eUser.ENTITY).insert([
                             {[eUser.A_ID]: DEF.DATA_USER_ID_ADMIN},
@@ -87,10 +171,13 @@ export default class Fl32_Bwl_Cli_Db_Reset {
                             [eIdPhone.A_PHONE]: '(371)29181801',
                             [eIdPhone.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
                         });
-                        await trx(eRefLink.ENTITY).insert({
+                        await trx(eRefLink.ENTITY).insert([{
                             [eRefLink.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
                             [eRefLink.A_CODE]: DEF.DATA_REF_CODE_ROOT,
-                        });
+                        }, {
+                            [eRefLink.A_USER_REF]: DEF.DATA_USER_ID_CUST,
+                            [eRefLink.A_CODE]: DEF.DATA_REF_CODE_OTHER,
+                        }]);
                         // users tree
                         await trx(eRefTree.ENTITY).insert([
                             {
@@ -103,8 +190,47 @@ export default class Fl32_Bwl_Cli_Db_Reset {
                         ]);
                     }
 
+                    async function insertWeightStats(trx) {
+                        await trx(EWeightStat.ENTITY).insert([{
+                            [EWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                            [EWeightStat.A_DATE]: '2021-02-01',
+                            [EWeightStat.A_VALUE]: 96,
+                        }, {
+                            [EWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                            [EWeightStat.A_DATE]: '2021-02-02',
+                            [EWeightStat.A_VALUE]: 95,
+                        },
+                        ]);
+                        await trx(EWeightStat.ENTITY).insert([{
+                            [EWeightStat.A_USER_REF]: DEF.DATA_USER_ID_CUST,
+                            [EWeightStat.A_DATE]: '2021-02-03',
+                            [EWeightStat.A_VALUE]: 61.7,
+                        }, {
+                            [EWeightStat.A_USER_REF]: DEF.DATA_USER_ID_CUST,
+                            [EWeightStat.A_DATE]: '2021-02-10',
+                            [EWeightStat.A_VALUE]: 61.4,
+                        }, {
+                            [EWeightStat.A_USER_REF]: DEF.DATA_USER_ID_CUST,
+                            [EWeightStat.A_DATE]: '2021-02-17',
+                            [EWeightStat.A_VALUE]: 61.7,
+                        }, {
+                            [EWeightStat.A_USER_REF]: DEF.DATA_USER_ID_CUST,
+                            [EWeightStat.A_DATE]: '2021-02-24',
+                            [EWeightStat.A_VALUE]: 62.5,
+                        }, {
+                            [EWeightStat.A_USER_REF]: DEF.DATA_USER_ID_CUST,
+                            [EWeightStat.A_DATE]: '2021-03-03',
+                            [EWeightStat.A_VALUE]: 61.3,
+                        }]);
+                    }
+
                     // MAIN FUNCTIONALITY
                     await insertUsers(trx);
+                    await insertGroups(trx);
+                    await insertGroupUsers(trx);
+                    await insertProfiles(trx);
+                    await insertProfileGroupUsers(trx);
+                    await insertWeightStats(trx);
                 }
 
                 // MAIN FUNCTIONALITY
