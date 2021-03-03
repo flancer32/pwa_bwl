@@ -194,13 +194,40 @@ export default class Fl32_Bwl_Cli_Db_Reset {
                         await trx(EWeightStat.ENTITY).insert([{
                             [EWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
                             [EWeightStat.A_DATE]: '2021-02-01',
-                            [EWeightStat.A_VALUE]: 96,
+                            [EWeightStat.A_VALUE]: 94.8,
                         }, {
                             [EWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
-                            [EWeightStat.A_DATE]: '2021-02-02',
+                            [EWeightStat.A_DATE]: '2021-02-10',
+                            [EWeightStat.A_VALUE]: 94.5,
+                        }, {
+                            [EWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                            [EWeightStat.A_DATE]: '2021-02-17',
+                            [EWeightStat.A_VALUE]: 94.8,
+                        }, {
+                            [EWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                            [EWeightStat.A_DATE]: '2021-02-21',
+                            [EWeightStat.A_VALUE]: 95.6,
+                        }, {
+                            [EWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                            [EWeightStat.A_DATE]: '2021-02-22',
+                            [EWeightStat.A_VALUE]: 95.3,
+                        }, {
+                            [EWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                            [EWeightStat.A_DATE]: '2021-02-23',
+                            [EWeightStat.A_VALUE]: 95.1,
+                        }, {
+                            [EWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                            [EWeightStat.A_DATE]: '2021-02-25',
+                            [EWeightStat.A_VALUE]: 94.4,
+                        }, {
+                            [EWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                            [EWeightStat.A_DATE]: '2021-03-02',
+                            [EWeightStat.A_VALUE]: 94.6,
+                        }, {
+                            [EWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                            [EWeightStat.A_DATE]: '2021-03-03',
                             [EWeightStat.A_VALUE]: 95,
-                        },
-                        ]);
+                        }]);
                         await trx(EWeightStat.ENTITY).insert([{
                             [EWeightStat.A_USER_REF]: DEF.DATA_USER_ID_CUST,
                             [EWeightStat.A_DATE]: '2021-02-03',
