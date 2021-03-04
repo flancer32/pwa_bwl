@@ -1,11 +1,45 @@
 const template = `
-<p>HOME</p>
-<canvas id="myChart" width="100" height="100"></canvas>
-<q-btn round color="primary" icon="add" v-on:click="dialogWeightAdd=true"></q-btn>
-<add-weight 
-    :init="dialogWeightAdd"
-     @onHide="dialogWeightAdd=false"
-></add-weight>
+<div class="t-grid app-home">
+    <div class="app-home-stats">
+        <q-field label="Start (kg)" readonly stack-label dense>
+            <template v-slot:control>
+                <div class="self-center full-width no-outline" tabindex="0">{{start}}</div>
+            </template>
+        </q-field>
+        <q-field label="Current (kg)" readonly stack-label dense>
+            <template v-slot:control>
+                <div class="self-center full-width no-outline" tabindex="0">{{current}}</div>
+            </template>
+        </q-field>
+        <q-field label="Target (kg)" readonly stack-label dense style="text-align: center">
+            <template v-slot:control>
+                <div class="self-center full-width no-outline" tabindex="0">{{target}}</div>
+            </template>
+        </q-field>
+    </div>
+    <div>
+                <canvas id="myChart" width="100" height="100"></canvas>
+    </div>
+    <div class="t-grid app-home-controls">
+        <div style="width: 100%">
+            <q-select 
+                    :options="options"
+                    dense
+                    label="Group"
+                    options-dense
+                    stack-label
+                    v-model="mode"
+            ></q-select>
+        </div>
+        <div>
+            <q-btn round color="primary" icon="add" v-on:click="dialogWeightAdd=true"></q-btn>
+            <add-weight
+                    :init="dialogWeightAdd"
+                    @onHide="dialogWeightAdd=false"
+            ></add-weight>
+        </div>
+    </div>
+</div>
 `;
 
 export default function Fl32_Bwl_Front_Route_Home(spec) {
@@ -23,7 +57,12 @@ export default function Fl32_Bwl_Front_Route_Home(spec) {
         components: {addWeight},
         data: function () {
             return {
+                current: 90,
                 dialogWeightAdd: false,
+                mode: 'Personal',
+                options: ['Personal', 'StroyNjashki', 'Work'],
+                start: 100,
+                target: 70,
             };
         },
         computed: {
@@ -99,7 +138,7 @@ export default function Fl32_Bwl_Front_Route_Home(spec) {
         async mounted() {
             // MAIN FUNCTIONALITY
             if (await session.checkUserAuthenticated(this.$router)) {
-                this.draw();
+                // this.draw();
             }
         },
     };
