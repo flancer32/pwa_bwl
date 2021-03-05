@@ -22,7 +22,9 @@ export default class Fl32_Bwl_Cli_Db_Reset {
         /** @type {Fl32_Bwl_Plugin_Store_RDb_Setup} */
         const setupApp = spec['Fl32_Bwl_Plugin_Store_RDb_Setup$']; // instance singleton
         /** @type {Fl32_Teq_User_Store_RDb_Schema_Auth_Password} */
-        const eAuthPassword = spec['Fl32_Teq_User_Store_RDb_Schema_Auth_Password$'];
+        const eAuthPassword = spec['Fl32_Teq_User_Store_RDb_Schema_Auth_Password$']; // instance singleton
+        /** @type {Fl32_Teq_User_Store_RDb_Schema_Auth_Session} */
+        const eAuthSess = spec['Fl32_Teq_User_Store_RDb_Schema_Auth_Session$']; // instance singleton
         /** @type {Fl32_Teq_User_Store_RDb_Schema_Id_Email} */
         const eIdEmail = spec['Fl32_Teq_User_Store_RDb_Schema_Id_Email$']; // instance singleton
         /** @type {Fl32_Teq_User_Store_RDb_Schema_Id_Phone} */
@@ -141,6 +143,16 @@ export default class Fl32_Bwl_Cli_Db_Reset {
                         }]);
                     }
 
+                    async function insertSessions(trx) {
+                        await trx(eAuthSess.ENTITY).insert([{
+                            [eAuthSess.A_SESSION_ID]: DEF.DATA_SESS_ID_ADMIN,
+                            [eAuthSess.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                        }, {
+                            [eAuthSess.A_SESSION_ID]: DEF.DATA_SESS_ID_CUST,
+                            [eAuthSess.A_USER_REF]: DEF.DATA_USER_ID_CUST,
+                        }]);
+                    }
+
                     async function insertUsers(trx) {
                         await trx(eUser.ENTITY).insert([
                             {[eUser.A_ID]: DEF.DATA_USER_ID_ADMIN},
@@ -253,6 +265,7 @@ export default class Fl32_Bwl_Cli_Db_Reset {
 
                     // MAIN FUNCTIONALITY
                     await insertUsers(trx);
+                    await insertSessions(trx);
                     await insertGroups(trx);
                     await insertGroupUsers(trx);
                     await insertProfiles(trx);

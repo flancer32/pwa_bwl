@@ -5,6 +5,8 @@ export default class Fl32_Bwl_Defaults {
     DATA_GROUP_ID_CUST = 2;
     DATA_REF_CODE_OTHER = 'other';
     DATA_REF_CODE_ROOT = 'root';
+    DATA_SESS_ID_ADMIN = 'sessIdForAdmin';
+    DATA_SESS_ID_CUST= 'sessIdForCust';
     DATA_SHARING_MODE_ALL = 'a'; // all info is available for sharing in groups (user weight)
     DATA_SHARING_MODE_PERCENT = 'p'; // only relative info is available for sharing in groups (percentage)
     DATA_USER_ID_ADMIN = 1;
