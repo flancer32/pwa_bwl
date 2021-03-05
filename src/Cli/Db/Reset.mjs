@@ -70,14 +70,15 @@ export default class Fl32_Bwl_Cli_Db_Reset {
                 async function populateWithData(trx) {
                     // DEFINE INNER FUNCTIONS
                     async function insertGroups(trx) {
+                        const isPg = trx.client.constructor.name === 'Client_PG';
                         await trx(EGroup.ENTITY).insert([{
-                            [EGroup.A_ID]: DEF.DATA_GROUP_ID_ADMIN,
+                            [EGroup.A_ID]: isPg ? undefined : DEF.DATA_GROUP_ID_ADMIN,
                             [EGroup.A_ADMIN_REF]: DEF.DATA_USER_ID_ADMIN,
                             [EGroup.A_DATE_CREATED]: '2021-02-01',
                             [EGroup.A_MODE]: DEF.DATA_SHARING_MODE_PERCENT,
                             [EGroup.A_NAME]: 'Percentage only',
                         }, {
-                            [EGroup.A_ID]: DEF.DATA_GROUP_ID_CUST,
+                            [EGroup.A_ID]: isPg ? undefined : DEF.DATA_GROUP_ID_CUST,
                             [EGroup.A_ADMIN_REF]: DEF.DATA_USER_ID_CUST,
                             [EGroup.A_DATE_CREATED]: '2021-02-01',
                             [EGroup.A_MODE]: DEF.DATA_SHARING_MODE_ALL,
@@ -154,9 +155,10 @@ export default class Fl32_Bwl_Cli_Db_Reset {
                     }
 
                     async function insertUsers(trx) {
+                        const isPg = trx.client.constructor.name === 'Client_PG';
                         await trx(eUser.ENTITY).insert([
-                            {[eUser.A_ID]: DEF.DATA_USER_ID_ADMIN},
-                            {[eUser.A_ID]: DEF.DATA_USER_ID_CUST},
+                            {[eUser.A_ID]: isPg ? undefined : DEF.DATA_USER_ID_ADMIN},
+                            {[eUser.A_ID]: isPg ? undefined : DEF.DATA_USER_ID_CUST},
                         ]);
                         await trx(eProfile.ENTITY).insert([
                             {[eProfile.A_USER_REF]: DEF.DATA_USER_ID_ADMIN, [eProfile.A_NAME]: 'Admin'},
