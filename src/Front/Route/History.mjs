@@ -2,6 +2,12 @@ const DATE = 'date';
 const DELTA = 'delta';
 const WEIGHT = 'weight';
 
+const columns = [
+    {name: DATE, label: 'Date', field: DATE, align: 'center'},
+    {name: WEIGHT, label: 'Weight, kg', field: WEIGHT, align: 'right'},
+    {name: DELTA, label: 'Delta, kg', field: DELTA, align: 'right',},
+];
+
 const template = `
 <div>
     <q-table
@@ -10,7 +16,7 @@ const template = `
             :rows="rows"
             hide-bottom
             hide-no-data
-            row-key="date"
+            row-key="${DATE}"
     >
         <template v-slot:body-cell-delta="props">
             <q-td :props="props" :style="colorDelta(props.value)">{{props.value}}</q-td>
@@ -19,17 +25,6 @@ const template = `
 </div>
 `;
 
-const columns = [
-    {name: 'date', label: 'Date', field: 'date', align: 'center'},
-    {name: 'weight', label: 'Weight, kg', field: 'weight', align: 'right'},
-    {
-        name: 'delta',
-        label: 'Delta, kg',
-        field: 'delta',
-        align: 'right',
-    },
-
-];
 
 export default function Fl32_Bwl_Front_Route_History(spec) {
     /** @type {Fl32_Bwl_Defaults} */
