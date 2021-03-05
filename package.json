@@ -25,7 +25,8 @@
   },
   "dependencies": {
     "@flancer32/teq_user": "github:flancer32/teq_user",
-    "mysql2": "*"
+    "mysql2": "*",
+    "pg": "*"
   },
   "devDependencies": {
     "@babel/core": "^7.12.3",
