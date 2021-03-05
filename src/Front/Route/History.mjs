@@ -1,111 +1,96 @@
+const DATE = 'date';
+const DELTA = 'delta';
+const WEIGHT = 'weight';
+
 const template = `
 <div>
     <q-table
-      :columns="columns"
-      :loading="loading"
-      :pagination="pagination"
-      :rows-per-page-options="[0]"
-      :rows="rows"
-      :virtual-scroll-slice-size="20"
-      @virtual-scroll="onScroll"
-      class="my-sticky-dynamic"
-      row-key="index"
-      title="Treats"
-      virtual-scroll
-    ></q-table>
+            :columns="columns"
+            :rows-per-page-options="[0]"
+            :rows="rows"
+            hide-bottom
+            hide-no-data
+            row-key="date"
+    >
+        <template v-slot:body-cell-delta="props">
+            <q-td :props="props" :style="colorDelta(props.value)">{{props.value}}</q-td>
+        </template>
+    </q-table>
 </div>
 `;
 
 const columns = [
-    {name: 'index', label: '#', field: 'index'},
-    {name: 'date', label: 'Date', field: 'date'},
-    {name: 'weight', label: 'Weight, kg', field: 'weight'},
-    {name: 'delta', label: 'Delta, kg', field: 'delta'},
+    {name: 'date', label: 'Date', field: 'date', align: 'center'},
+    {name: 'weight', label: 'Weight, kg', field: 'weight', align: 'right'},
+    {
+        name: 'delta',
+        label: 'Delta, kg',
+        field: 'delta',
+        align: 'right',
+    },
 
 ];
-
-const seed = [
-    {date: '2021/02/01', weight: 95.6, delta: 1.3},
-    {date: '2021/02/02', weight: 95.5, delta: 0.3},
-    {date: '2021/02/04', weight: 95.4, delta: -1.3},
-    {date: '2021/02/05', weight: 95.3, delta: -.4},
-    {date: '2021/02/06', weight: 95.2, delta: 1.5},
-    {date: '2021/02/07', weight: 95.1, delta: -1.6},
-    {date: '2021/02/08', weight: 95.8, delta: -2.3},
-    {date: '2021/02/09', weight: 95.7, delta: 0.8},
-    {date: '2021/02/10', weight: 95.9, delta: -.7},
-];
-
-// we generate lots of rows here
-let allRows = [];
-for (let i = 0; i < 500; i++) {
-    allRows = allRows.concat(seed.slice(0).map(r => ({...r})));
-}
-allRows.forEach((row, index) => {
-    row.index = index;
-});
-
-const pageSize = 20;
-const lastPage = Math.ceil(allRows.length / pageSize);
-console.log(`pageSize: ${pageSize}; lastPage: ${lastPage};`);
 
 export default function Fl32_Bwl_Front_Route_History(spec) {
     /** @type {Fl32_Bwl_Defaults} */
     const DEF = spec['Fl32_Bwl_Defaults$'];    // instance singleton
-    const {ref, computed, nextTick} = spec[DEF.MOD_VUE.DI_VUE];    // destructuring instance singleton
+    const {ref} = spec[DEF.MOD_VUE.DI_VUE];    // destructuring instance singleton
     /** @type {Fl32_Teq_User_Front_App_Session} */
     const session = spec[DEF.MOD_USER.DI_SESSION];  // named singleton
+    /** @type {Fl32_Bwl_Front_Gate_Weight_History_List.gate} */
+    const gate = spec['Fl32_Bwl_Front_Gate_Weight_History_List$']; // function singleton
+    /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_History_List_Request} */
+    const Request = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_List#Request']; // class constructor
 
     return {
         name: 'RouteHistory',
         template,
         async mounted() {
+            // DEFINE INNER FUNCTIONS
+            /**
+             *
+             * @param {Fl32_Bwl_Shared_Service_Data_Weight_History_Item[]} items
+             * @returns {[]}
+             */
+            function prepareItems(items) {
+                const result = [];
+                items.sort((a, b) => (a.date < b.date) ? -1 : 1);
+                let prev = null;
+                for (const item of items) {
+                    const one = {
+                        [DATE]: item.date,
+                        [WEIGHT]: item.weight,
+                        [DELTA]: (prev === null) ? '0' : (item.weight - prev).toFixed(1),
+                    };
+                    result.push(one);
+                    prev = item.weight;
+                }
+                return result.reverse();
+            }
+
             // MAIN FUNCTIONALITY
             if (await session.checkUserAuthenticated(this.$router)) {
-                console.log('started');
+                /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_List_Response} */
+                const res = await gate(new Request());
+                this.rows = prepareItems(res.items);
             }
         },
         setup() {
-            const nextPage = ref(2);
             const loading = ref(false);
-            const rows = computed(() => {
-                console.log(`pageSize: ${pageSize}; nextPage: ${nextPage.value};`);
-                const from = 0;
-                const to = pageSize * (nextPage.value - 1);
-                console.log(`${from}-${to}`);
-                return allRows.slice(from, to);
-            });
+            const rows = ref([]);
             return {
                 columns,
-                rows,
-                nextPage,
                 loading,
-
-                pagination: {
-                    rowsPerPage: 0,
-                    rowsNumber: allRows.length
-                },
-
-                onScroll(details) {
-                    const {index, from, to, direction, ref} = details;
-                    console.log(`${index}: ${from}-${to} / ${direction};`);
-                    const lastIndex = rows.value.length - 1;
-                    console.log(`to: ${to}; lastIndex: ${lastIndex}; nextPage: ${nextPage.value}; lastPage: ${lastPage};`);
-                    const cond1 = loading.value !== true;
-                    const cond2 = nextPage.value < lastPage;
-                    const cond3 = to === lastIndex;
-                    console.log(`${cond1} / ${cond2} / ${cond3}`);
-                    if (cond1 && cond2 && cond3) {
-                        loading.value = true;
-
-                        setTimeout(() => {
-                            nextPage.value++;
-                            nextTick(() => {
-                                ref.refresh();
-                                loading.value = false;
-                            });
-                        }, 500);
+                rows,
+                colorDelta: function (val) {
+                    let result = null;
+                    const num = Number.parseFloat(val);
+                    if (num < 0) {
+                        result = 'color:green';
+                    } else if (num > 0) {
+                        result = 'color:red';
                     }
+                    return result;
                 }
             };
         }

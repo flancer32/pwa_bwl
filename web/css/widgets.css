@@ -1,25 +1,2 @@
 /* Application level widgets */
 @import "./widgets/home.css";
-
-
-.my-sticky-dynamic {
-    /* height or max-height is important */
-    height: 410px;
-    /* this will be the loading indicator */
-}
-.my-sticky-dynamic .q-table__top,
-.my-sticky-dynamic .q-table__bottom,
-.my-sticky-dynamic thead tr:first-child th {
-    background-color: #fff;
-}
-.my-sticky-dynamic thead tr th {
-    position: sticky;
-    z-index: 1;
-}
-.my-sticky-dynamic thead tr:last-child th {
-    /* height of all previous header rows */
-    top: 48px;
-}
-.my-sticky-dynamic thead tr:first-child th {
-    top: 0;
-}
