@@ -21,6 +21,8 @@ export default class Fl32_Bwl_Back_Service_SignUp_Init {
         } = spec['Fl32_Bwl_Shared_Service_Route_SignUp_Init']; // ES6 module
         /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Profile} */
         const EProfile = spec['Fl32_Bwl_Store_RDb_Schema_Profile#']; // class constructor
+        /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Weight_Stat} */
+        const EWeightStat = spec['Fl32_Bwl_Store_RDb_Schema_Weight_Stat#']; // class constructor
         /** @type {Fl32_Bwl_Back_Process_Profile_Save} */
         const procAppProfSave = spec['Fl32_Bwl_Back_Process_Profile_Save$']; // instance singleton
 
@@ -84,6 +86,12 @@ export default class Fl32_Bwl_Back_Service_SignUp_Init {
                         entity[EProfile.A_WEIGHT_INIT] = apiReq.weightInit;
                         entity[EProfile.A_WEIGHT_TARGET] = apiReq.weightTarget;
                         await procAppProfSave.exec({trx, input: entity});
+                        // save first weight stats item
+                        await trx(EWeightStat.ENTITY)
+                            .insert({
+                                [EWeightStat.A_USER_REF]: user.id,
+                                [EWeightStat.A_VALUE]: apiReq.weightInit,
+                            });
                     } else {
                         result.headers[H2.HTTP2_HEADER_STATUS] = H2.HTTP_STATUS_UNAUTHORIZED;
                     }

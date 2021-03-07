@@ -78,14 +78,14 @@ export default function Fl32_Bwl_Front_Route_Home(spec) {
         components: {addWeight, editWeight},
         data: function () {
             return {
-                current: 95.4,
+                current: null,
                 dialogDisplay: false,
                 mode: 'Personal',
                 options: ['Personal'],
-                start: 100,
-                target: 70,
+                start: null,
+                target: null,
                 weightEdit: null,
-                weightType: 'current',
+                weightType: editWeight.TYPES.CURRENT,
             };
         },
         computed: {
