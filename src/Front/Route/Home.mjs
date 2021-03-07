@@ -64,6 +64,12 @@ export default function Fl32_Bwl_Front_Route_Home(spec) {
     const addWeight = spec['Fl32_Bwl_Front_Widget_AddWeight$'];
     /** @type {Fl32_Bwl_Front_Widget_EditWeight.widget} */
     const editWeight = spec['Fl32_Bwl_Front_Widget_EditWeight$'];
+    /** @type {Fl32_Bwl_Front_Gate_Profile_Get.gate} */
+    const gateProfile = spec['Fl32_Bwl_Front_Gate_Profile_Get$'];
+    const {
+        /** @type {Fl32_Bwl_Shared_Service_Route_Profile_Get_Request} */
+        Request
+    } = spec['Fl32_Bwl_Shared_Service_Route_Profile_Get']; // ES6 modules
     const {mapMutations, mapState} = spec[DEF.MOD_VUE.DI_VUEX];
 
     return {
@@ -179,6 +185,13 @@ export default function Fl32_Bwl_Front_Route_Home(spec) {
         async mounted() {
             // MAIN FUNCTIONALITY
             if (await session.checkUserAuthenticated(this.$router)) {
+                /** @type {Fl32_Bwl_Shared_Service_Route_Profile_Get_Response} */
+                const res = await gateProfile(new Request());
+                if (res.profile) {
+                    this.current = res.profile.weightCurrent;
+                    this.start = res.profile.weightStart;
+                    this.target = res.profile.weightTarget;
+                }
                 // this.draw();
             }
         },

@@ -6,7 +6,7 @@ export default class Fl32_Bwl_Defaults {
     DATA_REF_CODE_OTHER = 'other';
     DATA_REF_CODE_ROOT = 'root';
     DATA_SESS_ID_ADMIN = 'sessIdForAdmin';
-    DATA_SESS_ID_CUST= 'sessIdForCust';
+    DATA_SESS_ID_CUST = 'sessIdForCust';
     DATA_SHARING_MODE_ALL = 'a'; // all info is available for sharing in groups (user weight)
     DATA_SHARING_MODE_PERCENT = 'p'; // only relative info is available for sharing in groups (percentage)
     DATA_USER_ID_ADMIN = 1;
@@ -21,6 +21,7 @@ export default class Fl32_Bwl_Defaults {
     ROUTE_SIGN_UP_INIT = '/sign/up/init';
 
     SERV_GROUP_LIST = '/group/list';
+    SERV_PROFILE_GET = '/profile/get';
     SERV_SIGN_UP_INIT = '/signUp/init';
     SERV_WEIGHT_HISTORY_LIST = '/weight/history/list';
     SERV_WEIGHT_STAT_SAVE = '/weight/stat/save';
