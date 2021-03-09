@@ -1,11 +1,13 @@
 const DATE = 'date';
 const DELTA = 'delta';
+const PERCENT = 'percent';
 const WEIGHT = 'weight';
 
 const columns = [
     {name: DATE, label: 'Date', field: DATE, align: 'center'},
     {name: WEIGHT, label: 'Weight, kg', field: WEIGHT, align: 'right'},
     {name: DELTA, label: 'Delta, kg', field: DELTA, align: 'right',},
+    {name: PERCENT, label: '%', field: PERCENT, align: 'right',},
 ];
 
 const template = `
@@ -19,7 +21,10 @@ const template = `
             row-key="${DATE}"
     >
         <template v-slot:body-cell-delta="props">
-            <q-td :props="props" :style="colorDelta(props.value)">{{props.value}}</q-td>
+            <q-td :props="props" :style="colorDelta(props.value, props)">{{props.value}}</q-td>
+        </template>
+        <template v-slot:body-cell-percent="props">
+            <q-td :props="props" :style="colorDelta(props.value, props)">{{props.value}}</q-td>
         </template>
     </q-table>
 </div>
@@ -29,6 +34,7 @@ const template = `
 export default function Fl32_Bwl_Front_Route_History(spec) {
     /** @type {Fl32_Bwl_Defaults} */
     const DEF = spec['Fl32_Bwl_Defaults$'];    // instance singleton
+    const i18n = spec[DEF.MOD_CORE.DI_I18N]; // named singleton
     const {ref} = spec[DEF.MOD_VUE.DI_VUE];    // destructuring instance singleton
     /** @type {Fl32_Teq_User_Front_App_Session} */
     const session = spec[DEF.MOD_USER.DI_SESSION];  // named singleton
@@ -52,10 +58,18 @@ export default function Fl32_Bwl_Front_Route_History(spec) {
                 items.sort((a, b) => (a.date < b.date) ? -1 : 1);
                 let prev = null;
                 for (const item of items) {
+                    const date = (new Date(item.date)).toLocaleDateString(i18n.language, {
+                        day: 'numeric',
+                        month: 'short',
+                        weekday: 'short',
+                        year: '2-digit',
+                    });
                     const one = {
-                        [DATE]: item.date,
+                        [DATE]: date,
                         [WEIGHT]: item.weight,
                         [DELTA]: (prev === null) ? '0' : (item.weight - prev).toFixed(1),
+                        [PERCENT]: (prev === null) ? '0'
+                            : (((Math.abs(item.weight - prev)) / prev) * 100).toFixed(2),
                     };
                     result.push(one);
                     prev = item.weight;
@@ -77,9 +91,9 @@ export default function Fl32_Bwl_Front_Route_History(spec) {
                 columns,
                 loading,
                 rows,
-                colorDelta: function (val) {
+                colorDelta: function (val, props) {
                     let result = null;
-                    const num = Number.parseFloat(val);
+                    const num = Number.parseFloat(props.row[DELTA]);
                     if (num < 0) {
                         result = 'color:green';
                     } else if (num > 0) {
