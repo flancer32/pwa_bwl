@@ -132,6 +132,7 @@
                 // save old-style loaded JS objects into DI container (see <script src="..."> at the end of HTML)
                 container.set(DEF.MOD_VUE.DI_VUE, self.Vue);
                 container.set(DEF.MOD_VUE.DI_VUEX, self.Vuex);
+                container.set(DEF.DI_CHART, self.Chart); // https://www.chartjs.org/
                 // create vue application, init router and i18n
                 const app = self.Vue.createApp({});
                 const router = initRouter(self.VueRouter);
@@ -202,7 +203,7 @@
 <script type="application/javascript" src="./src/quasar/icon-set/svg-material-icons.umd.prod.js"></script>
 
 <!-- This app libs -->
-<script type="application/javascript" src="./js/Chart.bundle.min.js"></script>
+<script type="application/javascript" src="./js/Chart.bundle.min.js">/* https://www.chartjs.org/ */</script>
 
 
 <!-- load application styles -->

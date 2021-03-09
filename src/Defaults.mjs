@@ -12,6 +12,8 @@ export default class Fl32_Bwl_Defaults {
     DATA_USER_ID_ADMIN = 1;
     DATA_USER_ID_CUST = 2;
 
+    DI_CHART = 'appChart'; // DI container label for Chart library (https://www.chartjs.org/).
+
     ROUTE_GROUPS = '/groups'; // frontend routes
     ROUTE_HISTORY = '/history';
     ROUTE_HOME = '/';
