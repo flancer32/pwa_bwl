@@ -42,5 +42,5 @@ jobs:
             rm -fr ./bwl
             mv ./bwl.new ./bwl
             cd ./bwl/
-            npm run db-upgrade
+            npm run db-reset
             nohup npm start > ./output.log 2>&1 &

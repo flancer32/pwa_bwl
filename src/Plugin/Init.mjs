@@ -11,6 +11,7 @@ export default class Fl32_Bwl_Plugin_Init {
         this.getCommands = function () {
             return [
                 'Fl32_Bwl_Cli_Db_Reset$',
+                'Fl32_Bwl_Cli_Db_Upgrade$',
             ];
         };
 

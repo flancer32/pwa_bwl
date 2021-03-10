@@ -28,10 +28,8 @@ function Factory(spec) {
     const connector = spec['TeqFw_Core_App_Db_Connector$']; // instance singleton
     /** @type {TeqFw_Core_App_Logger} */
     const logger = spec['TeqFw_Core_App_Logger$'];  // instance singleton
-    /** @type {Fl32_Teq_User_Plugin_Store_RDb_Setup} */
-    const setupTeqUser = spec['Fl32_Teq_User_Plugin_Store_RDb_Setup$']; // instance singleton
-    /** @type {Fl32_Bwl_Plugin_Store_RDb_Setup} */
-    const setupApp = spec['Fl32_Bwl_Plugin_Store_RDb_Setup$']; // instance singleton
+    /** @type {Function|Fl32_Bwl_Cli_Db_Z_Restruct.action} */
+    const actRestruct = spec['Fl32_Bwl_Cli_Db_Z_Restruct$']; // instance singleton
     /** @type {Fl32_Teq_User_Store_RDb_Schema_Auth_Password} */
     const eAuthPassword = spec['Fl32_Teq_User_Store_RDb_Schema_Auth_Password$']; // instance singleton
     /** @type {Fl32_Teq_User_Store_RDb_Schema_Auth_Session} */
@@ -280,25 +278,10 @@ function Factory(spec) {
         }
 
         // MAIN FUNCTIONALITY
-        const knex = await connector.getKnex();
         const trx = await connector.startTransaction();
         try {
-            // compose queries to recreate DB structure
-            /** @type {SchemaBuilder} */
-            const builder = connector.getSchema();
-
-            // drop tables considering relations (1) then drop base registries (0)
-            // (1)
-            setupApp.dropTables1(builder);
-            setupTeqUser.dropTables1(builder);
-            // (0)
-            setupApp.dropTables0(builder);
-            setupTeqUser.dropTables0(builder);
-            // create tables
-            setupTeqUser.createStructure(knex, builder);
-            setupApp.createStructure(knex, builder);
-            // perform queries to recreate DB structure
-            await builder;
+            // recreate DB structure
+            await actRestruct();
 
             // perform queries to insert data into created tables
             await populateWithData(trx);

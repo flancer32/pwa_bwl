@@ -48,4 +48,8 @@ info "Install NodeJS application."
 cd "${DIR_ROOT}" || exit 255
 npm install
 
+info "Upgrade DB structure."
+cd "${DIR_ROOT}" || exit 255
+npm install
+
 info "Done."

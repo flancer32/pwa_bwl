@@ -15,7 +15,8 @@
   },
   "repository": "github:flancer32/pwa_bwl",
   "scripts": {
-    "db-upgrade": "node ./bin/tequila.mjs app-db-reset",
+    "db-reset": "node ./bin/tequila.mjs app-db-reset",
+    "db-upgrade": "node ./bin/tequila.mjs app-db-upgrade",
     "docs": "./node_modules/jsdoc/jsdoc.js --debug -p -c ./jsdoc.conf.json",
     "rebuild": "rm -fr node_modules package-lock.json && npm install",
     "start": "node ./bin/tequila.mjs http2-start",
