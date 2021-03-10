@@ -1,0 +1,8 @@
+/* Overwrite CSS variables from plugins */
+:root {
+    --color-base: #CBE432;
+    --color-darker: #8C9E15;
+    --color-darkest: #2E3409;
+    --color-lighter: #E3F08E;
+    --color-lightest: #F7FBDF;
+}
