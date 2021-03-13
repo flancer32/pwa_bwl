@@ -5,14 +5,6 @@
 const EVT_HIDE = 'onHide';
 const EVT_SUBMIT = 'onSubmit';
 
-const I18N_BUNDLE = {
-    cancel: 'Cancel',
-    ok: 'OK',
-    titleCurrent: 'Set current weight (kg)',
-    titleStart: 'Set start weight (kg)',
-    titleTarget: 'Set target weight (kg)',
-};
-
 const template = `
 <q-dialog v-model="display" @hide="onHide">
     <q-card style="min-width: 350px">
@@ -39,8 +31,8 @@ const template = `
         </q-card-section>
 
         <q-card-actions align="right" class="text-primary">
-            <q-btn flat :label="$t('addWeight:cancel')" v-close-popup></q-btn>
-            <q-btn flat :label="$t('addWeight:ok')" v-close-popup v-on:click="submit"></q-btn>
+            <q-btn flat :label="$t('wg:editWeight.cancel')" v-close-popup></q-btn>
+            <q-btn flat :label="$t('wg:editWeight.ok')" v-close-popup v-on:click="submit"></q-btn>
         </q-card-actions>
     </q-card>
 </q-dialog>    
@@ -61,8 +53,6 @@ function Factory(spec) {
     const Request = spec['Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save#Request']; // class constructor
     /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save_Types} */
     const Types = spec['Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save#Types']; // class constructor
-
-    i18next.addResourceBundle('dev', 'addWeight', I18N_BUNDLE, true);
 
     /**
      * Codifier for weight types.
@@ -112,10 +102,7 @@ function Factory(spec) {
                 });
             },
             title() {
-                const key = (this.type === TYPES.CURRENT) ? 'titleCurrent'
-                    : (this.type === TYPES.TARGET) ? 'titleTarget'
-                        : (this.type === TYPES.START) ? 'titleStart' : 'unknown';
-                return this.$t(`addWeight:${key}`);
+                return this.$t(`wg:editWeight.title.${this.type}`);
             },
             weightDecimals() {
                 const result = [];

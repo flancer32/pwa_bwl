@@ -2,8 +2,8 @@ const template = `
 <div class="t-grid app-home">
     <div class="app-home-stats">
         <q-input
+                :label="$t('home.start')"
                 dense
-                label="Start (kg)"
                 outlined
                 readonly
                 stack-label
@@ -11,16 +11,16 @@ const template = `
                 v-on:click="editWeightStart"
         ></q-input>
         <q-input
+                :label="$t('home.current')"
                 dense
-                label="Current (kg)"
                 outlined stack-label
                 readonly
                 v-model="current"
                 v-on:click="editWeightCurrent"
         ></q-input>
         <q-input
+                :label="$t('home.target')"
                 dense
-                label="Target (kg)"
                 outlined
                 readonly
                 stack-label
@@ -32,9 +32,9 @@ const template = `
     <div class="t-grid app-home-controls">
         <div style="width: 100%">
             <q-select
+                    :label="$t('home.group')"
                     :options="options"
                     dense
-                    label="Group"
                     options-dense
                     stack-label
                     v-model="mode"

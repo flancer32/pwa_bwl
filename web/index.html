@@ -23,7 +23,7 @@
 
                 // DEFINE INNER FUNCTIONS
                 /**
-                 * @returns {Promise<TeqFw_Core_App_Shared_Api_Route_Load_Namespaces_Response>}
+                 * @returns {Promise<TeqFw_Core_App_Shared_Service_Route_Load_Namespaces_Response>}
                  */
                 async function loadNamespaces() {
                     // load frontend configuration and user profile
@@ -66,19 +66,22 @@
              * Initialize 'i18next' library to use internationalization and add translate function '$t' to Vue app's
              * global properties.
              *
+             * @param {TeqFw_Di_Container} container
              * @param {Object} app Vue application
              * @param {Object} i18next
              * @param {Function} i18nBld browser language detection function
              * @returns {Promise<Object>}
              */
-            async function initI18n(app, i18next, i18nBld) {
+            async function initI18n(container, app, i18next, i18nBld) {
+                const gate = await container.get('TeqFw_Core_App_Front_Gate_Load_I18n$');
+                /** @type {typeof TeqFw_Core_App_Shared_Service_Route_Load_I18n_Request} */
+                const Request = await container.get('TeqFw_Core_App_Shared_Service_Route_Load_I18n#Request');
+                const resources = await gate(new Request());
                 i18next.use(i18nBld);
-                await i18next.init({});
+                await i18next.init({resources, defaultNS: 'app'});
                 // add '$t' translation function to Vue app
                 const appProps = app.config.globalProperties;
-                appProps.$t = (key, options) => {
-                    return i18next.t(key, options);
-                };
+                appProps.$t = (key, options) => i18next.t(key, options);
                 return i18next;
             }
 
@@ -137,12 +140,12 @@
                 const app = self.Vue.createApp({});
                 const router = initRouter(self.VueRouter);
                 container.set(DEF.MOD_VUE.DI_ROUTER, router);
-                const i18next = await initI18n(app, self.i18next, self.i18nextBrowserLanguageDetector);
-                container.set(DEF.MOD_CORE.DI_APP, app);
+                const i18next = await initI18n(container, app, self.i18next, self.i18nextBrowserLanguageDetector);
+                container.set(DEF.MOD_VUE.DI_APP, app);
                 container.set(DEF.MOD_CORE.DI_I18N, i18next);
                 app.use(self.Quasar, {config: {}});
                 self.Quasar.iconSet.set(self.Quasar.iconSet.svgMaterialIcons);
-                container.set(DEF.MOD_CORE.DI_QUASAR, self.Quasar);
+                container.set(DEF.MOD_QUASAR.DI_QUASAR, self.Quasar);
                 await initVuex(app, container, DEF, self.Vuex);
                 await initSession(container, DEF);
                 // load root component and mount frontend application to DOM

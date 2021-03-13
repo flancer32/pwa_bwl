@@ -1,0 +1,41 @@
+{
+  "en": {
+    "app": {
+      "groups": {
+        "active": "Active",
+        "admin": "Admin",
+        "date": "Date",
+        "id": "ID",
+        "name": "Name"
+      },
+      "history": {
+        "date": "Date",
+        "delta": "Delta, kg",
+        "percent": "%",
+        "weight": "Weight, kg"
+      },
+      "home": {
+        "current": "Current (kg)",
+        "group": "Group",
+        "start": "Start (kg)",
+        "target": "Target (kg)"
+      }
+    },
+    "wg": {
+      "chart": {
+        "current": "Current",
+        "start": "Start",
+        "target": "Target"
+      },
+      "editWeight": {
+        "cancel": "Cancel",
+        "ok": "OK",
+        "title": {
+          "current": "Set current weight (kg)",
+          "start": "Set start weight (kg)",
+          "target": "Set target weight (kg)"
+        }
+      }
+    }
+  }
+}

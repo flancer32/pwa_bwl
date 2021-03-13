@@ -4,14 +4,6 @@ const DATE = 'date';
 const GROUP_ID = 'groupId';
 const GROUP_NAME = 'groupName';
 
-const columns = [
-    {name: DATE, label: 'Date', field: DATE, align: 'left'},
-    {name: GROUP_NAME, label: 'Name', field: GROUP_NAME, align: 'left'},
-    {name: ADMIN_NAME, label: 'Admin', field: ADMIN_NAME, align: 'left'},
-    {name: ACTIVE, label: 'Active', field: ACTIVE, align: 'right'},
-    {name: GROUP_ID, label: 'ID', field: GROUP_ID, align: 'right'},
-];
-
 const template = `
 <div>
     <q-table
@@ -31,6 +23,7 @@ export default function Fl32_Bwl_Front_Route_Groups(spec) {
     const DEF = spec['Fl32_Bwl_Defaults$'];    // instance singleton
     /** @type {Fl32_Teq_User_Front_App_Session} */
     const session = spec[DEF.MOD_USER.DI_SESSION];  // named singleton
+    const i18n = spec[DEF.MOD_CORE.DI_I18N]; // named singleton
     const {ref} = spec[DEF.MOD_VUE.DI_VUE];    // destructuring instance singleton
     /** @type {Fl32_Bwl_Front_Gate_Group_List.gate} */
     const gate = spec['Fl32_Bwl_Front_Gate_Group_List$']; // function singleton
@@ -49,6 +42,13 @@ export default function Fl32_Bwl_Front_Route_Groups(spec) {
             }
         },
         setup() {
+            const columns = [
+                {name: DATE, label: i18n.t('groups.date'), field: DATE, align: 'left'},
+                {name: GROUP_NAME, label: i18n.t('groups.name'), field: GROUP_NAME, align: 'left'},
+                {name: ADMIN_NAME, label: i18n.t('groups.admin'), field: ADMIN_NAME, align: 'left'},
+                {name: ACTIVE, label: i18n.t('groups.active'), field: ACTIVE, align: 'right'},
+                {name: GROUP_ID, label: i18n.t('groups.id'), field: GROUP_ID, align: 'right'},
+            ];
             const loading = ref(false);
             const rows = ref([]);
             return {

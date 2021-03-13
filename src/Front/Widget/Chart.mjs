@@ -1,9 +1,7 @@
 /**
  * @namespace Fl32_Bwl_Front_Widget_Chart
  */
-const I18N_BUNDLE = {
-    ok: 'OK',
-};
+
 const DOM_ID_CHART = 'appChartWidget';
 
 const template = `
@@ -16,7 +14,7 @@ const template = `
 function Factory(spec) {
     /** @type {Fl32_Bwl_Defaults} */
     const DEF = spec['Fl32_Bwl_Defaults$']; // instance singleton
-    const i18next = spec[DEF.MOD_CORE.DI_I18N]; // named singleton
+    const i18n = spec[DEF.MOD_CORE.DI_I18N]; // named singleton
     const Chart = spec[DEF.DI_CHART]; // named singleton
     const {ref} = spec[DEF.MOD_VUE.DI_VUE];    // destructuring instance singleton
     /** @type {Fl32_Bwl_Front_Gate_Weight_History_List.gate} */
@@ -27,8 +25,6 @@ function Factory(spec) {
     const gateProfile = spec['Fl32_Bwl_Front_Gate_Profile_Get$']; // function singleton
     /** @type {typeof Fl32_Bwl_Shared_Service_Route_Profile_Get_Request} */
     const RequestProfile = spec['Fl32_Bwl_Shared_Service_Route_Profile_Get#Request']; // class constructor
-
-    i18next.addResourceBundle('dev', 'chart', I18N_BUNDLE, true);
 
     /**
      * @instance
@@ -102,21 +98,21 @@ function Factory(spec) {
                             borderWidth: 2,
                             data: series.data,
                             fill: false,
-                            label: 'Personal',
+                            label: i18n.t('wg:chart.current'),
                             pointRadius: 2,
                         }, {
                             borderColor: 'rgba(250, 12, 0, 0.8)',
                             borderWidth: 1,
                             data: startDataset,
                             fill: false,
-                            label: 'Start',
+                            label: i18n.t('wg:chart.start'),
                             pointRadius: 0,
                         }, {
                             borderColor: 'rgba(0, 12, 128, 0.8)',
                             borderWidth: 1,
                             data: targetDataset,
                             fill: false,
-                            label: 'Target',
+                            label: i18n.t('wg:chart.target'),
                             pointRadius: 0,
                         },]
                     },

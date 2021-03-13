@@ -3,13 +3,6 @@ const DELTA = 'delta';
 const PERCENT = 'percent';
 const WEIGHT = 'weight';
 
-const columns = [
-    {name: DATE, label: 'Date', field: DATE, align: 'center'},
-    {name: WEIGHT, label: 'Weight, kg', field: WEIGHT, align: 'right'},
-    {name: DELTA, label: 'Delta, kg', field: DELTA, align: 'right',},
-    {name: PERCENT, label: '%', field: PERCENT, align: 'right',},
-];
-
 const template = `
 <div>
     <q-table
@@ -85,6 +78,12 @@ export default function Fl32_Bwl_Front_Route_History(spec) {
             }
         },
         setup() {
+            const columns = [
+                {name: DATE, label: i18n.t('history.date'), field: DATE, align: 'center'},
+                {name: WEIGHT, label: i18n.t('history.weight'), field: WEIGHT, align: 'right'},
+                {name: DELTA, label: i18n.t('history.delta'), field: DELTA, align: 'right',},
+                {name: PERCENT, label: i18n.t('history.percent'), field: PERCENT, align: 'right',},
+            ];
             const loading = ref(false);
             const rows = ref([]);
             return {

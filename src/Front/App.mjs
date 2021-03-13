@@ -8,7 +8,7 @@ export default function Fl32_Bwl_Front_App(spec) {
     /** @type {TeqFw_Di_Container} */
     const container = spec[DEF.MOD_CORE.DI_CONTAINER]; // named singleton
     const router = spec[DEF.MOD_VUE.DI_ROUTER];  // named singleton
-    const app = spec[DEF.MOD_CORE.DI_APP];  // named singleton
+    const app = spec[DEF.MOD_VUE.DI_APP];  // named singleton
     /** @type {TeqFw_Core_App_Front_Widget_Layout_Centered} */
     const layoutCentered = spec['TeqFw_Core_App_Front_Widget_Layout_Centered$'];    // Vue component singleton
     /** @type {Fl32_Bwl_Front_Layout_Base} */

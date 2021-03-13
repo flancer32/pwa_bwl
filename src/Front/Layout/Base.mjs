@@ -33,7 +33,7 @@ const template = `
 </q-layout>
 `;
 
-export default function Fl32_Bwl_Front_Layout_Base(spec) {
+function Fl32_Bwl_Front_Layout_Base(spec) {
     /** @type {Fl32_Bwl_Defaults} */
     const DEF = spec['Fl32_Bwl_Defaults$'];
     const {mapState} = spec[DEF.MOD_VUE.DI_VUEX];
@@ -72,3 +72,5 @@ export default function Fl32_Bwl_Front_Layout_Base(spec) {
         }
     };
 }
+
+export default Fl32_Bwl_Front_Layout_Base;

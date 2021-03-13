@@ -15,6 +15,15 @@ export default class Fl32_Bwl_Plugin_Init {
             ];
         };
 
+        this.getI18nResources = function () {
+            return {
+                [DEF.MOD_CORE.I18N_FRONT]: [
+                    './i18n/front.en.json',
+                    './i18n/front.ru.json'
+                ],
+            };
+        };
+
         this.getServicesList = function () {
             return [
                 'Fl32_Bwl_Back_Service_Group_List$',
