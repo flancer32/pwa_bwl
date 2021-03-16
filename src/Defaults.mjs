@@ -13,6 +13,7 @@ export default class Fl32_Bwl_Defaults {
     DATA_USER_ID_CUST = 2;
 
     DI_CHART = 'appChart'; // DI container label for Chart library (https://www.chartjs.org/).
+    DI_TOP_ACTIONS = 'appTopActions'; // DI container label for Top Actions widget
 
     ROUTE_GROUPS = '/groups'; // frontend routes
     ROUTE_HISTORY = '/history';

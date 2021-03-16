@@ -25,6 +25,10 @@ export default function Fl32_Bwl_Front_Route_Groups(spec) {
     const session = spec[DEF.MOD_USER.DI_SESSION];  // named singleton
     const i18n = spec[DEF.MOD_CORE.DI_I18N]; // named singleton
     const {ref} = spec[DEF.MOD_VUE.DI_VUE];    // destructuring instance singleton
+    /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.IComponent} */
+    const topActions = spec[DEF.DI_TOP_ACTIONS]; // Vue component singleton
+    /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.Item} */
+    const Action = spec['Fl32_Bwl_Front_Layout_TopActions#Item']; // class constructor
     /** @type {Fl32_Bwl_Front_Gate_Group_List.gate} */
     const gate = spec['Fl32_Bwl_Front_Gate_Group_List$']; // function singleton
     /** @type {typeof Fl32_Bwl_Shared_Service_Route_Group_List_Response} */
@@ -34,8 +38,22 @@ export default function Fl32_Bwl_Front_Route_Groups(spec) {
         name: 'RouteGroups',
         template,
         async mounted() {
+            // DEFINE INNER FUNCTIONS
+            /**
+             * Reset Top Actions on component re-mount.
+             */
+            function addTopActions() {
+                const actAdd = new Action();
+                actAdd.icon = 'add';
+                actAdd.action = function () {
+                    console.log('add group');
+                };
+                topActions.setActions([actAdd]);
+            }
+
             // MAIN FUNCTIONALITY
             if (await session.checkUserAuthenticated(this.$router)) {
+                addTopActions();
                 /** @type {Fl32_Bwl_Shared_Service_Route_Group_List_Response} */
                 const res = await gate(new Request());
                 this.rows = res.items;

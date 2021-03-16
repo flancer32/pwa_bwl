@@ -60,6 +60,10 @@ export default function Fl32_Bwl_Front_Route_Home(spec) {
     const session = spec[DEF.MOD_USER.DI_SESSION];  // named singleton
     /** @type {Fl32_Bwl_Front_Widget_Chart} */
     const chart = spec['Fl32_Bwl_Front_Widget_Chart$'];
+    /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.IComponent} */
+    const topActions = spec[DEF.DI_TOP_ACTIONS]; // Vue component singleton
+    /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.Item} */
+    const Action = spec['Fl32_Bwl_Front_Layout_TopActions#Item']; // class constructor
     /** @type {Fl32_Bwl_Front_Widget_EditWeight.widget} */
     const editWeight = spec['Fl32_Bwl_Front_Widget_EditWeight$'];
     /** @type {Fl32_Bwl_Front_Gate_Profile_Get.gate} */
@@ -124,8 +128,22 @@ export default function Fl32_Bwl_Front_Route_Home(spec) {
             }),
         },
         async mounted() {
+            // DEFINE INNER FUNCTIONS
+            /**
+             * Reset Top Actions on component re-mount.
+             */
+            function addTopActions() {
+                const actAdd = new Action();
+                actAdd.icon = 'logout';
+                actAdd.action = function () {
+                    console.log('sign out!');
+                };
+                topActions.setActions([actAdd]);
+            }
+
             // MAIN FUNCTIONALITY
             if (await session.checkUserAuthenticated(this.$router)) {
+                addTopActions();
                 /** @type {Fl32_Bwl_Shared_Service_Route_Profile_Get_Response} */
                 const res = await gateProfile(new Request());
                 if (res.profile) {

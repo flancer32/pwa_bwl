@@ -31,6 +31,10 @@ export default function Fl32_Bwl_Front_Route_History(spec) {
     const {ref} = spec[DEF.MOD_VUE.DI_VUE];    // destructuring instance singleton
     /** @type {Fl32_Teq_User_Front_App_Session} */
     const session = spec[DEF.MOD_USER.DI_SESSION];  // named singleton
+    /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.IComponent} */
+    const topActions = spec[DEF.DI_TOP_ACTIONS]; // Vue component singleton
+    /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.Item} */
+    const Action = spec['Fl32_Bwl_Front_Layout_TopActions#Item']; // class constructor
     /** @type {Fl32_Bwl_Front_Gate_Weight_History_List.gate} */
     const gate = spec['Fl32_Bwl_Front_Gate_Weight_History_List$']; // function singleton
     /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_History_List_Request} */
@@ -41,6 +45,18 @@ export default function Fl32_Bwl_Front_Route_History(spec) {
         template,
         async mounted() {
             // DEFINE INNER FUNCTIONS
+            /**
+             * Reset Top Actions on component re-mount.
+             */
+            function addTopActions() {
+                const actAdd = new Action();
+                actAdd.icon = 'add';
+                actAdd.action = function () {
+                    console.log('history edit!');
+                };
+                topActions.setActions([actAdd]);
+            }
+
             /**
              *
              * @param {Fl32_Bwl_Shared_Service_Data_Weight_History_Item[]} items
@@ -72,6 +88,7 @@ export default function Fl32_Bwl_Front_Route_History(spec) {
 
             // MAIN FUNCTIONALITY
             if (await session.checkUserAuthenticated(this.$router)) {
+                addTopActions();
                 /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_List_Response} */
                 const res = await gate(new Request());
                 this.rows = prepareItems(res.items);

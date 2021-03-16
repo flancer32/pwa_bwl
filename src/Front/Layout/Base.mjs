@@ -6,17 +6,9 @@ const template = `
           <q-space></q-space>
           <div class="overflow-hidden" style="height: 20px">BWL</div>
           <q-space></q-space>
-          <q-btn dense flat icon="logout"></q-btn>
+          <top-actions></top-actions>
         </q-bar>
     </q-header>
-
-<!--    <q-drawer v-model="leftDrawerOpen" side="left" overlay behavior="mobile" elevated>-->
-<!--        &lt;!&ndash; drawer content &ndash;&gt;-->
-<!--    </q-drawer>-->
-
-<!--    <q-drawer v-model="rightDrawerOpen" side="right" overlay behavior="mobile" elevated>-->
-<!--        &lt;!&ndash; drawer content &ndash;&gt;-->
-<!--    </q-drawer>-->
 
     <q-page-container>
         <router-view/>
@@ -38,13 +30,13 @@ function Fl32_Bwl_Front_Layout_Base(spec) {
     const DEF = spec['Fl32_Bwl_Defaults$'];
     const {mapState} = spec[DEF.MOD_VUE.DI_VUEX];
     const {ref} = spec[DEF.MOD_VUE.DI_VUE];
+    /** @type {Fl32_Bwl_Front_Layout_TopActions} */
+    const topActions = spec['Fl32_Bwl_Front_Layout_TopActions$']; // Vue component singleton
 
     return {
-        name: '',
+        name: 'BaseLayout',
         template,
-        data() {
-            return {};
-        },
+        components: {topActions},
         computed: {
             isAuthenticated() {
                 return this.stateUserAuthenticated !== null;
@@ -67,7 +59,10 @@ function Fl32_Bwl_Front_Layout_Base(spec) {
                 rightDrawerOpen,
                 toggleRightDrawer() {
                     rightDrawerOpen.value = !rightDrawerOpen.value;
-                }
+                },
+                onTopRightClick() {
+                    console.log('clicked!');
+                },
             };
         }
     };
