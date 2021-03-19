@@ -21,11 +21,18 @@
         "target": "Target (kg)"
       }
     },
+    "fld": {
+      "date": "Date",
+      "weight": "Weight"
+    },
     "wg": {
       "chart": {
         "current": "Current",
         "start": "Start",
         "target": "Target"
+      },
+      "editHistory": {
+        "title": "Set weight for the date"
       },
       "editWeight": {
         "cancel": "Cancel",

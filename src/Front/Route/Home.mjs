@@ -42,7 +42,7 @@ const template = `
         </div>
         <div>
             <edit-weight
-                    :init="dialogDisplay"
+                    :display="dialogDisplay"
                     :weight="weightEdit"
                     :type="weightType"
                     @onHide="dialogDisplay=false"
@@ -64,8 +64,8 @@ export default function Fl32_Bwl_Front_Route_Home(spec) {
     const topActions = spec[DEF.DI_TOP_ACTIONS]; // Vue component singleton
     /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.Item} */
     const Action = spec['Fl32_Bwl_Front_Layout_TopActions#Item']; // class constructor
-    /** @type {Fl32_Bwl_Front_Widget_EditWeight.widget} */
-    const editWeight = spec['Fl32_Bwl_Front_Widget_EditWeight$'];
+    /** @type {Fl32_Bwl_Front_Widget_Edit_Weight.widget} */
+    const editWeight = spec['Fl32_Bwl_Front_Widget_Edit_Weight$'];
     /** @type {Fl32_Bwl_Front_Gate_Profile_Get.gate} */
     const gateProfile = spec['Fl32_Bwl_Front_Gate_Profile_Get$'];
     const {

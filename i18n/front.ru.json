@@ -21,11 +21,18 @@
         "target": "Цель (кг)"
       }
     },
+    "fld": {
+      "date": "Дата",
+      "weight": "Вес"
+    },
     "wg": {
       "chart": {
         "current": "Текущий",
         "start": "Начальный",
         "target": "Целевой"
+      },
+      "editHistory": {
+        "title": "Задать вес на дату"
       },
       "editWeight": {
         "cancel": "Отмена",

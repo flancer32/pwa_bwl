@@ -1,12 +1,12 @@
 /**
- * @namespace Fl32_Bwl_Front_Widget_EditWeight
+ * @namespace Fl32_Bwl_Front_Widget_Edit_Weight
  */
 
 const EVT_HIDE = 'onHide';
 const EVT_SUBMIT = 'onSubmit';
 
 const template = `
-<q-dialog v-model="display" @hide="onHide">
+<q-dialog :model-value="display" @hide="onHide">
     <q-card style="min-width: 350px">
         <div class="t-grid cols align-items-center">
             <div class="text-h7">{{title}}</div>
@@ -39,12 +39,12 @@ const template = `
 `;
 
 /**
- * @memberOf Fl32_Bwl_Front_Widget_EditWeight
+ * @memberOf Fl32_Bwl_Front_Widget_Edit_Weight
  */
 function Factory(spec) {
     /** @type {Fl32_Bwl_Defaults} */
     const DEF = spec['Fl32_Bwl_Defaults$'];    // instance singleton
-    const i18next = spec[DEF.MOD_CORE.DI_I18N];   // named singleton
+    const i18n = spec[DEF.MOD_CORE.DI_I18N];   // named singleton
     /** @type {TeqFw_Vue_Front_Widget_Scroller_Vertical} */
     const vScroll = spec['TeqFw_Vue_Front_Widget_Scroller_Vertical$']; // instance singleton
     /** @type {Fl32_Bwl_Front_Gate_Weight_Stat_Save.gate} */
@@ -53,12 +53,13 @@ function Factory(spec) {
     const Request = spec['Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save#Request']; // class constructor
     /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save_Types} */
     const Types = spec['Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save#Types']; // class constructor
+    const {formatDate} = spec['Fl32_Bwl_Shared_Util']; // ES6 module destructing
 
     /**
      * Codifier for weight types.
      *
      * @type {{TARGET: string, START: string, CURRENT: string}}
-     * @memberOf Fl32_Bwl_Front_Widget_EditWeight.widget
+     * @memberOf Fl32_Bwl_Front_Widget_Edit_Weight.widget
      */
     const TYPES = {
         CURRENT: Types.CURRENT,
@@ -69,7 +70,7 @@ function Factory(spec) {
 
     /**
      * @instance
-     * @memberOf Fl32_Bwl_Front_Widget_EditWeight
+     * @memberOf Fl32_Bwl_Front_Widget_Edit_Weight
      * @name widget
      */
     const widget = {
@@ -78,13 +79,12 @@ function Factory(spec) {
         components: {vScroll},
         data: function () {
             return {
-                display: false, // internal attribute for the dialog
                 selectedDecimals: null,
                 selectedInts: null,
             };
         },
         props: { // API to get values from parent widget
-            init: false, // hide/display dialog initially
+            display: Boolean, // hide/display dialog from parent
             type: String, // start, current, target weight (see Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save_Types)
             weight: null, // initial weight
         },
@@ -94,12 +94,7 @@ function Factory(spec) {
                 return new Date();
             },
             dateFormatted() {
-                return this.date.toLocaleDateString(i18next.language, {
-                    weekday: 'short',
-                    year: 'numeric',
-                    month: 'short',
-                    day: 'numeric'
-                });
+                return formatDate(i18n.language, this.date);
             },
             title() {
                 return this.$t(`wg:editWeight.title.${this.type}`);
@@ -134,13 +129,12 @@ function Factory(spec) {
                 req.weight = value;
                 req.type = this.type;
                 await gate(req);
-                this.display = false;
                 this.$emit(EVT_SUBMIT, value, this.type);
             },
         },
         watch: {
-            init(current) {
-                this.display = current;
+            // TODO: should we watch display or weight?
+            display(current) {
                 if (current && this.weight) {
                     const norm = Number.parseFloat(this.weight);
                     this.selectedInts = String(Math.trunc(norm)).padStart(2, '0');

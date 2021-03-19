@@ -20,6 +20,11 @@ const template = `
             <q-td :props="props" :style="colorDelta(props.value, props)">{{props.value}}</q-td>
         </template>
     </q-table>
+    <edit-history
+        :display="dialogDisplay"
+        :date="selectedDate"
+        @onHide="dialogDisplay=false"
+    ></edit-history>
 </div>
 `;
 
@@ -33,17 +38,29 @@ export default function Fl32_Bwl_Front_Route_History(spec) {
     const session = spec[DEF.MOD_USER.DI_SESSION];  // named singleton
     /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.IComponent} */
     const topActions = spec[DEF.DI_TOP_ACTIONS]; // Vue component singleton
+    /** @type {Fl32_Bwl_Front_Widget_Edit_History} */
+    const editHistory = spec['Fl32_Bwl_Front_Widget_Edit_History$']; // Vue component singleton
     /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.Item} */
     const Action = spec['Fl32_Bwl_Front_Layout_TopActions#Item']; // class constructor
     /** @type {Fl32_Bwl_Front_Gate_Weight_History_List.gate} */
     const gate = spec['Fl32_Bwl_Front_Gate_Weight_History_List$']; // function singleton
     /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_History_List_Request} */
     const Request = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_List#Request']; // class constructor
+    const {formatDate} = spec['Fl32_Bwl_Shared_Util']; // ES6 module destructing
 
     return {
         name: 'RouteHistory',
         template,
+        components: {editHistory},
+        data() {
+            return {
+                dialogDisplay: true,
+            };
+        },
         async mounted() {
+            // PARSE INPUT & DEFINE WORKING VARS
+            const self = this;
+
             // DEFINE INNER FUNCTIONS
             /**
              * Reset Top Actions on component re-mount.
@@ -52,7 +69,7 @@ export default function Fl32_Bwl_Front_Route_History(spec) {
                 const actAdd = new Action();
                 actAdd.icon = 'add';
                 actAdd.action = function () {
-                    console.log('history edit!');
+                    self.dialogDisplay = true;
                 };
                 topActions.setActions([actAdd]);
             }
@@ -67,14 +84,9 @@ export default function Fl32_Bwl_Front_Route_History(spec) {
                 items.sort((a, b) => (a.date < b.date) ? -1 : 1);
                 let prev = null;
                 for (const item of items) {
-                    const date = (new Date(item.date)).toLocaleDateString(i18n.language, {
-                        day: 'numeric',
-                        month: 'short',
-                        weekday: 'short',
-                        year: '2-digit',
-                    });
+                    const dateStr = formatDate(i18n.language, item.date);
                     const one = {
-                        [DATE]: date,
+                        [DATE]: dateStr,
                         [WEIGHT]: item.weight,
                         [DELTA]: (prev === null) ? '0' : (item.weight - prev).toFixed(1),
                         [PERCENT]: (prev === null) ? '0'
