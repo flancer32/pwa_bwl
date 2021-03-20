@@ -8,6 +8,7 @@
 const NS = 'Fl32_Bwl_Front_Route_History';
 const DATE = 'date';
 const DELTA = 'delta';
+const ID = 'id';
 const PERCENT = 'percent';
 const WEIGHT = 'weight';
 
@@ -17,6 +18,7 @@ const template = `
             :columns="columns"
             :rows-per-page-options="[0]"
             :rows="rows"
+            @row-click="onRowClick"
             hide-bottom
             hide-no-data
             row-key="${DATE}"
@@ -73,7 +75,7 @@ function Factory(spec) {
         data() {
             return {
                 dateCurrent: new Date((new Date()).setDate((new Date()).getDate() - 4)),
-                dialogDisplay: true,
+                dialogDisplay: false,
                 weightCurrent: 0,
             };
         },
@@ -82,6 +84,13 @@ function Factory(spec) {
             onEditHistorySubmit(date, weight) {
                 this.dateCurrent = date;
                 this.weightCurrent = weight;
+            },
+            onRowClick(evt, row) {
+                console.log('clicked on', evt, row);
+                const dateStr = row[ID];
+                this.dateCurrent = new Date(dateStr);
+                this.weightCurrent = Number.parseFloat(row[WEIGHT]);
+                this.dialogDisplay = true;
             }
         },
         async mounted() {
@@ -113,6 +122,7 @@ function Factory(spec) {
                 for (const item of items) {
                     const dateStr = formatDate(i18n.language, item.date);
                     const one = {
+                        [ID]: item.date,
                         [DATE]: dateStr,
                         [WEIGHT]: item.weight,
                         [DELTA]: (prev === null) ? '0' : (item.weight - prev).toFixed(1),
