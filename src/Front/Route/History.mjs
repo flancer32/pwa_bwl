@@ -1,3 +1,11 @@
+/**
+ * Layout widget for context related actions.
+ * This widget is placed into DI container as 'Fl32_Bwl_Defaults.DI_TOP_ACTIONS'.
+ *
+ * @namespace Fl32_Bwl_Front_Route_History
+ */
+// MODULE'S VARS
+const NS = 'Fl32_Bwl_Front_Route_History';
 const DATE = 'date';
 const DELTA = 'delta';
 const PERCENT = 'percent';
@@ -21,15 +29,17 @@ const template = `
         </template>
     </q-table>
     <edit-history
+        :date="dateCurrent"
         :display="dialogDisplay"
-        :date="selectedDate"
+        :weight="weightCurrent"
         @onHide="dialogDisplay=false"
+        @onSubmit="onEditHistorySubmit"
     ></edit-history>
 </div>
 `;
 
 
-export default function Fl32_Bwl_Front_Route_History(spec) {
+function Factory(spec) {
     /** @type {Fl32_Bwl_Defaults} */
     const DEF = spec['Fl32_Bwl_Defaults$'];    // instance singleton
     const i18n = spec[DEF.MOD_CORE.DI_I18N]; // named singleton
@@ -42,24 +52,41 @@ export default function Fl32_Bwl_Front_Route_History(spec) {
     const editHistory = spec['Fl32_Bwl_Front_Widget_Edit_History$']; // Vue component singleton
     /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.Item} */
     const Action = spec['Fl32_Bwl_Front_Layout_TopActions#Item']; // class constructor
+    /** @type {Fl32_Bwl_Front_DataSource_Weight} */
+    const dsWeights = spec['Fl32_Bwl_Front_DataSource_Weight$']; // instance singleton
     /** @type {Fl32_Bwl_Front_Gate_Weight_History_List.gate} */
     const gate = spec['Fl32_Bwl_Front_Gate_Weight_History_List$']; // function singleton
     /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_History_List_Request} */
     const Request = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_List#Request']; // class constructor
     const {formatDate} = spec['Fl32_Bwl_Shared_Util']; // ES6 module destructing
 
+    /**
+     * Template to create new component instances using Vue.
+     *
+     * @const {Object} vueCompTmpl
+     * @memberOf Fl32_Bwl_Front_Route_History
+     */
     return {
-        name: 'RouteHistory',
+        name: NS,
         template,
         components: {editHistory},
         data() {
             return {
+                dateCurrent: new Date((new Date()).setDate((new Date()).getDate() - 4)),
                 dialogDisplay: true,
+                weightCurrent: 0,
             };
+        },
+        computed: {},
+        methods: {
+            onEditHistorySubmit(date, weight) {
+                this.dateCurrent = date;
+                this.weightCurrent = weight;
+            }
         },
         async mounted() {
             // PARSE INPUT & DEFINE WORKING VARS
-            const self = this;
+            const me = this;
 
             // DEFINE INNER FUNCTIONS
             /**
@@ -69,7 +96,7 @@ export default function Fl32_Bwl_Front_Route_History(spec) {
                 const actAdd = new Action();
                 actAdd.icon = 'add';
                 actAdd.action = function () {
-                    self.dialogDisplay = true;
+                    me.dialogDisplay = true;
                 };
                 topActions.setActions([actAdd]);
             }
@@ -101,6 +128,7 @@ export default function Fl32_Bwl_Front_Route_History(spec) {
             // MAIN FUNCTIONALITY
             if (await session.checkUserAuthenticated(this.$router)) {
                 addTopActions();
+                this.weightCurrent = await dsWeights.getCurrent();
                 /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_List_Response} */
                 const res = await gate(new Request());
                 this.rows = prepareItems(res.items);
@@ -133,3 +161,10 @@ export default function Fl32_Bwl_Front_Route_History(spec) {
         }
     };
 }
+
+
+// MODULE'S FUNCTIONALITY
+Object.defineProperty(Factory, 'name', {value: `${NS}.${Factory.name}`});
+
+// MODULE'S EXPORT
+export default Factory;

@@ -13,6 +13,11 @@ function Fl32_Bwl_Front_State(spec) {
         state: {
             lang: 'en-US',
             title: 'Weight Loss',
+            weight: {
+                current: 0,
+                start: 0,
+                target: 0,
+            },
         },
         modules: {user},
     };

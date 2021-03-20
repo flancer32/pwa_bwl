@@ -1,5 +1,5 @@
 /**
- * Dialog to select a date.
+ * Dialog widget to select a date.
  *
  * @namespace Fl32_Bwl_Front_Widget_Dialog_Date
  */
@@ -9,15 +9,14 @@ const EVT_HIDE = 'onHide';
 const EVT_SUBMIT = 'onSubmit';
 
 const template = `
-<q-dialog :model-value="display" @hide="onHide">
+<q-dialog :model-value="display" @hide="$emit('${EVT_HIDE}')">
     <q-date
             v-model="date"
             minimal
+            @update:modelValue="dateSelected"
     ></q-date>
 </q-dialog>
 `;
-
-// MODULE'S CLASSES
 
 // MODULE'S FUNCTIONS
 /**
@@ -27,12 +26,8 @@ const template = `
  * @returns {Fl32_Bwl_Front_Widget_Dialog_Date.vueCompTmpl}
  */
 function Factory(spec) {
-    /** @type {Fl32_Bwl_Defaults} */
-    const DEF = spec['Fl32_Bwl_Defaults$'];
-    /** @type {TeqFw_Di_Container} */
-    const container = spec[DEF.MOD_CORE.DI_CONTAINER]; // named singleton
-    const i18next = spec[DEF.MOD_CORE.DI_I18N]; // named singleton
-    const {ref} = spec[DEF.MOD_VUE.DI_VUE];    // named singleton destructuring
+    const {formatDate} = spec['TeqFw_Core_App_Shared_Util']; // ES6 module destructing
+
 
     /**
      * Template to create new component instances using Vue.
@@ -41,30 +36,37 @@ function Factory(spec) {
      * @memberOf Fl32_Bwl_Front_Widget_Dialog_Date
      */
     return {
-        name: 'DialogDate',
+        name: NS,
         template,
         data() {
-            return {};
+            return {
+                date: null, // model field for q-date widget (internal usage)
+            };
         },
         props: {
             display: Boolean, // hide/display dialog from parent
-        },
-        computed: {
-            date() {
-                return new Date();
-            },
-            title() {
-                return this.$t('wg:editHistory.title');
-            },
+            value: Date,    // date value been received from parent
         },
         methods: {
             /**
-             * Emit event to notify parent to change dialog display state.
+             * Get selected value from "q-date" widget.
+             * (see https://next.quasar.dev/vue-components/date)
+             *
+             * @param {String} value New model value
              */
-            onHide() {
-                this.$emit(EVT_HIDE);
+            dateSelected(value) {
+                const date = new Date(value);
+                this.$emit(EVT_SUBMIT, date);
             },
         },
+        watch: {
+            value(current) {
+                this.date = formatDate(current);
+            }
+        },
+        mounted() {
+            this.date = formatDate(this.value);
+        }
     };
 }
 
