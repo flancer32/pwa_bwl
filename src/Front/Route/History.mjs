@@ -57,9 +57,15 @@ function Factory(spec) {
     /** @type {Fl32_Bwl_Front_DataSource_Weight} */
     const dsWeights = spec['Fl32_Bwl_Front_DataSource_Weight$']; // instance singleton
     /** @type {Fl32_Bwl_Front_Gate_Weight_History_List.gate} */
-    const gate = spec['Fl32_Bwl_Front_Gate_Weight_History_List$']; // function singleton
+    const gateList = spec['Fl32_Bwl_Front_Gate_Weight_History_List$']; // function singleton
     /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_History_List_Request} */
-    const Request = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_List#Request']; // class constructor
+    const ReqList = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_List#Request']; // class constructor
+    /** @type {Fl32_Bwl_Front_Gate_Weight_Stat_Save.gate} */
+    const gateSave = spec['Fl32_Bwl_Front_Gate_Weight_Stat_Save$']; // function singleton
+    /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save_Request} */
+    const ReqSave = spec['Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save#Request']; // class constructor
+    /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save_Types} */
+    const TYPES = spec['Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save#Types'];
     const {formatDate} = spec['Fl32_Bwl_Shared_Util']; // ES6 module destructing
 
     /**
@@ -74,19 +80,55 @@ function Factory(spec) {
         components: {editHistory},
         data() {
             return {
-                dateCurrent: new Date((new Date()).setDate((new Date()).getDate() - 4)),
+                dateCurrent: new Date(),
                 dialogDisplay: false,
                 weightCurrent: 0,
             };
         },
-        computed: {},
         methods: {
-            onEditHistorySubmit(date, weight) {
+            async loadHistory() {
+                // DEFINE INNER FUNCTIONS
+                /**
+                 *
+                 * @param {Fl32_Bwl_Shared_Service_Data_Weight_History_Item[]} items
+                 * @returns {[]}
+                 */
+                function prepareItems(items) {
+                    const result = [];
+                    items.sort((a, b) => (a.date < b.date) ? -1 : 1);
+                    let prev = null;
+                    for (const item of items) {
+                        const dateStr = formatDate(i18n.language, item.date);
+                        const one = {
+                            [ID]: item.date,
+                            [DATE]: dateStr,
+                            [WEIGHT]: item.weight,
+                            [DELTA]: (prev === null) ? '0' : (item.weight - prev).toFixed(1),
+                            [PERCENT]: (prev === null) ? '0'
+                                : (((Math.abs(item.weight - prev)) / prev) * 100).toFixed(2),
+                        };
+                        result.push(one);
+                        prev = item.weight;
+                    }
+                    return result.reverse();
+                }
+
+                // MAIN FUNCTIONALITY
+                /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_List_Response} */
+                const res = await gateList(new ReqList());
+                this.rows = prepareItems(res.items);
+            },
+            async onEditHistorySubmit(date, weight) {
                 this.dateCurrent = date;
                 this.weightCurrent = weight;
+                const req = new ReqSave();
+                req.type = TYPES.CURRENT;
+                req.date = date;
+                req.weight = weight;
+                const res = await gateSave(req);
+                if (res) await this.loadHistory();
             },
             onRowClick(evt, row) {
-                console.log('clicked on', evt, row);
                 const dateStr = row[ID];
                 this.dateCurrent = new Date(dateStr);
                 this.weightCurrent = Number.parseFloat(row[WEIGHT]);
@@ -110,38 +152,12 @@ function Factory(spec) {
                 topActions.setActions([actAdd]);
             }
 
-            /**
-             *
-             * @param {Fl32_Bwl_Shared_Service_Data_Weight_History_Item[]} items
-             * @returns {[]}
-             */
-            function prepareItems(items) {
-                const result = [];
-                items.sort((a, b) => (a.date < b.date) ? -1 : 1);
-                let prev = null;
-                for (const item of items) {
-                    const dateStr = formatDate(i18n.language, item.date);
-                    const one = {
-                        [ID]: item.date,
-                        [DATE]: dateStr,
-                        [WEIGHT]: item.weight,
-                        [DELTA]: (prev === null) ? '0' : (item.weight - prev).toFixed(1),
-                        [PERCENT]: (prev === null) ? '0'
-                            : (((Math.abs(item.weight - prev)) / prev) * 100).toFixed(2),
-                    };
-                    result.push(one);
-                    prev = item.weight;
-                }
-                return result.reverse();
-            }
 
             // MAIN FUNCTIONALITY
             if (await session.checkUserAuthenticated(this.$router)) {
                 addTopActions();
                 this.weightCurrent = await dsWeights.getCurrent();
-                /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_List_Response} */
-                const res = await gate(new Request());
-                this.rows = prepareItems(res.items);
+                await this.loadHistory();
             }
         },
         setup() {

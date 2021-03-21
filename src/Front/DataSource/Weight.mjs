@@ -10,28 +10,48 @@ const NS = 'Fl32_Bwl_Front_DataSource_Weight';
 
 // MODULE'S CLASSES
 class Fl32_Bwl_Front_DataSource_Weight {
-    #current = 0;
-    #start = 0;
-    #target = 0;
+    /** @type {Number} */
+    #current;
+    /** @type {Fl32_Bwl_Front_Gate_Profile_Get.gate} */
+    #gateProfile;
+    /** @type {Fl32_Bwl_Shared_Service_Route_Profile_Get_Request} */
+    #ReqProfile;
+    /** @type {Number} */
+    #start;
+    /** @type {Number} */
+    #target;
 
     constructor(spec) {
         // CONSTRUCTOR INJECTED DEPS
-        /** @type {Fl32_Bwl_Defaults} */
-        const DEF = spec['Fl32_Bwl_Defaults$'];    // instance singleton
+        this.#gateProfile = spec['Fl32_Bwl_Front_Gate_Profile_Get$']; // function singleton
+        this.#ReqProfile = spec['Fl32_Bwl_Shared_Service_Route_Profile_Get#Request']; // class constructor
+    }
 
-        // DEFINE INNER FUNCTIONS
-
-        // INIT OWN PROPERTIES AND DEFINE WORKING VARS
-        this.#current = 94.4;
-        this.#start = 95.5;
-        this.#target = 93.3;
-
-        // DEFINE THIS INSTANCE METHODS (NOT IN PROTOTYPE)
-
+    async loadFromServer(forced = false) {
+        if ((this.#current === undefined) || forced) {
+            /** @type {Fl32_Bwl_Shared_Service_Route_Profile_Get_Response} */
+            const res = await this.#gateProfile(new this.#ReqProfile());
+            if (res.profile) {
+                this.#current = res.profile.weightCurrent;
+                this.#start = res.profile.weightStart;
+                this.#target = res.profile.weightTarget;
+            }
+        }
     }
 
     async getCurrent() {
+        await this.loadFromServer();
         return this.#current;
+    }
+
+    async getStart() {
+        await this.loadFromServer();
+        return this.#start;
+    }
+
+    async getTarget() {
+        await this.loadFromServer();
+        return this.#target;
     }
 
 }

@@ -66,12 +66,8 @@ export default function Fl32_Bwl_Front_Route_Home(spec) {
     const Action = spec['Fl32_Bwl_Front_Layout_TopActions#Item']; // class constructor
     /** @type {Fl32_Bwl_Front_Widget_Edit_Weight.widget} */
     const editWeight = spec['Fl32_Bwl_Front_Widget_Edit_Weight$'];
-    /** @type {Fl32_Bwl_Front_Gate_Profile_Get.gate} */
-    const gateProfile = spec['Fl32_Bwl_Front_Gate_Profile_Get$'];
-    const {
-        /** @type {Fl32_Bwl_Shared_Service_Route_Profile_Get_Request} */
-        Request
-    } = spec['Fl32_Bwl_Shared_Service_Route_Profile_Get']; // ES6 modules
+    /** @type {Fl32_Bwl_Front_DataSource_Weight} */
+    const dsWeights = spec['Fl32_Bwl_Front_DataSource_Weight$']; // instance singleton
     const {mapMutations, mapState} = spec[DEF.MOD_VUE.DI_VUEX];
 
     return {
@@ -108,20 +104,20 @@ export default function Fl32_Bwl_Front_Route_Home(spec) {
                 this.weightType = editWeight.TYPES.START;
                 this.weightEdit = this.start;
             },
-            editWeightSubmit(weight, type) {
-                if (type === editWeight.TYPES.CURRENT) {
-                    this.current = weight;
-                } else if (type === editWeight.TYPES.TARGET) {
-                    this.target = weight;
-                } else if (type === editWeight.TYPES.START) {
-                    this.start = weight;
-                }
+            async editWeightSubmit() {
+                await this.setWeights(true);
                 this.chartRedraw++;
             },
             editWeightTarget() {
                 this.dialogDisplay = true;
                 this.weightType = editWeight.TYPES.TARGET;
                 this.weightEdit = this.target;
+            },
+            async setWeights(forced = false) {
+                if (forced) await dsWeights.loadFromServer(true);
+                this.current = await dsWeights.getCurrent();
+                this.start = await dsWeights.getStart();
+                this.target = await dsWeights.getTarget();
             },
             ...mapMutations({
                 setStateUserAuthenticated: 'user/setAuthenticated',
@@ -144,13 +140,7 @@ export default function Fl32_Bwl_Front_Route_Home(spec) {
             // MAIN FUNCTIONALITY
             if (await session.checkUserAuthenticated(this.$router)) {
                 addTopActions();
-                /** @type {Fl32_Bwl_Shared_Service_Route_Profile_Get_Response} */
-                const res = await gateProfile(new Request());
-                if (res.profile) {
-                    this.current = res.profile.weightCurrent;
-                    this.start = res.profile.weightStart;
-                    this.target = res.profile.weightTarget;
-                }
+                await this.setWeights(true);
             }
         },
     };

@@ -1,9 +1,14 @@
 /**
- * Factory to create frontend gate to 'Weight/Stat/Save' service.
- * Use as "const gate = spec['Fl32_Bwl_Front_Gate_Weight_Stat_Save$']".
+ * Gate to use 'Weight/Stat/Save' service.
+ */
+// MODULE'S VARS
+const NS = 'Fl32_Bwl_Front_Gate_Weight_Stat_Save';
+
+/**
+ * Factory to create frontend gate.
  * @namespace Fl32_Bwl_Front_Gate_Weight_Stat_Save
  */
-export default function Factory(spec) {
+function Factory(spec) {
     /** @type {Fl32_Bwl_Defaults} */
     const DEF = spec['Fl32_Bwl_Defaults$'];    // instance singleton
     /** @type {TeqFw_Core_App_Front_Gate_Connect} */
@@ -26,6 +31,12 @@ export default function Factory(spec) {
     }
 
     // COMPOSE RESULT
-    Object.defineProperty(gate, 'name', {value: 'Fl32_Bwl_Front_Gate_Weight_Stat_Save.gate'});
+    Object.defineProperty(gate, 'name', {value: `${NS}.${gate.name}`});
     return gate;
 }
+
+// MODULE'S FUNCTIONALITY
+Object.defineProperty(Factory, 'name', {value: `${NS}.${Factory.name}`});
+
+// MODULE'S EXPORT
+export default Factory;
