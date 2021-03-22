@@ -5,11 +5,12 @@
  */
 // MODULE'S VARS
 const NS = 'Fl32_Bwl_Front_Widget_Edit_History';
+const EVT_DELETE = 'onDelete';
 const EVT_HIDE = 'onHide';
 const EVT_SUBMIT = 'onSubmit';
 
 const template = `
-<q-dialog :model-value="display" @hide="hide">
+<q-dialog :model-value="display" @hide="$emit('${EVT_HIDE}');">
     <q-card style="min-width: 350px">
         <q-card-section class="t-grid gutter-md align-items-center" style="grid-template-columns: auto auto; justify-items: center;">
             <div class="text-h7 text-right">{{$t('fld:date')}}</div>
@@ -28,6 +29,13 @@ const template = `
         </q-card-section>
 
         <q-card-actions align="right" class="text-primary">
+            <q-btn 
+                :disable="disableDelete" 
+                :label="$t('wg:editWeight.delete')" 
+                flat
+                v-close-popup 
+                v-on:click="deleteItem"
+            ></q-btn>
             <q-btn flat :label="$t('wg:editWeight.cancel')" v-close-popup></q-btn>
             <q-btn flat :label="$t('wg:editWeight.ok')" v-close-popup v-on:click="submit"></q-btn>
         </q-card-actions>
@@ -53,7 +61,8 @@ function Factory(spec) {
     const dialogDate = spec['Fl32_Bwl_Front_Widget_Dialog_Date$']; // vue comp tmpl
     /** @type {Fl32_Bwl_Front_Widget_Weight.vueCompTmpl} */
     const weight = spec['Fl32_Bwl_Front_Widget_Weight$']; // vue comp tmpl
-    const {formatDate} = spec['Fl32_Bwl_Shared_Util']; // ES6 module destructing
+    const {formatDate: dateForUi} = spec['Fl32_Bwl_Shared_Util']; // ES6 module destructing
+    const {formatDate: dateAsStr} = spec['TeqFw_Core_App_Shared_Util']; // ES6 module destructing
     /**
      * Template to create new instances using Vue.
      *
@@ -79,15 +88,20 @@ function Factory(spec) {
         },
         computed: {
             dateFormatted() {
-                return formatDate(i18n.language, this.selectedDate);
+                return dateForUi(i18n.language, this.selectedDate);
+            },
+            disableDelete() {
+                const selected = dateAsStr(this.selectedDate);
+                const now = dateAsStr(new Date());
+                return selected === now;
             },
         },
         methods: {
             /**
-             * Pass hide request to the parent.
+             * Pass date to delete the item to the parent.
              */
-            hide() {
-                this.$emit(EVT_HIDE);
+            deleteItem() {
+                this.$emit(EVT_DELETE, this.selectedDate);
             },
             /**
              * Receive date value from auxiliary dialog.
@@ -122,7 +136,7 @@ function Factory(spec) {
                 this.selectedWeight = current;
             }
         },
-        emits: [EVT_HIDE, EVT_SUBMIT],
+        emits: [EVT_DELETE, EVT_HIDE, EVT_SUBMIT],
         mounted() {
             this.selectedDate = this.date;
             this.selectedWeight = this.weight;

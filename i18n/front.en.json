@@ -36,6 +36,7 @@
       },
       "editWeight": {
         "cancel": "Cancel",
+        "delete": "Delete",
         "ok": "OK",
         "title": {
           "current": "Set current weight (kg)",

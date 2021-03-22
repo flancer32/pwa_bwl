@@ -34,6 +34,7 @@ const template = `
         :date="dateCurrent"
         :display="dialogDisplay"
         :weight="weightCurrent"
+        @onDelete="onEditHistoryRemove"
         @onHide="dialogDisplay=false"
         @onSubmit="onEditHistorySubmit"
     ></edit-history>
@@ -64,6 +65,10 @@ function Factory(spec) {
     const gateSave = spec['Fl32_Bwl_Front_Gate_Weight_Stat_Save$']; // function singleton
     /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save_Request} */
     const ReqSave = spec['Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save#Request']; // class constructor
+    /** @type {Fl32_Bwl_Front_Gate_Weight_History_Remove.gate} */
+    const gateRemove = spec['Fl32_Bwl_Front_Gate_Weight_History_Remove$']; // function singleton
+    /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_History_Remove_Request} */
+    const ReqRemove = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_Remove#Request']; // class constructor
     /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save_Types} */
     const TYPES = spec['Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save#Types'];
     const {formatDate} = spec['Fl32_Bwl_Shared_Util']; // ES6 module destructing
@@ -117,6 +122,12 @@ function Factory(spec) {
                 /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_List_Response} */
                 const res = await gateList(new ReqList());
                 this.rows = prepareItems(res.items);
+            },
+            async onEditHistoryRemove(date) {
+                const req = new ReqRemove();
+                req.date = date;
+                const res = await gateRemove(req);
+                if (res) await this.loadHistory();
             },
             async onEditHistorySubmit(date, weight) {
                 this.dateCurrent = date;

@@ -27,6 +27,7 @@ export default class Fl32_Bwl_Defaults {
     SERV_PROFILE_GET = '/profile/get';
     SERV_SIGN_UP_INIT = '/signUp/init';
     SERV_WEIGHT_HISTORY_LIST = '/weight/history/list';
+    SERV_WEIGHT_HISTORY_REMOVE = '/weight/history/remove';
     SERV_WEIGHT_STAT_SAVE = '/weight/stat/save';
 
     /** @type {TeqFw_Core_App_Defaults} */

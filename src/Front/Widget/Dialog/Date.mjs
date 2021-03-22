@@ -55,8 +55,14 @@ function Factory(spec) {
              * @param {String} value New model value
              */
             dateSelected(value) {
-                const date = new Date(value);
-                this.$emit(EVT_SUBMIT, date);
+                if (value === null) {
+                    // the same date is selected again (remove event), just return the same date
+                    this.$emit(EVT_SUBMIT, this.date);
+                } else {
+                    // new date is selected
+                    const date = new Date(value);
+                    this.$emit(EVT_SUBMIT, date);
+                }
             },
         },
         watch: {
