@@ -141,7 +141,7 @@ function Factory(spec) {
             },
             onRowClick(evt, row) {
                 const dateStr = row[ID];
-                this.dateCurrent = new Date(dateStr);
+                this.dateCurrent = new Date(`${dateStr}Z`); // add 'Z' to use as UTC
                 this.weightCurrent = Number.parseFloat(row[WEIGHT]);
                 this.dialogDisplay = true;
             }
