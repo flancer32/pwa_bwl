@@ -60,7 +60,7 @@ function Factory(spec) {
                     this.$emit(EVT_SUBMIT, this.date);
                 } else {
                     // new date is selected
-                    const date = new Date(value);
+                    const date = new Date(`${value}Z`); // add 'Z' to parse as UTC
                     this.$emit(EVT_SUBMIT, date);
                 }
             },
