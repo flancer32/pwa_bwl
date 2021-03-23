@@ -17,7 +17,7 @@ const template = `
             <q-input
                     dense
                     outlined
-                    v-model="name"
+                    v-model="groupName"
             ></q-input>
             <div class="text-h7 text-right">{{$t('wg:editGroup.owner')}}</div>
             <q-input
@@ -46,8 +46,9 @@ const template = `
             ></q-toggle>
             <div class="text-h7 text-right">{{$t('wg:editGroup.members')}}</div>
             <div>
-                <q-chip color="blue" label="alex"></q-chip>
-                <q-chip label="tanja"></q-chip>
+                <template v-for="one in members">
+                    <q-chip color="blue" :label="one.name"></q-chip>
+                </template>
             </div>
         </q-card-section>
 
@@ -56,14 +57,18 @@ const template = `
             <q-btn flat :label="$t('wg:editWeight.ok')" v-close-popup v-on:click="submit"></q-btn>
         </q-card-actions>
     </q-card>
-    <dialog-date
-            :display="dialogDateDisplay"
-            :value="selectedDate"
-            @onHide="dialogDateDisplay=false"
-            @onSubmit="onDateIsSelected"
-    ></dialog-date>
 </q-dialog>    
 `;
+
+// MODULE'S CLASSES
+/**
+ * Data object for group member (internal for this ES6 module).
+ * @memberOf Fl32_Bwl_Front_Widget_Edit_Group
+ */
+class DMember {
+    userId;
+    name;
+}
 
 // DEFINE MODULE'S FUNCTIONS
 /**
@@ -87,60 +92,61 @@ function Factory(spec) {
         components: {},
         data: function () {
             return {
-                active: true,
-                mode: 'Percents',
-                name: 'group name',
-                owner: 'John Doe',
+                active: Boolean,
+                dateCreated: Date,
+                groupName: String,
+                members: Array,
+                mode: String,
+                owner: String,
             };
         },
         props: {
-            date: Date, // date value been received from parent
+            /** @type {Fl32_Bwl_Shared_Service_Data_Group_Item} */
+            modelValue: null,
             display: Boolean, // control hide/display the widget from parent
-            weight: null, // weight value been received from parent
         },
         computed: {
             dateFormatted() {
-                return dateForUi(i18n.language, this.selectedDate);
+                return dateForUi(i18n.language, this.dateCreated);
             },
         },
         methods: {
-            /**
-             * Receive date value from auxiliary dialog.
-             * @param {Date} date
-             */
-            onDateIsSelected(date) {
-                this.dialogDateDisplay = false;
-                this.selectedDate = date;
-            },
-            onWeightUpdate(value) {
-                this.selectedWeight = value;
+            resetData() {
+                /** @type {Fl32_Bwl_Shared_Service_Data_Group_Item} */
+                const model = this.modelValue;
+                if (model) {
+                    this.active = model.active;
+                    this.dateCreated = model.date;
+                    this.groupName = model.groupName;
+                    this.mode = model.mode;
+                    this.owner = model.adminName;
+                    // members
+                    this.members = [];
+                    for (const userId of Object.keys(model.members)) {
+                        const item = new DMember();
+                        item.userId = userId;
+                        item.name = model.members[userId];
+                        this.members.push(item);
+                    }
+                }
             },
             /**
              * Pass selected values to the parent.
              */
             submit() {
-                this.$emit(EVT_SUBMIT, this.selectedDate, this.selectedWeight);
+                this.$emit(EVT_SUBMIT, this.groupName, this.owner);
             }
         },
         watch: {
-            date(current) {
-                this.selectedDate = current;
-            },
             display(current) {
                 // reset internal vars to parent values
-                if (current) {
-                    this.selectedDate = this.date;
-                    this.selectedWeight = this.weight;
-                }
+                if (current) this.resetData();
             },
-            weight(current) {
-                this.selectedWeight = current;
-            }
+
         },
         emits: [EVT_HIDE, EVT_SUBMIT],
         mounted() {
-            this.selectedDate = this.date;
-            this.selectedWeight = this.weight;
+            this.resetData();
         },
     };
 }

@@ -24,6 +24,7 @@ const template = `
     <edit-group
         :display="dialogDisplay"
         @onHide="dialogDisplay=false"
+        v-model="selectedItem"
     ></edit-group>
 </div>
 `;
@@ -65,12 +66,19 @@ function Factory(spec) {
         components: {editGroup},
         data() {
             return {
+                /** @type {Fl32_Bwl_Shared_Service_Data_Group_Item[]} */
+                rows: [],
                 dialogDisplay: false,
+                selectedItem: null,
             };
         },
         methods: {
             onRowClick(evt, row) {
                 const groupId = row[GROUP_ID];
+                this.selectedItem = null;
+                for (const one of this.rows) {
+                    if (one.groupId === groupId) this.selectedItem = one;
+                }
                 this.dialogDisplay = true;
             }
         },

@@ -8,6 +8,7 @@ class Fl32_Bwl_Shared_Service_Data_Group_Item {
     static A_DATE = 'date';
     static A_GROUP_ID = 'groupId';
     static A_GROUP_NAME = 'groupName';
+    static A_MEMBERS = 'members';
     static A_MODE = 'mode';
 
     /** @type {Boolean} 'true' if user has activated his membership in the group  */
