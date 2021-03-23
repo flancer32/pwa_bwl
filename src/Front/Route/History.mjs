@@ -1,6 +1,5 @@
 /**
- * Layout widget for context related actions.
- * This widget is placed into DI container as 'Fl32_Bwl_Defaults.DI_TOP_ACTIONS'.
+ * Root widget for 'History' route.
  *
  * @namespace Fl32_Bwl_Front_Route_History
  */
@@ -41,7 +40,13 @@ const template = `
 </div>
 `;
 
-
+// MODULE'S FUNCTIONS
+/**
+ * Factory to create template for new Vue component instances.
+ *
+ * @memberOf Fl32_Bwl_Front_Route_History
+ * @returns {Fl32_Bwl_Front_Route_History.vueCompTmpl}
+ */
 function Factory(spec) {
     /** @type {Fl32_Bwl_Defaults} */
     const DEF = spec['Fl32_Bwl_Defaults$'];    // instance singleton
@@ -198,7 +203,6 @@ function Factory(spec) {
         }
     };
 }
-
 
 // MODULE'S FUNCTIONALITY
 Object.defineProperty(Factory, 'name', {value: `${NS}.${Factory.name}`});

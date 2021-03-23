@@ -31,9 +31,15 @@
         "start": "Начальный",
         "target": "Целевой"
       },
-      "editHistory": {
-        "title": "Задать вес на дату"
+      "editGroup": {
+        "active": "Активна",
+        "dateCreated": "Дата создания",
+        "members": "Участники",
+        "mode": "Режим",
+        "name": "Название",
+        "owner": "Владелец"
       },
+      "editHistory": {},
       "editWeight": {
         "cancel": "Отмена",
         "delete": "Удалить",

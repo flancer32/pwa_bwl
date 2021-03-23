@@ -22,9 +22,10 @@ class Fl32_Bwl_Shared_Service_Data_Group_Item {
     groupId;
     /** @type {String} */
     groupName;
+    /** @type {Object.<Number, String>} */
+    members;
     /** @type {String} see DEF.DATA_SHARING_MODE_... */
     mode;
-
 }
 
 Object.freeze(Fl32_Bwl_Shared_Service_Data_Group_Item);

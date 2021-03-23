@@ -31,9 +31,15 @@
         "start": "Start",
         "target": "Target"
       },
-      "editHistory": {
-        "title": "Set weight for the date"
+      "editGroup": {
+        "active": "Active",
+        "dateCreated": "Created",
+        "members": "Members",
+        "mode": "Mode",
+        "name": "Name",
+        "owner": "Owner"
       },
+      "editHistory": {},
       "editWeight": {
         "cancel": "Cancel",
         "delete": "Delete",

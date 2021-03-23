@@ -1,5 +1,26 @@
+/**
+ * ervice to get weight stats data for the user.
+ *
+ * @namespace Fl32_Bwl_Back_Service_Group_List
+ */
+// MODULE'S IMPORT
 import {constants as H2} from 'http2';
 
+// MODULE'S CLASSES
+/**
+ * Data object for group member (internal for this ES6 module).
+ * @memberOf Fl32_Bwl_Back_Service_Group_List
+ */
+class DMember {
+    static GROUP_ID = 'groupId';
+    static USER_ID = 'userId';
+    static USER_NAME = 'userName';
+    groupId;
+    userId;
+    userName;
+}
+
+// MODULE'S EXPORT
 /**
  * Service to get weight stats data for the user.
  * @extends TeqFw_Http2_Back_Server_Handler_Api_Factory
@@ -72,6 +93,30 @@ export default class Fl32_Bwl_Back_Service_Group_List {
              */
             async function service(apiCtx) {
                 // DEFINE INNER FUNCTIONS
+                /**
+                 * @param {Fl32_Bwl_Shared_Service_Data_Group_Item[]} groups
+                 * @param {DMember[]} members
+                 * @returns {Fl32_Bwl_Shared_Service_Data_Group_Item[]}
+                 */
+                function placeMembersToGroups(groups, members) {
+                    // map groups by ID
+                    /** @type {Object.<Number, Fl32_Bwl_Shared_Service_Data_Group_Item>} */
+                    const map = {};
+                    for (const one of groups) map[one.groupId] = one;
+                    for (const one of members) {
+                        const group = map[one.groupId];
+                        if (typeof group.members !== 'object') group.members = {};
+                        group.members[one.userId] = one.userName;
+                    }
+
+                    return groups;
+                }
+
+                /**
+                 * @param trx
+                 * @param {Number} userId
+                 * @returns {Promise<Fl32_Bwl_Shared_Service_Data_Group_Item[]>}
+                 */
                 async function selectGroups(trx, userId) {
                     const result = [];
 
@@ -132,18 +177,53 @@ export default class Fl32_Bwl_Back_Service_Group_List {
                     return result;
                 }
 
+                async function selectMembers(trx, userId) {
+                    const result = [];
+
+                    const T_G = 'groups';
+                    const T_U = 'users';
+
+                    // select from group_user
+                    const query = trx.from({[T_G]: EGroupUser.ENTITY});
+                    query.select([
+                        {[DMember.GROUP_ID]: `${T_G}.${EGroupUser.A_GROUP_REF}`},
+                    ]);
+
+                    // join group_user
+                    query.leftOuterJoin(
+                        {[T_U]: EGroupUser.ENTITY},
+                        `${T_U}.${EGroupUser.A_GROUP_REF}`,
+                        `${T_G}.${EGroupUser.A_GROUP_REF}`);
+                    query.select([
+                        {[DMember.USER_ID]: `${T_U}.${EGroupUser.A_USER_REF}`},
+                        {[DMember.USER_NAME]: `${T_U}.${EGroupUser.A_NICK}`},
+                    ]);
+
+                    // where
+                    query.where(`${T_G}.${EGroupUser.A_USER_REF}`, userId);
+                    /** @type {Array} */
+                    const rs = await query;
+                    for (const one of rs) {
+                        const item = Object.assign(new DMember(), one);
+                        result.push(item);
+                    }
+                    return result;
+                }
+
                 // MAIN FUNCTIONALITY
                 const result = new ApiResult();
                 result.response = new Response();
                 const trx = await rdb.startTransaction();
-                /** @type {Fl32_Bwl_Shared_Service_Route_Group_List_Request} */
+                // /** @type {Fl32_Bwl_Shared_Service_Route_Group_List_Request} */
                 // const apiReq = apiCtx.request;
                 const shared = apiCtx.sharedContext;
                 try {
                     /** @type {Fl32_Teq_User_Shared_Service_Data_User} */
                     const user = shared[DEF.MOD_USER.HTTP_SHARE_CTX_USER];
                     if (user) {
-                        result.response.items = await selectGroups(trx, user.id);
+                        const groups = await selectGroups(trx, user.id);
+                        const members = await selectMembers(trx, user.id);
+                        result.response.items = placeMembersToGroups(groups, members);
                     } else {
                         result.headers[H2.HTTP2_HEADER_STATUS] = H2.HTTP_STATUS_UNAUTHORIZED;
                     }

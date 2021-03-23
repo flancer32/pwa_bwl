@@ -1,6 +1,11 @@
+/**
+ * Root widget for 'Groups' route.
+ *
+ * @namespace Fl32_Bwl_Front_Route_Groups
+ */
+// MODULE'S VARS
+const NS = 'Fl32_Bwl_Front_Route_Groups';
 const ACTIVE = 'active';
-const ADMIN_NAME = 'adminName';
-const DATE = 'date';
 const GROUP_ID = 'groupId';
 const GROUP_NAME = 'groupName';
 
@@ -10,15 +15,27 @@ const template = `
             :columns="columns"
             :rows-per-page-options="[0]"
             :rows="rows"
+            @row-click="onRowClick"
             hide-bottom
             hide-no-data
             row-key="${GROUP_ID}"
     >
     </q-table>
+    <edit-group
+        :display="dialogDisplay"
+        @onHide="dialogDisplay=false"
+    ></edit-group>
 </div>
 `;
 
-export default function Fl32_Bwl_Front_Route_Groups(spec) {
+// MODULE'S FUNCTIONS
+/**
+ * Factory to create template for new Vue component instances.
+ *
+ * @memberOf Fl32_Bwl_Front_Route_Groups
+ * @returns {Fl32_Bwl_Front_Route_Groups.vueCompTmpl}
+ */
+function Factory(spec) {
     /** @type {Fl32_Bwl_Defaults} */
     const DEF = spec['Fl32_Bwl_Defaults$'];    // instance singleton
     /** @type {Fl32_Teq_User_Front_App_Session} */
@@ -27,6 +44,8 @@ export default function Fl32_Bwl_Front_Route_Groups(spec) {
     const {ref} = spec[DEF.MOD_VUE.DI_VUE];    // destructuring instance singleton
     /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.IComponent} */
     const topActions = spec[DEF.DI_TOP_ACTIONS]; // Vue component singleton
+    /** @type {Fl32_Bwl_Front_Widget_Edit_Group} */
+    const editGroup = spec['Fl32_Bwl_Front_Widget_Edit_Group$']; // Vue component singleton
     /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.Item} */
     const Action = spec['Fl32_Bwl_Front_Layout_TopActions#Item']; // class constructor
     /** @type {Fl32_Bwl_Front_Gate_Group_List.gate} */
@@ -34,10 +53,31 @@ export default function Fl32_Bwl_Front_Route_Groups(spec) {
     /** @type {typeof Fl32_Bwl_Shared_Service_Route_Group_List_Response} */
     const Request = spec['Fl32_Bwl_Shared_Service_Route_Group_List#Response']; // class constructor
 
+    /**
+     * Template to create new component instances using Vue.
+     *
+     * @const {Object} vueCompTmpl
+     * @memberOf Fl32_Bwl_Front_Route_Groups
+     */
     return {
-        name: 'RouteGroups',
+        name: NS,
         template,
+        components: {editGroup},
+        data() {
+            return {
+                dialogDisplay: false,
+            };
+        },
+        methods: {
+            onRowClick(evt, row) {
+                const groupId = row[GROUP_ID];
+                this.dialogDisplay = true;
+            }
+        },
         async mounted() {
+            // PARSE INPUT & DEFINE WORKING VARS
+            const me = this;
+
             // DEFINE INNER FUNCTIONS
             /**
              * Reset Top Actions on component re-mount.
@@ -46,7 +86,7 @@ export default function Fl32_Bwl_Front_Route_Groups(spec) {
                 const actAdd = new Action();
                 actAdd.icon = 'add';
                 actAdd.action = function () {
-                    console.log('add group');
+                    me.dialogDisplay = true;
                 };
                 topActions.setActions([actAdd]);
             }
@@ -61,11 +101,11 @@ export default function Fl32_Bwl_Front_Route_Groups(spec) {
         },
         setup() {
             const columns = [
-                {name: DATE, label: i18n.t('groups.date'), field: DATE, align: 'left'},
+                // {name: DATE, label: i18n.t('groups.date'), field: DATE, align: 'left'},
                 {name: GROUP_NAME, label: i18n.t('groups.name'), field: GROUP_NAME, align: 'left'},
-                {name: ADMIN_NAME, label: i18n.t('groups.admin'), field: ADMIN_NAME, align: 'left'},
+                // {name: ADMIN_NAME, label: i18n.t('groups.admin'), field: ADMIN_NAME, align: 'left'},
                 {name: ACTIVE, label: i18n.t('groups.active'), field: ACTIVE, align: 'right'},
-                {name: GROUP_ID, label: i18n.t('groups.id'), field: GROUP_ID, align: 'right'},
+                // {name: GROUP_ID, label: i18n.t('groups.id'), field: GROUP_ID, align: 'right'},
             ];
             const loading = ref(false);
             const rows = ref([]);
@@ -77,3 +117,9 @@ export default function Fl32_Bwl_Front_Route_Groups(spec) {
         }
     };
 }
+
+// MODULE'S FUNCTIONALITY
+Object.defineProperty(Factory, 'name', {value: `${NS}.${Factory.name}`});
+
+// MODULE'S EXPORT
+export default Factory;
