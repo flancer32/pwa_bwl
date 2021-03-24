@@ -34,8 +34,8 @@ function Factory(spec) {
     const eUserIdPhone = spec['Fl32_Teq_User_Store_RDb_Schema_Id_Phone$']; // instance singleton
     /** @type {Fl32_Teq_User_Store_RDb_Schema_Profile} */
     const eUserProfile = spec['Fl32_Teq_User_Store_RDb_Schema_Profile$']; // instance singleton
-    /** @type {Fl32_Teq_User_Store_RDb_Schema_Ref_Link} */
-    const eUserRefLink = spec['Fl32_Teq_User_Store_RDb_Schema_Ref_Link$']; // instance singleton
+    /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Ref_Link} */
+    const EUserRefLink = spec['Fl32_Teq_User_Store_RDb_Schema_Ref_Link#']; // class constructor
     /** @type {Fl32_Teq_User_Store_RDb_Schema_Ref_Tree} */
     const eUserRefTree = spec['Fl32_Teq_User_Store_RDb_Schema_Ref_Tree$']; // instance singleton
 
@@ -95,7 +95,7 @@ function Factory(spec) {
             result[eUserIdEmail.ENTITY] = await trx.select().from(eUserIdEmail.ENTITY);
             result[eUserIdPhone.ENTITY] = await trx.select().from(eUserIdPhone.ENTITY);
             result[eUserProfile.ENTITY] = await trx.select().from(eUserProfile.ENTITY);
-            result[eUserRefLink.ENTITY] = await trx.select().from(eUserRefLink.ENTITY);
+            result[EUserRefLink.ENTITY] = await trx.select().from(EUserRefLink.ENTITY);
             result[eUserRefTree.ENTITY] = await trx.select().from(eUserRefTree.ENTITY);
             // serials for Postgres
             const isPg = trx.client.constructor.name === 'Client_PG';

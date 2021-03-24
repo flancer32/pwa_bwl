@@ -40,8 +40,8 @@ function Factory(spec) {
     const eIdPhone = spec['Fl32_Teq_User_Store_RDb_Schema_Id_Phone$']; // instance singleton
     /** @type {Fl32_Teq_User_Store_RDb_Schema_Profile} */
     const eProfile = spec['Fl32_Teq_User_Store_RDb_Schema_Profile$']; // instance singleton
-    /** @type {Fl32_Teq_User_Store_RDb_Schema_Ref_Link} */
-    const eRefLink = spec['Fl32_Teq_User_Store_RDb_Schema_Ref_Link$']; // instance singleton
+    /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Ref_Link} */
+    const ERefLink = spec['Fl32_Teq_User_Store_RDb_Schema_Ref_Link#']; // class constructor
     /** @type {Fl32_Teq_User_Store_RDb_Schema_Ref_Tree} */
     const eRefTree = spec['Fl32_Teq_User_Store_RDb_Schema_Ref_Tree$']; // instance singleton
     /** @type {Fl32_Teq_User_Store_RDb_Schema_User} */
@@ -187,12 +187,16 @@ function Factory(spec) {
                     [eIdPhone.A_PHONE]: '(371)29181801',
                     [eIdPhone.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
                 });
-                await trx(eRefLink.ENTITY).insert([{
-                    [eRefLink.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
-                    [eRefLink.A_CODE]: DEF.DATA_REF_CODE_ROOT,
+                const expiredAt = new Date();
+                expiredAt.setUTCDate(expiredAt.getUTCDate() + 1);
+                await trx(ERefLink.ENTITY).insert([{
+                    [ERefLink.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                    [ERefLink.A_CODE]: DEF.DATA_REF_CODE_ROOT,
+                    [ERefLink.A_DATE_EXPIRED]: expiredAt,
                 }, {
-                    [eRefLink.A_USER_REF]: DEF.DATA_USER_ID_CUST,
-                    [eRefLink.A_CODE]: DEF.DATA_REF_CODE_OTHER,
+                    [ERefLink.A_USER_REF]: DEF.DATA_USER_ID_CUST,
+                    [ERefLink.A_CODE]: DEF.DATA_REF_CODE_OTHER,
+                    [ERefLink.A_DATE_EXPIRED]: expiredAt,
                 }]);
                 // users tree
                 await trx(eRefTree.ENTITY).insert([

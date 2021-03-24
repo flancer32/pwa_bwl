@@ -34,8 +34,8 @@ function Factory(spec) {
     const eUserIdPhone = spec['Fl32_Teq_User_Store_RDb_Schema_Id_Phone$']; // instance singleton
     /** @type {Fl32_Teq_User_Store_RDb_Schema_Profile} */
     const eUserProfile = spec['Fl32_Teq_User_Store_RDb_Schema_Profile$']; // instance singleton
-    /** @type {Fl32_Teq_User_Store_RDb_Schema_Ref_Link} */
-    const eUserRefLink = spec['Fl32_Teq_User_Store_RDb_Schema_Ref_Link$']; // instance singleton
+    /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Ref_Link} */
+    const EUserRefLink = spec['Fl32_Teq_User_Store_RDb_Schema_Ref_Link#']; // class constructor
     /** @type {Fl32_Teq_User_Store_RDb_Schema_Ref_Tree} */
     const eUserRefTree = spec['Fl32_Teq_User_Store_RDb_Schema_Ref_Tree$']; // instance singleton
 
@@ -83,7 +83,7 @@ function Factory(spec) {
             await trx(eUserIdEmail.ENTITY).insert(dump[eUserIdEmail.ENTITY]);
             await trx(eUserIdPhone.ENTITY).insert(dump[eUserIdPhone.ENTITY]);
             await trx(eUserProfile.ENTITY).insert(dump[eUserProfile.ENTITY]);
-            await trx(eUserRefLink.ENTITY).insert(dump[eUserRefLink.ENTITY]);
+            //await trx(EUserRefLink.ENTITY).insert(dump[EUserRefLink.ENTITY]); TODO: uncomment it
             await trx(eUserRefTree.ENTITY).insert(dump[eUserRefTree.ENTITY]);
             // app
             await trx(EGroup.ENTITY).insert(dump[EGroup.ENTITY]);
