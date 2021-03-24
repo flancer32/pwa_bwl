@@ -15,6 +15,15 @@ export default class Fl32_Bwl_Defaults {
     DI_CHART = 'appChart'; // DI container label for Chart library (https://www.chartjs.org/).
     DI_TOP_ACTIONS = 'appTopActions'; // DI container label for Top Actions widget
 
+    /** @type {TeqFw_Core_App_Defaults} */
+    MOD_CORE;
+    /** @type {TeqFw_Ui_Quasar_Defaults} */
+    MOD_QUASAR;
+    /** @type {Fl32_Teq_User_Defaults} */
+    MOD_USER;
+    /** @type {TeqFw_Vue_Defaults} */
+    MOD_VUE;
+
     ROUTE_GROUPS = '/groups'; // frontend routes
     ROUTE_HISTORY = '/history';
     ROUTE_HOME = '/';
@@ -29,15 +38,6 @@ export default class Fl32_Bwl_Defaults {
     SERV_WEIGHT_HISTORY_LIST = '/weight/history/list';
     SERV_WEIGHT_HISTORY_REMOVE = '/weight/history/remove';
     SERV_WEIGHT_STAT_SAVE = '/weight/stat/save';
-
-    /** @type {TeqFw_Core_App_Defaults} */
-    MOD_CORE;
-    /** @type {TeqFw_Ui_Quasar_Defaults} */
-    MOD_QUASAR;
-    /** @type {Fl32_Teq_User_Defaults} */
-    MOD_USER;
-    /** @type {TeqFw_Vue_Defaults} */
-    MOD_VUE;
 
     constructor(spec) {
         this.MOD_CORE = spec['TeqFw_Core_App_Defaults$']; // instance singleton
