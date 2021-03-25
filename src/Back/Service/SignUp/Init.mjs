@@ -75,7 +75,7 @@ export default class Fl32_Bwl_Back_Service_SignUp_Init {
                 const apiReq = apiCtx.request;
                 const shared = apiCtx.sharedContext;
                 try {
-                    /** @type {Fl32_Teq_User_Shared_Service_Data_User} */
+                    /** @type {Fl32_Teq_User_Shared_Api_Data_User} */
                     const user = shared[DEF.MOD_USER.HTTP_SHARE_CTX_USER];
                     if (user) {
                         const entity = new EProfile();
