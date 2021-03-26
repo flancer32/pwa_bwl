@@ -6,7 +6,10 @@
         "admin": "Admin",
         "date": "Date",
         "id": "ID",
-        "name": "Name"
+        "name": "Name",
+        "share": {
+          "welcome": "Welcome to the Club!"
+        }
       },
       "history": {
         "date": "Date",

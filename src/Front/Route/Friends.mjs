@@ -39,6 +39,8 @@ const template = `
 function Factory(spec) {
     /** @type {Fl32_Bwl_Defaults} */
     const DEF = spec['Fl32_Bwl_Defaults$'];    // instance singleton
+    /** @type {TeqFw_Core_App_Front_Data_Config} */
+    const config = spec[DEF.MOD_CORE.DI_CONFIG]; // named singleton
     /** @type {Fl32_Teq_User_Front_App_Session} */
     const session = spec[DEF.MOD_USER.DI_SESSION];  // named singleton
     const i18n = spec[DEF.MOD_CORE.DI_I18N]; // named singleton
@@ -49,6 +51,11 @@ function Factory(spec) {
     const editGroup = spec['Fl32_Bwl_Front_Widget_Edit_Group$']; // Vue component singleton
     /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.Item} */
     const Action = spec['Fl32_Bwl_Front_Layout_TopActions#Item']; // class constructor
+    /** @function {@type Fl32_Teq_User_Front_Gate_RefLink_Create.gate} */
+    const gateRefLinkCreate = spec['Fl32_Teq_User_Front_Gate_RefLink_Create$']; // function singleton
+    /** @type {typeof Fl32_Teq_User_Shared_Service_Route_RefLink_Create_Request} */
+    const ReqRefLinkCreate = spec['Fl32_Teq_User_Shared_Service_Route_RefLink_Create#Request']; // class constructor
+
 
     /**
      * Template to create new component instances using Vue.
@@ -88,8 +95,35 @@ function Factory(spec) {
             function addTopActions() {
                 const actAdd = new Action();
                 actAdd.icon = 'add';
-                actAdd.action = function () {
-                    me.dialogDisplay = true;
+                actAdd.action = async function () {
+                    // DEFINE INNER FUNCTIONS
+                    async function addNew() {
+                        try {
+                            const req = new ReqRefLinkCreate();
+                            /** @type {Fl32_Teq_User_Shared_Service_Route_RefLink_Create_Response} */
+                            const res = await gateRefLinkCreate(req);
+                            const code = res.link.refCode;
+                            const data = {
+                                title: 'Bruderschaft Weight Loss',
+                                text: i18n.t('friends.share.welcome'),
+                                url: `https://${config.urlBase}/signUp/ref=${code}`,
+                            };
+                            await navigator.share(data);
+                        } catch (err) {
+                            console.log(`error: ${err}`);
+                        }
+                    }
+
+                    async function editSelected() {
+                        me.dialogDisplay = true;
+                    }
+
+                    // MAIN FUNCTIONALITY
+                    if (me.selectedItem) {
+                        editSelected();
+                    } else {
+                        addNew();
+                    }
                 };
                 topActions.setActions([actAdd]);
             }
