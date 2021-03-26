@@ -18,7 +18,7 @@ export default function Fl32_Bwl_Front_App(spec) {
     app.component('LayoutCentered', layoutCentered);
 
     // setup application routes
-    router.addRoute({path: DEF.ROUTE_GROUPS, component: () => container.get('Fl32_Bwl_Front_Route_Groups$')});
+    router.addRoute({path: DEF.ROUTE_FRIENDS, component: () => container.get('Fl32_Bwl_Front_Route_Friends$')});
     router.addRoute({path: DEF.ROUTE_HISTORY, component: () => container.get('Fl32_Bwl_Front_Route_History$')});
     router.addRoute({path: DEF.ROUTE_HOME, component: () => container.get('Fl32_Bwl_Front_Route_Home$')});
     router.addRoute({path: DEF.ROUTE_SETTINGS, component: () => container.get('Fl32_Bwl_Front_Route_Settings$')});

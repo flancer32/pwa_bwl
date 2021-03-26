@@ -1,4 +1,12 @@
-const template = `
+function Fl32_Bwl_Front_Layout_Base(spec) {
+    /** @type {Fl32_Bwl_Defaults} */
+    const DEF = spec['Fl32_Bwl_Defaults$'];
+    const {mapState} = spec[DEF.MOD_VUE.DI_VUEX];
+    const {ref} = spec[DEF.MOD_VUE.DI_VUE];
+    /** @type {Fl32_Bwl_Front_Layout_TopActions} */
+    const topActions = spec['Fl32_Bwl_Front_Layout_TopActions$']; // Vue component singleton
+
+    const template = `
 <q-layout view="hHh lpr fFf">
     <q-header reveal elevated glossy class="bg-primary text-white">
         <q-bar>
@@ -16,22 +24,14 @@ const template = `
 
       <q-footer elevated>
         <q-toolbar class="t-grid cols">
-            <q-btn dense flat icon="settings" v-on:click="$router.push('/settings')"></q-btn>
-            <q-btn dense flat icon="group" v-on:click="$router.push('/groups')"></q-btn>
-            <q-btn dense flat icon="history" v-on:click="$router.push('/history')"></q-btn>
-            <q-btn dense flat icon="home" v-on:click="$router.push('/')"></q-btn>
+            <q-btn dense flat icon="settings" v-on:click="$router.push('${DEF.ROUTE_SETTINGS}')"></q-btn>
+            <q-btn dense flat icon="group" v-on:click="$router.push('${DEF.ROUTE_FRIENDS}')"></q-btn>
+            <q-btn dense flat icon="history" v-on:click="$router.push('${DEF.ROUTE_HISTORY}')"></q-btn>
+            <q-btn dense flat icon="home" v-on:click="$router.push('${DEF.ROUTE_HOME}')"></q-btn>
         </q-toolbar>
       </q-footer>
 </q-layout>
 `;
-
-function Fl32_Bwl_Front_Layout_Base(spec) {
-    /** @type {Fl32_Bwl_Defaults} */
-    const DEF = spec['Fl32_Bwl_Defaults$'];
-    const {mapState} = spec[DEF.MOD_VUE.DI_VUEX];
-    const {ref} = spec[DEF.MOD_VUE.DI_VUE];
-    /** @type {Fl32_Bwl_Front_Layout_TopActions} */
-    const topActions = spec['Fl32_Bwl_Front_Layout_TopActions$']; // Vue component singleton
 
     return {
         name: 'BaseLayout',

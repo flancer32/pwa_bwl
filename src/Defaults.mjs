@@ -24,7 +24,7 @@ export default class Fl32_Bwl_Defaults {
     /** @type {TeqFw_Vue_Defaults} */
     MOD_VUE;
 
-    ROUTE_GROUPS = '/groups'; // frontend routes
+    ROUTE_FRIENDS = '/friends'; // frontend routes
     ROUTE_HISTORY = '/history';
     ROUTE_HOME = '/';
     ROUTE_SETTINGS = '/settings';
