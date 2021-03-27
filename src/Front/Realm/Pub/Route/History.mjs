@@ -1,10 +1,10 @@
 /**
  * Root widget for 'History' route.
  *
- * @namespace Fl32_Bwl_Front_Route_History
+ * @namespace Fl32_Bwl_Front_Realm_Pub_Route_History
  */
 // MODULE'S VARS
-const NS = 'Fl32_Bwl_Front_Route_History';
+const NS = 'Fl32_Bwl_Front_Realm_Pub_Route_History';
 const DATE = 'date';
 const DELTA = 'delta';
 const ID = 'id';
@@ -44,8 +44,8 @@ const template = `
 /**
  * Factory to create template for new Vue component instances.
  *
- * @memberOf Fl32_Bwl_Front_Route_History
- * @returns {Fl32_Bwl_Front_Route_History.vueCompTmpl}
+ * @memberOf Fl32_Bwl_Front_Realm_Pub_Route_History
+ * @returns {Fl32_Bwl_Front_Realm_Pub_Route_History.vueCompTmpl}
  */
 function Factory(spec) {
     /** @type {Fl32_Bwl_Defaults} */
@@ -82,7 +82,7 @@ function Factory(spec) {
      * Template to create new component instances using Vue.
      *
      * @const {Object} vueCompTmpl
-     * @memberOf Fl32_Bwl_Front_Route_History
+     * @memberOf Fl32_Bwl_Front_Realm_Pub_Route_History
      */
     return {
         name: NS,

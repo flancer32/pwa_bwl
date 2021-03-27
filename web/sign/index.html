@@ -2,10 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="description" content="Bruderschaft Weight Loss">
+    <meta name="description" content="Sign up realm for Bruderschaft Weight Loss">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>BWL</title>
-    <link rel="manifest" href="pwa.webmanifest">
+    <title>BWL Sign Up</title>
     <link href="./web/@teqfw/ui-quasar/styles.css" rel="stylesheet" type="text/css">
     <link href="./src/quasar/quasar.prod.css" rel="stylesheet" type="text/css">
 
@@ -152,7 +151,7 @@
                 await initVuex(app, container, DEF, self.Vuex);
                 await initSession(container, DEF);
                 // load root component and mount frontend application to DOM
-                const appRoot = await container.get('Fl32_Bwl_Front_Realm_Pub_App$$');   // new component
+                const appRoot = await container.get('Fl32_Bwl_Front_Realm_Sign_App$$');   // new component
                 app.component('appRoot', appRoot);
                 // mount Vue application to the page
                 app.mount('BODY > DIV');
@@ -160,38 +159,7 @@
                 console.error("Error in bootstrap: " + e + "\n" + e.stack);
             }
         }
-
-        if ("serviceWorker" in navigator) { // if browser supports service workers
-            // ... then add event handler to run script after window will be loaded
-            // (https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event)
-            self.addEventListener("load", async () => {
-                const container = navigator.serviceWorker;
-                if (container.controller === null) {
-                    // ... to load "sw.js" script and register service worker in navigator
-                    try {
-                        const reg = await container.register("sw.js");
-                        if (reg.active) {
-                            console.log("SW is registered and is active.", reg);
-                            await bootstrap();
-                        } else {
-                            console.log("SW is registered but is not activated yet.", reg);
-                            // wait for `controllerchange` (see `clients.claim()` in SW code on `activate` event)
-                            container.addEventListener("controllerchange", async () => {
-                                // SW just installed (page's first load).
-                                await bootstrap();
-                            });
-                        }
-                    } catch (e) {
-                        console.error("SW registration is failed: " + e + "\n" + e.stack)
-                    }
-                } else {
-                    // SW already installed before (repeated loading of the page).
-                    console.log("SW is already running for this app.");
-                    await bootstrap();
-                }
-
-            });
-        }
+        self.addEventListener("load", bootstrap);
     </script>
 </head>
 <body>
@@ -204,16 +172,10 @@
 <script type="application/javascript" src="./src/vuex/vuex.global.js"></script>
 <script type="application/javascript" src="./src/i18next/i18next.min.js"></script>
 <script type="application/javascript" src="./src/i18next-detect/i18nextBrowserLanguageDetector.js"></script>
-
 <script type="application/javascript" src="./src/quasar/quasar.umd.prod.js"></script>
 <script type="application/javascript" src="./src/quasar/icon-set/svg-material-icons.umd.prod.js"></script>
 
-<!-- This app libs -->
-<script type="application/javascript" src="js/Chart.bundle.min.js">/* https://www.chartjs.org/ */</script>
-
-
 <!-- load application styles -->
-<!--<link rel="stylesheet" href="./css/Chart.min.css">-->
 <link rel="stylesheet" href="styles.css">
 </body>
 </html>

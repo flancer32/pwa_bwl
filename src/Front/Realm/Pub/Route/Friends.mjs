@@ -1,13 +1,13 @@
 /**
- * Root widget for 'Groups' route.
+ * Root widget for 'Friends' route.
  *
- * @namespace Fl32_Bwl_Front_Route_Groups
+ * @namespace Fl32_Bwl_Front_Realm_Pub_Route_Friends
  */
 // MODULE'S VARS
-const NS = 'Fl32_Bwl_Front_Route_Groups';
+const NS = 'Fl32_Bwl_Front_Realm_Pub_Route_Friends';
 const ACTIVE = 'active';
-const GROUP_ID = 'groupId';
-const GROUP_NAME = 'groupName';
+const FRIEND_ID = 'friendId';
+const FRIEND_NAME = 'friendName';
 
 const template = `
 <div>
@@ -18,7 +18,7 @@ const template = `
             @row-click="onRowClick"
             hide-bottom
             hide-no-data
-            row-key="${GROUP_ID}"
+            row-key="${FRIEND_ID}"
     >
     </q-table>
     <edit-group
@@ -33,12 +33,14 @@ const template = `
 /**
  * Factory to create template for new Vue component instances.
  *
- * @memberOf Fl32_Bwl_Front_Route_Groups
- * @returns {Fl32_Bwl_Front_Route_Groups.vueCompTmpl}
+ * @memberOf Fl32_Bwl_Front_Realm_Pub_Route_Friends
+ * @returns {Fl32_Bwl_Front_Realm_Pub_Route_Friends.vueCompTmpl}
  */
 function Factory(spec) {
     /** @type {Fl32_Bwl_Defaults} */
     const DEF = spec['Fl32_Bwl_Defaults$'];    // instance singleton
+    /** @type {TeqFw_Core_App_Front_Data_Config} */
+    const config = spec[DEF.MOD_CORE.DI_CONFIG]; // named singleton
     /** @type {Fl32_Teq_User_Front_App_Session} */
     const session = spec[DEF.MOD_USER.DI_SESSION];  // named singleton
     const i18n = spec[DEF.MOD_CORE.DI_I18N]; // named singleton
@@ -49,16 +51,17 @@ function Factory(spec) {
     const editGroup = spec['Fl32_Bwl_Front_Widget_Edit_Group$']; // Vue component singleton
     /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.Item} */
     const Action = spec['Fl32_Bwl_Front_Layout_TopActions#Item']; // class constructor
-    /** @type {Fl32_Bwl_Front_Gate_Group_List.gate} */
-    const gate = spec['Fl32_Bwl_Front_Gate_Group_List$']; // function singleton
-    /** @type {typeof Fl32_Bwl_Shared_Service_Route_Group_List_Response} */
-    const Request = spec['Fl32_Bwl_Shared_Service_Route_Group_List#Response']; // class constructor
+    /** @function {@type Fl32_Teq_User_Front_Gate_RefLink_Create.gate} */
+    const gateRefLinkCreate = spec['Fl32_Teq_User_Front_Gate_RefLink_Create$']; // function singleton
+    /** @type {typeof Fl32_Teq_User_Shared_Service_Route_RefLink_Create_Request} */
+    const ReqRefLinkCreate = spec['Fl32_Teq_User_Shared_Service_Route_RefLink_Create#Request']; // class constructor
+
 
     /**
      * Template to create new component instances using Vue.
      *
      * @const {Object} vueCompTmpl
-     * @memberOf Fl32_Bwl_Front_Route_Groups
+     * @memberOf Fl32_Bwl_Front_Realm_Pub_Route_Friends
      */
     return {
         name: NS,
@@ -66,7 +69,6 @@ function Factory(spec) {
         components: {editGroup},
         data() {
             return {
-                /** @type {Fl32_Bwl_Shared_Service_Data_Group_Item[]} */
                 rows: [],
                 dialogDisplay: false,
                 selectedItem: null,
@@ -74,10 +76,10 @@ function Factory(spec) {
         },
         methods: {
             onRowClick(evt, row) {
-                const groupId = row[GROUP_ID];
+                const friendId = row[FRIEND_ID];
                 this.selectedItem = null;
                 for (const one of this.rows) {
-                    if (one.groupId === groupId) this.selectedItem = one;
+                    if (one.friendId === friendId) this.selectedItem = one;
                 }
                 this.dialogDisplay = true;
             }
@@ -93,8 +95,35 @@ function Factory(spec) {
             function addTopActions() {
                 const actAdd = new Action();
                 actAdd.icon = 'add';
-                actAdd.action = function () {
-                    me.dialogDisplay = true;
+                actAdd.action = async function () {
+                    // DEFINE INNER FUNCTIONS
+                    async function addNew() {
+                        try {
+                            const req = new ReqRefLinkCreate();
+                            /** @type {Fl32_Teq_User_Shared_Service_Route_RefLink_Create_Response} */
+                            const res = await gateRefLinkCreate(req);
+                            const code = res.link.refCode;
+                            const data = {
+                                title: 'Bruderschaft Weight Loss',
+                                text: i18n.t('friends.share.welcome'),
+                                url: `https://${config.urlBase}/signUp/ref=${code}`,
+                            };
+                            await navigator.share(data);
+                        } catch (err) {
+                            console.log(`error: ${err}`);
+                        }
+                    }
+
+                    async function editSelected() {
+                        me.dialogDisplay = true;
+                    }
+
+                    // MAIN FUNCTIONALITY
+                    if (me.selectedItem) {
+                        editSelected();
+                    } else {
+                        addNew();
+                    }
                 };
                 topActions.setActions([actAdd]);
             }
@@ -102,18 +131,13 @@ function Factory(spec) {
             // MAIN FUNCTIONALITY
             if (await session.checkUserAuthenticated(this.$router)) {
                 addTopActions();
-                /** @type {Fl32_Bwl_Shared_Service_Route_Group_List_Response} */
-                const res = await gate(new Request());
-                this.rows = res.items;
+                this.rows = [];
             }
         },
         setup() {
             const columns = [
-                // {name: DATE, label: i18n.t('groups.date'), field: DATE, align: 'left'},
-                {name: GROUP_NAME, label: i18n.t('groups.name'), field: GROUP_NAME, align: 'left'},
-                // {name: ADMIN_NAME, label: i18n.t('groups.admin'), field: ADMIN_NAME, align: 'left'},
-                {name: ACTIVE, label: i18n.t('groups.active'), field: ACTIVE, align: 'right'},
-                // {name: GROUP_ID, label: i18n.t('groups.id'), field: GROUP_ID, align: 'right'},
+                {name: FRIEND_NAME, label: i18n.t('friends.name'), field: FRIEND_NAME, align: 'left'},
+                {name: ACTIVE, label: i18n.t('friends.active'), field: ACTIVE, align: 'right'},
             ];
             const loading = ref(false);
             const rows = ref([]);
@@ -126,8 +150,8 @@ function Factory(spec) {
     };
 }
 
-// MODULE'S FUNCTIONALITY
-Object.defineProperty(Factory, 'name', {value: `${NS}.${Factory.name}`});
-
 // MODULE'S EXPORT
-export default Factory;
+Object.defineProperty(Factory, 'name', {value: `${NS}.${Factory.name}`});
+export {
+    Factory as default,
+};

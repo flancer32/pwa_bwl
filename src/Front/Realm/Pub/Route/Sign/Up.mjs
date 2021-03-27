@@ -67,7 +67,7 @@ const tmplSignUp = `
 </form>
 `;
 
-export default function Fl32_Bwl_Front_Route_Sign_Up(spec) {
+export default function Fl32_Bwl_Front_Realm_Pub_Route_Sign_Up(spec) {
     /** @type {Fl32_Bwl_Defaults} */
     const DEF = spec['Fl32_Bwl_Defaults$'];    // instance singleton
     /** @type {Fl32_Teq_User_Front_App_Session} */

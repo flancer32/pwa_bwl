@@ -15,7 +15,7 @@ const template = `
 </layout-centered>
 `;
 
-export default function Fl32_Bwl_Front_Route_Sign_In(spec) {
+export default function Fl32_Bwl_Front_Realm_Pub_Route_Sign_In(spec) {
     /** @type {Fl32_Bwl_Defaults} */
     const DEF = spec['Fl32_Bwl_Defaults$'];    // instance singleton
     /** @type {Fl32_Teq_User_Front_App_Session} */
@@ -34,7 +34,7 @@ export default function Fl32_Bwl_Front_Route_Sign_In(spec) {
         components: {layoutCentered, userSignIn},
         data: function () {
             return {
-                out: 'Fl32_Bwl_Front_App',
+                out: 'Fl32_Bwl_Front_Realm_Pub_App',
                 signIn: new SignInProps(),
             };
         },

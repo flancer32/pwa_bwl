@@ -87,7 +87,7 @@ const template = `
  * @returns {Object}
  * @namespace
  */
-export default function Fl32_Bwl_Front_Route_Sign_Up_Init(spec) {
+export default function Fl32_Bwl_Front_Realm_Pub_Route_Sign_Up_Init(spec) {
     /** @type {Fl32_Bwl_Defaults} */
     const DEF = spec['Fl32_Bwl_Defaults$'];    // instance singleton
     /** @type {Fl32_Teq_User_Front_App_Session} */
