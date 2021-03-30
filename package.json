@@ -44,6 +44,9 @@
     "autoload": {
       "ns": "Fl32_Bwl",
       "path": "./src"
+    },
+    "http2": {
+      "realms": ["pub", "sign"]
     }
   }
 }
