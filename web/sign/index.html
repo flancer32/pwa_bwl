@@ -11,6 +11,7 @@
     <script>
         async function bootstrap() {
             const API = './api';
+            const REALM = 'sign';
 
             // DEFINE INNER FUNCTIONS
             /**
@@ -26,13 +27,13 @@
                  */
                 async function loadNamespaces() {
                     // load frontend configuration and user profile
-                    const res = await fetch(`${API}/core/load/namespaces`);
+                    const res = await fetch(`./${API}/core/load/namespaces`);
                     const json = await res.json();
                     return json.data;
                 }
 
                 // MAIN FUNCTIONALITY
-                const baseUrl = location.origin;
+                const baseUrl = `${location.origin}/${REALM}`;
                 // create and setup DI Container
                 const modContainer = await import('./src/@teqfw/di/Container.mjs');
                 /** @type {TeqFw_Di_Container} */
@@ -55,12 +56,12 @@
              */
             async function loadConfig(container) {
                 // load frontend configuration and user profile
-                const res = await fetch(`${API}/core/load/config`);
+                const res = await fetch(`./${API}/core/load/config`);
                 const json = await res.json();
                 const DConfig = await container.get('TeqFw_Core_App_Front_Data_Config#'); // class constructor
                 /** @type {TeqFw_Core_App_Front_Data_Config} */
                 const result = Object.assign(new DConfig(), json.data);
-                result.realm = 'pub';
+                result.realm = REALM;
                 return result;
             }
 
@@ -108,8 +109,8 @@
              * @param {Object} Vuex
              */
             async function initVuex(app, container, DEF, Vuex) {
-                /** @type {Fl32_Bwl_Front_Realm_Pub_State} */
-                const state = await container.get('Fl32_Bwl_Front_Realm_Pub_State$'); // object singleton
+                /** @type {Fl32_Bwl_Front_Realm_Sign_State} */
+                const state = await container.get('Fl32_Bwl_Front_Realm_Sign_State$'); // object singleton
                 const store = Vuex.createStore(state);
                 container.set(DEF.DI_STORE, store);
                 app.use(store);
@@ -159,6 +160,7 @@
                 console.error("Error in bootstrap: " + e + "\n" + e.stack);
             }
         }
+        // we have no Service Worker here, registration is online only functionality
         self.addEventListener("load", bootstrap);
     </script>
 </head>

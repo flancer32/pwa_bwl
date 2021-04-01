@@ -36,7 +36,15 @@ function Factory(spec) {
     app.component('LayoutCentered', layoutCentered);
 
     // setup application routes
-    router.addRoute({path: DEF.ROUTE_HOME, component: () => container.get('Fl32_Bwl_Front_Realm_Sign_Route_Home$')});
+    router.addRoute({
+        path: DEF.REALM_SIGN_ROUTE_HOME,
+        component: () => container.get('Fl32_Bwl_Front_Realm_Sign_Route_Home$')
+    });
+    router.addRoute({
+        path: DEF.REALM_SIGN_ROUTE_UP,
+        props: true,
+        component: () => container.get('Fl32_Bwl_Front_Realm_Sign_Route_Up$')
+    });
 
     app.use(router);
 
@@ -51,17 +59,6 @@ function Factory(spec) {
         name: NS,
         template,
         components: {layoutMain},
-        data() {
-            return {};
-        },
-        computed: {
-            isAuthenticated() {
-                return false;
-            }
-        },
-        methods: {},
-        mounted() {
-        },
     };
 }
 

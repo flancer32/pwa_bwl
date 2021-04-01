@@ -24,14 +24,20 @@ export default class Fl32_Bwl_Defaults {
     /** @type {TeqFw_Vue_Defaults} */
     MOD_VUE;
 
-    ROUTE_FRIENDS = '/friends'; // frontend routes
-    ROUTE_HISTORY = '/history';
-    ROUTE_HOME = '/';
-    ROUTE_SETTINGS = '/settings';
+    // FRONTEND ROUTES
+    REALM_PUB = 'pub';
+    REALM_PUB_ROUTE_FRIENDS = '/friends';
+    REALM_PUB_ROUTE_HISTORY = '/history';
+    REALM_PUB_ROUTE_HOME = '/';
+    REALM_PUB_ROUTE_SETTINGS = '/settings';
+    REALM_PUB_ROUTE_SIGN_UP = '/sign/up/:refCode?';
+    REALM_SIGN = 'sign';
+    REALM_SIGN_ROUTE_HOME = '/';
+    REALM_SIGN_ROUTE_UP = '/up/:refCode?';
     ROUTE_SIGN_IN = '/sign/in';
-    ROUTE_SIGN_UP = '/sign/up/:refCode?';
     ROUTE_SIGN_UP_INIT = '/sign/up/init';
 
+    // SERVICES ROUTES
     SERV_GROUP_LIST = '/group/list';
     SERV_PROFILE_GET = '/profile/get';
     SERV_SIGN_UP_INIT = '/signUp/init';

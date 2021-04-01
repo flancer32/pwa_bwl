@@ -24,9 +24,57 @@
         "target": "Target (kg)"
       }
     },
+    "btn": {
+      "submit": "Submit"
+    },
     "fld": {
       "date": "Date",
+      "user": {
+        "email": "Email",
+        "name": "Name",
+        "phone": "Phone"
+      },
       "weight": "Weight"
+    },
+    "sign": {
+      "err": {
+        "required": "Field is required.",
+        "wrongValue": "Wrong value.",
+        "emailExists": "This email is already registered.",
+        "phoneExists": "This phone is already registered."
+      },
+      "up": {
+        "age": {
+          "hint": "From 1 to 127 years: 32",
+          "label": "Your age"
+        },
+        "email": {
+          "hint": "",
+          "label": "Email"
+        },
+        "height": {
+          "hint": "From 32 cm to 256 cm: 168",
+          "label": "Your height"
+        },
+        "name": {
+          "hint": "Name: Jane Doe",
+          "label": "Name"
+        },
+        "parent": "Referral",
+        "phone": {
+          "hint": "",
+          "label": "Phone"
+        },
+        "gender": {
+          "hint": "XX - natural female, XY - natural male",
+          "label": "Your gender"
+        },
+        "time": "Time",
+        "weight": {
+          "hint": "From 32 kg to 256 kg: 95.58",
+          "label": "Your weight"
+        }
+      }
     },
     "wg": {
       "chart": {

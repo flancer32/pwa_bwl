@@ -1,0 +1,6 @@
+/* Application level styles (theme) */
+
+/* These styles are used in this application. */
+.hint {
+    color: var(--color-darker);
+}

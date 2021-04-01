@@ -73,7 +73,7 @@ export default function Fl32_Bwl_Front_Realm_Pub_Route_Sign_Up(spec) {
     /** @type {Fl32_Teq_User_Front_App_Session} */
     const session = spec[DEF.MOD_USER.DI_SESSION];  // named singleton
     const i18next = spec[DEF.MOD_CORE.DI_I18N];   // named singleton
-    const {isEmpty} = spec['TeqFw_Core_App_Shared_Util'];
+    const {isEmpty} = spec['TeqFw_Core_App_Shared_Util']; // ES6 module destructing
     /** @type {Fl32_Teq_User_Front_Widget_SignUp} */
     const userSignUp = spec['Fl32_Teq_User_Front_Widget_SignUp$'];  // Vue component singleton
     /** @type {typeof Fl32_Teq_User_Front_Widget_SignUp_Props} */

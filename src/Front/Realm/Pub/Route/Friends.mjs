@@ -97,18 +97,36 @@ function Factory(spec) {
                 actAdd.icon = 'add';
                 actAdd.action = async function () {
                     // DEFINE INNER FUNCTIONS
+                    /**
+                     *
+                     * @returns {Promise<void>}
+                     */
                     async function addNew() {
                         try {
+                            // get referral link with limited lifetime
                             const req = new ReqRefLinkCreate();
                             /** @type {Fl32_Teq_User_Shared_Service_Route_RefLink_Create_Response} */
                             const res = await gateRefLinkCreate(req);
                             const code = res.link.refCode;
-                            const data = {
-                                title: 'Bruderschaft Weight Loss',
-                                text: i18n.t('friends.share.welcome'),
-                                url: `https://${config.urlBase}/signUp/ref=${code}`,
-                            };
-                            await navigator.share(data);
+                            // compose URL to sign up
+                            const host = `https://${config.urlBase}`;
+                            const realm = `/${DEF.REALM_SIGN}/#`;
+                            const route = DEF.REALM_SIGN_ROUTE_UP.replace(':refCode?', code);
+                            const url = `${host}${realm}${route}`;
+                            // open sharing options or print out sign up link to console
+                            if (self.navigator.share) {
+                                // smartphone mode
+                                const data = {
+                                    title: 'Bruderschaft Weight Loss',
+                                    text: i18n.t('friends.share.welcome'),
+                                    url,
+                                };
+                                await self.navigator.share(data);
+                            } else {
+                                // browser mode
+                                console.log(`sign up url: ${url}`);
+                            }
+
                         } catch (err) {
                             console.log(`error: ${err}`);
                         }

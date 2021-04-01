@@ -41,10 +41,10 @@ function Factory(spec) {
 
       <q-footer elevated>
         <q-toolbar class="t-grid cols">
-            <q-btn dense flat icon="settings" v-on:click="$router.push('${DEF.ROUTE_SETTINGS}')"></q-btn>
-            <q-btn dense flat icon="group" v-on:click="$router.push('${DEF.ROUTE_FRIENDS}')"></q-btn>
-            <q-btn dense flat icon="history" v-on:click="$router.push('${DEF.ROUTE_HISTORY}')"></q-btn>
-            <q-btn dense flat icon="home" v-on:click="$router.push('${DEF.ROUTE_HOME}')"></q-btn>
+            <q-btn dense flat icon="settings" v-on:click="$router.push('${DEF.REALM_PUB_ROUTE_SETTINGS}')"></q-btn>
+            <q-btn dense flat icon="group" v-on:click="$router.push('${DEF.REALM_PUB_ROUTE_FRIENDS}')"></q-btn>
+            <q-btn dense flat icon="history" v-on:click="$router.push('${DEF.REALM_PUB_ROUTE_HISTORY}')"></q-btn>
+            <q-btn dense flat icon="home" v-on:click="$router.push('${DEF.REALM_PUB_ROUTE_HOME}')"></q-btn>
         </q-toolbar>
       </q-footer>
 </q-layout>

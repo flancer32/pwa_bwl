@@ -137,7 +137,7 @@ export default function Fl32_Bwl_Front_Realm_Pub_Route_Sign_Up_Init(spec) {
                 req.weightTarget = this.weightTarget;
                 const res = await gate(req);
                 if (res instanceof Response) {
-                    this.$router.push(DEF.ROUTE_HOME);
+                    this.$router.push(DEF.REALM_PUB_ROUTE_HOME);
                 }
             },
         },

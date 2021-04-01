@@ -1,8 +1,19 @@
-const template = `
-<layout-main></layout-main>
-`;
+/**
+ * Frontend application for 'pub' realm.
+ *
+ * @namespace Fl32_Bwl_Front_Realm_Pub_App
+ */
+// MODULE'S VARS
+const NS = 'Fl32_Bwl_Front_Realm_Pub_App';
 
-export default function Fl32_Bwl_Front_Realm_Pub_App(spec) {
+// MODULE'S FUNCTIONS
+/**
+ * Factory to create template for new Vue component instances.
+ *
+ * @memberOf Fl32_Bwl_Front_Realm_Pub_App
+ * @returns {Fl32_Bwl_Front_Realm_Pub_App.vueCompTmpl}
+ */
+function Factory(spec) {
     /** @type {Fl32_Bwl_Defaults} */
     const DEF = spec['Fl32_Bwl_Defaults$'];    // instance singleton
     /** @type {TeqFw_Di_Container} */
@@ -14,17 +25,38 @@ export default function Fl32_Bwl_Front_Realm_Pub_App(spec) {
     /** @type {Fl32_Bwl_Front_Layout_Pub} */
     const layoutMain = spec['Fl32_Bwl_Front_Layout_Pub$']; // Vue component singleton
 
+    // DEFINE WORKING VARS
+    const template = `
+<layout-main></layout-main>
+`;
+
+    // MAIN FUNCTIONALITY
     // add global available components
     app.component('LayoutCentered', layoutCentered);
 
     // setup application routes
-    router.addRoute({path: DEF.ROUTE_FRIENDS, component: () => container.get('Fl32_Bwl_Front_Realm_Pub_Route_Friends$')});
-    router.addRoute({path: DEF.ROUTE_HISTORY, component: () => container.get('Fl32_Bwl_Front_Realm_Pub_Route_History$')});
-    router.addRoute({path: DEF.ROUTE_HOME, component: () => container.get('Fl32_Bwl_Front_Realm_Pub_Route_Home$')});
-    router.addRoute({path: DEF.ROUTE_SETTINGS, component: () => container.get('Fl32_Bwl_Front_Realm_Pub_Route_Settings$')});
-    router.addRoute({path: DEF.ROUTE_SIGN_IN, component: () => container.get('Fl32_Bwl_Front_Realm_Pub_Route_Sign_In$')});
     router.addRoute({
-        path: DEF.ROUTE_SIGN_UP,
+        path: DEF.REALM_PUB_ROUTE_FRIENDS,
+        component: () => container.get('Fl32_Bwl_Front_Realm_Pub_Route_Friends$')
+    });
+    router.addRoute({
+        path: DEF.REALM_PUB_ROUTE_HISTORY,
+        component: () => container.get('Fl32_Bwl_Front_Realm_Pub_Route_History$')
+    });
+    router.addRoute({
+        path: DEF.REALM_PUB_ROUTE_HOME,
+        component: () => container.get('Fl32_Bwl_Front_Realm_Pub_Route_Home$')
+    });
+    router.addRoute({
+        path: DEF.REALM_PUB_ROUTE_SETTINGS,
+        component: () => container.get('Fl32_Bwl_Front_Realm_Pub_Route_Settings$')
+    });
+    router.addRoute({
+        path: DEF.ROUTE_SIGN_IN,
+        component: () => container.get('Fl32_Bwl_Front_Realm_Pub_Route_Sign_In$')
+    });
+    router.addRoute({
+        path: DEF.REALM_PUB_ROUTE_SIGN_UP,
         props: true,
         component: () => container.get('Fl32_Bwl_Front_Realm_Pub_Route_Sign_Up$')
     });
@@ -34,20 +66,21 @@ export default function Fl32_Bwl_Front_Realm_Pub_App(spec) {
     });
     app.use(router);
 
+    // COMPOSE RESULT
+    /**
+     * Template to create new component instances using Vue.
+     *
+     * @const {Object} vueCompTmpl
+     * @memberOf Fl32_Bwl_Front_Realm_Pub_App
+     */
     return {
-        name: 'FrontApp',
+        name: NS,
         template,
         components: {layoutMain},
-        data() {
-            return {};
-        },
-        computed: {
-            isAuthenticated() {
-                return false;
-            }
-        },
-        methods: {},
-        mounted() {
-        },
     };
 }
+
+
+// MODULE'S EXPORT
+Object.defineProperty(Factory, 'name', {value: `${NS}.${Factory.name}`});
+export default Factory;
