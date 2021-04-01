@@ -7,7 +7,7 @@
  * @param {Date|string|null} dateIn
  * @param {String} lang 'es-ES'
  * @return {string} 'jue, 18 mar 2021'
- * @memberOf TeqFw_Core_App_Shared_Util
+ * @memberOf Fl32_Bwl_Shared_Util
  */
 function formatDate(lang, dateIn = null) {
     /** @type {Date} */

@@ -17,6 +17,8 @@ export default class Fl32_Bwl_Defaults {
 
     /** @type {TeqFw_Core_App_Defaults} */
     MOD_CORE;
+    /** @type {TeqFw_Http2_Defaults} */
+    MOD_HTTP2;
     /** @type {TeqFw_Ui_Quasar_Defaults} */
     MOD_QUASAR;
     /** @type {Fl32_Teq_User_Defaults} */
@@ -40,6 +42,7 @@ export default class Fl32_Bwl_Defaults {
     // SERVICES ROUTES
     SERV_GROUP_LIST = '/group/list';
     SERV_PROFILE_GET = '/profile/get';
+    SERV_SIGN_UP = '/sign/up';
     SERV_SIGN_UP_INIT = '/signUp/init';
     SERV_WEIGHT_HISTORY_LIST = '/weight/history/list';
     SERV_WEIGHT_HISTORY_REMOVE = '/weight/history/remove';

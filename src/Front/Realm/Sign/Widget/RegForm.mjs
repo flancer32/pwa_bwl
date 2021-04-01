@@ -7,6 +7,8 @@
 const NS = 'Fl32_Bwl_Front_Realm_Sign_Widget_RegForm';
 const EVT_SUBMIT = 'onSubmit';
 const TIMEOUT = 1000;
+const GENDER_XX = 'woman';
+const GENDER_XY = 'notWoman';
 
 // MODULE'S CLASSES
 
@@ -19,12 +21,17 @@ const TIMEOUT = 1000;
  */
 function Factory(spec) {
     // EXTRACT DEPS
+    /** @type {Fl32_Bwl_Defaults} */
+    const DEF = spec['Fl32_Bwl_Defaults$'];    // instance singleton
     const {isEmpty} = spec['TeqFw_Core_App_Shared_Util']; // ES6 module destructing
     /** @function {@type Fl32_Teq_User_Front_Gate_Check_Existence.gate} */
     const gateCheckExist = spec['Fl32_Teq_User_Front_Gate_Check_Existence$']; // singleton function
     /** @type {typeof Fl32_Teq_User_Shared_Service_Route_Check_Existence_Request} */
     const ReqCheckExist = spec['Fl32_Teq_User_Shared_Service_Route_Check_Existence#Request']; // class constructor
-
+    /** @function {@type Fl32_Bwl_Front_Gate_Sign_Up.gate} */
+    const gateSignUp = spec['Fl32_Bwl_Front_Gate_Sign_Up$']; // function singleton
+    /** @type {typeof Fl32_Bwl_Shared_Service_Route_Sign_Up_Request} */
+    const ReqSignUp = spec['Fl32_Bwl_Shared_Service_Route_Sign_Up#Request']; // class constructor
 
     // DEFINE WORKING VARS
     const template = `
@@ -77,8 +84,8 @@ function Factory(spec) {
             borderless
     >
         <div class="t-grid cols gutter-none" style="width: 100%">
-            <q-radio v-model="fldGender" val="women" color="pink" label="XX"></q-radio>
-            <q-radio v-model="fldGender" val="notWomen" color="light-blue" label="XY"></q-radio>
+            <q-radio v-model="fldGender" val="${GENDER_XX}" color="pink" label="XX"></q-radio>
+            <q-radio v-model="fldGender" val="${GENDER_XY}" color="light-blue" label="XY"></q-radio>
         </div>
     </q-field>
 
@@ -149,7 +156,9 @@ function Factory(spec) {
                 disabledSubmit: true, // computed field does not work with 'submit' button
             };
         },
-        props: {},
+        props: {
+            refCode: null
+        },
         computed: {
             disableSubmit() {
                 const emailEmpty = isEmpty(this.fldEmail);
@@ -213,7 +222,21 @@ function Factory(spec) {
                 this.timer[type] = setTimeout(fn, TIMEOUT);
             },
             async onSubmit() {
-                console.log('Submit');
+                // code smell: we should return data to the parent component and process data from there
+                const req = new ReqSignUp();
+                req.refCode = this.refCode;
+                req.name = this.fldName;
+                req.email = this.fldEmail;
+                req.phone = this.fldPhone;
+                req.isFemale = this.fldGender === GENDER_XX;
+                req.age = this.fldAge;
+                req.height = this.fldHeight;
+                req.weight = this.fldWeight;
+                /** @type {Fl32_Bwl_Shared_Service_Route_Sign_Up_Response} */
+                const res = await gateSignUp(req);
+                if (res.sessionId) {
+                    self.window.location.href = `/${DEF.REALM_PUB}/`;
+                }
             },
         },
         watch: {
@@ -225,7 +248,7 @@ function Factory(spec) {
             },
         },
         emits: [EVT_SUBMIT],
-        mounted() {},
+        mounted() { },
     };
 }
 

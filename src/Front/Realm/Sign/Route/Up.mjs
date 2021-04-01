@@ -37,7 +37,9 @@ function Factory(spec) {
                 <div>{{$t('sign:up.time')}}: {{timeFormatted}}</div>
             </q-card-section>
             <q-card-section class="t-grid gutter-md align-items-center">
-                <reg-form></reg-form>
+                <reg-form
+                    :refCode="refCode"
+                ></reg-form>
             </q-card-section>
         </q-card>
     </div>
