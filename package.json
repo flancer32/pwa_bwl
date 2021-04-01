@@ -46,7 +46,10 @@
       "path": "./src"
     },
     "http2": {
-      "realms": ["pub", "sign"]
+      "realms": [
+        "pub",
+        "sign"
+      ]
     }
   }
 }
