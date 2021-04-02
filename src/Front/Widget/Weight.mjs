@@ -84,7 +84,7 @@ function Factory(spec) {
             },
             updateParent() {
                 // don't update on 0 weight
-                if (this.selectedInt && this.selectedDec) {
+                if ((this.selectedInt > 0) && (this.selectedDec >= 0)) {
                     const value = this.selectedInt + (this.selectedDec * 0.1);
                     // don't update if no changes
                     if ((value - this.value) !== 0) {

@@ -1,58 +1,74 @@
 /**
- * Process to save weight stats data.
+ * Save weight stats data for the date.
+ *
+ * @namespace Fl32_Bwl_Back_Process_Weight_Stat_Save
  */
-export default class Fl32_Bwl_Back_Process_Weight_Stat_Save {
+// MODULE'S VARS
+const NS = 'Fl32_Bwl_Back_Process_Weight_Stat_Save';
 
-    constructor(spec) {
-        /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Weight_Stat} */
-        const EWeightStat = spec['Fl32_Bwl_Store_RDb_Schema_Weight_Stat#']; // class constructor
-        /** @type {TeqFw_Core_App_Shared_Util.formatDate} */
-        const formatDate = spec['TeqFw_Core_App_Shared_Util#formatDate']; // function instance
+// MODULE'S FUNCTIONS
+/**
+ * Factory to setup execution context and to create the processor.
+ *
+ * @param {TeqFw_Di_SpecProxy} spec
+ * @constructs Fl32_Bwl_Back_Process_Weight_Stat_Save.process
+ * @memberOf Fl32_Bwl_Back_Process_Weight_Stat_Save
+ */
+function Factory(spec) {
+    /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Weight_Stat} */
+    const EWeightStat = spec['Fl32_Bwl_Store_RDb_Schema_Weight_Stat#']; // class constructor
+    /** @function {@type TeqFw_Core_App_Shared_Util.formatUtcDate} */
+    const formatUtcDate = spec['TeqFw_Core_App_Shared_Util#formatUtcDate']; // function instance
+
+    /**
+     * Save weight stats data for the date.
+     *
+     * @param trx
+     * @param {Fl32_Bwl_Store_RDb_Schema_Weight_Stat} payload
+     * @returns {Promise<{output: {}, error: {}}>}
+     * @memberOf Fl32_Bwl_Back_Process_Weight_Stat_Save
+     */
+    async function process({trx, payload}) {
+        // DEFINE INNER FUNCTIONS
 
         /**
-         * Save weight stats data.
-         *
          * @param trx
-         * @param {Fl32_Bwl_Store_RDb_Schema_Weight_Stat} input
-         * @returns {Promise<{output: {}, error: {}}>}
+         * @param {Fl32_Bwl_Store_RDb_Schema_Weight_Stat} item
+         * @returns {Promise<boolean>}
          */
-        this.exec = async function ({trx, input}) {
-            // DEFINE INNER FUNCTIONS
+        async function itemExists(trx, item) {
+            const query = trx.from(EWeightStat.ENTITY);
+            query.select([EWeightStat.A_USER_REF, EWeightStat.A_DATE]);
+            query.where({
+                [EWeightStat.A_USER_REF]: item.user_ref,
+                [EWeightStat.A_DATE]: item.date
+            });
+            /** @type {Array} */
+            const rs = await query;
+            return (rs.length === 1);
+        }
 
-            /**
-             * @param trx
-             * @param {Fl32_Bwl_Store_RDb_Schema_Weight_Stat} item
-             * @returns {Promise<boolean>}
-             */
-            async function itemExists(trx, item) {
-                const query = trx.from(EWeightStat.ENTITY);
-                query.select([EWeightStat.A_USER_REF, EWeightStat.A_DATE]);
-                query.where({
-                    [EWeightStat.A_USER_REF]: item.user_ref,
-                    [EWeightStat.A_DATE]: item.date
+
+        // MAIN FUNCTIONALITY
+        payload[EWeightStat.A_DATE] = formatUtcDate(payload[EWeightStat.A_DATE]);  // prepare data
+        if (await itemExists(trx, payload)) {
+            await trx(EWeightStat.ENTITY)
+                .update(payload)
+                .where({
+                    [EWeightStat.A_USER_REF]: payload[EWeightStat.A_USER_REF],
+                    [EWeightStat.A_DATE]: payload[EWeightStat.A_DATE],
                 });
-                /** @type {Array} */
-                const rs = await query;
-                return (rs.length === 1);
-            }
-
-
-            // MAIN FUNCTIONALITY
-            input[EWeightStat.A_DATE] = formatDate(input[EWeightStat.A_DATE]);  // prepare data
-            if (await itemExists(trx, input)) {
-                await trx(EWeightStat.ENTITY)
-                    .update(input)
-                    .where({
-                        [EWeightStat.A_USER_REF]: input[EWeightStat.A_USER_REF],
-                        [EWeightStat.A_DATE]: input[EWeightStat.A_DATE],
-                    });
-            } else {
-                await trx(EWeightStat.ENTITY).insert(input);
-            }
-            // I don't know what I should return here
-            return {output: {}, error: {}};
-        };
-
+        } else {
+            await trx(EWeightStat.ENTITY).insert(payload);
+        }
+        // I don't know what I should return here
+        return {output: {}, error: {}};
     }
 
+    Object.defineProperty(process, 'name', {value: `${NS}.${process.name}`});
+    return process;
 }
+
+// MODULE'S EXPORT
+Object.defineProperty(Factory, 'name', {value: `${NS}.${Factory.name}`});
+export default Factory;

@@ -27,7 +27,7 @@ export default class Fl32_Bwl_Back_Service_Weight_Stat_Save {
         const EWeightStat = spec['Fl32_Bwl_Store_RDb_Schema_Weight_Stat#']; // class constructor
         /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Profile} */
         const EProfile = spec['Fl32_Bwl_Store_RDb_Schema_Profile#']; // class constructor
-        /** @type {Fl32_Bwl_Back_Process_Weight_Stat_Save} */
+        /** @function {@type Fl32_Bwl_Back_Process_Weight_Stat_Save.process} */
         const procSave = spec['Fl32_Bwl_Back_Process_Weight_Stat_Save$']; // instance singleton
 
         this.getRoute = function () {
@@ -72,11 +72,11 @@ export default class Fl32_Bwl_Back_Service_Weight_Stat_Save {
                 // DEFINE INNER FUNCTIONS
 
                 const saveCurrent = async (trx, apiReq, user) => {
-                    const entity = new EWeightStat();
-                    entity[EWeightStat.A_DATE] = apiReq.date;
-                    entity[EWeightStat.A_USER_REF] = user.id;
-                    entity[EWeightStat.A_VALUE] = apiReq.weight;
-                    await procSave.exec({trx, input: entity});
+                    const payload = new EWeightStat();
+                    payload[EWeightStat.A_DATE] = apiReq.date;
+                    payload[EWeightStat.A_USER_REF] = user.id;
+                    payload[EWeightStat.A_VALUE] = apiReq.weight;
+                    await procSave({trx, payload});
                 };
 
                 const saveToProfile = async (trx, userId, weight, type, date) => {

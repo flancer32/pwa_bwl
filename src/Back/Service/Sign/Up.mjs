@@ -23,6 +23,8 @@ class Fl32_Bwl_Back_Service_Sign_Up {
         const rdb = spec['TeqFw_Core_App_Db_Connector$'];  // instance singleton
         /** @type {typeof TeqFw_Http2_Back_Server_Handler_Api_Result} */
         const ApiResult = spec['TeqFw_Http2_Back_Server_Handler_Api#Result']; // class constructor
+        /** @type {TeqFw_Core_App_Shared_Util.formatUtcDateTime} */
+        const formatUtcDateTime = spec['TeqFw_Core_App_Shared_Util#formatUtcDateTime']; // function instance
         const {
             /** @function {typeof TeqFw_Http2_Back_Util.createCookie} */
             createCookie
@@ -43,10 +45,14 @@ class Fl32_Bwl_Back_Service_Sign_Up {
         const procCreate = spec['Fl32_Teq_User_Back_Process_User_Create$']; // function singleton
         /** @type {Fl32_Teq_User_Back_Process_Session_Open} */
         const procSessionOpen = spec['Fl32_Teq_User_Back_Process_Session_Open$']; // instance singleton
-        /** @function {typeof Fl32_Bwl_Back_Process_Profile_Save.process} */
+        /** @function {@type Fl32_Bwl_Back_Process_Profile_Save.process} */
         const procAppProfileSave = spec['Fl32_Bwl_Back_Process_Profile_Save$']; // function singleton
+        /** @function {@type Fl32_Bwl_Back_Process_Weight_Stat_Save.process} */
+        const procWeightSave = spec['Fl32_Bwl_Back_Process_Weight_Stat_Save$']; // instance singleton
         /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Profile} */
         const EProfile = spec['Fl32_Bwl_Store_RDb_Schema_Profile#']; // class constructor
+        /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Weight_Stat} */
+        const EWeightStat = spec['Fl32_Bwl_Store_RDb_Schema_Weight_Stat#']; // class constructor
         /** @type {typeof Fl32_Teq_User_Shared_Api_Data_User} */
         const DUser = spec['Fl32_Teq_User_Shared_Api_Data_User#']; // class constructor
 
@@ -95,6 +101,18 @@ class Fl32_Bwl_Back_Service_Sign_Up {
              */
             async function service(apiCtx) {
                 // DEFINE INNER FUNCTIONS
+
+                async function addProfile(trx, req, userId) {
+                    const entity = new EProfile();
+                    entity[EProfile.A_AGE] = apiReq.age;
+                    entity[EProfile.A_HEIGHT] = apiReq.height;
+                    entity[EProfile.A_IS_FEMALE] = apiReq.isFemale;
+                    entity[EProfile.A_USER_REF] = userId;
+                    entity[EProfile.A_WEIGHT_INIT] = apiReq.weight;
+                    entity[EProfile.A_WEIGHT_TARGET] = apiReq.weight;
+                    await procAppProfileSave({trx, input: entity});
+                }
+
                 /**
                  * @param trx
                  * @param {Fl32_Bwl_Shared_Service_Route_Sign_Up_Request} req
@@ -111,15 +129,12 @@ class Fl32_Bwl_Back_Service_Sign_Up {
                     return userId;
                 }
 
-                async function addProfile(trx, req, userId) {
-                    const entity = new EProfile();
-                    entity[EProfile.A_AGE] = apiReq.age;
-                    entity[EProfile.A_HEIGHT] = apiReq.height;
-                    entity[EProfile.A_IS_FEMALE] = apiReq.isFemale;
-                    entity[EProfile.A_USER_REF] = userId;
-                    entity[EProfile.A_WEIGHT_INIT] = apiReq.weight;
-                    entity[EProfile.A_WEIGHT_TARGET] = apiReq.weight;
-                    await procAppProfileSave({trx, input: entity});
+                async function addCurrentWeight(trx, userId, weight) {
+                    const payload = new EWeightStat();
+                    payload[EWeightStat.A_DATE] = formatUtcDateTime();
+                    payload[EWeightStat.A_USER_REF] = userId;
+                    payload[EWeightStat.A_VALUE] = weight;
+                    await procWeightSave({trx, payload});
                 }
 
                 /**
@@ -159,6 +174,7 @@ class Fl32_Bwl_Back_Service_Sign_Up {
                         const parentId = linkData.user_ref;
                         const userId = await addUser(trx, apiReq, parentId);
                         await addProfile(trx, apiReq, userId);
+                        await addCurrentWeight(trx, userId, apiReq.weight);
                         await procRefRemove({trx, code});
                         const {sessionId, cookie} = await initSession(trx, userId);
                         result.headers[H2.HTTP2_HEADER_SET_COOKIE] = cookie;
