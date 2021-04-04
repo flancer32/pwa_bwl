@@ -129,10 +129,16 @@ function Factory(spec) {
             const items = resHistory.items;
             /** @type {Fl32_Bwl_Shared_Service_Data_Profile} */
             const profile = resProfile.profile;
-            const startWeight = Number.parseFloat(profile.weightStart).toFixed(1);
-            const targetWeight = Number.parseFloat(profile.weightTarget).toFixed(1);
-            const series = prepareItems(items);
-            draw(series, startWeight, targetWeight);
+            if (
+                Array.isArray(items) &&
+                profile?.weightStart >= 0 &&
+                profile?.weightTarget >= 0
+            ) {
+                const startWeight = Number.parseFloat(profile.weightStart).toFixed(1);
+                const targetWeight = Number.parseFloat(profile.weightTarget).toFixed(1);
+                const series = prepareItems(items);
+                draw(series, startWeight, targetWeight);
+            }
         },
         setup() {
             const loading = ref(false);

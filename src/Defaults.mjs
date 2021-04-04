@@ -31,19 +31,16 @@ export default class Fl32_Bwl_Defaults {
     REALM_PUB_ROUTE_FRIENDS = '/friends';
     REALM_PUB_ROUTE_HISTORY = '/history';
     REALM_PUB_ROUTE_HOME = '/';
+    REALM_PUB_ROUTE_SIGN_IN = '/sign/in';
     REALM_PUB_ROUTE_SETTINGS = '/settings';
-    REALM_PUB_ROUTE_SIGN_UP = '/sign/up/:refCode?';
     REALM_SIGN = 'sign';
     REALM_SIGN_ROUTE_HOME = '/';
     REALM_SIGN_ROUTE_UP = '/up/:refCode?';
-    ROUTE_SIGN_IN = '/sign/in';
-    ROUTE_SIGN_UP_INIT = '/sign/up/init';
 
     // SERVICES ROUTES
     SERV_GROUP_LIST = '/group/list';
     SERV_PROFILE_GET = '/profile/get';
     SERV_SIGN_UP = '/sign/up';
-    SERV_SIGN_UP_INIT = '/signUp/init';
     SERV_WEIGHT_HISTORY_LIST = '/weight/history/list';
     SERV_WEIGHT_HISTORY_REMOVE = '/weight/history/remove';
     SERV_WEIGHT_STAT_SAVE = '/weight/stat/save';

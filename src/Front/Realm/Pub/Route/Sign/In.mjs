@@ -7,10 +7,10 @@ const template = `
                 @onSuccess="onSuccess($event)"
                 @onFailure="onFailure($event)"
         ></user-sign-in>
-        <div style="display: grid; gap: var(--grid-gap); grid-auto-flow: column;" >
-            <q-btn to="/password/restore" label="Restore Password" size="xs" />
-            <q-btn to="/sign/up" label="Sign Up" size="xs" />        
-        </div>    
+<!--        <div style="display: grid; gap: var(&#45;&#45;grid-gap); grid-auto-flow: column;" >-->
+<!--            <q-btn to="/password/restore" label="Restore Password" size="xs" />-->
+<!--            <q-btn to="/sign/up" label="Sign Up" size="xs" />        -->
+<!--        </div>    -->
     </div>
 </layout-centered>
 `;

@@ -120,7 +120,7 @@
                 // setup session (load user permissions from server)
                 /** @type {Fl32_Teq_User_Front_App_Session} */
                 const session = await container.get('Fl32_Teq_User_Front_App_Session$'); // instance singleton
-                session.setRouteToSignIn(DEF.ROUTE_SIGN_IN);
+                session.setRouteToSignIn(DEF.REALM_SIGN_ROUTE_HOME);
                 await session.init();
                 container.set(DEF.MOD_USER.DI_SESSION, session);    // TMP: put into container as singleton
             }
@@ -160,6 +160,7 @@
                 console.error("Error in bootstrap: " + e + "\n" + e.stack);
             }
         }
+
         // we have no Service Worker here, registration is online only functionality
         self.addEventListener("load", bootstrap);
     </script>

@@ -29,7 +29,6 @@ export default class Fl32_Bwl_Plugin_Init {
                 'Fl32_Bwl_Back_Service_Group_List$',
                 'Fl32_Bwl_Back_Service_Profile_Get$',
                 'Fl32_Bwl_Back_Service_Sign_Up$',
-                'Fl32_Bwl_Back_Service_SignUp_Init$',
                 'Fl32_Bwl_Back_Service_Weight_History_List$',
                 'Fl32_Bwl_Back_Service_Weight_History_Remove$',
                 'Fl32_Bwl_Back_Service_Weight_Stat_Save$',

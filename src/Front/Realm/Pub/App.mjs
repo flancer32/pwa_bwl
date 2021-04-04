@@ -52,17 +52,8 @@ function Factory(spec) {
         component: () => container.get('Fl32_Bwl_Front_Realm_Pub_Route_Settings$')
     });
     router.addRoute({
-        path: DEF.ROUTE_SIGN_IN,
+        path: DEF.REALM_PUB_ROUTE_SIGN_IN,
         component: () => container.get('Fl32_Bwl_Front_Realm_Pub_Route_Sign_In$')
-    });
-    router.addRoute({
-        path: DEF.REALM_PUB_ROUTE_SIGN_UP,
-        props: true,
-        component: () => container.get('Fl32_Bwl_Front_Realm_Pub_Route_Sign_Up$')
-    });
-    router.addRoute({
-        path: DEF.ROUTE_SIGN_UP_INIT,
-        component: () => container.get('Fl32_Bwl_Front_Realm_Pub_Route_Sign_Up_Init$')
     });
     app.use(router);
 
