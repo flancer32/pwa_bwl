@@ -72,21 +72,26 @@
              *
              * @param {TeqFw_Di_Container} container
              * @param {Object} app Vue application
-             * @param {Object} i18next
-             * @param {Function} i18nBld browser language detection function
              * @returns {Promise<Object>}
              */
-            async function initI18n(container, app, i18next, i18nBld) {
+            async function initI18n(container, app) {
+                //self.i18next - see "./src/i18next/i18next.min.js"
                 const gate = await container.get('TeqFw_Core_App_Front_Gate_Load_I18n$');
                 /** @type {typeof TeqFw_Core_App_Shared_Service_Route_Load_I18n_Request} */
                 const Request = await container.get('TeqFw_Core_App_Shared_Service_Route_Load_I18n#Request');
                 const resources = await gate(new Request());
-                i18next.use(i18nBld);
-                await i18next.init({resources, defaultNS: 'app'});
+                // see "./src/i18next-detect/i18nextBrowserLanguageDetector.js"
+                self.i18next.use(self.i18nextBrowserLanguageDetector);
+                await self.i18next.init({
+                    resources, defaultNS: 'app',
+                    supportedLngs: ['en', 'ru'],
+                });
+                // config options after 'init'
+                self.i18next.options.fallbackLng = 'ru';
                 // add '$t' translation function to Vue app
                 const appProps = app.config.globalProperties;
-                appProps.$t = (key, options) => i18next.t(key, options);
-                return i18next;
+                appProps.$t = (key, options) => self.i18next.t(key, options);
+                return self.i18next;
             }
 
             /**
@@ -144,7 +149,7 @@
                 const app = self.Vue.createApp({});
                 const router = initRouter(self.VueRouter);
                 container.set(DEF.MOD_VUE.DI_ROUTER, router);
-                const i18next = await initI18n(container, app, self.i18next, self.i18nextBrowserLanguageDetector);
+                const i18next = await initI18n(container, app);
                 container.set(DEF.MOD_VUE.DI_APP, app);
                 container.set(DEF.MOD_CORE.DI_I18N, i18next);
                 app.use(self.Quasar, {config: {}});
