@@ -48,8 +48,8 @@ export default class Fl32_Bwl_Back_Service_Group_List {
         const EGroupUser = spec['Fl32_Bwl_Store_RDb_Schema_Group_User#']; // class constructor
         /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Group} */
         const EGroup = spec['Fl32_Bwl_Store_RDb_Schema_Group#']; // class constructor
-        /** @type {Fl32_Teq_User_Store_RDb_Schema_Profile} */
-        const eProfile = spec['Fl32_Teq_User_Store_RDb_Schema_Profile$']; // instance singleton
+        /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Profile} */
+        const EProfile = spec['Fl32_Teq_User_Store_RDb_Schema_Profile#']; // class constructor
         /** @type {typeof Fl32_Bwl_Shared_Service_Data_Group_Item} */
         const DGroupItem = spec['Fl32_Bwl_Shared_Service_Data_Group_Item#']; // class constructor
 
@@ -151,11 +151,11 @@ export default class Fl32_Bwl_Back_Service_Group_List {
 
                     // join user profile
                     query.leftOuterJoin(
-                        {[T_UP]: eProfile.ENTITY},
-                        `${T_UP}.${eProfile.A_USER_REF}`,
+                        {[T_UP]: EProfile.ENTITY},
+                        `${T_UP}.${EProfile.A_USER_REF}`,
                         `${T_G}.${EGroup.A_ADMIN_REF}`);
                     query.select([
-                        {[AS_ADMIN_NAME]: `${T_UP}.${eProfile.A_NAME}`},
+                        {[AS_ADMIN_NAME]: `${T_UP}.${EProfile.A_NAME}`},
                     ]);
 
                     // where

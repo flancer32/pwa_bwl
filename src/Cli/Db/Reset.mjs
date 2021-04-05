@@ -30,22 +30,22 @@ function Factory(spec) {
     const logger = spec['TeqFw_Core_App_Logger$'];  // instance singleton
     /** @type {Function|Fl32_Bwl_Cli_Db_Z_Restruct.action} */
     const actRestruct = spec['Fl32_Bwl_Cli_Db_Z_Restruct$']; // instance singleton
-    /** @type {Fl32_Teq_User_Store_RDb_Schema_Auth_Password} */
-    const eAuthPassword = spec['Fl32_Teq_User_Store_RDb_Schema_Auth_Password$']; // instance singleton
-    /** @type {Fl32_Teq_User_Store_RDb_Schema_Auth_Session} */
-    const eAuthSess = spec['Fl32_Teq_User_Store_RDb_Schema_Auth_Session$']; // instance singleton
-    /** @type {Fl32_Teq_User_Store_RDb_Schema_Id_Email} */
-    const eIdEmail = spec['Fl32_Teq_User_Store_RDb_Schema_Id_Email$']; // instance singleton
-    /** @type {Fl32_Teq_User_Store_RDb_Schema_Id_Phone} */
-    const eIdPhone = spec['Fl32_Teq_User_Store_RDb_Schema_Id_Phone$']; // instance singleton
-    /** @type {Fl32_Teq_User_Store_RDb_Schema_Profile} */
-    const eProfile = spec['Fl32_Teq_User_Store_RDb_Schema_Profile$']; // instance singleton
+    /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Auth_Password} */
+    const EAuthPassword = spec['Fl32_Teq_User_Store_RDb_Schema_Auth_Password#']; // class constructor
+    /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Auth_Session} */
+    const EAuthSess = spec['Fl32_Teq_User_Store_RDb_Schema_Auth_Session#']; // class constructor
+    /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Id_Email} */
+    const EIdEmail = spec['Fl32_Teq_User_Store_RDb_Schema_Id_Email#']; // class constructor
+    /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Id_Phone} */
+    const EIdPhone = spec['Fl32_Teq_User_Store_RDb_Schema_Id_Phone#']; // class constructor
+    /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Profile} */
+    const EUserProfile = spec['Fl32_Teq_User_Store_RDb_Schema_Profile#']; // class constructor
     /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Ref_Link} */
     const ERefLink = spec['Fl32_Teq_User_Store_RDb_Schema_Ref_Link#']; // class constructor
-    /** @type {Fl32_Teq_User_Store_RDb_Schema_Ref_Tree} */
-    const eRefTree = spec['Fl32_Teq_User_Store_RDb_Schema_Ref_Tree$']; // instance singleton
-    /** @type {Fl32_Teq_User_Store_RDb_Schema_User} */
-    const eUser = spec['Fl32_Teq_User_Store_RDb_Schema_User$']; // instance singleton
+    /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Ref_Tree} */
+    const ERefTree = spec['Fl32_Teq_User_Store_RDb_Schema_Ref_Tree#']; // class constructor
+    /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_User} */
+    const EUser = spec['Fl32_Teq_User_Store_RDb_Schema_User#']; // class constructor
     /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Group} */
     const EGroup = spec['Fl32_Bwl_Store_RDb_Schema_Group#']; // class constructor
     /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Group_User} */
@@ -147,45 +147,45 @@ function Factory(spec) {
             }
 
             async function insertSessions(trx) {
-                await trx(eAuthSess.ENTITY).insert([{
-                    [eAuthSess.A_SESSION_ID]: DEF.DATA_SESS_ID_ADMIN,
-                    [eAuthSess.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                await trx(EAuthSess.ENTITY).insert([{
+                    [EAuthSess.A_SESSION_ID]: DEF.DATA_SESS_ID_ADMIN,
+                    [EAuthSess.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
                 }, {
-                    [eAuthSess.A_SESSION_ID]: DEF.DATA_SESS_ID_CUST,
-                    [eAuthSess.A_USER_REF]: DEF.DATA_USER_ID_CUST,
+                    [EAuthSess.A_SESSION_ID]: DEF.DATA_SESS_ID_CUST,
+                    [EAuthSess.A_USER_REF]: DEF.DATA_USER_ID_CUST,
                 }]);
             }
 
             async function insertUsers(trx) {
                 const isPg = trx.client.constructor.name === 'Client_PG';
-                await trx(eUser.ENTITY).insert([
-                    {[eUser.A_ID]: isPg ? undefined : DEF.DATA_USER_ID_ADMIN},
-                    {[eUser.A_ID]: isPg ? undefined : DEF.DATA_USER_ID_CUST},
+                await trx(EUser.ENTITY).insert([
+                    {[EUser.A_ID]: isPg ? undefined : DEF.DATA_USER_ID_ADMIN},
+                    {[EUser.A_ID]: isPg ? undefined : DEF.DATA_USER_ID_CUST},
                 ]);
-                await trx(eProfile.ENTITY).insert([
-                    {[eProfile.A_USER_REF]: DEF.DATA_USER_ID_ADMIN, [eProfile.A_NAME]: 'Admin'},
-                    {[eProfile.A_USER_REF]: DEF.DATA_USER_ID_CUST, [eProfile.A_NAME]: 'Customer'},
+                await trx(EUserProfile.ENTITY).insert([
+                    {[EUserProfile.A_USER_REF]: DEF.DATA_USER_ID_ADMIN, [EUserProfile.A_NAME]: 'Admin'},
+                    {[EUserProfile.A_USER_REF]: DEF.DATA_USER_ID_CUST, [EUserProfile.A_NAME]: 'Customer'},
                 ]);
                 const hash1 = await $bcrypt.hash('test', DEF_USER.BCRYPT_HASH_ROUNDS);
                 const hash2 = await $bcrypt.hash('test', DEF_USER.BCRYPT_HASH_ROUNDS);
-                await trx(eAuthPassword.ENTITY).insert([
+                await trx(EAuthPassword.ENTITY).insert([
                     {
-                        [eAuthPassword.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
-                        [eAuthPassword.A_LOGIN]: 'admin',
-                        [eAuthPassword.A_PASSWORD_HASH]: hash1,
+                        [EAuthPassword.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                        [EAuthPassword.A_LOGIN]: 'admin',
+                        [EAuthPassword.A_PASSWORD_HASH]: hash1,
                     }, {
-                        [eAuthPassword.A_USER_REF]: DEF.DATA_USER_ID_CUST,
-                        [eAuthPassword.A_LOGIN]: 'cust',
-                        [eAuthPassword.A_PASSWORD_HASH]: hash2,
+                        [EAuthPassword.A_USER_REF]: DEF.DATA_USER_ID_CUST,
+                        [EAuthPassword.A_LOGIN]: 'cust',
+                        [EAuthPassword.A_PASSWORD_HASH]: hash2,
                     },
                 ]);
-                await trx(eIdEmail.ENTITY).insert({
-                    [eIdEmail.A_EMAIL]: 'alex@wiredgeese.com',
-                    [eIdEmail.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                await trx(EIdEmail.ENTITY).insert({
+                    [EIdEmail.A_EMAIL]: 'alex@wiredgeese.com',
+                    [EIdEmail.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
                 });
-                await trx(eIdPhone.ENTITY).insert({
-                    [eIdPhone.A_PHONE]: '(371)29181801',
-                    [eIdPhone.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                await trx(EIdPhone.ENTITY).insert({
+                    [EIdPhone.A_PHONE]: '(371)29181801',
+                    [EIdPhone.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
                 });
                 const expiredAt = new Date();
                 expiredAt.setUTCDate(expiredAt.getUTCDate() + 1);
@@ -199,13 +199,13 @@ function Factory(spec) {
                     [ERefLink.A_DATE_EXPIRED]: expiredAt,
                 }]);
                 // users tree
-                await trx(eRefTree.ENTITY).insert([
+                await trx(ERefTree.ENTITY).insert([
                     {
-                        [eRefTree.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
-                        [eRefTree.A_PARENT_REF]: DEF.DATA_USER_ID_ADMIN,
+                        [ERefTree.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                        [ERefTree.A_PARENT_REF]: DEF.DATA_USER_ID_ADMIN,
                     }, {
-                        [eRefTree.A_USER_REF]: DEF.DATA_USER_ID_CUST,
-                        [eRefTree.A_PARENT_REF]: DEF.DATA_USER_ID_ADMIN,
+                        [ERefTree.A_USER_REF]: DEF.DATA_USER_ID_CUST,
+                        [ERefTree.A_PARENT_REF]: DEF.DATA_USER_ID_ADMIN,
                     }
                 ]);
             }

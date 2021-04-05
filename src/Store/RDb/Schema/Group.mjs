@@ -1,16 +1,8 @@
 /**
- *  Group entity.
+ *  'app_group' entity.
+ *  @deprecated use 'app_friend' entity
  */
 class Fl32_Bwl_Store_RDb_Schema_Group {
-
-    static A_ADMIN_REF = 'admin_ref';
-    static A_DATE_CREATED = 'date_created';
-    static A_ID = 'id';
-    static A_MODE = 'mode'; // info sharing mode: all, relative only
-    static A_NAME = 'name';
-    static ENTITY = 'app_group';
-
-    /* Should we add fields to the class? 'obj.age' or 'obj[Clazz.A_AGE]'??? */
     admin_ref;
     date_created;
     id;
@@ -18,7 +10,16 @@ class Fl32_Bwl_Store_RDb_Schema_Group {
     name;
 }
 
+// table name and columns names (entity and attributes) to use in queries to RDb
+Fl32_Bwl_Store_RDb_Schema_Group.A_ADMIN_REF = 'admin_ref';
+Fl32_Bwl_Store_RDb_Schema_Group.A_DATE_CREATED = 'date_created';
+Fl32_Bwl_Store_RDb_Schema_Group.A_ID = 'id';
+Fl32_Bwl_Store_RDb_Schema_Group.A_MODE = 'mode'; // info sharing mode: all, relative only
+Fl32_Bwl_Store_RDb_Schema_Group.A_NAME = 'name';
+Fl32_Bwl_Store_RDb_Schema_Group.ENTITY = 'app_group';
+
 // freeze class to deny attributes changes
 Object.freeze(Fl32_Bwl_Store_RDb_Schema_Group);
 
+// MODULE'S EXPORT
 export default Fl32_Bwl_Store_RDb_Schema_Group;

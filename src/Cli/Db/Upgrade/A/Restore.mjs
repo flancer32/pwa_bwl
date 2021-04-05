@@ -22,22 +22,22 @@ function Factory(spec) {
     const connector = spec['TeqFw_Core_App_Db_Connector$']; // instance singleton
     /** @type {TeqFw_Core_App_Logger} */
     const logger = spec['TeqFw_Core_App_Logger$'];  // instance singleton
-    /** @type {Fl32_Teq_User_Store_RDb_Schema_User} */
-    const eUser = spec['Fl32_Teq_User_Store_RDb_Schema_User$']; // instance singleton
-    /** @type {Fl32_Teq_User_Store_RDb_Schema_Auth_Password} */
-    const eUserAuthPass = spec['Fl32_Teq_User_Store_RDb_Schema_Auth_Password$']; // instance singleton
-    /** @type {Fl32_Teq_User_Store_RDb_Schema_Auth_Session} */
-    const eUserAuthSess = spec['Fl32_Teq_User_Store_RDb_Schema_Auth_Session$']; // instance singleton
-    /** @type {Fl32_Teq_User_Store_RDb_Schema_Id_Email} */
-    const eUserIdEmail = spec['Fl32_Teq_User_Store_RDb_Schema_Id_Email$']; // instance singleton
-    /** @type {Fl32_Teq_User_Store_RDb_Schema_Id_Phone} */
-    const eUserIdPhone = spec['Fl32_Teq_User_Store_RDb_Schema_Id_Phone$']; // instance singleton
-    /** @type {Fl32_Teq_User_Store_RDb_Schema_Profile} */
-    const eUserProfile = spec['Fl32_Teq_User_Store_RDb_Schema_Profile$']; // instance singleton
+    /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_User} */
+    const EUser = spec['Fl32_Teq_User_Store_RDb_Schema_User#']; // class constructor
+    /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Auth_Password} */
+    const EUserAuthPass = spec['Fl32_Teq_User_Store_RDb_Schema_Auth_Password#']; // class constructor
+    /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Auth_Session} */
+    const EUserAuthSess = spec['Fl32_Teq_User_Store_RDb_Schema_Auth_Session#']; // class constructor
+    /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Id_Email} */
+    const EUserIdEmail = spec['Fl32_Teq_User_Store_RDb_Schema_Id_Email#']; // class constructor
+    /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Id_Phone} */
+    const EUserIdPhone = spec['Fl32_Teq_User_Store_RDb_Schema_Id_Phone#']; // class constructor
+    /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Profile} */
+    const EUserProfile = spec['Fl32_Teq_User_Store_RDb_Schema_Profile#']; // class constructor
     /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Ref_Link} */
     const EUserRefLink = spec['Fl32_Teq_User_Store_RDb_Schema_Ref_Link#']; // class constructor
-    /** @type {Fl32_Teq_User_Store_RDb_Schema_Ref_Tree} */
-    const eUserRefTree = spec['Fl32_Teq_User_Store_RDb_Schema_Ref_Tree$']; // instance singleton
+    /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Ref_Tree} */
+    const EUserRefTree = spec['Fl32_Teq_User_Store_RDb_Schema_Ref_Tree#']; // class constructor
 
     /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Group} */
     const EGroup = spec['Fl32_Bwl_Store_RDb_Schema_Group#']; // class constructor
@@ -77,14 +77,14 @@ function Factory(spec) {
         const trx = await connector.startTransaction();
         try {
             // user
-            await trx(eUser.ENTITY).insert(dump[eUser.ENTITY]);
-            await trx(eUserAuthPass.ENTITY).insert(dump[eUserAuthPass.ENTITY]);
-            await trx(eUserAuthSess.ENTITY).insert(dump[eUserAuthSess.ENTITY]);
-            await trx(eUserIdEmail.ENTITY).insert(dump[eUserIdEmail.ENTITY]);
-            await trx(eUserIdPhone.ENTITY).insert(dump[eUserIdPhone.ENTITY]);
-            await trx(eUserProfile.ENTITY).insert(dump[eUserProfile.ENTITY]);
+            await trx(EUser.ENTITY).insert(dump[EUser.ENTITY]);
+            await trx(EUserAuthPass.ENTITY).insert(dump[EUserAuthPass.ENTITY]);
+            await trx(EUserAuthSess.ENTITY).insert(dump[EUserAuthSess.ENTITY]);
+            await trx(EUserIdEmail.ENTITY).insert(dump[EUserIdEmail.ENTITY]);
+            await trx(EUserIdPhone.ENTITY).insert(dump[EUserIdPhone.ENTITY]);
+            await trx(EUserProfile.ENTITY).insert(dump[EUserProfile.ENTITY]);
             //await trx(EUserRefLink.ENTITY).insert(dump[EUserRefLink.ENTITY]); TODO: uncomment it
-            await trx(eUserRefTree.ENTITY).insert(dump[eUserRefTree.ENTITY]);
+            await trx(EUserRefTree.ENTITY).insert(dump[EUserRefTree.ENTITY]);
             // app
             await trx(EGroup.ENTITY).insert(dump[EGroup.ENTITY]);
             await trx(EGroupUser.ENTITY).insert(dump[EGroupUser.ENTITY]);

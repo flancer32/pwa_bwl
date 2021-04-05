@@ -14,8 +14,8 @@ export default class Fl32_Bwl_Plugin_Store_RDb_Setup {
         const EProfileGroupUser = spec['Fl32_Bwl_Store_RDb_Schema_Profile_Group_User#']; // class constructor
         /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Weight_Stat} */
         const EWeightStat = spec['Fl32_Bwl_Store_RDb_Schema_Weight_Stat#']; // class constructor
-        /** @type {Fl32_Teq_User_Store_RDb_Schema_User} */
-        const eUser = spec['Fl32_Teq_User_Store_RDb_Schema_User$']; // instance singleton
+        /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_User} */
+        const EUser = spec['Fl32_Teq_User_Store_RDb_Schema_User#']; // class constructor
 
         /**
          * TODO: tables drop should be ordered according to relations between tables (DEM).
@@ -59,9 +59,9 @@ export default class Fl32_Bwl_Plugin_Store_RDb_Setup {
                         DEF.DATA_SHARING_MODE_ALL,
                         DEF.DATA_SHARING_MODE_PERCENT
                     ]).notNullable().comment('Sharing mode for group users: (a)ll, (p)ersentage');
-                    table.foreign(EGroup.A_ADMIN_REF).references(eUser.A_ID).inTable(eUser.ENTITY)
+                    table.foreign(EGroup.A_ADMIN_REF).references(EUser.A_ID).inTable(EUser.ENTITY)
                         .onDelete('CASCADE').onUpdate('CASCADE')
-                        .withKeyName(utilFKName(EGroup.ENTITY, EGroup.A_ADMIN_REF, eUser.ENTITY, eUser.A_ID));
+                        .withKeyName(utilFKName(EGroup.ENTITY, EGroup.A_ADMIN_REF, EUser.ENTITY, EUser.A_ID));
                     table.comment('Registry for users groups to share weight info.');
                 });
             }
@@ -86,9 +86,9 @@ export default class Fl32_Bwl_Plugin_Store_RDb_Setup {
                     table.foreign(EGroupUser.A_GROUP_REF).references(EGroup.A_ID).inTable(EGroup.ENTITY)
                         .onDelete('CASCADE').onUpdate('CASCADE')
                         .withKeyName(utilFKName(EGroupUser.ENTITY, EGroupUser.A_GROUP_REF, EGroup.ENTITY, EGroup.A_ID));
-                    table.foreign(EGroupUser.A_USER_REF).references(eUser.A_ID).inTable(eUser.ENTITY)
+                    table.foreign(EGroupUser.A_USER_REF).references(EUser.A_ID).inTable(EUser.ENTITY)
                         .onDelete('CASCADE').onUpdate('CASCADE')
-                        .withKeyName(utilFKName(EGroupUser.ENTITY, EGroupUser.A_USER_REF, eUser.ENTITY, eUser.A_ID));
+                        .withKeyName(utilFKName(EGroupUser.ENTITY, EGroupUser.A_USER_REF, EUser.ENTITY, EUser.A_ID));
                     table.comment('Relations between groups and users.');
                 });
             }
@@ -112,9 +112,9 @@ export default class Fl32_Bwl_Plugin_Store_RDb_Setup {
                         .comment('Initial weight.');
                     table.decimal(EProfile.A_WEIGHT_TARGET, 4, 1)
                         .comment('Target weight.');
-                    table.foreign(EProfile.A_USER_REF).references(eUser.A_ID).inTable(eUser.ENTITY)
+                    table.foreign(EProfile.A_USER_REF).references(EUser.A_ID).inTable(EUser.ENTITY)
                         .onDelete('CASCADE').onUpdate('CASCADE')
-                        .withKeyName(utilFKName(EProfile.ENTITY, EProfile.A_USER_REF, eUser.ENTITY, eUser.A_ID));
+                        .withKeyName(utilFKName(EProfile.ENTITY, EProfile.A_USER_REF, EUser.ENTITY, EUser.A_ID));
                     table.comment('Application level profile (gender, height, ...).');
                 });
             }
@@ -140,20 +140,20 @@ export default class Fl32_Bwl_Plugin_Store_RDb_Setup {
                         EProfileGroupUser.A_GROUP_REF,
                         EProfileGroupUser.A_GROUP_USER_REF,
                     ]);
-                    table.foreign(EProfileGroupUser.A_USER_REF).references(eUser.A_ID).inTable(eUser.ENTITY)
+                    table.foreign(EProfileGroupUser.A_USER_REF).references(EUser.A_ID).inTable(EUser.ENTITY)
                         .onDelete('CASCADE').onUpdate('CASCADE')
                         .withKeyName(utilFKName(
-                            EProfileGroupUser.ENTITY, EProfileGroupUser.A_USER_REF, eUser.ENTITY, eUser.A_ID)
+                            EProfileGroupUser.ENTITY, EProfileGroupUser.A_USER_REF, EUser.ENTITY, EUser.A_ID)
                         );
                     table.foreign(EProfileGroupUser.A_GROUP_REF).references(EGroup.A_ID).inTable(EGroup.ENTITY)
                         .onDelete('CASCADE').onUpdate('CASCADE')
                         .withKeyName(utilFKName(
                             EProfileGroupUser.ENTITY, EProfileGroupUser.A_GROUP_REF, EGroup.ENTITY, EGroup.A_ID)
                         );
-                    table.foreign(EProfileGroupUser.A_GROUP_USER_REF).references(eUser.A_ID).inTable(eUser.ENTITY)
+                    table.foreign(EProfileGroupUser.A_GROUP_USER_REF).references(EUser.A_ID).inTable(EUser.ENTITY)
                         .onDelete('CASCADE').onUpdate('CASCADE')
                         .withKeyName(utilFKName(
-                            EProfileGroupUser.ENTITY, EProfileGroupUser.A_GROUP_USER_REF, eUser.ENTITY, eUser.A_ID)
+                            EProfileGroupUser.ENTITY, EProfileGroupUser.A_GROUP_USER_REF, EUser.ENTITY, EUser.A_ID)
                         );
                     table.comment('Personal overwrites for member-group links.');
                 });
@@ -171,9 +171,9 @@ export default class Fl32_Bwl_Plugin_Store_RDb_Setup {
                     table.decimal(EWeightStat.A_VALUE, 4, 1).notNullable()
                         .comment('Statistical value for the weight in kg: 75.4.');
                     table.primary([EWeightStat.A_USER_REF, EWeightStat.A_DATE]);
-                    table.foreign(EWeightStat.A_USER_REF).references(eUser.A_ID).inTable(eUser.ENTITY)
+                    table.foreign(EWeightStat.A_USER_REF).references(EUser.A_ID).inTable(EUser.ENTITY)
                         .onDelete('CASCADE').onUpdate('CASCADE')
-                        .withKeyName(utilFKName(EWeightStat.ENTITY, EWeightStat.A_USER_REF, eUser.ENTITY, eUser.A_ID));
+                        .withKeyName(utilFKName(EWeightStat.ENTITY, EWeightStat.A_USER_REF, EUser.ENTITY, EUser.A_ID));
                     table.comment('Weight values by date (kg).');
                 });
             }

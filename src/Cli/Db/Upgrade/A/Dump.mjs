@@ -22,22 +22,22 @@ function Factory(spec) {
     const connector = spec['TeqFw_Core_App_Db_Connector$']; // instance singleton
     /** @type {TeqFw_Core_App_Logger} */
     const logger = spec['TeqFw_Core_App_Logger$'];  // instance singleton
-    /** @type {Fl32_Teq_User_Store_RDb_Schema_User} */
-    const eUser = spec['Fl32_Teq_User_Store_RDb_Schema_User$']; // instance singleton
-    /** @type {Fl32_Teq_User_Store_RDb_Schema_Auth_Password} */
-    const eUserAuthPass = spec['Fl32_Teq_User_Store_RDb_Schema_Auth_Password$']; // instance singleton
-    /** @type {Fl32_Teq_User_Store_RDb_Schema_Auth_Session} */
-    const eUserAuthSess = spec['Fl32_Teq_User_Store_RDb_Schema_Auth_Session$']; // instance singleton
-    /** @type {Fl32_Teq_User_Store_RDb_Schema_Id_Email} */
-    const eUserIdEmail = spec['Fl32_Teq_User_Store_RDb_Schema_Id_Email$']; // instance singleton
-    /** @type {Fl32_Teq_User_Store_RDb_Schema_Id_Phone} */
-    const eUserIdPhone = spec['Fl32_Teq_User_Store_RDb_Schema_Id_Phone$']; // instance singleton
-    /** @type {Fl32_Teq_User_Store_RDb_Schema_Profile} */
-    const eUserProfile = spec['Fl32_Teq_User_Store_RDb_Schema_Profile$']; // instance singleton
+    /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_User} */
+    const EUser = spec['Fl32_Teq_User_Store_RDb_Schema_User#']; // class constructor
+    /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Auth_Password} */
+    const EUserAuthPass = spec['Fl32_Teq_User_Store_RDb_Schema_Auth_Password#']; // class constructor
+    /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Auth_Session} */
+    const EUserAuthSess = spec['Fl32_Teq_User_Store_RDb_Schema_Auth_Session#']; // class constructor
+    /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Id_Email} */
+    const EUserIdEmail = spec['Fl32_Teq_User_Store_RDb_Schema_Id_Email#']; // class constructor
+    /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Id_Phone} */
+    const EUserIdPhone = spec['Fl32_Teq_User_Store_RDb_Schema_Id_Phone#']; // class constructor
+    /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Profile} */
+    const EUserProfile = spec['Fl32_Teq_User_Store_RDb_Schema_Profile#']; // class constructor
     /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Ref_Link} */
     const EUserRefLink = spec['Fl32_Teq_User_Store_RDb_Schema_Ref_Link#']; // class constructor
-    /** @type {Fl32_Teq_User_Store_RDb_Schema_Ref_Tree} */
-    const eUserRefTree = spec['Fl32_Teq_User_Store_RDb_Schema_Ref_Tree$']; // instance singleton
+    /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Ref_Tree} */
+    const EUserRefTree = spec['Fl32_Teq_User_Store_RDb_Schema_Ref_Tree#']; // class constructor
 
     /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Group} */
     const EGroup = spec['Fl32_Bwl_Store_RDb_Schema_Group#']; // class constructor
@@ -89,20 +89,20 @@ function Factory(spec) {
             result[EProfileGroupUser.ENTITY] = await trx.select().from(EProfileGroupUser.ENTITY);
             result[EWeightStat.ENTITY] = await trx.select().from(EWeightStat.ENTITY);
             // users data
-            result[eUser.ENTITY] = await trx.select().from(eUser.ENTITY);
-            result[eUserAuthPass.ENTITY] = await trx.select().from(eUserAuthPass.ENTITY);
-            result[eUserAuthSess.ENTITY] = await trx.select().from(eUserAuthSess.ENTITY);
-            result[eUserIdEmail.ENTITY] = await trx.select().from(eUserIdEmail.ENTITY);
-            result[eUserIdPhone.ENTITY] = await trx.select().from(eUserIdPhone.ENTITY);
-            result[eUserProfile.ENTITY] = await trx.select().from(eUserProfile.ENTITY);
+            result[EUser.ENTITY] = await trx.select().from(EUser.ENTITY);
+            result[EUserAuthPass.ENTITY] = await trx.select().from(EUserAuthPass.ENTITY);
+            result[EUserAuthSess.ENTITY] = await trx.select().from(EUserAuthSess.ENTITY);
+            result[EUserIdEmail.ENTITY] = await trx.select().from(EUserIdEmail.ENTITY);
+            result[EUserIdPhone.ENTITY] = await trx.select().from(EUserIdPhone.ENTITY);
+            result[EUserProfile.ENTITY] = await trx.select().from(EUserProfile.ENTITY);
             result[EUserRefLink.ENTITY] = await trx.select().from(EUserRefLink.ENTITY);
-            result[eUserRefTree.ENTITY] = await trx.select().from(eUserRefTree.ENTITY);
+            result[EUserRefTree.ENTITY] = await trx.select().from(EUserRefTree.ENTITY);
             // serials for Postgres
             const isPg = trx.client.constructor.name === 'Client_PG';
             if (isPg) {
                 const knex = await connector.getKnex();
                 const schema = knex.schema;
-                const userId = `${eUser.ENTITY}_id_seq`;
+                const userId = `${EUser.ENTITY}_id_seq`;
                 const groupId = `${EGroup.ENTITY}_id_seq`;
                 result.serials = await getSerials(schema, [userId, groupId]);
             }
