@@ -1,6 +1,6 @@
 @import "layout/grid.css";
 
 .layoutCentered {
-    min-height: calc(100vh - 50px);
+    min-height: calc(100vh - 50px - 32px);
     min-width: 100vw;
 }

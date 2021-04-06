@@ -22,9 +22,9 @@ function Factory(spec) {
     /** @type {Fl32_Teq_User_Front_App_Session} */
     const session = spec[DEF.MOD_USER.DI_SESSION];  // named singleton
     /** @type {TeqFw_Core_App_Front_Widget_Layout_Centered} */
-    const layoutCentered = spec['TeqFw_Core_App_Front_Widget_Layout_Centered$'];    // Vue component singleton
+    const layoutCentered = spec['TeqFw_Core_App_Front_Widget_Layout_Centered$'];    // vue comp tmpl
     /** @type {Fl32_Teq_User_Front_Widget_SignIn} */
-    const userSignIn = spec['Fl32_Teq_User_Front_Widget_SignIn$'];  // Vue component singleton
+    const userSignIn = spec['Fl32_Teq_User_Front_Widget_SignIn$'];  // vue comp tmpl
     /** @type {typeof Fl32_Teq_User_Front_Widget_SignIn_Props} */
     const SignInProps = spec['Fl32_Teq_User_Front_Widget_SignIn#Props'];  // class constructor
     const {mapMutations, mapState} = spec[DEF.MOD_VUE.DI_VUEX];

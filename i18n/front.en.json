@@ -36,6 +36,19 @@
       },
       "weight": "Weight"
     },
+    "pub": {
+      "route": {
+        "sign": {
+          "in": {
+            "title": "Request sign in link",
+            "msg": {
+              "failure": "Failure",
+              "success": "Success"
+            }
+          }
+        }
+      }
+    },
     "sign": {
       "err": {
         "required": "Field is required.",

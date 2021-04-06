@@ -20,7 +20,7 @@ function Factory(spec) {
     const {mapState} = spec[DEF.MOD_VUE.DI_VUEX];
     const {ref} = spec[DEF.MOD_VUE.DI_VUE];
     /** @type {Fl32_Bwl_Front_Layout_TopActions} */
-    const topActions = spec['Fl32_Bwl_Front_Layout_TopActions$']; // Vue component singleton
+    const topActions = spec['Fl32_Bwl_Front_Layout_TopActions$']; // vue comp tmpl
 
     // DEFINE WORKING VARS
     const template = `

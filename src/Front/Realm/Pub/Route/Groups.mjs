@@ -44,9 +44,9 @@ function Factory(spec) {
     const i18n = spec[DEF.MOD_CORE.DI_I18N]; // named singleton
     const {ref} = spec[DEF.MOD_VUE.DI_VUE];    // destructuring instance singleton
     /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.IComponent} */
-    const topActions = spec[DEF.DI_TOP_ACTIONS]; // Vue component singleton
+    const topActions = spec[DEF.DI_TOP_ACTIONS]; // vue comp tmpl
     /** @type {Fl32_Bwl_Front_Widget_Edit_Group} */
-    const editGroup = spec['Fl32_Bwl_Front_Widget_Edit_Group$']; // Vue component singleton
+    const editGroup = spec['Fl32_Bwl_Front_Widget_Edit_Group$']; // vue comp tmpl
     /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.Item} */
     const Action = spec['Fl32_Bwl_Front_Layout_TopActions#Item']; // class constructor
     /** @type {Fl32_Bwl_Front_Gate_Group_List.gate} */

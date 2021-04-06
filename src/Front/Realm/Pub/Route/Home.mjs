@@ -61,7 +61,7 @@ export default function Fl32_Bwl_Front_Realm_Pub_Route_Home(spec) {
     /** @type {Fl32_Bwl_Front_Widget_Chart} */
     const chart = spec['Fl32_Bwl_Front_Widget_Chart$'];
     /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.IComponent} */
-    const topActions = spec[DEF.DI_TOP_ACTIONS]; // Vue component singleton
+    const topActions = spec[DEF.DI_TOP_ACTIONS]; // vue comp tmpl
     /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.Item} */
     const Action = spec['Fl32_Bwl_Front_Layout_TopActions#Item']; // class constructor
     /** @type {Fl32_Bwl_Front_Widget_Edit_Weight.widget} */

@@ -22,9 +22,9 @@ function Factory(spec) {
     const router = spec[DEF.MOD_VUE.DI_ROUTER];  // named singleton
     const app = spec[DEF.MOD_VUE.DI_APP];  // named singleton
     /** @type {TeqFw_Core_App_Front_Widget_Layout_Centered} */
-    const layoutCentered = spec['TeqFw_Core_App_Front_Widget_Layout_Centered$'];    // Vue component singleton
+    const layoutCentered = spec['TeqFw_Core_App_Front_Widget_Layout_Centered$'];    // vue comp tmpl
     /** @type {Fl32_Bwl_Front_Layout_Sign} */
-    const layoutMain = spec['Fl32_Bwl_Front_Layout_Sign$']; // Vue component singleton
+    const layoutMain = spec['Fl32_Bwl_Front_Layout_Sign$']; // vue comp tmpl
 
     // DEFINE WORKING VARS
     const template = `
