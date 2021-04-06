@@ -4,19 +4,19 @@ export default class Fl32_Bwl_Plugin_Store_RDb_Setup {
         const DEF = spec['Fl32_Bwl_Defaults$']; // instance singleton
         const {NameForForeignKey: utilFKName} = spec['TeqFw_Core_App_Util_Store_RDb'];
         /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Group} */
-        const EGroup = spec['Fl32_Bwl_Store_RDb_Schema_Group#']; // class constructor
-        // /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Profile} */
+        const EGroup = spec['Fl32_Bwl_Store_RDb_Schema_Group#']; // class
         /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Group_User} */
-        const EGroupUser = spec['Fl32_Bwl_Store_RDb_Schema_Group_User#']; // class constructor
+        const EGroupUser = spec['Fl32_Bwl_Store_RDb_Schema_Group_User#']; // class
         /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Profile} */
-        const EProfile = spec['Fl32_Bwl_Store_RDb_Schema_Profile#']; // class constructor
+        const EProfile = spec['Fl32_Bwl_Store_RDb_Schema_Profile#']; // class
         /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Profile_Group_User} */
-        const EProfileGroupUser = spec['Fl32_Bwl_Store_RDb_Schema_Profile_Group_User#']; // class constructor
-        /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Weight_Stat} */
-        const EWeightStat = spec['Fl32_Bwl_Store_RDb_Schema_Weight_Stat#']; // class constructor
+        const EProfileGroupUser = spec['Fl32_Bwl_Store_RDb_Schema_Profile_Group_User#']; // class
+        /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Sign_In} */
+        const ESignIn = spec['Fl32_Bwl_Store_RDb_Schema_Sign_In#']; // class
         /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_User} */
-        const EUser = spec['Fl32_Teq_User_Store_RDb_Schema_User#']; // class constructor
-
+        const EUser = spec['Fl32_Teq_User_Store_RDb_Schema_User#']; // class
+        /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Weight_Stat} */
+        const EWeightStat = spec['Fl32_Bwl_Store_RDb_Schema_Weight_Stat#']; // class
         /**
          * TODO: tables drop should be ordered according to relations between tables (DEM).
          * For the moment I use levels for drop: N, ..., 2, 1, 0.
@@ -31,6 +31,7 @@ export default class Fl32_Bwl_Plugin_Store_RDb_Setup {
             schema.dropTableIfExists(EGroupUser.ENTITY);
             schema.dropTableIfExists(EProfile.ENTITY);
             schema.dropTableIfExists(EProfileGroupUser.ENTITY);
+            schema.dropTableIfExists(ESignIn.ENTITY);
             schema.dropTableIfExists(EWeightStat.ENTITY);
         };
 
@@ -163,6 +164,24 @@ export default class Fl32_Bwl_Plugin_Store_RDb_Setup {
              * @param {SchemaBuilder} builder
              * @param knex
              */
+            function createTblSignIn(builder, knex) {
+                builder.createTable(ESignIn.ENTITY, (table) => {
+                    table.string(ESignIn.A_CODE).notNullable().primary()
+                        .comment('Referral link code.');
+                    table.integer(ESignIn.A_USER_REF).unsigned().notNullable();
+                    table.dateTime(ESignIn.A_DATE_EXPIRED).notNullable()
+                        .comment('Date-time for referral code expiration.');
+                    table.foreign(ESignIn.A_USER_REF).references(EUser.A_ID).inTable(EUser.ENTITY)
+                        .onDelete('CASCADE').onUpdate('CASCADE')
+                        .withKeyName(utilFKName(ESignIn.ENTITY, ESignIn.A_USER_REF, EUser.ENTITY, EUser.A_ID));
+                    table.comment('One-time sign in codes with limited lifetime.');
+                });
+            }
+
+            /**
+             * @param {SchemaBuilder} builder
+             * @param knex
+             */
             function createTblWeightStat(builder, knex) {
                 builder.createTable(EWeightStat.ENTITY, (table) => {
                     table.integer(EWeightStat.A_USER_REF).unsigned().notNullable();
@@ -185,6 +204,7 @@ export default class Fl32_Bwl_Plugin_Store_RDb_Setup {
             createTblGroupUser(builder, knex);
             createTblProfile(builder, knex);
             createTblProfileGroupUser(builder, knex);
+            createTblSignIn(builder, knex);
             createTblWeightStat(builder, knex);
         };
     }

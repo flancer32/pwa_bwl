@@ -23,39 +23,39 @@ function Factory(spec) {
     /** @type {Fl32_Teq_User_Defaults} */
     const DEF_USER = spec['Fl32_Teq_User_Defaults$'];   // instance singleton
     /** @type {typeof TeqFw_Core_App_Cli_Command_Data} */
-    const DCommand = spec['TeqFw_Core_App_Cli_Command#Data'];    // class constructor
+    const DCommand = spec['TeqFw_Core_App_Cli_Command#Data'];    // class
     /** @type {TeqFw_Core_App_Db_Connector} */
     const connector = spec['TeqFw_Core_App_Db_Connector$']; // instance singleton
     /** @type {TeqFw_Core_App_Logger} */
     const logger = spec['TeqFw_Core_App_Logger$'];  // instance singleton
-    /** @type {Function|Fl32_Bwl_Cli_Db_Z_Restruct.action} */
+    /** @type {typeof Fl32_Bwl_Cli_Db_Z_Restruct.action} */
     const actRestruct = spec['Fl32_Bwl_Cli_Db_Z_Restruct$']; // instance singleton
-    /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Auth_Password} */
-    const EAuthPassword = spec['Fl32_Teq_User_Store_RDb_Schema_Auth_Password#']; // class constructor
-    /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Auth_Session} */
-    const EAuthSess = spec['Fl32_Teq_User_Store_RDb_Schema_Auth_Session#']; // class constructor
-    /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Id_Email} */
-    const EIdEmail = spec['Fl32_Teq_User_Store_RDb_Schema_Id_Email#']; // class constructor
-    /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Id_Phone} */
-    const EIdPhone = spec['Fl32_Teq_User_Store_RDb_Schema_Id_Phone#']; // class constructor
-    /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Profile} */
-    const EUserProfile = spec['Fl32_Teq_User_Store_RDb_Schema_Profile#']; // class constructor
-    /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Ref_Link} */
-    const ERefLink = spec['Fl32_Teq_User_Store_RDb_Schema_Ref_Link#']; // class constructor
-    /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Ref_Tree} */
-    const ERefTree = spec['Fl32_Teq_User_Store_RDb_Schema_Ref_Tree#']; // class constructor
-    /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_User} */
-    const EUser = spec['Fl32_Teq_User_Store_RDb_Schema_User#']; // class constructor
     /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Group} */
-    const EGroup = spec['Fl32_Bwl_Store_RDb_Schema_Group#']; // class constructor
+    const EAppGroup = spec['Fl32_Bwl_Store_RDb_Schema_Group#']; // class
     /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Group_User} */
-    const EGroupUser = spec['Fl32_Bwl_Store_RDb_Schema_Group_User#']; // class constructor
+    const EAppGroupUser = spec['Fl32_Bwl_Store_RDb_Schema_Group_User#']; // class
     /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Profile} */
-    const EProfile = spec['Fl32_Bwl_Store_RDb_Schema_Profile#']; // class constructor
+    const EAppProfile = spec['Fl32_Bwl_Store_RDb_Schema_Profile#']; // class
     /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Profile_Group_User} */
-    const EProfileGroupUser = spec['Fl32_Bwl_Store_RDb_Schema_Profile_Group_User#']; // class constructor
+    const EAppProfileGroupUser = spec['Fl32_Bwl_Store_RDb_Schema_Profile_Group_User#']; // class
     /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Weight_Stat} */
-    const EWeightStat = spec['Fl32_Bwl_Store_RDb_Schema_Weight_Stat#']; // class constructor
+    const EAppWeightStat = spec['Fl32_Bwl_Store_RDb_Schema_Weight_Stat#']; // class
+    /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_User} */
+    const EUser = spec['Fl32_Teq_User_Store_RDb_Schema_User#']; // class
+    /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Auth_Password} */
+    const EUserAuthPass = spec['Fl32_Teq_User_Store_RDb_Schema_Auth_Password#']; // class
+    /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Auth_Session} */
+    const EUserAuthSess = spec['Fl32_Teq_User_Store_RDb_Schema_Auth_Session#']; // class
+    /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Id_Email} */
+    const EUserIdEmail = spec['Fl32_Teq_User_Store_RDb_Schema_Id_Email#']; // class
+    /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Id_Phone} */
+    const EUserIdPhone = spec['Fl32_Teq_User_Store_RDb_Schema_Id_Phone#']; // class
+    /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Profile} */
+    const EUserProfile = spec['Fl32_Teq_User_Store_RDb_Schema_Profile#']; // class
+    /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Ref_Link} */
+    const EUserRefLink = spec['Fl32_Teq_User_Store_RDb_Schema_Ref_Link#']; // class
+    /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Ref_Tree} */
+    const EUserRefTree = spec['Fl32_Teq_User_Store_RDb_Schema_Ref_Tree#']; // class
 
     // DEFINE INNER FUNCTIONS
     /**
@@ -73,86 +73,86 @@ function Factory(spec) {
             // DEFINE INNER FUNCTIONS
             async function insertGroups(trx) {
                 const isPg = trx.client.constructor.name === 'Client_PG';
-                await trx(EGroup.ENTITY).insert([{
-                    [EGroup.A_ID]: isPg ? undefined : DEF.DATA_GROUP_ID_ADMIN,
-                    [EGroup.A_ADMIN_REF]: DEF.DATA_USER_ID_ADMIN,
-                    [EGroup.A_DATE_CREATED]: '2021-02-01',
-                    [EGroup.A_MODE]: DEF.DATA_SHARING_MODE_PERCENT,
-                    [EGroup.A_NAME]: 'Percentage only',
+                await trx(EAppGroup.ENTITY).insert([{
+                    [EAppGroup.A_ID]: isPg ? undefined : DEF.DATA_GROUP_ID_ADMIN,
+                    [EAppGroup.A_ADMIN_REF]: DEF.DATA_USER_ID_ADMIN,
+                    [EAppGroup.A_DATE_CREATED]: '2021-02-01',
+                    [EAppGroup.A_MODE]: DEF.DATA_SHARING_MODE_PERCENT,
+                    [EAppGroup.A_NAME]: 'Percentage only',
                 }, {
-                    [EGroup.A_ID]: isPg ? undefined : DEF.DATA_GROUP_ID_CUST,
-                    [EGroup.A_ADMIN_REF]: DEF.DATA_USER_ID_CUST,
-                    [EGroup.A_DATE_CREATED]: '2021-02-01',
-                    [EGroup.A_MODE]: DEF.DATA_SHARING_MODE_ALL,
-                    [EGroup.A_NAME]: 'Sample',
+                    [EAppGroup.A_ID]: isPg ? undefined : DEF.DATA_GROUP_ID_CUST,
+                    [EAppGroup.A_ADMIN_REF]: DEF.DATA_USER_ID_CUST,
+                    [EAppGroup.A_DATE_CREATED]: '2021-02-01',
+                    [EAppGroup.A_MODE]: DEF.DATA_SHARING_MODE_ALL,
+                    [EAppGroup.A_NAME]: 'Sample',
                 }]);
             }
 
             async function insertGroupUsers(trx) {
-                await trx(EGroupUser.ENTITY).insert([{
-                    [EGroupUser.A_GROUP_REF]: DEF.DATA_GROUP_ID_ADMIN,
-                    [EGroupUser.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
-                    [EGroupUser.A_ACTIVE]: true,
-                    [EGroupUser.A_NICK]: 'alex',
+                await trx(EAppGroupUser.ENTITY).insert([{
+                    [EAppGroupUser.A_GROUP_REF]: DEF.DATA_GROUP_ID_ADMIN,
+                    [EAppGroupUser.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                    [EAppGroupUser.A_ACTIVE]: true,
+                    [EAppGroupUser.A_NICK]: 'alex',
                 }, {
-                    [EGroupUser.A_GROUP_REF]: DEF.DATA_GROUP_ID_ADMIN,
-                    [EGroupUser.A_USER_REF]: DEF.DATA_USER_ID_CUST,
-                    [EGroupUser.A_ACTIVE]: false,
-                    [EGroupUser.A_NICK]: 'tanja',
+                    [EAppGroupUser.A_GROUP_REF]: DEF.DATA_GROUP_ID_ADMIN,
+                    [EAppGroupUser.A_USER_REF]: DEF.DATA_USER_ID_CUST,
+                    [EAppGroupUser.A_ACTIVE]: false,
+                    [EAppGroupUser.A_NICK]: 'tanja',
                 }, {
-                    [EGroupUser.A_GROUP_REF]: DEF.DATA_GROUP_ID_CUST,
-                    [EGroupUser.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
-                    [EGroupUser.A_ACTIVE]: true,
-                    [EGroupUser.A_NICK]: 'alex',
+                    [EAppGroupUser.A_GROUP_REF]: DEF.DATA_GROUP_ID_CUST,
+                    [EAppGroupUser.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                    [EAppGroupUser.A_ACTIVE]: true,
+                    [EAppGroupUser.A_NICK]: 'alex',
                 }, {
-                    [EGroupUser.A_GROUP_REF]: DEF.DATA_GROUP_ID_CUST,
-                    [EGroupUser.A_USER_REF]: DEF.DATA_USER_ID_CUST,
-                    [EGroupUser.A_ACTIVE]: true,
-                    [EGroupUser.A_NICK]: 'tanja',
+                    [EAppGroupUser.A_GROUP_REF]: DEF.DATA_GROUP_ID_CUST,
+                    [EAppGroupUser.A_USER_REF]: DEF.DATA_USER_ID_CUST,
+                    [EAppGroupUser.A_ACTIVE]: true,
+                    [EAppGroupUser.A_NICK]: 'tanja',
                 }]);
             }
 
             async function insertProfiles(trx) {
-                await trx(EProfile.ENTITY).insert([{
-                    [EProfile.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
-                    [EProfile.A_AGE]: 48,
-                    [EProfile.A_HEIGHT]: 175,
-                    [EProfile.A_IS_FEMALE]: false,
-                    [EProfile.A_WEIGHT_INIT]: 92.3,
-                    [EProfile.A_WEIGHT_TARGET]: 90,
+                await trx(EAppProfile.ENTITY).insert([{
+                    [EAppProfile.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                    [EAppProfile.A_AGE]: 48,
+                    [EAppProfile.A_HEIGHT]: 175,
+                    [EAppProfile.A_IS_FEMALE]: false,
+                    [EAppProfile.A_WEIGHT_INIT]: 92.3,
+                    [EAppProfile.A_WEIGHT_TARGET]: 90,
                 }, {
-                    [EProfile.A_USER_REF]: DEF.DATA_USER_ID_CUST,
-                    [EProfile.A_AGE]: 47,
-                    [EProfile.A_HEIGHT]: 165,
-                    [EProfile.A_IS_FEMALE]: true,
-                    [EProfile.A_WEIGHT_INIT]: 61,
-                    [EProfile.A_WEIGHT_TARGET]: 58,
+                    [EAppProfile.A_USER_REF]: DEF.DATA_USER_ID_CUST,
+                    [EAppProfile.A_AGE]: 47,
+                    [EAppProfile.A_HEIGHT]: 165,
+                    [EAppProfile.A_IS_FEMALE]: true,
+                    [EAppProfile.A_WEIGHT_INIT]: 61,
+                    [EAppProfile.A_WEIGHT_TARGET]: 58,
                 }]);
             }
 
             async function insertProfileGroupUsers(trx) {
-                await trx(EProfileGroupUser.ENTITY).insert([{
-                    [EProfileGroupUser.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
-                    [EProfileGroupUser.A_GROUP_REF]: DEF.DATA_GROUP_ID_ADMIN,
-                    [EProfileGroupUser.A_GROUP_USER_REF]: DEF.DATA_USER_ID_CUST,
-                    [EProfileGroupUser.A_COLOR]: 65535,
-                    [EProfileGroupUser.A_NICK]: 'Wife',
+                await trx(EAppProfileGroupUser.ENTITY).insert([{
+                    [EAppProfileGroupUser.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                    [EAppProfileGroupUser.A_GROUP_REF]: DEF.DATA_GROUP_ID_ADMIN,
+                    [EAppProfileGroupUser.A_GROUP_USER_REF]: DEF.DATA_USER_ID_CUST,
+                    [EAppProfileGroupUser.A_COLOR]: 65535,
+                    [EAppProfileGroupUser.A_NICK]: 'Wife',
                 }, {
-                    [EProfileGroupUser.A_USER_REF]: DEF.DATA_USER_ID_CUST,
-                    [EProfileGroupUser.A_GROUP_REF]: DEF.DATA_GROUP_ID_CUST,
-                    [EProfileGroupUser.A_GROUP_USER_REF]: DEF.DATA_USER_ID_ADMIN,
-                    [EProfileGroupUser.A_COLOR]: 65535,
-                    [EProfileGroupUser.A_NICK]: 'Husband',
+                    [EAppProfileGroupUser.A_USER_REF]: DEF.DATA_USER_ID_CUST,
+                    [EAppProfileGroupUser.A_GROUP_REF]: DEF.DATA_GROUP_ID_CUST,
+                    [EAppProfileGroupUser.A_GROUP_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                    [EAppProfileGroupUser.A_COLOR]: 65535,
+                    [EAppProfileGroupUser.A_NICK]: 'Husband',
                 }]);
             }
 
             async function insertSessions(trx) {
-                await trx(EAuthSess.ENTITY).insert([{
-                    [EAuthSess.A_SESSION_ID]: DEF.DATA_SESS_ID_ADMIN,
-                    [EAuthSess.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                await trx(EUserAuthSess.ENTITY).insert([{
+                    [EUserAuthSess.A_SESSION_ID]: DEF.DATA_SESS_ID_ADMIN,
+                    [EUserAuthSess.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
                 }, {
-                    [EAuthSess.A_SESSION_ID]: DEF.DATA_SESS_ID_CUST,
-                    [EAuthSess.A_USER_REF]: DEF.DATA_USER_ID_CUST,
+                    [EUserAuthSess.A_SESSION_ID]: DEF.DATA_SESS_ID_CUST,
+                    [EUserAuthSess.A_USER_REF]: DEF.DATA_USER_ID_CUST,
                 }]);
             }
 
@@ -168,246 +168,246 @@ function Factory(spec) {
                 ]);
                 const hash1 = await $bcrypt.hash('test', DEF_USER.BCRYPT_HASH_ROUNDS);
                 const hash2 = await $bcrypt.hash('test', DEF_USER.BCRYPT_HASH_ROUNDS);
-                await trx(EAuthPassword.ENTITY).insert([
+                await trx(EUserAuthPass.ENTITY).insert([
                     {
-                        [EAuthPassword.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
-                        [EAuthPassword.A_LOGIN]: 'admin',
-                        [EAuthPassword.A_PASSWORD_HASH]: hash1,
+                        [EUserAuthPass.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                        [EUserAuthPass.A_LOGIN]: 'admin',
+                        [EUserAuthPass.A_PASSWORD_HASH]: hash1,
                     }, {
-                        [EAuthPassword.A_USER_REF]: DEF.DATA_USER_ID_CUST,
-                        [EAuthPassword.A_LOGIN]: 'cust',
-                        [EAuthPassword.A_PASSWORD_HASH]: hash2,
+                        [EUserAuthPass.A_USER_REF]: DEF.DATA_USER_ID_CUST,
+                        [EUserAuthPass.A_LOGIN]: 'cust',
+                        [EUserAuthPass.A_PASSWORD_HASH]: hash2,
                     },
                 ]);
-                await trx(EIdEmail.ENTITY).insert({
-                    [EIdEmail.A_EMAIL]: 'alex@wiredgeese.com',
-                    [EIdEmail.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                await trx(EUserIdEmail.ENTITY).insert({
+                    [EUserIdEmail.A_EMAIL]: 'alex@wiredgeese.com',
+                    [EUserIdEmail.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
                 });
-                await trx(EIdPhone.ENTITY).insert({
-                    [EIdPhone.A_PHONE]: '(371)29181801',
-                    [EIdPhone.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                await trx(EUserIdPhone.ENTITY).insert({
+                    [EUserIdPhone.A_PHONE]: '(371)29181801',
+                    [EUserIdPhone.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
                 });
                 const expiredAt = new Date();
                 expiredAt.setUTCDate(expiredAt.getUTCDate() + 1);
-                await trx(ERefLink.ENTITY).insert([{
-                    [ERefLink.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
-                    [ERefLink.A_CODE]: DEF.DATA_REF_CODE_ROOT,
-                    [ERefLink.A_DATE_EXPIRED]: expiredAt,
+                await trx(EUserRefLink.ENTITY).insert([{
+                    [EUserRefLink.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                    [EUserRefLink.A_CODE]: DEF.DATA_REF_CODE_ROOT,
+                    [EUserRefLink.A_DATE_EXPIRED]: expiredAt,
                 }, {
-                    [ERefLink.A_USER_REF]: DEF.DATA_USER_ID_CUST,
-                    [ERefLink.A_CODE]: DEF.DATA_REF_CODE_OTHER,
-                    [ERefLink.A_DATE_EXPIRED]: expiredAt,
+                    [EUserRefLink.A_USER_REF]: DEF.DATA_USER_ID_CUST,
+                    [EUserRefLink.A_CODE]: DEF.DATA_REF_CODE_OTHER,
+                    [EUserRefLink.A_DATE_EXPIRED]: expiredAt,
                 }]);
                 // users tree
-                await trx(ERefTree.ENTITY).insert([
+                await trx(EUserRefTree.ENTITY).insert([
                     {
-                        [ERefTree.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
-                        [ERefTree.A_PARENT_REF]: DEF.DATA_USER_ID_ADMIN,
+                        [EUserRefTree.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                        [EUserRefTree.A_PARENT_REF]: DEF.DATA_USER_ID_ADMIN,
                     }, {
-                        [ERefTree.A_USER_REF]: DEF.DATA_USER_ID_CUST,
-                        [ERefTree.A_PARENT_REF]: DEF.DATA_USER_ID_ADMIN,
+                        [EUserRefTree.A_USER_REF]: DEF.DATA_USER_ID_CUST,
+                        [EUserRefTree.A_PARENT_REF]: DEF.DATA_USER_ID_ADMIN,
                     }
                 ]);
             }
 
             async function insertWeightStats(trx) {
-                await trx(EWeightStat.ENTITY).insert([{
-                    [EWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
-                    [EWeightStat.A_DATE]: '2020-07-01',
-                    [EWeightStat.A_VALUE]: 92.3,
+                await trx(EAppWeightStat.ENTITY).insert([{
+                    [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                    [EAppWeightStat.A_DATE]: '2020-07-01',
+                    [EAppWeightStat.A_VALUE]: 92.3,
                 }, {
-                    [EWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
-                    [EWeightStat.A_DATE]: '2020-07-02',
-                    [EWeightStat.A_VALUE]: 91.5,
+                    [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                    [EAppWeightStat.A_DATE]: '2020-07-02',
+                    [EAppWeightStat.A_VALUE]: 91.5,
                 }, {
-                    [EWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
-                    [EWeightStat.A_DATE]: '2020-07-03',
-                    [EWeightStat.A_VALUE]: 92.2,
+                    [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                    [EAppWeightStat.A_DATE]: '2020-07-03',
+                    [EAppWeightStat.A_VALUE]: 92.2,
                 }, {
-                    [EWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
-                    [EWeightStat.A_DATE]: '2020-07-04',
-                    [EWeightStat.A_VALUE]: 92.0,
+                    [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                    [EAppWeightStat.A_DATE]: '2020-07-04',
+                    [EAppWeightStat.A_VALUE]: 92.0,
                 }, {
-                    [EWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
-                    [EWeightStat.A_DATE]: '2020-07-06',
-                    [EWeightStat.A_VALUE]: 92.3,
+                    [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                    [EAppWeightStat.A_DATE]: '2020-07-06',
+                    [EAppWeightStat.A_VALUE]: 92.3,
                 }, {
-                    [EWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
-                    [EWeightStat.A_DATE]: '2020-07-07',
-                    [EWeightStat.A_VALUE]: 91.8,
+                    [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                    [EAppWeightStat.A_DATE]: '2020-07-07',
+                    [EAppWeightStat.A_VALUE]: 91.8,
                 }, {
-                    [EWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
-                    [EWeightStat.A_DATE]: '2020-07-09',
-                    [EWeightStat.A_VALUE]: 90.9,
+                    [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                    [EAppWeightStat.A_DATE]: '2020-07-09',
+                    [EAppWeightStat.A_VALUE]: 90.9,
                 }, {
-                    [EWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
-                    [EWeightStat.A_DATE]: '2020-07-12',
-                    [EWeightStat.A_VALUE]: 92.0,
+                    [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                    [EAppWeightStat.A_DATE]: '2020-07-12',
+                    [EAppWeightStat.A_VALUE]: 92.0,
                 }, {
-                    [EWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
-                    [EWeightStat.A_DATE]: '2020-07-13',
-                    [EWeightStat.A_VALUE]: 91.4,
+                    [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                    [EAppWeightStat.A_DATE]: '2020-07-13',
+                    [EAppWeightStat.A_VALUE]: 91.4,
                 }, {
-                    [EWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
-                    [EWeightStat.A_DATE]: '2020-07-14',
-                    [EWeightStat.A_VALUE]: 91.7,
+                    [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                    [EAppWeightStat.A_DATE]: '2020-07-14',
+                    [EAppWeightStat.A_VALUE]: 91.7,
                 }, {
-                    [EWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
-                    [EWeightStat.A_DATE]: '2020-07-15',
-                    [EWeightStat.A_VALUE]: 91.4,
+                    [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                    [EAppWeightStat.A_DATE]: '2020-07-15',
+                    [EAppWeightStat.A_VALUE]: 91.4,
                 }, {
-                    [EWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
-                    [EWeightStat.A_DATE]: '2020-07-23',
-                    [EWeightStat.A_VALUE]: 91.5,
+                    [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                    [EAppWeightStat.A_DATE]: '2020-07-23',
+                    [EAppWeightStat.A_VALUE]: 91.5,
                 }, {
-                    [EWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
-                    [EWeightStat.A_DATE]: '2020-07-28',
-                    [EWeightStat.A_VALUE]: 91.1,
+                    [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                    [EAppWeightStat.A_DATE]: '2020-07-28',
+                    [EAppWeightStat.A_VALUE]: 91.1,
                 }, {
-                    [EWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
-                    [EWeightStat.A_DATE]: '2020-08-03',
-                    [EWeightStat.A_VALUE]: 91.3,
+                    [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                    [EAppWeightStat.A_DATE]: '2020-08-03',
+                    [EAppWeightStat.A_VALUE]: 91.3,
                 }, {
-                    [EWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
-                    [EWeightStat.A_DATE]: '2020-08-05',
-                    [EWeightStat.A_VALUE]: 92.1,
+                    [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                    [EAppWeightStat.A_DATE]: '2020-08-05',
+                    [EAppWeightStat.A_VALUE]: 92.1,
                 }, {
-                    [EWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
-                    [EWeightStat.A_DATE]: '2020-08-06',
-                    [EWeightStat.A_VALUE]: 92.1,
+                    [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                    [EAppWeightStat.A_DATE]: '2020-08-06',
+                    [EAppWeightStat.A_VALUE]: 92.1,
                 }, {
-                    [EWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
-                    [EWeightStat.A_DATE]: '2020-08-10',
-                    [EWeightStat.A_VALUE]: 92.1,
+                    [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                    [EAppWeightStat.A_DATE]: '2020-08-10',
+                    [EAppWeightStat.A_VALUE]: 92.1,
                 }, {
-                    [EWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
-                    [EWeightStat.A_DATE]: '2020-08-11',
-                    [EWeightStat.A_VALUE]: 91.8,
+                    [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                    [EAppWeightStat.A_DATE]: '2020-08-11',
+                    [EAppWeightStat.A_VALUE]: 91.8,
                 }, {
-                    [EWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
-                    [EWeightStat.A_DATE]: '2020-08-12',
-                    [EWeightStat.A_VALUE]: 92.6,
+                    [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                    [EAppWeightStat.A_DATE]: '2020-08-12',
+                    [EAppWeightStat.A_VALUE]: 92.6,
                 }, {
-                    [EWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
-                    [EWeightStat.A_DATE]: '2020-08-18',
-                    [EWeightStat.A_VALUE]: 93.2,
+                    [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                    [EAppWeightStat.A_DATE]: '2020-08-18',
+                    [EAppWeightStat.A_VALUE]: 93.2,
                 }, {
-                    [EWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
-                    [EWeightStat.A_DATE]: '2020-08-22',
-                    [EWeightStat.A_VALUE]: 91.7,
+                    [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                    [EAppWeightStat.A_DATE]: '2020-08-22',
+                    [EAppWeightStat.A_VALUE]: 91.7,
                 }, {
-                    [EWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
-                    [EWeightStat.A_DATE]: '2020-08-26',
-                    [EWeightStat.A_VALUE]: 91.5,
+                    [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                    [EAppWeightStat.A_DATE]: '2020-08-26',
+                    [EAppWeightStat.A_VALUE]: 91.5,
                 }, {
-                    [EWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
-                    [EWeightStat.A_DATE]: '2020-08-27',
-                    [EWeightStat.A_VALUE]: 91.3,
+                    [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                    [EAppWeightStat.A_DATE]: '2020-08-27',
+                    [EAppWeightStat.A_VALUE]: 91.3,
                 }, {
-                    [EWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
-                    [EWeightStat.A_DATE]: '2020-09-2',
-                    [EWeightStat.A_VALUE]: 90.9,
+                    [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                    [EAppWeightStat.A_DATE]: '2020-09-2',
+                    [EAppWeightStat.A_VALUE]: 90.9,
                 }, {
-                    [EWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
-                    [EWeightStat.A_DATE]: '2020-09-09',
-                    [EWeightStat.A_VALUE]: 90.9,
+                    [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                    [EAppWeightStat.A_DATE]: '2020-09-09',
+                    [EAppWeightStat.A_VALUE]: 90.9,
                 }, {
-                    [EWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
-                    [EWeightStat.A_DATE]: '2020-09-16',
-                    [EWeightStat.A_VALUE]: 90.3,
+                    [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                    [EAppWeightStat.A_DATE]: '2020-09-16',
+                    [EAppWeightStat.A_VALUE]: 90.3,
                 }, {
-                    [EWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
-                    [EWeightStat.A_DATE]: '2020-09-23',
-                    [EWeightStat.A_VALUE]: 89.8,
+                    [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                    [EAppWeightStat.A_DATE]: '2020-09-23',
+                    [EAppWeightStat.A_VALUE]: 89.8,
                 }, {
-                    [EWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
-                    [EWeightStat.A_DATE]: '2020-09-30',
-                    [EWeightStat.A_VALUE]: 89.7,
+                    [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                    [EAppWeightStat.A_DATE]: '2020-09-30',
+                    [EAppWeightStat.A_VALUE]: 89.7,
                 }, {
-                    [EWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
-                    [EWeightStat.A_DATE]: '2020-10-07',
-                    [EWeightStat.A_VALUE]: 89.6,
+                    [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                    [EAppWeightStat.A_DATE]: '2020-10-07',
+                    [EAppWeightStat.A_VALUE]: 89.6,
                 }, {
-                    [EWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
-                    [EWeightStat.A_DATE]: '2020-10-14',
-                    [EWeightStat.A_VALUE]: 90.1,
+                    [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                    [EAppWeightStat.A_DATE]: '2020-10-14',
+                    [EAppWeightStat.A_VALUE]: 90.1,
                 }, {
-                    [EWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
-                    [EWeightStat.A_DATE]: '2020-10-21',
-                    [EWeightStat.A_VALUE]: 91.0,
+                    [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                    [EAppWeightStat.A_DATE]: '2020-10-21',
+                    [EAppWeightStat.A_VALUE]: 91.0,
                 }, {
-                    [EWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
-                    [EWeightStat.A_DATE]: '2020-10-28',
-                    [EWeightStat.A_VALUE]: 90.5,
+                    [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                    [EAppWeightStat.A_DATE]: '2020-10-28',
+                    [EAppWeightStat.A_VALUE]: 90.5,
                 }, {
-                    [EWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
-                    [EWeightStat.A_DATE]: '2020-11-04',
-                    [EWeightStat.A_VALUE]: 90.5,
+                    [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                    [EAppWeightStat.A_DATE]: '2020-11-04',
+                    [EAppWeightStat.A_VALUE]: 90.5,
                 }, {
-                    [EWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
-                    [EWeightStat.A_DATE]: '2021-01-26',
-                    [EWeightStat.A_VALUE]: 96.0,
+                    [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                    [EAppWeightStat.A_DATE]: '2021-01-26',
+                    [EAppWeightStat.A_VALUE]: 96.0,
                 }, {
-                    [EWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
-                    [EWeightStat.A_DATE]: '2021-01-30',
-                    [EWeightStat.A_VALUE]: 94.4,
+                    [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                    [EAppWeightStat.A_DATE]: '2021-01-30',
+                    [EAppWeightStat.A_VALUE]: 94.4,
                 }, {
-                    [EWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
-                    [EWeightStat.A_DATE]: '2021-02-01',
-                    [EWeightStat.A_VALUE]: 94.8,
+                    [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                    [EAppWeightStat.A_DATE]: '2021-02-01',
+                    [EAppWeightStat.A_VALUE]: 94.8,
                 }, {
-                    [EWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
-                    [EWeightStat.A_DATE]: '2021-02-10',
-                    [EWeightStat.A_VALUE]: 94.5,
+                    [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                    [EAppWeightStat.A_DATE]: '2021-02-10',
+                    [EAppWeightStat.A_VALUE]: 94.5,
                 }, {
-                    [EWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
-                    [EWeightStat.A_DATE]: '2021-02-17',
-                    [EWeightStat.A_VALUE]: 94.8,
+                    [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                    [EAppWeightStat.A_DATE]: '2021-02-17',
+                    [EAppWeightStat.A_VALUE]: 94.8,
                 }, {
-                    [EWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
-                    [EWeightStat.A_DATE]: '2021-02-21',
-                    [EWeightStat.A_VALUE]: 95.6,
+                    [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                    [EAppWeightStat.A_DATE]: '2021-02-21',
+                    [EAppWeightStat.A_VALUE]: 95.6,
                 }, {
-                    [EWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
-                    [EWeightStat.A_DATE]: '2021-02-22',
-                    [EWeightStat.A_VALUE]: 95.3,
+                    [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                    [EAppWeightStat.A_DATE]: '2021-02-22',
+                    [EAppWeightStat.A_VALUE]: 95.3,
                 }, {
-                    [EWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
-                    [EWeightStat.A_DATE]: '2021-02-23',
-                    [EWeightStat.A_VALUE]: 95.1,
+                    [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                    [EAppWeightStat.A_DATE]: '2021-02-23',
+                    [EAppWeightStat.A_VALUE]: 95.1,
                 }, {
-                    [EWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
-                    [EWeightStat.A_DATE]: '2021-02-25',
-                    [EWeightStat.A_VALUE]: 94.4,
+                    [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                    [EAppWeightStat.A_DATE]: '2021-02-25',
+                    [EAppWeightStat.A_VALUE]: 94.4,
                 }, {
-                    [EWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
-                    [EWeightStat.A_DATE]: '2021-03-02',
-                    [EWeightStat.A_VALUE]: 94.6,
+                    [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                    [EAppWeightStat.A_DATE]: '2021-03-02',
+                    [EAppWeightStat.A_VALUE]: 94.6,
                 }, {
-                    [EWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
-                    [EWeightStat.A_DATE]: '2021-03-03',
-                    [EWeightStat.A_VALUE]: 95,
+                    [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                    [EAppWeightStat.A_DATE]: '2021-03-03',
+                    [EAppWeightStat.A_VALUE]: 95,
                 }]);
-                await trx(EWeightStat.ENTITY).insert([{
-                    [EWeightStat.A_USER_REF]: DEF.DATA_USER_ID_CUST,
-                    [EWeightStat.A_DATE]: '2021-02-03',
-                    [EWeightStat.A_VALUE]: 61.7,
+                await trx(EAppWeightStat.ENTITY).insert([{
+                    [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_CUST,
+                    [EAppWeightStat.A_DATE]: '2021-02-03',
+                    [EAppWeightStat.A_VALUE]: 61.7,
                 }, {
-                    [EWeightStat.A_USER_REF]: DEF.DATA_USER_ID_CUST,
-                    [EWeightStat.A_DATE]: '2021-02-10',
-                    [EWeightStat.A_VALUE]: 61.4,
+                    [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_CUST,
+                    [EAppWeightStat.A_DATE]: '2021-02-10',
+                    [EAppWeightStat.A_VALUE]: 61.4,
                 }, {
-                    [EWeightStat.A_USER_REF]: DEF.DATA_USER_ID_CUST,
-                    [EWeightStat.A_DATE]: '2021-02-17',
-                    [EWeightStat.A_VALUE]: 61.7,
+                    [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_CUST,
+                    [EAppWeightStat.A_DATE]: '2021-02-17',
+                    [EAppWeightStat.A_VALUE]: 61.7,
                 }, {
-                    [EWeightStat.A_USER_REF]: DEF.DATA_USER_ID_CUST,
-                    [EWeightStat.A_DATE]: '2021-02-24',
-                    [EWeightStat.A_VALUE]: 62.5,
+                    [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_CUST,
+                    [EAppWeightStat.A_DATE]: '2021-02-24',
+                    [EAppWeightStat.A_VALUE]: 62.5,
                 }, {
-                    [EWeightStat.A_USER_REF]: DEF.DATA_USER_ID_CUST,
-                    [EWeightStat.A_DATE]: '2021-03-03',
-                    [EWeightStat.A_VALUE]: 61.3,
+                    [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_CUST,
+                    [EAppWeightStat.A_DATE]: '2021-03-03',
+                    [EAppWeightStat.A_VALUE]: 61.3,
                 }]);
             }
 

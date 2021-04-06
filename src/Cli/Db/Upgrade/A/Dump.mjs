@@ -22,33 +22,34 @@ function Factory(spec) {
     const connector = spec['TeqFw_Core_App_Db_Connector$']; // instance singleton
     /** @type {TeqFw_Core_App_Logger} */
     const logger = spec['TeqFw_Core_App_Logger$'];  // instance singleton
-    /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_User} */
-    const EUser = spec['Fl32_Teq_User_Store_RDb_Schema_User#']; // class constructor
-    /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Auth_Password} */
-    const EUserAuthPass = spec['Fl32_Teq_User_Store_RDb_Schema_Auth_Password#']; // class constructor
-    /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Auth_Session} */
-    const EUserAuthSess = spec['Fl32_Teq_User_Store_RDb_Schema_Auth_Session#']; // class constructor
-    /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Id_Email} */
-    const EUserIdEmail = spec['Fl32_Teq_User_Store_RDb_Schema_Id_Email#']; // class constructor
-    /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Id_Phone} */
-    const EUserIdPhone = spec['Fl32_Teq_User_Store_RDb_Schema_Id_Phone#']; // class constructor
-    /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Profile} */
-    const EUserProfile = spec['Fl32_Teq_User_Store_RDb_Schema_Profile#']; // class constructor
-    /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Ref_Link} */
-    const EUserRefLink = spec['Fl32_Teq_User_Store_RDb_Schema_Ref_Link#']; // class constructor
-    /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Ref_Tree} */
-    const EUserRefTree = spec['Fl32_Teq_User_Store_RDb_Schema_Ref_Tree#']; // class constructor
-
     /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Group} */
-    const EGroup = spec['Fl32_Bwl_Store_RDb_Schema_Group#']; // class constructor
+    const EAppGroup = spec['Fl32_Bwl_Store_RDb_Schema_Group#']; // class
     /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Group_User} */
-    const EGroupUser = spec['Fl32_Bwl_Store_RDb_Schema_Group_User#']; // class constructor
+    const EAppGroupUser = spec['Fl32_Bwl_Store_RDb_Schema_Group_User#']; // class
     /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Profile} */
-    const EProfile = spec['Fl32_Bwl_Store_RDb_Schema_Profile#']; // class constructor
+    const EAppProfile = spec['Fl32_Bwl_Store_RDb_Schema_Profile#']; // class
     /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Profile_Group_User} */
-    const EProfileGroupUser = spec['Fl32_Bwl_Store_RDb_Schema_Profile_Group_User#']; // class constructor
+    const EAppProfileGroupUser = spec['Fl32_Bwl_Store_RDb_Schema_Profile_Group_User#']; // class
+    /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Sign_In} */
+    const EAppSignIn = spec['Fl32_Bwl_Store_RDb_Schema_Sign_In#']; // class
     /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Weight_Stat} */
-    const EWeightStat = spec['Fl32_Bwl_Store_RDb_Schema_Weight_Stat#']; // class constructor
+    const EAppWeightStat = spec['Fl32_Bwl_Store_RDb_Schema_Weight_Stat#']; // class
+    /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_User} */
+    const EUser = spec['Fl32_Teq_User_Store_RDb_Schema_User#']; // class
+    /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Auth_Password} */
+    const EUserAuthPass = spec['Fl32_Teq_User_Store_RDb_Schema_Auth_Password#']; // class
+    /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Auth_Session} */
+    const EUserAuthSess = spec['Fl32_Teq_User_Store_RDb_Schema_Auth_Session#']; // class
+    /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Id_Email} */
+    const EUserIdEmail = spec['Fl32_Teq_User_Store_RDb_Schema_Id_Email#']; // class
+    /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Id_Phone} */
+    const EUserIdPhone = spec['Fl32_Teq_User_Store_RDb_Schema_Id_Phone#']; // class
+    /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Profile} */
+    const EUserProfile = spec['Fl32_Teq_User_Store_RDb_Schema_Profile#']; // class
+    /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Ref_Link} */
+    const EUserRefLink = spec['Fl32_Teq_User_Store_RDb_Schema_Ref_Link#']; // class
+    /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Ref_Tree} */
+    const EUserRefTree = spec['Fl32_Teq_User_Store_RDb_Schema_Ref_Tree#']; // class
 
 
     // DEFINE INNER FUNCTIONS
@@ -78,32 +79,69 @@ function Factory(spec) {
             return result;
         }
 
+        async function getTables(trx) {
+            const result = [];
+            const dialect = trx.client.config.client;
+            if (['mysql', 'mysql2'].includes(dialect)) {
+                const rs = await trx.raw('show tables');
+                if (Array.isArray(rs)) {
+                    const column = rs[1][0]['name'];
+                    rs[0].map(one => result.push(one[column]));
+                }
+            } else if (['pg'].includes(dialect)) {
+                const rs = await trx.raw('SELECT * FROM information_schema.tables  WHERE table_schema = \'public\'');
+                if (Array.isArray(rs?.rows)) {
+                    rs.rows.map(one => result.push(one['table_name']));
+                }
+            } else {
+                throw new Error(`This dialect (${dialect}) is not supported.`);
+            }
+            return result;
+        }
+
+        /**
+         *
+         * @param trx
+         * @param {String[]} tables
+         * @param {String} entity
+         * @returns {Promise<*|null>}
+         */
+        async function selectItems(trx, tables, entity) {
+            if (tables.includes(entity)) {
+                return await trx.select().from(entity);
+            } else {
+                return null;
+            }
+        }
+
         // MAIN FUNCTIONALITY
         const trx = await connector.startTransaction();
         try {
             const result = {};
+            const tables = await getTables(trx);
             // app data
-            result[EGroup.ENTITY] = await trx.select().from(EGroup.ENTITY);
-            result[EGroupUser.ENTITY] = await trx.select().from(EGroupUser.ENTITY);
-            result[EProfile.ENTITY] = await trx.select().from(EProfile.ENTITY);
-            result[EProfileGroupUser.ENTITY] = await trx.select().from(EProfileGroupUser.ENTITY);
-            result[EWeightStat.ENTITY] = await trx.select().from(EWeightStat.ENTITY);
+            result[EAppGroup.ENTITY] = await selectItems(trx, tables, EAppGroup.ENTITY);
+            result[EAppGroupUser.ENTITY] = await selectItems(trx, tables, EAppGroupUser.ENTITY);
+            result[EAppProfile.ENTITY] = await selectItems(trx, tables, EAppProfile.ENTITY);
+            result[EAppProfileGroupUser.ENTITY] = await selectItems(trx, tables, EAppProfileGroupUser.ENTITY);
+            result[EAppSignIn.ENTITY] = await selectItems(trx, tables, EAppSignIn.ENTITY);
+            result[EAppWeightStat.ENTITY] = await selectItems(trx, tables, EAppWeightStat.ENTITY);
             // users data
-            result[EUser.ENTITY] = await trx.select().from(EUser.ENTITY);
-            result[EUserAuthPass.ENTITY] = await trx.select().from(EUserAuthPass.ENTITY);
-            result[EUserAuthSess.ENTITY] = await trx.select().from(EUserAuthSess.ENTITY);
-            result[EUserIdEmail.ENTITY] = await trx.select().from(EUserIdEmail.ENTITY);
-            result[EUserIdPhone.ENTITY] = await trx.select().from(EUserIdPhone.ENTITY);
-            result[EUserProfile.ENTITY] = await trx.select().from(EUserProfile.ENTITY);
-            result[EUserRefLink.ENTITY] = await trx.select().from(EUserRefLink.ENTITY);
-            result[EUserRefTree.ENTITY] = await trx.select().from(EUserRefTree.ENTITY);
+            result[EUser.ENTITY] = await selectItems(trx, tables, EUser.ENTITY);
+            result[EUserAuthPass.ENTITY] = await selectItems(trx, tables, EUserAuthPass.ENTITY);
+            result[EUserAuthSess.ENTITY] = await selectItems(trx, tables, EUserAuthSess.ENTITY);
+            result[EUserIdEmail.ENTITY] = await selectItems(trx, tables, EUserIdEmail.ENTITY);
+            result[EUserIdPhone.ENTITY] = await selectItems(trx, tables, EUserIdPhone.ENTITY);
+            result[EUserProfile.ENTITY] = await selectItems(trx, tables, EUserProfile.ENTITY);
+            result[EUserRefLink.ENTITY] = await selectItems(trx, tables, EUserRefLink.ENTITY);
+            result[EUserRefTree.ENTITY] = await selectItems(trx, tables, EUserRefTree.ENTITY);
             // serials for Postgres
             const isPg = trx.client.constructor.name === 'Client_PG';
             if (isPg) {
                 const knex = await connector.getKnex();
                 const schema = knex.schema;
                 const userId = `${EUser.ENTITY}_id_seq`;
-                const groupId = `${EGroup.ENTITY}_id_seq`;
+                const groupId = `${EAppGroup.ENTITY}_id_seq`;
                 result.serials = await getSerials(schema, [userId, groupId]);
             }
             // perform queries to insert data and commit changes

@@ -22,6 +22,18 @@ function Factory(spec) {
     const connector = spec['TeqFw_Core_App_Db_Connector$']; // instance singleton
     /** @type {TeqFw_Core_App_Logger} */
     const logger = spec['TeqFw_Core_App_Logger$'];  // instance singleton
+    /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Group} */
+    const EAppGroup = spec['Fl32_Bwl_Store_RDb_Schema_Group#']; // class constructor
+    /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Group_User} */
+    const EAppGroupUser = spec['Fl32_Bwl_Store_RDb_Schema_Group_User#']; // class constructor
+    /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Profile} */
+    const EAppProfile = spec['Fl32_Bwl_Store_RDb_Schema_Profile#']; // class constructor
+    /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Profile_Group_User} */
+    const EAppProfileGroupUser = spec['Fl32_Bwl_Store_RDb_Schema_Profile_Group_User#']; // class constructor
+    /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Sign_In} */
+    const EAppSignIn = spec['Fl32_Bwl_Store_RDb_Schema_Sign_In#']; // class
+    /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Weight_Stat} */
+    const EAppWeightStat = spec['Fl32_Bwl_Store_RDb_Schema_Weight_Stat#']; // class constructor
     /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_User} */
     const EUser = spec['Fl32_Teq_User_Store_RDb_Schema_User#']; // class constructor
     /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Auth_Password} */
@@ -38,17 +50,6 @@ function Factory(spec) {
     const EUserRefLink = spec['Fl32_Teq_User_Store_RDb_Schema_Ref_Link#']; // class constructor
     /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Ref_Tree} */
     const EUserRefTree = spec['Fl32_Teq_User_Store_RDb_Schema_Ref_Tree#']; // class constructor
-
-    /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Group} */
-    const EGroup = spec['Fl32_Bwl_Store_RDb_Schema_Group#']; // class constructor
-    /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Group_User} */
-    const EGroupUser = spec['Fl32_Bwl_Store_RDb_Schema_Group_User#']; // class constructor
-    /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Profile} */
-    const EProfile = spec['Fl32_Bwl_Store_RDb_Schema_Profile#']; // class constructor
-    /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Profile_Group_User} */
-    const EProfileGroupUser = spec['Fl32_Bwl_Store_RDb_Schema_Profile_Group_User#']; // class constructor
-    /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Weight_Stat} */
-    const EWeightStat = spec['Fl32_Bwl_Store_RDb_Schema_Weight_Stat#']; // class constructor
 
 
     // DEFINE INNER FUNCTIONS
@@ -73,24 +74,31 @@ function Factory(spec) {
             await schema;
         }
 
+        async function insertItems(trx, dump, entity) {
+            if (Array.isArray(dump[entity]) && dump[entity].length > 0) {
+                await trx(entity).insert(dump[entity]);
+            }
+        }
+
         // MAIN FUNCTIONALITY
         const trx = await connector.startTransaction();
         try {
             // user
-            await trx(EUser.ENTITY).insert(dump[EUser.ENTITY]);
-            await trx(EUserAuthPass.ENTITY).insert(dump[EUserAuthPass.ENTITY]);
-            await trx(EUserAuthSess.ENTITY).insert(dump[EUserAuthSess.ENTITY]);
-            await trx(EUserIdEmail.ENTITY).insert(dump[EUserIdEmail.ENTITY]);
-            await trx(EUserIdPhone.ENTITY).insert(dump[EUserIdPhone.ENTITY]);
-            await trx(EUserProfile.ENTITY).insert(dump[EUserProfile.ENTITY]);
-            //await trx(EUserRefLink.ENTITY).insert(dump[EUserRefLink.ENTITY]); TODO: uncomment it
-            await trx(EUserRefTree.ENTITY).insert(dump[EUserRefTree.ENTITY]);
+            await insertItems(trx, dump, EUser.ENTITY);
+            await insertItems(trx, dump, EUserAuthPass.ENTITY);
+            await insertItems(trx, dump, EUserAuthSess.ENTITY);
+            await insertItems(trx, dump, EUserIdEmail.ENTITY);
+            await insertItems(trx, dump, EUserIdPhone.ENTITY);
+            await insertItems(trx, dump, EUserProfile.ENTITY);
+            await insertItems(trx, dump, EUserRefLink.ENTITY);
+            await insertItems(trx, dump, EUserRefTree.ENTITY);
             // app
-            await trx(EGroup.ENTITY).insert(dump[EGroup.ENTITY]);
-            await trx(EGroupUser.ENTITY).insert(dump[EGroupUser.ENTITY]);
-            await trx(EProfile.ENTITY).insert(dump[EProfile.ENTITY]);
-            await trx(EProfileGroupUser.ENTITY).insert(dump[EProfileGroupUser.ENTITY]);
-            await trx(EWeightStat.ENTITY).insert(dump[EWeightStat.ENTITY]);
+            await insertItems(trx, dump, EAppGroup.ENTITY);
+            await insertItems(trx, dump, EAppGroupUser.ENTITY);
+            await insertItems(trx, dump, EAppProfile.ENTITY);
+            await insertItems(trx, dump, EAppProfileGroupUser.ENTITY);
+            await insertItems(trx, dump, EAppSignIn.ENTITY);
+            await insertItems(trx, dump, EAppWeightStat.ENTITY);
             // serials for Postgres
             const isPg = trx.client.constructor.name === 'Client_PG';
             if (isPg && dump.serials) {
