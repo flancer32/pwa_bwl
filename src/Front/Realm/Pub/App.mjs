@@ -36,6 +36,10 @@ function Factory(spec) {
 
     // setup application routes
     router.addRoute({
+        path: DEF.REALM_PUB_ROUTE_DEV_LOGIN,
+        component: () => container.get('Fl32_Bwl_Front_Realm_Pub_Route_Dev_Login$')
+    });
+    router.addRoute({
         path: DEF.REALM_PUB_ROUTE_FRIENDS,
         component: () => container.get('Fl32_Bwl_Front_Realm_Pub_Route_Friends$')
     });

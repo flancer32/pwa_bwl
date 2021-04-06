@@ -28,11 +28,12 @@ export default class Fl32_Bwl_Defaults {
 
     // FRONTEND ROUTES
     REALM_PUB = 'pub';
+    REALM_PUB_ROUTE_DEV_LOGIN = '/dev/login';
     REALM_PUB_ROUTE_FRIENDS = '/friends';
     REALM_PUB_ROUTE_HISTORY = '/history';
     REALM_PUB_ROUTE_HOME = '/';
-    REALM_PUB_ROUTE_SIGN_IN = '/sign/in';
     REALM_PUB_ROUTE_SETTINGS = '/settings';
+    REALM_PUB_ROUTE_SIGN_IN = '/sign/in';
     REALM_SIGN = 'sign';
     REALM_SIGN_ROUTE_HOME = '/';
     REALM_SIGN_ROUTE_UP = '/up/:refCode?';
