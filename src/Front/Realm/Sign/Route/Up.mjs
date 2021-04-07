@@ -24,7 +24,7 @@ function Factory(spec) {
     /** @function {@type Fl32_Teq_User_Front_Gate_RefLink_Get.gate} */
     const gateGet = spec['Fl32_Teq_User_Front_Gate_RefLink_Get$']; // function singleton
     /** @type {typeof Fl32_Teq_User_Shared_Service_Route_RefLink_Get_Request} */
-    const ReqGet = spec['Fl32_Teq_User_Shared_Service_Route_RefLink_Get#Request']; // class constructor
+    const ReqGet = spec['Fl32_Teq_User_Shared_Service_Route_RefLink_Get#Request']; // class
 
     // DEFINE WORKING VARS
     const template = `

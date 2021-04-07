@@ -24,7 +24,7 @@ class Fl32_Bwl_Front_DataSource_Weight {
     constructor(spec) {
         // CONSTRUCTOR INJECTED DEPS
         this.#gateProfile = spec['Fl32_Bwl_Front_Gate_Profile_Get$']; // function singleton
-        this.#ReqProfile = spec['Fl32_Bwl_Shared_Service_Route_Profile_Get#Request']; // class constructor
+        this.#ReqProfile = spec['Fl32_Bwl_Shared_Service_Route_Profile_Get#Request']; // class
     }
 
     async loadFromServer(forced = false) {

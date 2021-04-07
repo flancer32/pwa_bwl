@@ -25,7 +25,7 @@ export default class Fl32_Bwl_Back_Service_Weight_History_Remove {
             formatDate
         } = spec['TeqFw_Core_App_Shared_Util']; // ES6 module destructing
         /** @type {typeof TeqFw_Http2_Back_Server_Handler_Api_Result} */
-        const ApiResult = spec['TeqFw_Http2_Back_Server_Handler_Api#Result']; // class constructor
+        const ApiResult = spec['TeqFw_Http2_Back_Server_Handler_Api#Result']; // class
         const {
             /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_History_Remove_Request} */
             Request,
@@ -33,7 +33,7 @@ export default class Fl32_Bwl_Back_Service_Weight_History_Remove {
             Response
         } = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_Remove']; // ES6 module
         /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Weight_Stat} */
-        const EWeightStat = spec['Fl32_Bwl_Store_RDb_Schema_Weight_Stat#']; // class constructor
+        const EWeightStat = spec['Fl32_Bwl_Store_RDb_Schema_Weight_Stat#']; // class
 
         this.getRoute = function () {
             return DEF.SERV_WEIGHT_HISTORY_REMOVE;

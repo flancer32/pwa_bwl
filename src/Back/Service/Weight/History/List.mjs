@@ -21,7 +21,7 @@ export default class Fl32_Bwl_Back_Service_Weight_History_List {
             formatDate
         } = spec['TeqFw_Core_App_Shared_Util']; // ES6 module
         /** @type {typeof TeqFw_Http2_Back_Server_Handler_Api_Result} */
-        const ApiResult = spec['TeqFw_Http2_Back_Server_Handler_Api#Result']; // class constructor
+        const ApiResult = spec['TeqFw_Http2_Back_Server_Handler_Api#Result']; // class
         const {
             /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_History_Remove_Request} */
             Request,
@@ -29,9 +29,9 @@ export default class Fl32_Bwl_Back_Service_Weight_History_List {
             Response
         } = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_Remove']; // ES6 module
         /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Weight_Stat} */
-        const EWeightStat = spec['Fl32_Bwl_Store_RDb_Schema_Weight_Stat#']; // class constructor
+        const EWeightStat = spec['Fl32_Bwl_Store_RDb_Schema_Weight_Stat#']; // class
         /** @type {typeof Fl32_Bwl_Shared_Service_Data_Weight_History_Item} */
-        const DWeightItem = spec['Fl32_Bwl_Shared_Service_Data_Weight_History_Item#']; // class constructor
+        const DWeightItem = spec['Fl32_Bwl_Shared_Service_Data_Weight_History_Item#']; // class
 
         this.getRoute = function () {
             return DEF.SERV_WEIGHT_HISTORY_LIST;

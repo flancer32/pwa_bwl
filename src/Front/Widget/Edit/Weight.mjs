@@ -50,9 +50,9 @@ function Factory(spec) {
     /** @type {Fl32_Bwl_Front_Gate_Weight_Stat_Save.gate} */
     const gate = spec['Fl32_Bwl_Front_Gate_Weight_Stat_Save$']; // function instance
     /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save_Request} */
-    const Request = spec['Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save#Request']; // class constructor
+    const Request = spec['Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save#Request']; // class
     /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save_Types} */
-    const Types = spec['Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save#Types']; // class constructor
+    const Types = spec['Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save#Types']; // class
     const {formatDate} = spec['Fl32_Bwl_Shared_Util']; // ES6 module destructing
 
     /**

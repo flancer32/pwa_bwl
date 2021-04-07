@@ -37,7 +37,7 @@ export default class Fl32_Bwl_Back_Service_Group_List {
             formatDate
         } = spec['TeqFw_Core_App_Shared_Util']; // ES6 module
         /** @type {typeof TeqFw_Http2_Back_Server_Handler_Api_Result} */
-        const ApiResult = spec['TeqFw_Http2_Back_Server_Handler_Api#Result']; // class constructor
+        const ApiResult = spec['TeqFw_Http2_Back_Server_Handler_Api#Result']; // class
         const {
             /** @type {Fl32_Bwl_Shared_Service_Route_Group_List_Request} */
             Request,
@@ -45,13 +45,13 @@ export default class Fl32_Bwl_Back_Service_Group_List {
             Response
         } = spec['Fl32_Bwl_Shared_Service_Route_Group_List']; // ES6 module
         /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Group_User} */
-        const EGroupUser = spec['Fl32_Bwl_Store_RDb_Schema_Group_User#']; // class constructor
+        const EGroupUser = spec['Fl32_Bwl_Store_RDb_Schema_Group_User#']; // class
         /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Group} */
-        const EGroup = spec['Fl32_Bwl_Store_RDb_Schema_Group#']; // class constructor
+        const EGroup = spec['Fl32_Bwl_Store_RDb_Schema_Group#']; // class
         /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Profile} */
-        const EProfile = spec['Fl32_Teq_User_Store_RDb_Schema_Profile#']; // class constructor
+        const EProfile = spec['Fl32_Teq_User_Store_RDb_Schema_Profile#']; // class
         /** @type {typeof Fl32_Bwl_Shared_Service_Data_Group_Item} */
-        const DGroupItem = spec['Fl32_Bwl_Shared_Service_Data_Group_Item#']; // class constructor
+        const DGroupItem = spec['Fl32_Bwl_Shared_Service_Data_Group_Item#']; // class
 
         this.getRoute = function () {
             return DEF.SERV_GROUP_LIST;

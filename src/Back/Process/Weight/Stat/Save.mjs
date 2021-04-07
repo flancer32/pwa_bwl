@@ -16,7 +16,7 @@ const NS = 'Fl32_Bwl_Back_Process_Weight_Stat_Save';
  */
 function Factory(spec) {
     /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Weight_Stat} */
-    const EWeightStat = spec['Fl32_Bwl_Store_RDb_Schema_Weight_Stat#']; // class constructor
+    const EWeightStat = spec['Fl32_Bwl_Store_RDb_Schema_Weight_Stat#']; // class
     /** @function {@type TeqFw_Core_App_Shared_Util.formatUtcDate} */
     const formatUtcDate = spec['TeqFw_Core_App_Shared_Util#formatUtcDate']; // function instance
 

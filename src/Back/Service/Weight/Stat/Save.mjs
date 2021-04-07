@@ -14,7 +14,7 @@ export default class Fl32_Bwl_Back_Service_Weight_Stat_Save {
         /** @type {TeqFw_Core_App_Shared_Util.formatDateTime} */
         const formatDateTime = spec['TeqFw_Core_App_Shared_Util#formatDateTime']; // function instance
         /** @type {typeof TeqFw_Http2_Back_Server_Handler_Api_Result} */
-        const ApiResult = spec['TeqFw_Http2_Back_Server_Handler_Api#Result']; // class constructor
+        const ApiResult = spec['TeqFw_Http2_Back_Server_Handler_Api#Result']; // class
         const {
             /** @type {Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save_Request} */
             Request,
@@ -24,9 +24,9 @@ export default class Fl32_Bwl_Back_Service_Weight_Stat_Save {
             Types
         } = spec['Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save']; // ES6 module
         /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Weight_Stat} */
-        const EWeightStat = spec['Fl32_Bwl_Store_RDb_Schema_Weight_Stat#']; // class constructor
+        const EWeightStat = spec['Fl32_Bwl_Store_RDb_Schema_Weight_Stat#']; // class
         /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Profile} */
-        const EProfile = spec['Fl32_Bwl_Store_RDb_Schema_Profile#']; // class constructor
+        const EProfile = spec['Fl32_Bwl_Store_RDb_Schema_Profile#']; // class
         /** @function {@type Fl32_Bwl_Back_Process_Weight_Stat_Save.process} */
         const procSave = spec['Fl32_Bwl_Back_Process_Weight_Stat_Save$']; // instance singleton
 

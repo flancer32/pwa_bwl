@@ -20,11 +20,11 @@ function Factory(spec) {
     /** @type {Fl32_Bwl_Front_Gate_Weight_History_List.gate} */
     const gateHistory = spec['Fl32_Bwl_Front_Gate_Weight_History_List$']; // function singleton
     /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_History_List_Request} */
-    const RequestHistory = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_List#Request']; // class constructor
+    const RequestHistory = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_List#Request']; // class
     /** @type {Fl32_Bwl_Front_Gate_Profile_Get.gate} */
     const gateProfile = spec['Fl32_Bwl_Front_Gate_Profile_Get$']; // function singleton
     /** @type {typeof Fl32_Bwl_Shared_Service_Route_Profile_Get_Request} */
-    const RequestProfile = spec['Fl32_Bwl_Shared_Service_Route_Profile_Get#Request']; // class constructor
+    const RequestProfile = spec['Fl32_Bwl_Shared_Service_Route_Profile_Get#Request']; // class
 
     /**
      * @instance

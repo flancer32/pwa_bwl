@@ -23,33 +23,33 @@ function Factory(spec) {
     /** @type {TeqFw_Core_App_Logger} */
     const logger = spec['TeqFw_Core_App_Logger$'];  // instance singleton
     /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Group} */
-    const EAppGroup = spec['Fl32_Bwl_Store_RDb_Schema_Group#']; // class constructor
+    const EAppGroup = spec['Fl32_Bwl_Store_RDb_Schema_Group#']; // class
     /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Group_User} */
-    const EAppGroupUser = spec['Fl32_Bwl_Store_RDb_Schema_Group_User#']; // class constructor
+    const EAppGroupUser = spec['Fl32_Bwl_Store_RDb_Schema_Group_User#']; // class
     /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Profile} */
-    const EAppProfile = spec['Fl32_Bwl_Store_RDb_Schema_Profile#']; // class constructor
+    const EAppProfile = spec['Fl32_Bwl_Store_RDb_Schema_Profile#']; // class
     /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Profile_Group_User} */
-    const EAppProfileGroupUser = spec['Fl32_Bwl_Store_RDb_Schema_Profile_Group_User#']; // class constructor
+    const EAppProfileGroupUser = spec['Fl32_Bwl_Store_RDb_Schema_Profile_Group_User#']; // class
     /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Sign_In} */
     const EAppSignIn = spec['Fl32_Bwl_Store_RDb_Schema_Sign_In#']; // class
     /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Weight_Stat} */
-    const EAppWeightStat = spec['Fl32_Bwl_Store_RDb_Schema_Weight_Stat#']; // class constructor
+    const EAppWeightStat = spec['Fl32_Bwl_Store_RDb_Schema_Weight_Stat#']; // class
     /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_User} */
-    const EUser = spec['Fl32_Teq_User_Store_RDb_Schema_User#']; // class constructor
+    const EUser = spec['Fl32_Teq_User_Store_RDb_Schema_User#']; // class
     /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Auth_Password} */
-    const EUserAuthPass = spec['Fl32_Teq_User_Store_RDb_Schema_Auth_Password#']; // class constructor
+    const EUserAuthPass = spec['Fl32_Teq_User_Store_RDb_Schema_Auth_Password#']; // class
     /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Auth_Session} */
-    const EUserAuthSess = spec['Fl32_Teq_User_Store_RDb_Schema_Auth_Session#']; // class constructor
+    const EUserAuthSess = spec['Fl32_Teq_User_Store_RDb_Schema_Auth_Session#']; // class
     /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Id_Email} */
-    const EUserIdEmail = spec['Fl32_Teq_User_Store_RDb_Schema_Id_Email#']; // class constructor
+    const EUserIdEmail = spec['Fl32_Teq_User_Store_RDb_Schema_Id_Email#']; // class
     /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Id_Phone} */
-    const EUserIdPhone = spec['Fl32_Teq_User_Store_RDb_Schema_Id_Phone#']; // class constructor
+    const EUserIdPhone = spec['Fl32_Teq_User_Store_RDb_Schema_Id_Phone#']; // class
     /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Profile} */
-    const EUserProfile = spec['Fl32_Teq_User_Store_RDb_Schema_Profile#']; // class constructor
+    const EUserProfile = spec['Fl32_Teq_User_Store_RDb_Schema_Profile#']; // class
     /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Ref_Link} */
-    const EUserRefLink = spec['Fl32_Teq_User_Store_RDb_Schema_Ref_Link#']; // class constructor
+    const EUserRefLink = spec['Fl32_Teq_User_Store_RDb_Schema_Ref_Link#']; // class
     /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Ref_Tree} */
-    const EUserRefTree = spec['Fl32_Teq_User_Store_RDb_Schema_Ref_Tree#']; // class constructor
+    const EUserRefTree = spec['Fl32_Teq_User_Store_RDb_Schema_Ref_Tree#']; // class
 
 
     // DEFINE INNER FUNCTIONS

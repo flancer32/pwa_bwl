@@ -59,21 +59,21 @@ function Factory(spec) {
     /** @type {Fl32_Bwl_Front_Widget_Edit_History} */
     const editHistory = spec['Fl32_Bwl_Front_Widget_Edit_History$']; // vue comp tmpl
     /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.Item} */
-    const Action = spec['Fl32_Bwl_Front_Layout_TopActions#Item']; // class constructor
+    const Action = spec['Fl32_Bwl_Front_Layout_TopActions#Item']; // class
     /** @type {Fl32_Bwl_Front_DataSource_Weight} */
     const dsWeights = spec['Fl32_Bwl_Front_DataSource_Weight$']; // instance singleton
     /** @type {Fl32_Bwl_Front_Gate_Weight_History_List.gate} */
     const gateList = spec['Fl32_Bwl_Front_Gate_Weight_History_List$']; // function singleton
     /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_History_List_Request} */
-    const ReqList = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_List#Request']; // class constructor
+    const ReqList = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_List#Request']; // class
     /** @type {Fl32_Bwl_Front_Gate_Weight_Stat_Save.gate} */
     const gateSave = spec['Fl32_Bwl_Front_Gate_Weight_Stat_Save$']; // function singleton
     /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save_Request} */
-    const ReqSave = spec['Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save#Request']; // class constructor
+    const ReqSave = spec['Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save#Request']; // class
     /** @type {Fl32_Bwl_Front_Gate_Weight_History_Remove.gate} */
     const gateRemove = spec['Fl32_Bwl_Front_Gate_Weight_History_Remove$']; // function singleton
     /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_History_Remove_Request} */
-    const ReqRemove = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_Remove#Request']; // class constructor
+    const ReqRemove = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_Remove#Request']; // class
     /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save_Types} */
     const TYPES = spec['Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save#Types'];
     const {formatDate} = spec['Fl32_Bwl_Shared_Util']; // ES6 module destructing

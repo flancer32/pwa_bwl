@@ -22,7 +22,7 @@ class Fl32_Bwl_Back_Service_Sign_Up {
         /** @type {TeqFw_Core_App_Db_Connector} */
         const rdb = spec['TeqFw_Core_App_Db_Connector$'];  // instance singleton
         /** @type {typeof TeqFw_Http2_Back_Server_Handler_Api_Result} */
-        const ApiResult = spec['TeqFw_Http2_Back_Server_Handler_Api#Result']; // class constructor
+        const ApiResult = spec['TeqFw_Http2_Back_Server_Handler_Api#Result']; // class
         /** @type {TeqFw_Core_App_Shared_Util.formatUtcDateTime} */
         const formatUtcDateTime = spec['TeqFw_Core_App_Shared_Util#formatUtcDateTime']; // function instance
         const {
@@ -50,11 +50,11 @@ class Fl32_Bwl_Back_Service_Sign_Up {
         /** @function {@type Fl32_Bwl_Back_Process_Weight_Stat_Save.process} */
         const procWeightSave = spec['Fl32_Bwl_Back_Process_Weight_Stat_Save$']; // instance singleton
         /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Profile} */
-        const EProfile = spec['Fl32_Bwl_Store_RDb_Schema_Profile#']; // class constructor
+        const EProfile = spec['Fl32_Bwl_Store_RDb_Schema_Profile#']; // class
         /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Weight_Stat} */
-        const EWeightStat = spec['Fl32_Bwl_Store_RDb_Schema_Weight_Stat#']; // class constructor
+        const EWeightStat = spec['Fl32_Bwl_Store_RDb_Schema_Weight_Stat#']; // class
         /** @type {typeof Fl32_Teq_User_Shared_Api_Data_User} */
-        const DUser = spec['Fl32_Teq_User_Shared_Api_Data_User#']; // class constructor
+        const DUser = spec['Fl32_Teq_User_Shared_Api_Data_User#']; // class
 
         // DEFINE INNER FUNCTIONS
 

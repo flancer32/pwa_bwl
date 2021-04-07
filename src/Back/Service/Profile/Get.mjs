@@ -12,7 +12,7 @@ export default class Fl32_Bwl_Back_Service_Profile_Get {
         /** @type {TeqFw_Core_App_Db_Connector} */
         const rdb = spec['TeqFw_Core_App_Db_Connector$'];  // instance singleton
         /** @type {typeof TeqFw_Http2_Back_Server_Handler_Api_Result} */
-        const ApiResult = spec['TeqFw_Http2_Back_Server_Handler_Api#Result']; // class constructor
+        const ApiResult = spec['TeqFw_Http2_Back_Server_Handler_Api#Result']; // class
         const {
             /** @type {Fl32_Bwl_Shared_Service_Route_Profile_Get_Request} */
             Request,
@@ -20,11 +20,11 @@ export default class Fl32_Bwl_Back_Service_Profile_Get {
             Response
         } = spec['Fl32_Bwl_Shared_Service_Route_Profile_Get']; // ES6 module
         /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Profile} */
-        const EProfile = spec['Fl32_Bwl_Store_RDb_Schema_Profile#']; // class constructor
+        const EProfile = spec['Fl32_Bwl_Store_RDb_Schema_Profile#']; // class
         /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Weight_Stat} */
-        const EWeightStat = spec['Fl32_Bwl_Store_RDb_Schema_Weight_Stat#']; // class constructor
+        const EWeightStat = spec['Fl32_Bwl_Store_RDb_Schema_Weight_Stat#']; // class
         /** @type {typeof Fl32_Bwl_Shared_Service_Data_Profile} */
-        const DProfile = spec['Fl32_Bwl_Shared_Service_Data_Profile#']; // class constructor
+        const DProfile = spec['Fl32_Bwl_Shared_Service_Data_Profile#']; // class
 
         this.getRoute = function () {
             return DEF.SERV_PROFILE_GET;

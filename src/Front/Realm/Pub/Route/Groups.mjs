@@ -48,11 +48,11 @@ function Factory(spec) {
     /** @type {Fl32_Bwl_Front_Widget_Edit_Group} */
     const editGroup = spec['Fl32_Bwl_Front_Widget_Edit_Group$']; // vue comp tmpl
     /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.Item} */
-    const Action = spec['Fl32_Bwl_Front_Layout_TopActions#Item']; // class constructor
+    const Action = spec['Fl32_Bwl_Front_Layout_TopActions#Item']; // class
     /** @type {Fl32_Bwl_Front_Gate_Group_List.gate} */
     const gate = spec['Fl32_Bwl_Front_Gate_Group_List$']; // function singleton
     /** @type {typeof Fl32_Bwl_Shared_Service_Route_Group_List_Response} */
-    const Request = spec['Fl32_Bwl_Shared_Service_Route_Group_List#Response']; // class constructor
+    const Request = spec['Fl32_Bwl_Shared_Service_Route_Group_List#Response']; // class
 
     /**
      * Template to create new component instances using Vue.

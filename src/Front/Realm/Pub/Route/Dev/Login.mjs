@@ -26,7 +26,7 @@ function Factory(spec) {
     /** @type {Fl32_Teq_User_Front_Widget_SignIn} */
     const userSignIn = spec['Fl32_Teq_User_Front_Widget_SignIn$'];  // vue comp tmpl
     /** @type {typeof Fl32_Teq_User_Front_Widget_SignIn_Props} */
-    const SignInProps = spec['Fl32_Teq_User_Front_Widget_SignIn#Props'];  // class constructor
+    const SignInProps = spec['Fl32_Teq_User_Front_Widget_SignIn#Props'];  // class
     const {mapMutations, mapState} = spec[DEF.MOD_VUE.DI_VUEX];
 
     // DEFINE WORKING VARS

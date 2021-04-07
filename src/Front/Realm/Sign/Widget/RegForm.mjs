@@ -27,11 +27,11 @@ function Factory(spec) {
     /** @function {@type Fl32_Teq_User_Front_Gate_Check_Existence.gate} */
     const gateCheckExist = spec['Fl32_Teq_User_Front_Gate_Check_Existence$']; // singleton function
     /** @type {typeof Fl32_Teq_User_Shared_Service_Route_Check_Existence_Request} */
-    const ReqCheckExist = spec['Fl32_Teq_User_Shared_Service_Route_Check_Existence#Request']; // class constructor
+    const ReqCheckExist = spec['Fl32_Teq_User_Shared_Service_Route_Check_Existence#Request']; // class
     /** @function {@type Fl32_Bwl_Front_Gate_Sign_Up.gate} */
     const gateSignUp = spec['Fl32_Bwl_Front_Gate_Sign_Up$']; // function singleton
     /** @type {typeof Fl32_Bwl_Shared_Service_Route_Sign_Up_Request} */
-    const ReqSignUp = spec['Fl32_Bwl_Shared_Service_Route_Sign_Up#Request']; // class constructor
+    const ReqSignUp = spec['Fl32_Bwl_Shared_Service_Route_Sign_Up#Request']; // class
 
     // DEFINE WORKING VARS
     const template = `

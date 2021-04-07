@@ -18,7 +18,7 @@ function Factory(spec) {
     /** @type {Fl32_Bwl_Defaults} */
     const DEF = spec['Fl32_Bwl_Defaults$'];   // instance singleton
     /** @type {typeof TeqFw_Core_App_Cli_Command_Data} */
-    const Command = spec['TeqFw_Core_App_Cli_Command#Data'];    // class constructor
+    const Command = spec['TeqFw_Core_App_Cli_Command#Data'];    // class
     /** @type {TeqFw_Core_App_Db_Connector} */
     const connector = spec['TeqFw_Core_App_Db_Connector$']; // instance singleton
     /** @type {TeqFw_Core_App_Logger} */

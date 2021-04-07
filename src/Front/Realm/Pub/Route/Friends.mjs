@@ -50,11 +50,11 @@ function Factory(spec) {
     /** @type {Fl32_Bwl_Front_Widget_Edit_Group} */
     const editGroup = spec['Fl32_Bwl_Front_Widget_Edit_Group$']; // vue comp tmpl
     /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.Item} */
-    const Action = spec['Fl32_Bwl_Front_Layout_TopActions#Item']; // class constructor
+    const Action = spec['Fl32_Bwl_Front_Layout_TopActions#Item']; // class
     /** @function {@type Fl32_Teq_User_Front_Gate_RefLink_Create.gate} */
     const gateRefLinkCreate = spec['Fl32_Teq_User_Front_Gate_RefLink_Create$']; // function singleton
     /** @type {typeof Fl32_Teq_User_Shared_Service_Route_RefLink_Create_Request} */
-    const ReqRefLinkCreate = spec['Fl32_Teq_User_Shared_Service_Route_RefLink_Create#Request']; // class constructor
+    const ReqRefLinkCreate = spec['Fl32_Teq_User_Shared_Service_Route_RefLink_Create#Request']; // class
 
 
     /**

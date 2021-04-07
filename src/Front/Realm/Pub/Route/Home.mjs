@@ -63,7 +63,7 @@ export default function Fl32_Bwl_Front_Realm_Pub_Route_Home(spec) {
     /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.IComponent} */
     const topActions = spec[DEF.DI_TOP_ACTIONS]; // vue comp tmpl
     /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.Item} */
-    const Action = spec['Fl32_Bwl_Front_Layout_TopActions#Item']; // class constructor
+    const Action = spec['Fl32_Bwl_Front_Layout_TopActions#Item']; // class
     /** @type {Fl32_Bwl_Front_Widget_Edit_Weight.widget} */
     const editWeight = spec['Fl32_Bwl_Front_Widget_Edit_Weight$'];
     /** @type {Fl32_Bwl_Front_DataSource_Weight} */
