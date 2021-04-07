@@ -1,0 +1,7 @@
+{
+  "key": {
+    "sub": {
+      "value": "use: 'namespace:key.sub.value'"
+    }
+  }
+}

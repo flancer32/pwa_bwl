@@ -1,0 +1,26 @@
+{
+  "app": {
+    "friends": {
+      "active": "Active",
+      "admin": "Admin",
+      "date": "Date",
+      "id": "ID",
+      "name": "Name",
+      "share": {
+        "welcome": "Welcome to the Club!"
+      }
+    },
+    "history": {
+      "date": "Date",
+      "delta": "Delta, kg",
+      "percent": "%",
+      "weight": "Weight, kg"
+    },
+    "home": {
+      "current": "Current (kg)",
+      "group": "Group",
+      "start": "Start (kg)",
+      "target": "Target (kg)"
+    }
+  }
+}
