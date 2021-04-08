@@ -1,17 +1,17 @@
 /**
- * Route widget for user's sign in.
+ * Route widget to get email with one-time code for user sign in.
  *
- * @namespace Fl32_Bwl_Front_Realm_Pub_Route_Sign_In
+ * @namespace Fl32_Bwl_Front_Realm_Pub_Route_SignIn_Code_Get
  */
 // MODULE'S VARS
-const NS = 'Fl32_Bwl_Front_Realm_Pub_Route_Sign_In';
+const NS = 'Fl32_Bwl_Front_Realm_Pub_Route_SignIn_Code_Get';
 
 // MODULE'S FUNCTIONS
 /**
  * Factory to create template for new Vue component instances.
  *
- * @memberOf Fl32_Bwl_Front_Realm_Pub_Route_Sign_In
- * @returns {Fl32_Bwl_Front_Realm_Pub_Route_Sign_In.vueCompTmpl}
+ * @memberOf Fl32_Bwl_Front_Realm_Pub_Route_SignIn_Code_Get
+ * @returns {Fl32_Bwl_Front_Realm_Pub_Route_SignIn_Code_Get.vueCompTmpl}
  */
 function Factory(spec) {
     // EXTRACT DEPS
@@ -33,7 +33,7 @@ function Factory(spec) {
     const template = `
 <layout-centered>
     <div class="t-grid rows gutter-md" style="padding: var(--padding-grid);" v-show="!displayMsg">
-        <div>{{$t('pub:route.sign.in.title')}}</div>
+        <div>{{$t('pub:route.signIn.code.get.title')}}</div>
         <div>
             <q-input class="id-email"
                      :hint="$t('sign:up.email.hint')"
@@ -60,16 +60,12 @@ function Factory(spec) {
 </layout-centered>
 `;
 
-    // DEFINE INNER FUNCTIONS
-
-    // MAIN FUNCTIONALITY
-
     // COMPOSE RESULT
     /**
      * Template to create new component instances using Vue.
      *
      * @const {Object} vueCompTmpl
-     * @memberOf Fl32_Bwl_Front_Realm_Pub_Route_Sign_In
+     * @memberOf Fl32_Bwl_Front_Realm_Pub_Route_SignIn_Code_Get
      */
     return {
         name: NS,
@@ -89,15 +85,6 @@ function Factory(spec) {
             })
         },
         methods: {
-            onFailure() {
-                console.log('Failure');
-            },
-            async onSuccess() {
-                // session is initiated in 'Fl32_Teq_User_Front_Widget_SignIn' before @success event.
-                const user = session.getUser();
-                this.setStateUserAuthenticated(user);
-                this.$router.push('/');
-            },
             async onSubmit() {
                 this.loading = true;
                 const req = new ReqSend();
@@ -107,9 +94,9 @@ function Factory(spec) {
                 this.loading = false;
                 const opts = {email: this.fldEmail};
                 if (res.isSent) {
-                    this.msg = this.$t('pub:route.sign.in.msg.success', opts);
+                    this.msg = this.$t('pub:route.signIn.code.get.msg.success', opts);
                 } else {
-                    this.msg = this.$t('pub:route.sign.in.msg.failure', opts);
+                    this.msg = this.$t('pub:route.signIn.code.get.msg.failure', opts);
                 }
                 this.displayMsg = true;
             },

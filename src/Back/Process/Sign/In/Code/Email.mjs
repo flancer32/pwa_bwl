@@ -38,7 +38,9 @@ function Factory(spec) {
         // get config for SMTP transport
         const cfg = config?.local?.email;
         const urlBase = config.local.web.urlBase;
-        const url = `https://${urlBase}/pub/#/sign/in/${code}`;
+        const realm = DEF.REALM_PUB;
+        const route = DEF.REALM_PUB_ROUTE_SIGN_IN_CODE_CHECK.replace(':code', code);
+        const url = `https://${urlBase}/${realm}/#${route}`;
         // create reusable transporter object using the default SMTP transport
         const transporter = nodemailer.createTransport(cfg);
         const from = `"BWL Mailer" <${cfg.auth.user}>`;

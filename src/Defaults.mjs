@@ -33,7 +33,8 @@ export default class Fl32_Bwl_Defaults {
     REALM_PUB_ROUTE_HISTORY = '/history';
     REALM_PUB_ROUTE_HOME = '/';
     REALM_PUB_ROUTE_SETTINGS = '/settings';
-    REALM_PUB_ROUTE_SIGN_IN = '/sign/in';
+    REALM_PUB_ROUTE_SIGN_IN_CODE_CHECK = '/signIn/code/check/:code';
+    REALM_PUB_ROUTE_SIGN_IN_CODE_GET = '/signIn/code/get';
     REALM_SIGN = 'sign';
     REALM_SIGN_ROUTE_HOME = '/';
     REALM_SIGN_ROUTE_UP = '/up/:refCode?';

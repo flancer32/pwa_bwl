@@ -126,7 +126,7 @@
                 // setup session (load user permissions from server)
                 /** @type {Fl32_Teq_User_Front_App_Session} */
                 const session = await container.get('Fl32_Teq_User_Front_App_Session$'); // instance singleton
-                session.setRouteToSignIn(DEF.REALM_PUB_ROUTE_SIGN_IN);
+                session.setRouteToSignIn(DEF.REALM_PUB_ROUTE_SIGN_IN_CODE_GET);
                 await session.init();
                 container.set(DEF.MOD_USER.DI_SESSION, session);    // TMP: put into container as singleton
             }
