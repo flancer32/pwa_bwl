@@ -43,7 +43,7 @@
             "title": "Request sign in link",
             "msg": {
               "failure": "Failure",
-              "success": "Success"
+              "success": "Email with sign in link is set to '{{email}}'."
             }
           }
         }

@@ -83,6 +83,7 @@ class Fl32_Bwl_Back_Service_Sign_In_Code_Send {
                 // MAIN FUNCTIONALITY
                 const result = new ApiResult();
                 const response = new Response();
+                response.isSent = false;
                 result.response = response;
                 const trx = await rdb.startTransaction();
                 /** @type {Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Send_Request} */
@@ -92,7 +93,7 @@ class Fl32_Bwl_Back_Service_Sign_In_Code_Send {
                     const email = apiReq.email;
                     await procCleanUp({trx});
                     const code = await procCreate({trx, email});
-                    response.isSent = await procEmail({to: email, code});
+                    if (code !== null) response.isSent = await procEmail({to: email, code});
                     await trx.commit();
                 } catch (error) {
                     await trx.rollback();

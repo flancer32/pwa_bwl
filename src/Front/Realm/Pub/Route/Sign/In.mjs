@@ -6,8 +6,6 @@
 // MODULE'S VARS
 const NS = 'Fl32_Bwl_Front_Realm_Pub_Route_Sign_In';
 
-// MODULE'S CLASSES
-
 // MODULE'S FUNCTIONS
 /**
  * Factory to create template for new Vue component instances.
@@ -23,6 +21,10 @@ function Factory(spec) {
     const session = spec[DEF.MOD_USER.DI_SESSION]; // named singleton
     /** @type {TeqFw_Core_App_Front_Widget_Layout_Centered} */
     const layoutCentered = spec['TeqFw_Core_App_Front_Widget_Layout_Centered$']; // vue comp tmpl
+    /** @function {@type Fl32_Bwl_Front_Gate_Sign_In_Code_Send.gate} */
+    const gateSend = spec['Fl32_Bwl_Front_Gate_Sign_In_Code_Send$']; // function singleton
+    /** @type {typeof Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Send_Request} */
+    const ReqSend = spec['Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Send#Request']; // class
     /** @type {typeof Fl32_Teq_User_Shared_Api_Data_User} */
     const DUser = spec['Fl32_Teq_User_Shared_Api_Data_User#']; // class
     const {mapMutations, mapState} = spec[DEF.MOD_VUE.DI_VUEX];
@@ -52,7 +54,7 @@ function Factory(spec) {
             </div>
         </div>
     </div>
-    <div v-show="displayMsg">
+    <div v-show="displayMsg" style="padding: var(--padding-grid); text-align: center">
         <div>{{msg}}</div>
     </div>
 </layout-centered>
@@ -96,13 +98,20 @@ function Factory(spec) {
                 this.setStateUserAuthenticated(user);
                 this.$router.push('/');
             },
-            onSubmit() {
+            async onSubmit() {
                 this.loading = true;
-                setInterval(() => {
-                    this.loading = false;
-                    this.displayMsg = true;
-                    this.msg = this.$t('pub:route.sign.in.msg.success');
-                }, 1000);
+                const req = new ReqSend();
+                req.email = this.fldEmail;
+                /** @type {Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Send_Response} */
+                const res = await gateSend(req);
+                this.loading = false;
+                const opts = {email: this.fldEmail};
+                if (res.isSent) {
+                    this.msg = this.$t('pub:route.sign.in.msg.success', opts);
+                } else {
+                    this.msg = this.$t('pub:route.sign.in.msg.failure', opts);
+                }
+                this.displayMsg = true;
             },
             ...mapMutations({
                 setStateUserAuthenticated: 'user/setAuthenticated',
