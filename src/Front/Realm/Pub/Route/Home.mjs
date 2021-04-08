@@ -62,6 +62,10 @@ export default function Fl32_Bwl_Front_Realm_Pub_Route_Home(spec) {
     const chart = spec['Fl32_Bwl_Front_Widget_Chart$'];
     /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.IComponent} */
     const topActions = spec[DEF.DI_TOP_ACTIONS]; // vue comp tmpl
+    /** @function {@type Fl32_Teq_User_Front_Gate_Sign_Out.gate} */
+    const gateSignOut = spec['Fl32_Teq_User_Front_Gate_Sign_Out$']; // function singleton
+    /** @type {typeof Fl32_Teq_User_Shared_Service_Route_Sign_Out_Request} */
+    const ReqSignOut = spec['Fl32_Teq_User_Shared_Service_Route_Sign_Out#Request']; // class
     /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.Item} */
     const Action = spec['Fl32_Bwl_Front_Layout_TopActions#Item']; // class
     /** @type {Fl32_Bwl_Front_Widget_Edit_Weight.widget} */
@@ -131,8 +135,10 @@ export default function Fl32_Bwl_Front_Realm_Pub_Route_Home(spec) {
             function addTopActions() {
                 const actAdd = new Action();
                 actAdd.icon = 'logout';
-                actAdd.action = function () {
-                    console.log('sign out!');
+                actAdd.action = async function () {
+                    const req = new ReqSignOut();
+                    await gateSignOut(req);
+                    self.location.reload();
                 };
                 topActions.setActions([actAdd]);
             }

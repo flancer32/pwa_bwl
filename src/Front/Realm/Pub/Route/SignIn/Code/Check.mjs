@@ -21,19 +21,18 @@ function Factory(spec) {
     const session = spec[DEF.MOD_USER.DI_SESSION]; // named singleton
     /** @type {TeqFw_Core_App_Front_Widget_Layout_Centered} */
     const layoutCentered = spec['TeqFw_Core_App_Front_Widget_Layout_Centered$']; // vue comp tmpl
-    /** @function {@type Fl32_Bwl_Front_Gate_Sign_In_Code_Send.gate} */
-    const gateSend = spec['Fl32_Bwl_Front_Gate_Sign_In_Code_Send$']; // function singleton
-    /** @type {typeof Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Send_Request} */
-    const ReqSend = spec['Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Send#Request']; // class
-    /** @type {typeof Fl32_Teq_User_Shared_Api_Data_User} */
-    const DUser = spec['Fl32_Teq_User_Shared_Api_Data_User#']; // class
+    /** @function {@type Fl32_Bwl_Front_Gate_Sign_In_Code_Check.gate} */
+    const gate = spec['Fl32_Bwl_Front_Gate_Sign_In_Code_Check$']; // function singleton
+    /** @type {typeof Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Check_Request} */
+    const Req = spec['Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Check#Request']; // class
     const {mapMutations, mapState} = spec[DEF.MOD_VUE.DI_VUEX];
 
     // DEFINE WORKING VARS
     const template = `
 <layout-centered>
     <div class="t-grid rows gutter-md" style="padding: var(--padding-grid);">
-        <div>{{$t('pub:route.signIn.code.check.title')}}</div>
+        <div style="text-align: center">{{$t('pub:route.signIn.code.check.title')}}</div>
+        <div style="text-align: center" v-show="error">{{error}}</div>
     </div>
 </layout-centered>
 `;
@@ -54,7 +53,9 @@ function Factory(spec) {
         template,
         components: {layoutCentered},
         data: function () {
-            return {};
+            return {
+                error: null
+            };
         },
         props: {
             code: String,
@@ -69,12 +70,15 @@ function Factory(spec) {
                 setStateUserAuthenticated: 'user/setAuthenticated',
             }),
         },
-        created() {
-            // get user data from session and save it to the app state
-            const user = session.getUser();
-            this.setStateUserAuthenticated(user);
-            // redirect authenticated user to (default) route
-            if (user instanceof DUser) {
+        async mounted() {
+            const req = new Req();
+            req.code = this.code;
+            /** @type {Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Check_Response} */
+            const res = await gate(req);
+            if (res.constructor.name === 'TeqFw_Core_App_Front_Gate_Response_Error') {
+                this.error = res.message;
+            } else {
+                await session.init();
                 const route = session.getRouteToRedirect();
                 this.$router.push(route);
             }

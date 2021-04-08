@@ -1,5 +1,5 @@
 /**
- * Service to send one-time sign in code to email.
+ * Service to send one-time sign-in code to email.
  *
  * @namespace Fl32_Bwl_Back_Service_Sign_In_Code_Send
  */
@@ -54,10 +54,8 @@ class Fl32_Bwl_Back_Service_Sign_In_Code_Send {
              */
             function parse(context) {
                 const body = JSON.parse(context.body);
-                /** @type {Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Send_Request} */
-                const result = Object.assign(new Request(), body.data); // clone HTTP body into API request object
-                result.date = new Date(result.date);
-                return result;
+                // clone HTTP body into API request object
+                return Object.assign(new Request(), body.data);
             }
 
             // COMPOSE RESULT

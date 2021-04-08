@@ -42,6 +42,7 @@ export default class Fl32_Bwl_Defaults {
     // SERVICES ROUTES
     SERV_GROUP_LIST = '/group/list';
     SERV_PROFILE_GET = '/profile/get';
+    SERV_SIGN_IN_CODE_CHECK = '/sign/in/code/check';
     SERV_SIGN_IN_CODE_SEND = '/sign/in/code/send';
     SERV_SIGN_UP = '/sign/up';
     SERV_WEIGHT_HISTORY_LIST = '/weight/history/list';

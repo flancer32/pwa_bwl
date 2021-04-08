@@ -139,7 +139,7 @@ class Fl32_Bwl_Back_Service_Sign_Up {
 
                 /**
                  * @param trx
-                 * @param userId
+                 * @param {Number} userId
                  * @returns {Promise<{cookie: *, sessionId: string}>}
                  */
                 async function initSession(trx, userId) {
