@@ -11,6 +11,15 @@
       }
     }
   },
+  "email": {
+    "host": "smtp.gmail.com",
+    "port": 465,
+    "secure": true,
+    "auth": {
+      "user": "sender@gmail.com",
+      "pass": "password"
+    }
+  },
   "server": {
     "port": 3000
   },

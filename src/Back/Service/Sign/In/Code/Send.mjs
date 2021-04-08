@@ -30,6 +30,8 @@ class Fl32_Bwl_Back_Service_Sign_In_Code_Send {
         const procCreate = spec['Fl32_Bwl_Back_Process_Sign_In_Code_Create$']; // function singleton
         /** @function {@type Fl32_Bwl_Back_Process_Sign_In_Code_CleanUp.process} */
         const procCleanUp = spec['Fl32_Bwl_Back_Process_Sign_In_Code_CleanUp$']; // function singleton
+        /** @function {@type Fl32_Bwl_Back_Process_Sign_In_Code_Email.process} */
+        const procEmail = spec['Fl32_Bwl_Back_Process_Sign_In_Code_Email$']; // function singleton
 
 
         // DEFINE INNER FUNCTIONS
@@ -89,6 +91,7 @@ class Fl32_Bwl_Back_Service_Sign_In_Code_Send {
                 try {
                     await procCleanUp({trx});
                     const res = await procCreate({trx, email: apiReq.email});
+                    await  procEmail({trx});
                     await trx.commit();
                 } catch (error) {
                     await trx.rollback();

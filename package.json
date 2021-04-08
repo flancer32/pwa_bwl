@@ -27,6 +27,7 @@
   "dependencies": {
     "@flancer32/teq_user": "github:flancer32/teq_user",
     "mysql2": "*",
+    "nodemailer": "*",
     "pg": "*"
   },
   "devDependencies": {
