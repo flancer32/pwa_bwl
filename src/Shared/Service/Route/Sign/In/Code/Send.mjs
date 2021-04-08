@@ -11,6 +11,8 @@ class Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Send_Request {
 }
 
 class Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Send_Response {
+    /** @type {Boolean} */
+    isSent;
 }
 
 // MODULE'S EXPORT

@@ -89,9 +89,10 @@ class Fl32_Bwl_Back_Service_Sign_In_Code_Send {
                 const apiReq = apiCtx.request;
                 // const shared = apiCtx.sharedContext;
                 try {
+                    const email = apiReq.email;
                     await procCleanUp({trx});
-                    const res = await procCreate({trx, email: apiReq.email});
-                    await  procEmail({trx});
+                    const code = await procCreate({trx, email});
+                    response.isSent = await procEmail({to: email, code});
                     await trx.commit();
                 } catch (error) {
                     await trx.rollback();
