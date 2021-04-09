@@ -44,11 +44,11 @@
               "title": "Sign in code validation..."
             },
             "get": {
-              "title": "Request sign in link",
               "msg": {
                 "failure": "Failure",
                 "success": "Email with sign in link is set to '{{email}}'."
-              }
+              },
+              "title": "Request sign in link"
             }
           }
         }
@@ -56,10 +56,10 @@
     },
     "sign": {
       "err": {
-        "required": "Field is required.",
-        "wrongValue": "Wrong value.",
         "emailExists": "This email is already registered.",
-        "phoneExists": "This phone is already registered."
+        "phoneExists": "This phone is already registered.",
+        "required": "Field is required.",
+        "wrongValue": "Wrong value."
       },
       "up": {
         "age": {
@@ -69,6 +69,16 @@
         "email": {
           "hint": "",
           "label": "Email"
+        },
+        "gender": {
+          "hint": "",
+          "label": "Your gender",
+          "XX": {
+            "label": "XX - 'she'"
+          },
+          "XY": {
+            "label": "XY - 'he'"
+          }
         },
         "height": {
           "hint": "From 32 cm to 256 cm: 168",
@@ -82,10 +92,6 @@
         "phone": {
           "hint": "",
           "label": "Phone"
-        },
-        "gender": {
-          "hint": "XX - natural female, XY - natural male",
-          "label": "Your gender"
         },
         "time": "Time",
         "weight": {

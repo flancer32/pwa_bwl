@@ -37,7 +37,7 @@ function Factory(spec) {
     const template = `
 <q-form class="t-grid rows gutter-sm"
         @submit="onSubmit"
-        ref="regForm"         
+        ref="regForm"
 >
     <q-input class="id-name"
              :hint="$t('sign:up.name.hint')"
@@ -47,7 +47,7 @@ function Factory(spec) {
              outlined
              v-model="fldName"
     ></q-input>
-    
+
     <q-input class="id-email"
              :error-message="errorMsg['email']"
              :error="error['email']"
@@ -61,7 +61,7 @@ function Factory(spec) {
              outlined
              v-model="fldEmail"
     ></q-input>
-    
+
     <q-input class="id-phone"
              :error-message="errorMsg['phone']"
              :error="error['phone']"
@@ -76,16 +76,26 @@ function Factory(spec) {
     ></q-input>
 
     <q-field class="id-gender"
-            :stack-label="true"
-            :rules="rulesGender"
-            :value="fldGender"
-            :hint="$t('sign:up.gender.hint')"
-            :label="$t('sign:up.gender.label') + ' *'"
-            borderless
+             :stack-label="true"
+             :rules="rulesGender"
+             :value="fldGender"
+             :hint="$t('sign:up.gender.hint')"
+             :label="$t('sign:up.gender.label') + ' *'"
+             borderless
     >
         <div class="t-grid cols gutter-none" style="width: 100%">
-            <q-radio v-model="fldGender" val="${GENDER_XX}" color="pink" label="XX"></q-radio>
-            <q-radio v-model="fldGender" val="${GENDER_XY}" color="light-blue" label="XY"></q-radio>
+            <q-radio
+                    :label="$t('sign:up.gender.XX.label')"
+                    color="pink"
+                    v-model="fldGender"
+                    val="${GENDER_XX}"
+            ></q-radio>
+            <q-radio
+                    :label="$t('sign:up.gender.XY.label')"
+                    color="light-blue"
+                    v-model="fldGender"
+                    val="${GENDER_XY}"
+            ></q-radio>
         </div>
     </q-field>
 

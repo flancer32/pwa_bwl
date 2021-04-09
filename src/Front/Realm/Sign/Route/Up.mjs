@@ -32,9 +32,21 @@ function Factory(spec) {
     <div v-show="displayError===true">Some error is occurred.</div>
     <div v-show="displayError===false">
         <q-card style="min-width: 350px">
-            <q-card-section class="t-grid gutter-md align-items-center">
-                <div>{{$t('sign:up.parent')}}: {{parent?.name}}</div>
-                <div>{{$t('sign:up.time')}}: {{timeFormatted}}</div>
+            <q-card-section class="t-grid cols gutter-md align-items-center" style="grid-template-columns: auto 1fr">
+                <q-input class="id-parent"
+                    :label="$t('sign:up.parent')"
+                    :stack-label="true"
+                    outlined
+                    readonly
+                    v-model="outParentName"
+                ></q-input>
+                <q-input class="id-parent"
+                    :label="$t('sign:up.time')"
+                    :stack-label="true"
+                    outlined
+                    readonly
+                    v-model="outTime"
+                ></q-input>
             </q-card-section>
             <q-card-section class="t-grid gutter-md align-items-center">
                 <reg-form
@@ -68,7 +80,10 @@ function Factory(spec) {
             refCode: String, // "/.../:refCode" - referral code to compose users tree (see DEF.REALM_SIGN_ROUTE_UP)
         },
         computed: {
-            timeFormatted() {
+            outParentName() {
+                return this.parent?.name ?? '';
+            },
+            outTime() {
                 let result = '00:00:00';
                 const time = new Date(this.timeLeft);
                 result = formatUtcTime(time);
