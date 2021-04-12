@@ -68,8 +68,8 @@ export default function Fl32_Bwl_Front_Realm_Pub_Route_Home(spec) {
     const ReqSignOut = spec['Fl32_Teq_User_Shared_Service_Route_Sign_Out#Request']; // class
     /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.Item} */
     const Action = spec['Fl32_Bwl_Front_Layout_TopActions#Item']; // class
-    /** @type {Fl32_Bwl_Front_Widget_Edit_Weight.widget} */
-    const editWeight = spec['Fl32_Bwl_Front_Widget_Edit_Weight$'];
+    /** @type {Fl32_Bwl_Front_Widget_Edit_Weight2.widget} */
+    const editWeight = spec['Fl32_Bwl_Front_Widget_Edit_Weight2$'];
     /** @type {Fl32_Bwl_Front_DataSource_Weight} */
     const dsWeights = spec['Fl32_Bwl_Front_DataSource_Weight$']; // instance singleton
     const {mapMutations, mapState} = spec[DEF.MOD_VUE.DI_VUEX];

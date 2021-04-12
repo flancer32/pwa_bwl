@@ -5,10 +5,10 @@
  *  - start
  *  - target
  *
- * @namespace Fl32_Bwl_Front_Widget_Edit_Weight
+ * @namespace Fl32_Bwl_Front_Widget_Edit_Weight2
  */
 // MODULE'S VARS
-const NS = 'Fl32_Bwl_Front_Widget_Edit_Weight';
+const NS = 'Fl32_Bwl_Front_Widget_Edit_Weight2';
 const EVT_HIDE = 'onHide';
 const EVT_SUBMIT = 'onSubmit';
 
@@ -16,8 +16,8 @@ const EVT_SUBMIT = 'onSubmit';
 /**
  * Factory to create template for new Vue component instances.
  *
- * @memberOf Fl32_Bwl_Front_Widget_Edit_Weight
- * @returns {Fl32_Bwl_Front_Widget_Edit_Weight.vueCompTmpl}
+ * @memberOf Fl32_Bwl_Front_Widget_Edit_Weight2
+ * @returns {Fl32_Bwl_Front_Widget_Edit_Weight2.vueCompTmpl}
  */
 function Factory(spec) {
     // EXTRACT DEPS
@@ -39,7 +39,7 @@ function Factory(spec) {
      * Codifier for weight types.
      *
      * @type {{TARGET: string, START: string, CURRENT: string}}
-     * @memberOf Fl32_Bwl_Front_Widget_Edit_Weight.widget
+     * @memberOf Fl32_Bwl_Front_Widget_Edit_Weight2.widget
      */
     const TYPES = {
         CURRENT: Types.CURRENT,
@@ -56,21 +56,22 @@ function Factory(spec) {
             <div class="text-h7" style="text-align: end">{{dateFormatted}}</div>
         </div>
 
-        <q-card-section class="q-pt-none t-grid" style="justify-content: center;">
-            <div class="t-grid cols gutter-xl" style="justify-content: stretch; height:200px; min-width: 100px">
-                <v-scroll
-                        :initValue="selectedInts"
-                        :items="weightInts"
-                        @selected="intIsSelected"
-                        style="max-width: 50px;"
-                ></v-scroll>
-                <v-scroll
-                        :initValue="selectedDecimals"
-                        :items="weightDecimals"
-                        @selected="decimalIsSelected"
-                        style="max-width: 50px;"
-                ></v-scroll>
-            </div>
+        <q-card-section class="t-grid cols gutter-xl" style="justify-content: center;">
+
+            <q-select
+                    :options="weightInts"
+                    options-dense
+                    outlined
+                    v-model="selectedInts"
+            ></q-select>
+
+            <q-select
+                    :options="weightDecimals"
+                    options-dense
+                    outlined
+                    v-model="selectedDecimals"
+            ></q-select>
+            
         </q-card-section>
 
         <q-card-actions align="right" class="text-primary">
@@ -86,7 +87,7 @@ function Factory(spec) {
      * Template to create new component instances using Vue.
      *
      * @const {Object} vueCompTmpl
-     * @memberOf Fl32_Bwl_Front_Widget_Edit_Weight
+     * @memberOf Fl32_Bwl_Front_Widget_Edit_Weight2
      */
     return {
         name: NS,
@@ -117,13 +118,16 @@ function Factory(spec) {
             weightDecimals() {
                 const result = [];
                 for (let i = 0; i <= 9; i++)
-                    result.push({key: i, value: String(i)});
+                    result.push({label: String(i), value: i});
                 return result;
             },
             weightInts() {
                 const result = [];
-                for (let i = 0; i <= 200; i++)
-                    result.push({key: i, value: String(i).padStart(2, '0')});
+                const int = Math.trunc(this.weight);
+                const begin = int - 5;
+                const end = int + 5;
+                for (let i = begin; i <= end; i++)
+                    result.push({label: String(i).padStart(2, '0'), value: i});
                 return result;
             },
         },
@@ -138,7 +142,7 @@ function Factory(spec) {
                 this.$emit(EVT_HIDE);
             },
             async submit() {
-                const value = this.selectedInts + (this.selectedDecimals * 0.1);
+                const value = this.selectedInts.value + (this.selectedDecimals.value * 0.1);
                 const req = new Request();
                 req.date = this.date;
                 req.weight = value;
@@ -152,10 +156,17 @@ function Factory(spec) {
             display(current) {
                 if (current && this.weight) {
                     const norm = Number.parseFloat(this.weight);
-                    this.selectedInts = String(Math.trunc(norm)).padStart(2, '0');
+                    const ints = Math.trunc(norm);
+                    this.selectedInts = {
+                        label: String(ints).padStart(2, '0'),
+                        value: ints
+                    };
                     const tail = norm % 1;
                     const firstDigit = Math.round(tail * 10);
-                    this.selectedDecimals = String(firstDigit);
+                    this.selectedDecimals = {
+                        label: String(firstDigit),
+                        value: firstDigit
+                    };
                 }
             }
         },
