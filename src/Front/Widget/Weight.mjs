@@ -1,5 +1,5 @@
 /**
- * Widget to edit weight in touch UI (2 vertical scrolls).
+ * Widget to edit weight in touch UI.
  * @namespace Fl32_Bwl_Front_Widget_Weight
  */
 
@@ -23,7 +23,6 @@ const template = `
             outlined
             v-model="selectedDec"
     ></q-select>
-
 
 </div>
 `;

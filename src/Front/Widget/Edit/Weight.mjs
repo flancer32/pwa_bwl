@@ -24,12 +24,14 @@ function Factory(spec) {
     /** @type {Fl32_Bwl_Defaults} */
     const DEF = spec['Fl32_Bwl_Defaults$'];    // instance singleton
     const i18n = spec[DEF.MOD_CORE.DI_I18N];   // named singleton
-    /** @type {TeqFw_Vue_Front_Widget_Scroller_Vertical} */
-    const vScroll = spec['TeqFw_Vue_Front_Widget_Scroller_Vertical$']; // instance singleton
+    /** @type {Fl32_Bwl_Front_Widget_Weight.vueCompTmpl} */
+    const weight = spec['Fl32_Bwl_Front_Widget_Weight$']; // vue comp tmpl
     /** @type {Fl32_Bwl_Front_Gate_Weight_Stat_Save.gate} */
     const gate = spec['Fl32_Bwl_Front_Gate_Weight_Stat_Save$']; // function instance
     /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save_Request} */
     const Request = spec['Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save#Request']; // class
+    /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save_Response} */
+    const Response = spec['Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save#Response']; // class
     /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save_Types} */
     const Types = spec['Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save#Types']; // class
     const {formatDate} = spec['Fl32_Bwl_Shared_Util']; // ES6 module destructing
@@ -51,25 +53,17 @@ function Factory(spec) {
     const template = `
 <q-dialog :model-value="display" @hide="onHide">
     <q-card style="min-width: 350px">
-        <div class="t-grid cols align-items-center">
-            <div class="text-h7">{{title}}</div>
-            <div class="text-h7" style="text-align: end">{{dateFormatted}}</div>
-        </div>
 
-        <q-card-section class="q-pt-none t-grid" style="justify-content: center;">
-            <div class="t-grid cols gutter-xl" style="justify-content: stretch; height:200px; min-width: 100px">
-                <v-scroll
-                        :initValue="selectedInts"
-                        :items="weightInts"
-                        @selected="intIsSelected"
-                        style="max-width: 50px;"
-                ></v-scroll>
-                <v-scroll
-                        :initValue="selectedDecimals"
-                        :items="weightDecimals"
-                        @selected="decimalIsSelected"
-                        style="max-width: 50px;"
-                ></v-scroll>
+        <q-card-section class="t-grid rows gutter-md" style="justify-items: center">
+            <div class="t-grid cols gutter-xl" style="width: 100%">
+                <div class="text-h7">{{title}}</div>
+                <div class="text-h7" style="text-align: end">{{dateFormatted}}</div>
+            </div>
+            <div style="width: 200px">
+                <weight
+                        :value="selectedWeight"
+                        @update="onWeightUpdate"
+                ></weight>
             </div>
         </q-card-section>
 
@@ -77,6 +71,7 @@ function Factory(spec) {
             <q-btn flat :label="$t('wg:editWeight.cancel')" v-close-popup></q-btn>
             <q-btn flat :label="$t('wg:editWeight.ok')" v-close-popup v-on:click="submit"></q-btn>
         </q-card-actions>
+
     </q-card>
 </q-dialog>    
 `;
@@ -91,11 +86,10 @@ function Factory(spec) {
     return {
         name: NS,
         template,
-        components: {vScroll},
+        components: {weight},
         data: function () {
             return {
-                selectedDecimals: null,
-                selectedInts: null,
+                selectedWeight: null,
             };
         },
         props: { // API to get values from parent widget
@@ -114,48 +108,33 @@ function Factory(spec) {
             title() {
                 return this.$t(`wg:editWeight.title.${this.type}`);
             },
-            weightDecimals() {
-                const result = [];
-                for (let i = 0; i <= 9; i++)
-                    result.push({key: i, value: String(i)});
-                return result;
-            },
-            weightInts() {
-                const result = [];
-                for (let i = 0; i <= 200; i++)
-                    result.push({key: i, value: String(i).padStart(2, '0')});
-                return result;
-            },
         },
         methods: {
-            decimalIsSelected(key) {
-                this.selectedDecimals = key;
-            },
-            intIsSelected(key) {
-                this.selectedInts = key;
-            },
             onHide() {
                 this.$emit(EVT_HIDE);
             },
+            onWeightUpdate(value) {
+                this.selectedWeight = value;
+            },
             async submit() {
-                const value = this.selectedInts + (this.selectedDecimals * 0.1);
+                const value = this.selectedWeight;
                 const req = new Request();
                 req.date = this.date;
                 req.weight = value;
                 req.type = this.type;
-                await gate(req);
-                this.$emit(EVT_SUBMIT, value, this.type);
+                const res = await gate(req);
+                if (res instanceof Response) {
+                    this.$emit(EVT_SUBMIT, value, this.type);
+                } else {
+                    console.log('Error: cannot update weight on server. See dev. tools logs.');
+                }
             },
         },
         watch: {
             // TODO: should we watch display or weight?
             display(current) {
                 if (current && this.weight) {
-                    const norm = Number.parseFloat(this.weight);
-                    this.selectedInts = String(Math.trunc(norm)).padStart(2, '0');
-                    const tail = norm % 1;
-                    const firstDigit = Math.round(tail * 10);
-                    this.selectedDecimals = String(firstDigit);
+                    this.selectedWeight = this.weight;
                 }
             }
         },
