@@ -40,17 +40,5 @@
     "esm": "^3.2.25",
     "jest": "*",
     "jsdoc": "*"
-  },
-  "teqfw": {
-    "autoload": {
-      "ns": "Fl32_Bwl",
-      "path": "./src"
-    },
-    "http2": {
-      "realms": [
-        "pub",
-        "sign"
-      ]
-    }
   }
 }

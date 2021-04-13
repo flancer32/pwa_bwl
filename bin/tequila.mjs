@@ -19,7 +19,9 @@ const root = $path.join(bin, '..');
 /** @type {TeqFw_Di_Container} */
 const container = new Container();
 const srcCore = $path.join(root, 'node_modules/@teqfw/core-app/src');
+const srcDi = $path.join(root, 'node_modules/@teqfw/di/src');
 container.addSourceMapping('TeqFw_Core_App', srcCore, true, 'mjs');
+container.addSourceMapping('TeqFw_Di', srcDi, true, 'mjs');
 
 // Manually create bootstrap configuration object (used in constructor of 'Fl32_Bwl_App')
 /** @type {TeqFw_Core_App_Launcher.Bootstrap} */
