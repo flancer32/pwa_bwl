@@ -12,6 +12,8 @@ const NS = 'Fl32_Bwl_Front_Widget_Edit_Weight';
 const EVT_HIDE = 'onHide';
 const EVT_SUBMIT = 'onSubmit';
 
+// MODULE'S CLASSES
+
 // MODULE'S FUNCTIONS
 /**
  * Factory to create template for new Vue component instances.
@@ -41,7 +43,7 @@ function Factory(spec) {
      * Codifier for weight types.
      *
      * @type {{TARGET: string, START: string, CURRENT: string}}
-     * @memberOf Fl32_Bwl_Front_Widget_Edit_Weight.widget
+     * @memberOf Fl32_Bwl_Front_Widget_Edit_Weight.vueCompTmpl
      */
     const TYPES = {
         CURRENT: Types.CURRENT,
@@ -145,4 +147,6 @@ function Factory(spec) {
 
 // MODULE'S EXPORT
 Object.defineProperty(Factory, 'name', {value: `${NS}.${Factory.name}`});
-export default Factory;
+export {
+    Factory as default
+};

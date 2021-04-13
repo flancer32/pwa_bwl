@@ -19,7 +19,8 @@
       },
       "home": {
         "current": "Current (kg)",
-        "group": "Group",
+        "dataSet": "Data set",
+        "period": "Period",
         "start": "Start (kg)",
         "target": "Target (kg)"
       }

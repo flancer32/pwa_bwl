@@ -180,7 +180,7 @@ function Factory(spec) {
                     },
                 ]);
                 await trx(EUserIdEmail.ENTITY).insert({
-                    [EUserIdEmail.A_EMAIL]: 'alex@wiredgeese.com',
+                    [EUserIdEmail.A_EMAIL]: 'flancer64@gmail.com',
                     [EUserIdEmail.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
                 });
                 await trx(EUserIdPhone.ENTITY).insert({

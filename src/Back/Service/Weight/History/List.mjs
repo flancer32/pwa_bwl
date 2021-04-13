@@ -17,7 +17,7 @@ export default class Fl32_Bwl_Back_Service_Weight_History_List {
         /** @type {TeqFw_Core_App_Db_Connector} */
         const rdb = spec['TeqFw_Core_App_Db_Connector$'];  // instance singleton
         const {
-            /** @type {TeqFw_Core_App_Shared_Util.formatDate} */
+            /** @function {@type TeqFw_Core_App_Shared_Util.formatDate} */
             formatDate
         } = spec['TeqFw_Core_App_Shared_Util']; // ES6 module
         /** @type {typeof TeqFw_Http2_Back_Server_Handler_Api_Result} */
@@ -72,13 +72,23 @@ export default class Fl32_Bwl_Back_Service_Weight_History_List {
              * @implements {TeqFw_Http2_Back_Server_Handler_Api_Factory.service}
              */
             async function service(apiCtx) {
+
                 // DEFINE INNER FUNCTIONS
-                async function selectItems(trx, userId) {
+                /**
+                 * @param trx
+                 * @param {Fl32_Teq_User_Shared_Api_Data_User} user
+                 * @param {Fl32_Bwl_Shared_Service_Route_Weight_History_List_Request} apiReq
+                 * @return {Promise<*[]>}
+                 */
+                async function selectItems(trx, user, apiReq) {
                     const result = [];
                     const query = trx.from(EWeightStat.ENTITY);
                     query.select();
-                    query.where(EWeightStat.A_USER_REF, userId);
-                    query.orderBy(EWeightStat.A_DATE, 'asc');
+                    query.where(EWeightStat.A_USER_REF, user.id);
+                    if (apiReq.dateFrom) query.where(EWeightStat.A_DATE, '>=', formatDate(apiReq.dateFrom));
+                    if (apiReq.dateTo) query.where(EWeightStat.A_DATE, '<=', formatDate(apiReq.dateTo));
+                    if (apiReq.order === 'asc') query.orderBy(EWeightStat.A_DATE, 'asc');
+                    if (apiReq.order === 'desc') query.orderBy(EWeightStat.A_DATE, 'desc');
                     /** @type {Array} */
                     const rs = await query;
                     for (const one of rs) {
@@ -87,7 +97,6 @@ export default class Fl32_Bwl_Back_Service_Weight_History_List {
                         item.weight = one[EWeightStat.A_VALUE];
                         result.push(item);
                     }
-                    result.reverse();
                     return result;
                 }
 
@@ -96,13 +105,13 @@ export default class Fl32_Bwl_Back_Service_Weight_History_List {
                 result.response = new Response();
                 const trx = await rdb.startTransaction();
                 /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_List_Request} */
-                // const apiReq = apiCtx.request;
+                const apiReq = apiCtx.request;
                 const shared = apiCtx.sharedContext;
                 try {
                     /** @type {Fl32_Teq_User_Shared_Api_Data_User} */
                     const user = shared[DEF.MOD_USER.HTTP_SHARE_CTX_USER];
                     if (user) {
-                        result.response.items = await selectItems(trx, user.id);
+                        result.response.items = await selectItems(trx, user, apiReq);
                     } else {
                         result.headers[H2.HTTP2_HEADER_STATUS] = H2.HTTP_STATUS_UNAUTHORIZED;
                     }
