@@ -28,7 +28,6 @@
     "@flancer32/teq_user": "github:flancer32/teq_user",
     "@teqfw/email": "github:teqfw/email",
     "mysql2": "*",
-    "nodemailer": "*",
     "pg": "*"
   },
   "devDependencies": {

@@ -15,8 +15,9 @@
     "host": "smtp.gmail.com",
     "port": 465,
     "secure": true,
+    "from": "Sender Name <sender@mail.com>",
     "auth": {
-      "user": "sender@gmail.com",
+      "user": "sender@mail.com",
       "pass": "password"
     }
   },

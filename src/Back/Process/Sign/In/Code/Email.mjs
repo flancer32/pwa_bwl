@@ -3,9 +3,6 @@
  *
  * @namespace Fl32_Bwl_Back_Process_Sign_In_Code_Email
  */
-// MODULE'S IMPORT
-import nodemailer from 'nodemailer';
-
 // MODULE'S VARS
 const NS = 'Fl32_Bwl_Back_Process_Sign_In_Code_Email';
 
@@ -24,6 +21,8 @@ function Factory(spec) {
     const logger = spec['TeqFw_Core_App_Logger$'];  // instance singleton
     /** @type {TeqFw_Core_App_Front_Data_Config} */
     const config = spec[DEF.MOD_CORE.DI_CONFIG]; // named singleton
+    /** @function {@type TeqFw_Email_Back_Process_Email.process} */
+    const procEmail = spec['TeqFw_Email_Back_Process_Email$']; // function singleton
 
     /**
      * Email sign in code to user.
@@ -34,26 +33,15 @@ function Factory(spec) {
      * @memberOf Fl32_Bwl_Back_Process_Sign_In_Code_Email
      */
     async function process({to, code}) {
-        let result = false;
-        // get config for SMTP transport
-        const cfg = config?.local?.email;
         const urlBase = config.local.web.urlBase;
         const realm = DEF.REALM_PUB;
         const route = DEF.REALM_PUB_ROUTE_SIGN_IN_CODE_CHECK.replace(':code', code);
         const url = `https://${urlBase}/${realm}/#${route}`;
-        // create reusable transporter object using the default SMTP transport
-        const transporter = nodemailer.createTransport(cfg);
-        const from = `"BWL Mailer" <${cfg.auth.user}>`;
         const subject = 'BWL login link';
         const text = `BWL sign in link: ${url}`;
         const html = `<a href="${url}">Sign in to BWL</a>`;
         // send mail with defined transport object
-        const info = await transporter.sendMail({from, to, subject, text, html});
-        if (info.messageId) {
-            result = true;
-            logger.info(`Login code is sent to '${to}'. Message ID: ${info.messageId}.`);
-        }
-        return result;
+        return await procEmail({to, subject, text, html});
     }
 
     Object.defineProperty(process, 'name', {value: `${NS}.${process.name}`});
