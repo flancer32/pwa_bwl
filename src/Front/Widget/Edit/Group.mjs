@@ -13,38 +13,38 @@ const template = `
     <q-card style="min-width: 350px">
         <q-card-section class="t-grid gutter-xs align-items-center"
                         style="grid-template-columns: auto auto; justify-items: left;">
-            <div class="text-h7 text-right">{{$t('wg:editGroup.name')}}</div>
+            <div class="text-h7 text-right">{{$t('wg.editGroup.name')}}</div>
             <q-input
                     dense
                     outlined
                     v-model="groupName"
             ></q-input>
-            <div class="text-h7 text-right">{{$t('wg:editGroup.owner')}}</div>
+            <div class="text-h7 text-right">{{$t('wg.editGroup.owner')}}</div>
             <q-input
                     dense
                     outlined
                     readonly
                     v-model="owner"
             ></q-input>
-            <div class="text-h7 text-right">{{$t('wg:editGroup.dateCreated')}}</div>
+            <div class="text-h7 text-right">{{$t('wg.editGroup.dateCreated')}}</div>
             <q-input
                     dense
                     outlined
                     readonly
                     v-model="dateFormatted"
             ></q-input>
-            <div class="text-h7 text-right">{{$t('wg:editGroup.mode')}}</div>
+            <div class="text-h7 text-right">{{$t('wg.editGroup.mode')}}</div>
             <q-input
                     dense
                     outlined
                     readonly
                     v-model="mode"
             ></q-input>
-            <div class="text-h7 text-right">{{$t('wg:editGroup.active')}}</div>
+            <div class="text-h7 text-right">{{$t('wg.editGroup.active')}}</div>
             <q-toggle
                     v-model="active"
             ></q-toggle>
-            <div class="text-h7 text-right">{{$t('wg:editGroup.members')}}</div>
+            <div class="text-h7 text-right">{{$t('wg.editGroup.members')}}</div>
             <div>
                 <template v-for="one in members">
                     <q-chip color="blue" :label="one.name"></q-chip>

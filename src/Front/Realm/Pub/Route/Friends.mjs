@@ -118,7 +118,7 @@ function Factory(spec) {
                                 // smartphone mode
                                 const data = {
                                     title: 'Bruderschaft Weight Loss',
-                                    text: i18n.t('friends.share.welcome'),
+                                    text: i18n.t('route.friends.share.welcome'),
                                     url,
                                 };
                                 await self.navigator.share(data);
@@ -154,8 +154,8 @@ function Factory(spec) {
         },
         setup() {
             const columns = [
-                {name: FRIEND_NAME, label: i18n.t('friends.name'), field: FRIEND_NAME, align: 'left'},
-                {name: ACTIVE, label: i18n.t('friends.active'), field: ACTIVE, align: 'right'},
+                {name: FRIEND_NAME, label: i18n.t('route.friends.name'), field: FRIEND_NAME, align: 'left'},
+                {name: ACTIVE, label: i18n.t('route.friends.active'), field: ACTIVE, align: 'right'},
             ];
             const loading = ref(false);
             const rows = ref([]);

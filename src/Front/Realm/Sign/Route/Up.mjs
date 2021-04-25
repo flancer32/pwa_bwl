@@ -34,14 +34,14 @@ function Factory(spec) {
         <q-card style="min-width: 350px">
             <q-card-section class="t-grid cols gutter-md align-items-center" style="grid-template-columns: auto 1fr">
                 <q-input class="id-parent"
-                    :label="$t('sign:up.parent')"
+                    :label="$t('route.signUp.parent')"
                     :stack-label="true"
                     outlined
                     readonly
                     v-model="outParentName"
                 ></q-input>
                 <q-input class="id-parent"
-                    :label="$t('sign:up.time')"
+                    :label="$t('route.signUp.time')"
                     :stack-label="true"
                     outlined
                     readonly

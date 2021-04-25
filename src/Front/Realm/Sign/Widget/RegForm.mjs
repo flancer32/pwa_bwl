@@ -40,8 +40,8 @@ function Factory(spec) {
         ref="regForm"
 >
     <q-input class="id-name"
-             :hint="$t('sign:up.name.hint')"
-             :label="$t('sign:up.name.label') + ' *'"
+             :hint="$t('route.signUp.name.hint')"
+             :label="$t('route.signUp.name.label') + ' *'"
              :rules="rulesName"
              :stack-label="true"
              outlined
@@ -51,8 +51,8 @@ function Factory(spec) {
     <q-input class="id-email"
              :error-message="errorMsg['email']"
              :error="error['email']"
-             :hint="$t('sign:up.email.hint')"
-             :label="$t('sign:up.email.label') + ' *'"
+             :hint="$t('route.signUp.email.hint')"
+             :label="$t('route.signUp.email.label') + ' *'"
              :loading="loading['email']"
              :rules="rulesEmail"
              :stack-label="true"
@@ -65,8 +65,8 @@ function Factory(spec) {
     <q-input class="id-phone"
              :error-message="errorMsg['phone']"
              :error="error['phone']"
-             :hint="$t('sign:up.phone.hint')"
-             :label="$t('sign:up.phone.label')"
+             :hint="$t('route.signUp.phone.hint')"
+             :label="$t('route.signUp.phone.label')"
              :loading="loading['phone']"
              :stack-label="true"
              autocomplete="phone"
@@ -79,19 +79,19 @@ function Factory(spec) {
              :stack-label="true"
              :rules="rulesGender"
              :value="fldGender"
-             :hint="$t('sign:up.gender.hint')"
-             :label="$t('sign:up.gender.label') + ' *'"
+             :hint="$t('route.signUp.gender.hint')"
+             :label="$t('route.signUp.gender.label') + ' *'"
              borderless
     >
         <div class="t-grid cols gutter-none" style="width: 100%">
             <q-radio
-                    :label="$t('sign:up.gender.XX.label')"
+                    :label="$t('route.signUp.gender.XX.label')"
                     color="pink"
                     v-model="fldGender"
                     val="${GENDER_XX}"
             ></q-radio>
             <q-radio
-                    :label="$t('sign:up.gender.XY.label')"
+                    :label="$t('route.signUp.gender.XY.label')"
                     color="light-blue"
                     v-model="fldGender"
                     val="${GENDER_XY}"
@@ -100,8 +100,8 @@ function Factory(spec) {
     </q-field>
 
     <q-input class="id-age"
-             :hint="$t('sign:up.age.hint')"
-             :label="$t('sign:up.age.label') + ' *'"
+             :hint="$t('route.signUp.age.hint')"
+             :label="$t('route.signUp.age.label') + ' *'"
              :rules="rulesNum"
              :stack-label="true"
              outlined
@@ -110,8 +110,8 @@ function Factory(spec) {
     ></q-input>
 
     <q-input class="id-height"
-             :hint="$t('sign:up.height.hint')"
-             :label="$t('sign:up.height.label') + ' *'"
+             :hint="$t('route.signUp.height.hint')"
+             :label="$t('route.signUp.height.label') + ' *'"
              :rules="rulesNum"
              :stack-label="true"
              outlined
@@ -120,8 +120,8 @@ function Factory(spec) {
     ></q-input>
 
     <q-input class="id-weight"
-             :hint="$t('sign:up.weight.hint')"
-             :label="$t('sign:up.weight.label') + ' *'"
+             :hint="$t('route.signUp.weight.hint')"
+             :label="$t('route.signUp.weight.label') + ' *'"
              :rules="rulesNum"
              :stack-label="true"
              outlined
@@ -131,7 +131,7 @@ function Factory(spec) {
     ></q-input>
 
     <div class="actions">
-        <q-btn :label="$t('btn:submit')" :disabled="disableSubmit" type="submit" color="primary"></q-btn>
+        <q-btn :label="$t('btn.submit')" :disabled="disableSubmit" type="submit" color="primary"></q-btn>
     </div>
 </q-form>
 `;
@@ -177,23 +177,23 @@ function Factory(spec) {
             },
             rulesEmail() {
                 return [
-                    val => val !== null && val !== '' || this.$t('sign:err.required'),
+                    val => val !== null && val !== '' || this.$t('route.signUp.err.required'),
                 ];
             },
             rulesGender() {
                 return [
-                    () => this.fldGender != undefined && this.fldGender !== null || this.$t('sign:err.required'),
+                    () => this.fldGender != undefined && this.fldGender !== null || this.$t('route.signUp.err.required'),
                 ];
             },
             rulesName() {
                 return [
-                    val => val !== null && val !== '' || this.$t('sign:err.required'),
+                    val => val !== null && val !== '' || this.$t('route.signUp.err.required'),
                 ];
             },
             rulesNum() {
                 return [
-                    val => val !== null && val !== '' || this.$t('sign:err.required'),
-                    val => val > 0 && val < 300 || this.$t('sign:err.wrongValue')
+                    val => val !== null && val !== '' || this.$t('route.signUp.err.required'),
+                    val => val > 0 && val < 300 || this.$t('route.signUp.err.wrongValue')
                 ];
             }
         },
@@ -251,10 +251,10 @@ function Factory(spec) {
         },
         watch: {
             fldEmail(current) {
-                this.checkExistence(current, ReqCheckExist.TYPE_EMAIL, true, 'sign:err.emailExists');
+                this.checkExistence(current, ReqCheckExist.TYPE_EMAIL, true, 'route.signUp.err.emailExists');
             },
             fldPhone(current) {
-                this.checkExistence(current, ReqCheckExist.TYPE_PHONE, true, 'sign:err.phoneExists');
+                this.checkExistence(current, ReqCheckExist.TYPE_PHONE, true, 'route.signUp.err.phoneExists');
             },
         },
         emits: [EVT_SUBMIT],

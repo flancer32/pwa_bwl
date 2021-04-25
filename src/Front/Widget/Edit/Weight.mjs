@@ -70,8 +70,8 @@ function Factory(spec) {
         </q-card-section>
 
         <q-card-actions align="right" class="text-primary">
-            <q-btn flat :label="$t('wg:editWeight.cancel')" v-close-popup></q-btn>
-            <q-btn flat :label="$t('wg:editWeight.ok')" v-close-popup v-on:click="submit"></q-btn>
+            <q-btn flat :label="$t('btn.cancel')" v-close-popup></q-btn>
+            <q-btn flat :label="$t('btn.ok')" v-close-popup v-on:click="submit"></q-btn>
         </q-card-actions>
 
     </q-card>
@@ -108,7 +108,7 @@ function Factory(spec) {
                 return formatDate(i18n.language, this.date);
             },
             title() {
-                return this.$t(`wg:editWeight.title.${this.type}`);
+                return this.$t(`wg.editWeight.title.${this.type}`);
             },
         },
         methods: {

@@ -81,14 +81,14 @@ function Factory(spec) {
                                 borderWidth: 2,
                                 data: series.data,
                                 fill: false,
-                                label: i18n.t('wg:chart.current'),
+                                label: i18n.t('wg.chart.current'),
                                 pointRadius: 2,
                             }, {
                                 borderColor: 'rgba(0, 12, 128, 0.8)',
                                 borderWidth: 1,
                                 data: targetDataset,
                                 fill: false,
-                                label: i18n.t('wg:chart.target'),
+                                label: i18n.t('wg.chart.target'),
                                 pointRadius: 0,
                             },]
                         },

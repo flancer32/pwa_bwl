@@ -56,7 +56,7 @@ function Factory(spec) {
 <div class="t-grid app-home">
     <div class="app-home-stats">
         <q-input
-                :label="$t('home.start')"
+                :label="$t('route.home.start')"
                 dense
                 outlined
                 readonly
@@ -65,7 +65,7 @@ function Factory(spec) {
                 v-on:click="editWeightStart"
         ></q-input>
         <q-input
-                :label="$t('home.current')"
+                :label="$t('route.home.current')"
                 dense
                 outlined stack-label
                 readonly
@@ -73,7 +73,7 @@ function Factory(spec) {
                 v-on:click="editWeightCurrent"
         ></q-input>
         <q-input
-                :label="$t('home.target')"
+                :label="$t('route.home.target')"
                 dense
                 outlined
                 readonly
@@ -89,13 +89,13 @@ function Factory(spec) {
     ></chart>
     <div class="id-filters t-grid cols" style="grid-template-columns: 2fr 1fr">
             <q-select
-                    :label="$t('home.dataSet')"
+                    :label="$t('route.home.dataSet')"
                     :options="optsDataSet"
                     stack-label
                     v-model="dataSet"
             ></q-select>
             <q-select
-                    :label="$t('home.period')"
+                    :label="$t('route.home.period')"
                     :options="optsPeriod"
                     stack-label
                     v-model="period"

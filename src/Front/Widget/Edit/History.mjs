@@ -13,7 +13,7 @@ const template = `
 <q-dialog :model-value="display" @hide="$emit('${EVT_HIDE}');">
     <q-card style="min-width: 350px">
         <q-card-section class="t-grid gutter-md align-items-center" style="grid-template-columns: auto auto; justify-items: center;">
-            <div class="text-h7 text-right">{{$t('fld:date')}}</div>
+            <div class="text-h7 text-right">{{$t('wg.editHistory.date')}}</div>
             <q-input
                 dense
                 outlined
@@ -21,7 +21,7 @@ const template = `
                 v-model="dateFormatted"
                 v-on:click="dialogDateDisplay=true"
             ></q-input>
-            <div class="text-h7 text-right">{{$t('fld:weight')}}</div>
+            <div class="text-h7 text-right">{{$t('wg.editHistory.weight')}}</div>
             <weight
                 :value="selectedWeight"
                 @update="onWeightUpdate"
@@ -31,13 +31,13 @@ const template = `
         <q-card-actions align="right" class="text-primary">
             <q-btn 
                 :disable="disableDelete" 
-                :label="$t('wg:editWeight.delete')" 
+                :label="$t('btn.delete')" 
                 flat
                 v-close-popup 
                 v-on:click="deleteItem"
             ></q-btn>
-            <q-btn flat :label="$t('wg:editWeight.cancel')" v-close-popup></q-btn>
-            <q-btn flat :label="$t('wg:editWeight.ok')" v-close-popup v-on:click="submit"></q-btn>
+            <q-btn flat :label="$t('btn.cancel')" v-close-popup></q-btn>
+            <q-btn flat :label="$t('btn.ok')" v-close-popup v-on:click="submit"></q-btn>
         </q-card-actions>
     </q-card>
     <dialog-date

@@ -1,0 +1,73 @@
+{
+  "btn": {
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "ok": "ОК",
+    "submit": "Submit"
+  },
+  "route": {
+    "friends": {
+      "active": "Active",
+      "admin": "Admin",
+      "date": "Date",
+      "id": "ID",
+      "name": "Name",
+      "share": {
+        "welcome": "Welcome to the Club!"
+      }
+    },
+    "history": {
+      "date": "Date",
+      "delta": "Delta, kg",
+      "percent": "%",
+      "weight": "Weight, kg"
+    },
+    "home": {
+      "current": "Current (kg)",
+      "dataSet": "Data",
+      "period": "Period",
+      "start": "Start (kg)",
+      "target": "Target (kg)"
+    },
+    "signIn": {
+      "code": {
+        "check": {
+          "title": "Sign in code validation..."
+        },
+        "get": {
+          "msg": {
+            "failure": "Failure",
+            "success": "Email with sign in link is set to '{{email}}'."
+          },
+          "title": "Type your email to request sign in link."
+        }
+      }
+    }
+  },
+  "wg": {
+    "chart": {
+      "current": "Current",
+      "start": "Start",
+      "target": "Target"
+    },
+    "editGroup": {
+      "active": "Active",
+      "dateCreated": "Created",
+      "members": "Members",
+      "mode": "Mode",
+      "name": "Name",
+      "owner": "Owner"
+    },
+    "editHistory": {
+      "date": "Date",
+      "weight": "Weight"
+    },
+    "editWeight": {
+      "title": {
+        "current": "Set current weight (kg)",
+        "start": "Set start weight (kg)",
+        "target": "Set target weight (kg)"
+      }
+    }
+  }
+}

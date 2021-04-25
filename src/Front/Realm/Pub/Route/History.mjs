@@ -178,10 +178,10 @@ function Factory(spec) {
         },
         setup() {
             const columns = [
-                {name: DATE, label: i18n.t('history.date'), field: DATE, align: 'center'},
-                {name: WEIGHT, label: i18n.t('history.weight'), field: WEIGHT, align: 'right'},
-                {name: DELTA, label: i18n.t('history.delta'), field: DELTA, align: 'right',},
-                {name: PERCENT, label: i18n.t('history.percent'), field: PERCENT, align: 'right',},
+                {name: DATE, label: i18n.t('route.history.date'), field: DATE, align: 'center'},
+                {name: WEIGHT, label: i18n.t('route.history.weight'), field: WEIGHT, align: 'right'},
+                {name: DELTA, label: i18n.t('route.history.delta'), field: DELTA, align: 'right',},
+                {name: PERCENT, label: i18n.t('route.history.percent'), field: PERCENT, align: 'right',},
             ];
             const loading = ref(false);
             const rows = ref([]);

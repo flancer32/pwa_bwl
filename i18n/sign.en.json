@@ -1,0 +1,51 @@
+{
+  "btn": {
+    "submit": "Submit"
+  },
+  "route": {
+    "signUp": {
+      "age": {
+        "hint": "From 1 to 127 years: 32",
+        "label": "Your age"
+      },
+      "email": {
+        "hint": "",
+        "label": "Email"
+      },
+      "err": {
+        "emailExists": "This email is already registered.",
+        "phoneExists": "This phone is already registered.",
+        "required": "Field is required.",
+        "wrongValue": "Wrong value."
+      },
+      "gender": {
+        "hint": "",
+        "label": "Your gender",
+        "XX": {
+          "label": "XX - 'she'"
+        },
+        "XY": {
+          "label": "XY - 'he'"
+        }
+      },
+      "height": {
+        "hint": "From 32 cm to 256 cm: 168",
+        "label": "Your height"
+      },
+      "name": {
+        "hint": "Name: Jane Doe",
+        "label": "Your name"
+      },
+      "parent": "Referral",
+      "phone": {
+        "hint": "",
+        "label": "Phone"
+      },
+      "time": "Active time",
+      "weight": {
+        "hint": "From 32 kg to 256 kg: 95.58",
+        "label": "Your weight"
+      }
+    }
+  }
+}
