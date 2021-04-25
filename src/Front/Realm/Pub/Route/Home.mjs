@@ -37,10 +37,6 @@ function Factory(spec) {
     const gateHistory = spec['Fl32_Bwl_Front_Gate_Weight_History_List$']; // function singleton
     /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_History_List_Request} */
     const RequestHistory = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_List#Request']; // class
-    /** @function {@type Fl32_Bwl_Front_Gate_Profile_Get.gate} */
-    const gateProfile = spec['Fl32_Bwl_Front_Gate_Profile_Get$']; // function singleton
-    /** @type {typeof Fl32_Bwl_Shared_Service_Route_Profile_Get_Request} */
-    const RequestProfile = spec['Fl32_Bwl_Shared_Service_Route_Profile_Get#Request']; // class
     /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.Item} */
     const Action = spec['Fl32_Bwl_Front_Layout_TopActions#Item']; // class
     /** @type {Fl32_Bwl_Front_Widget_Edit_Weight.vueCompTmpl} */
@@ -84,7 +80,6 @@ function Factory(spec) {
     </div>
     <chart 
         :dataSet="chartData"
-        :key="chartRedraw"
         :lineTarget="target"
     ></chart>
     <div class="id-filters t-grid cols" style="grid-template-columns: 2fr 1fr">
@@ -125,7 +120,6 @@ function Factory(spec) {
         data: function () {
             return {
                 chartData: null, // data set to visualize with Chart widget
-                chartRedraw: 0, // redraw chart on data changes
                 current: null,
                 dataSet: {label: 'Персональные', value: 0},
                 dateFrom: new Date(),
@@ -172,7 +166,7 @@ function Factory(spec) {
             },
             async editWeightSubmit() {
                 await this.setWeights();
-                this.chartRedraw++;
+                await this.loadDataSet();
             },
             editWeightTarget() {
                 this.dialogDisplay = true;
