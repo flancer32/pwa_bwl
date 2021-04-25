@@ -11,7 +11,7 @@ const NS = 'Fl32_Bwl_Back_Service_Sign_In_Code_Check';
 
 /**
  * Service to check one-time sign-in code and to initiate new session.
- * @extends TeqFw_Http2_Api_Service_Factory
+ * @implements TeqFw_Http2_Api_Back_Service_Factory
  */
 class Fl32_Bwl_Back_Service_Sign_In_Code_Check {
 
@@ -31,8 +31,8 @@ class Fl32_Bwl_Back_Service_Sign_In_Code_Check {
         } = spec['Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Check']; // ES6 module destructing
         /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Sign_In} */
         const ESignIn = spec['Fl32_Bwl_Store_RDb_Schema_Sign_In#']; // class
-        /** @function {@type TeqFw_Http2_Back_Util.createCookie} */
-        const createCookie = spec['TeqFw_Http2_Back_Util#createCookie']; // function singleton
+        /** @function {@type TeqFw_Http2_Back_Util.cookieCreate} */
+        const cookieCreate = spec['TeqFw_Http2_Back_Util#cookieCreate']; // function singleton
         /** @function {@type Fl32_Bwl_Back_Process_Sign_In_Code_CleanUp.process} */
         const procCodeCleanUp = spec['Fl32_Bwl_Back_Process_Sign_In_Code_CleanUp$']; // function singleton
         /** @function {@type Fl32_Bwl_Back_Process_Sign_In_Code_Remove.process} */
@@ -49,7 +49,7 @@ class Fl32_Bwl_Back_Service_Sign_In_Code_Check {
 
         /**
          * Factory to create function to validate and structure incoming data.
-         * @returns {TeqFw_Http2_Api_Service_Factory.parse}
+         * @returns {TeqFw_Http2_Api_Back_Service_Factory.parse}
          */
         this.createInputParser = function () {
             // DEFINE INNER FUNCTIONS
@@ -57,7 +57,7 @@ class Fl32_Bwl_Back_Service_Sign_In_Code_Check {
              * @param {TeqFw_Http2_Back_Server_Stream_Context} context
              * @returns {Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Check_Request}
              * @memberOf Fl32_Bwl_Back_Service_Sign_In_Code_Check
-             * @implements TeqFw_Http2_Api_Service_Factory.parse
+             * @implements TeqFw_Http2_Api_Back_Service_Factory.parse
              */
             function parse(context) {
                 const body = JSON.parse(context.body);
@@ -72,7 +72,7 @@ class Fl32_Bwl_Back_Service_Sign_In_Code_Check {
 
         /**
          * Factory to create service (handler to process HTTP API request).
-         * @returns {TeqFw_Http2_Api_Service_Factory.service}
+         * @returns {TeqFw_Http2_Api_Back_Service_Factory.service}
          */
         this.createService = function () {
             // DEFINE INNER FUNCTIONS
@@ -80,7 +80,7 @@ class Fl32_Bwl_Back_Service_Sign_In_Code_Check {
              * @param {TeqFw_Http2_Back_Server_Handler_Api.Context} apiCtx
              * @returns {Promise<TeqFw_Http2_Plugin_Handler_Service.Result>}
              * @memberOf Fl32_Bwl_Back_Service_Sign_In_Code_Check
-             * @implements {TeqFw_Http2_Api_Service_Factory.service}
+             * @implements {TeqFw_Http2_Api_Back_Service_Factory.service}
              */
             async function service(apiCtx) {
                 // DEFINE INNER FUNCTIONS
@@ -115,7 +115,7 @@ class Fl32_Bwl_Back_Service_Sign_In_Code_Check {
                     const {output} = await procSessionOpen.exec({trx, userId});
                     const sessionId = output.sessId;
                     // set session cookie
-                    const cookie = createCookie({
+                    const cookie = cookieCreate({
                         name: DEF.MOD_USER.SESSION_COOKIE_NAME,
                         value: sessionId,
                         expires: DEF.MOD_USER.SESSION_COOKIE_LIFETIME,
