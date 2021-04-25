@@ -10,7 +10,7 @@ import {constants as H2} from 'http2';
 const NS = 'Fl32_Bwl_Back_Service_Sign_In_Code_Check';
 
 /**
- * Service to remove weight stats data for the user.
+ * Service to check one-time sign-in code and to initiate new session.
  * @extends TeqFw_Http2_Api_Service_Factory
  */
 class Fl32_Bwl_Back_Service_Sign_In_Code_Check {
@@ -31,7 +31,7 @@ class Fl32_Bwl_Back_Service_Sign_In_Code_Check {
         } = spec['Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Check']; // ES6 module destructing
         /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Sign_In} */
         const ESignIn = spec['Fl32_Bwl_Store_RDb_Schema_Sign_In#']; // class
-        /** @function {typeof TeqFw_Http2_Back_Util.createCookie} */
+        /** @function {@type TeqFw_Http2_Back_Util.createCookie} */
         const createCookie = spec['TeqFw_Http2_Back_Util#createCookie']; // function singleton
         /** @function {@type Fl32_Bwl_Back_Process_Sign_In_Code_CleanUp.process} */
         const procCodeCleanUp = spec['Fl32_Bwl_Back_Process_Sign_In_Code_CleanUp$']; // function singleton
