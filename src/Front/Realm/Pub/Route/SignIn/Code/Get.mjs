@@ -36,8 +36,8 @@ function Factory(spec) {
         <div>{{$t('route.signIn.code.get.title')}}</div>
         <div>
             <q-input class="id-email"
-                     :hint="$t('route.signUp.email.hint')"
-                     :label="$t('route.signUp.email.label')"
+                     :hint="$t('route.signIn.code.get.email.hint')"
+                     :label="$t('route.signIn.code.get.email.label')"
                      :loading="loading"
                      :stack-label="true"
                      autocomplete="email"

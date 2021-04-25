@@ -35,6 +35,10 @@
           "title": "Sign in code validation..."
         },
         "get": {
+          "email": {
+            "hint": "",
+            "label": "Email"
+          },
           "msg": {
             "failure": "Failure",
             "success": "Email with sign in link is set to '{{email}}'."
