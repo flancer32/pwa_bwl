@@ -44,10 +44,10 @@ export default class Fl32_Bwl_Back_Service_Group_List {
             /** @type {Fl32_Bwl_Shared_Service_Route_Group_List_Response} */
             Response
         } = spec['Fl32_Bwl_Shared_Service_Route_Group_List']; // ES6 module
-        /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Group_User} */
-        const EGroupUser = spec['Fl32_Bwl_Store_RDb_Schema_Group_User#']; // class
-        /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Group} */
-        const EGroup = spec['Fl32_Bwl_Store_RDb_Schema_Group#']; // class
+        /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Group_User} */
+        const EGroupUser = spec['Fl32_Bwl_Back_Store_RDb_Schema_Group_User#']; // class
+        /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Group} */
+        const EGroup = spec['Fl32_Bwl_Back_Store_RDb_Schema_Group#']; // class
         /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Profile} */
         const EProfile = spec['Fl32_Teq_User_Store_RDb_Schema_Profile#']; // class
         /** @type {typeof Fl32_Bwl_Shared_Service_Data_Group_Item} */

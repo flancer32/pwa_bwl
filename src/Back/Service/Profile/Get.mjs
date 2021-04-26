@@ -19,10 +19,10 @@ export default class Fl32_Bwl_Back_Service_Profile_Get {
             /** @type {Fl32_Bwl_Shared_Service_Route_Profile_Get_Response} */
             Response
         } = spec['Fl32_Bwl_Shared_Service_Route_Profile_Get']; // ES6 module
-        /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Profile} */
-        const EProfile = spec['Fl32_Bwl_Store_RDb_Schema_Profile#']; // class
-        /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Weight_Stat} */
-        const EWeightStat = spec['Fl32_Bwl_Store_RDb_Schema_Weight_Stat#']; // class
+        /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Profile} */
+        const EProfile = spec['Fl32_Bwl_Back_Store_RDb_Schema_Profile#']; // class
+        /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat} */
+        const EWeightStat = spec['Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat#']; // class
         /** @type {typeof Fl32_Bwl_Shared_Service_Data_Profile} */
         const DProfile = spec['Fl32_Bwl_Shared_Service_Data_Profile#']; // class
 

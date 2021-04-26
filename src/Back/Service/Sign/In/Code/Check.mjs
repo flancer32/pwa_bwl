@@ -29,8 +29,8 @@ class Fl32_Bwl_Back_Service_Sign_In_Code_Check {
             /** @type {typeof Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Check_Response} */
             Response
         } = spec['Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Check']; // ES6 module destructing
-        /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Sign_In} */
-        const ESignIn = spec['Fl32_Bwl_Store_RDb_Schema_Sign_In#']; // class
+        /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Sign_In} */
+        const ESignIn = spec['Fl32_Bwl_Back_Store_RDb_Schema_Sign_In#']; // class
         /** @function {@type TeqFw_Http2_Back_Util.cookieCreate} */
         const cookieCreate = spec['TeqFw_Http2_Back_Util#cookieCreate']; // function singleton
         /** @function {@type Fl32_Bwl_Back_Process_Sign_In_Code_CleanUp.process} */

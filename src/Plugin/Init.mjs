@@ -10,18 +10,9 @@ export default class Fl32_Bwl_Plugin_Init {
 
         this.getCommands = function () {
             return [
-                'Fl32_Bwl_Cli_Db_Reset$',
-                'Fl32_Bwl_Cli_Db_Upgrade$',
+                'Fl32_Bwl_Back_Cli_Db_Reset$',
+                'Fl32_Bwl_Back_Cli_Db_Upgrade$',
             ];
-        };
-
-        this.getI18nResources = function () {
-            return {
-                [DEF.MOD_CORE.I18N_FRONT]: [
-                    './i18n/front.en.json',
-                    './i18n/front.ru.json'
-                ],
-            };
         };
 
         this.getServicesList = function () {

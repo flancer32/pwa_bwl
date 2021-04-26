@@ -15,15 +15,15 @@ const NS = 'Fl32_Bwl_Back_Process_Profile_Save';
  * @memberOf Fl32_Bwl_Back_Process_Profile_Save
  */
 function Factory(spec) {
-    /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Profile} */
-    const EProfile = spec['Fl32_Bwl_Store_RDb_Schema_Profile#']; // class
+    /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Profile} */
+    const EProfile = spec['Fl32_Bwl_Back_Store_RDb_Schema_Profile#']; // class
 
     /**
      /**
      * Save application level profile (not user profile).
      *
      * @param trx
-     * @param {Fl32_Bwl_Store_RDb_Schema_Profile} input
+     * @param {Fl32_Bwl_Back_Store_RDb_Schema_Profile} input
      * @returns {Promise<{output: {}, error: {}}>}
      * @memberOf Fl32_Bwl_Back_Process_Profile_Save
      */

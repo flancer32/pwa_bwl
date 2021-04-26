@@ -1,9 +1,9 @@
 /**
- * @namespace Fl32_Bwl_Cli_Db_Upgrade
+ * @namespace Fl32_Bwl_Back_Cli_Db_Upgrade
  */
 
 // DEFINE WORKING VARS
-const NS = 'Fl32_Bwl_Cli_Db_Upgrade';
+const NS = 'Fl32_Bwl_Back_Cli_Db_Upgrade';
 
 /**
  * Factory class to create CLI command to backup live data, upgrade database structures then restore data.
@@ -11,7 +11,7 @@ const NS = 'Fl32_Bwl_Cli_Db_Upgrade';
  * @param {TeqFw_Di_SpecProxy} spec
  * @returns {TeqFw_Core_App_Cli_Command_Data}
  * @constructor
- * @memberOf Fl32_Bwl_Cli_Db_Upgrade
+ * @memberOf Fl32_Bwl_Back_Cli_Db_Upgrade
  */
 function Factory(spec) {
     // PARSE INPUT & DEFINE WORKING VARS
@@ -23,12 +23,12 @@ function Factory(spec) {
     const connector = spec['TeqFw_Core_App_Db_Connector$']; // instance singleton
     /** @type {TeqFw_Core_App_Logger} */
     const logger = spec['TeqFw_Core_App_Logger$'];  // instance singleton
-    /** @type {Function|Fl32_Bwl_Cli_Db_Z_Restruct.action} */
-    const actRestruct = spec['Fl32_Bwl_Cli_Db_Z_Restruct$']; // instance singleton
-    /** @type {Function|Fl32_Bwl_Cli_Db_Upgrade_A_Dump.action} */
-    const actDump = spec['Fl32_Bwl_Cli_Db_Upgrade_A_Dump$']; // instance singleton
-    /** @type {Function|Fl32_Bwl_Cli_Db_Upgrade_A_Restore.action} */
-    const actRestore = spec['Fl32_Bwl_Cli_Db_Upgrade_A_Restore$']; // instance singleton
+    /** @type {Function|Fl32_Bwl_Back_Cli_Db_Z_Restruct.action} */
+    const actRestruct = spec['Fl32_Bwl_Back_Cli_Db_Z_Restruct$']; // instance singleton
+    /** @type {Function|Fl32_Bwl_Back_Cli_Db_Upgrade_A_Dump.action} */
+    const actDump = spec['Fl32_Bwl_Back_Cli_Db_Upgrade_A_Dump$']; // instance singleton
+    /** @type {Function|Fl32_Bwl_Back_Cli_Db_Upgrade_A_Restore.action} */
+    const actRestore = spec['Fl32_Bwl_Back_Cli_Db_Upgrade_A_Restore$']; // instance singleton
 
 
     // DEFINE INNER FUNCTIONS
@@ -36,7 +36,7 @@ function Factory(spec) {
      * Backup data, drop-create tables then restore data.
      *
      * @returns {Promise<void>}
-     * @memberOf Fl32_Bwl_Cli_Db_Upgrade
+     * @memberOf Fl32_Bwl_Back_Cli_Db_Upgrade
      */
     const action = async function () {
         // dump data

@@ -1,12 +1,12 @@
 /**
  * Action to dump all DB data.
  *
- * @namespace Fl32_Bwl_Cli_Db_Upgrade_A_Dump
+ * @namespace Fl32_Bwl_Back_Cli_Db_Upgrade_A_Dump
  */
 // MODULE'S IMPORT
 
 // DEFINE WORKING VARS
-const NS = 'Fl32_Bwl_Cli_Db_Upgrade_A_Dump';
+const NS = 'Fl32_Bwl_Back_Cli_Db_Upgrade_A_Dump';
 
 // DEFINE MODULE'S FUNCTIONS
 /**
@@ -14,7 +14,7 @@ const NS = 'Fl32_Bwl_Cli_Db_Upgrade_A_Dump';
  *
  * @param {TeqFw_Di_SpecProxy} spec
  * @constructor
- * @memberOf Fl32_Bwl_Cli_Db_Upgrade_A_Dump
+ * @memberOf Fl32_Bwl_Back_Cli_Db_Upgrade_A_Dump
  */
 function Factory(spec) {
     // PARSE INPUT & DEFINE WORKING VARS
@@ -22,18 +22,22 @@ function Factory(spec) {
     const connector = spec['TeqFw_Core_App_Db_Connector$']; // instance singleton
     /** @type {TeqFw_Core_App_Logger} */
     const logger = spec['TeqFw_Core_App_Logger$'];  // instance singleton
-    /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Group} */
-    const EAppGroup = spec['Fl32_Bwl_Store_RDb_Schema_Group#']; // class
-    /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Group_User} */
-    const EAppGroupUser = spec['Fl32_Bwl_Store_RDb_Schema_Group_User#']; // class
-    /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Profile} */
-    const EAppProfile = spec['Fl32_Bwl_Store_RDb_Schema_Profile#']; // class
-    /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Profile_Group_User} */
-    const EAppProfileGroupUser = spec['Fl32_Bwl_Store_RDb_Schema_Profile_Group_User#']; // class
-    /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Sign_In} */
-    const EAppSignIn = spec['Fl32_Bwl_Store_RDb_Schema_Sign_In#']; // class
-    /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Weight_Stat} */
-    const EAppWeightStat = spec['Fl32_Bwl_Store_RDb_Schema_Weight_Stat#']; // class
+    /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Friend} */
+    const EAppFriend = spec['Fl32_Bwl_Back_Store_RDb_Schema_Friend#']; // class
+    /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Friend_Link} */
+    const EAppFriendLink = spec['Fl32_Bwl_Back_Store_RDb_Schema_Friend_Link#']; // class
+    /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Group} */
+    const EAppGroup = spec['Fl32_Bwl_Back_Store_RDb_Schema_Group#']; // class
+    /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Group_User} */
+    const EAppGroupUser = spec['Fl32_Bwl_Back_Store_RDb_Schema_Group_User#']; // class
+    /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Profile} */
+    const EAppProfile = spec['Fl32_Bwl_Back_Store_RDb_Schema_Profile#']; // class
+    /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Profile_Group_User} */
+    const EAppProfileGroupUser = spec['Fl32_Bwl_Back_Store_RDb_Schema_Profile_Group_User#']; // class
+    /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Sign_In} */
+    const EAppSignIn = spec['Fl32_Bwl_Back_Store_RDb_Schema_Sign_In#']; // class
+    /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat} */
+    const EAppWeightStat = spec['Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat#']; // class
     /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_User} */
     const EUser = spec['Fl32_Teq_User_Store_RDb_Schema_User#']; // class
     /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Auth_Password} */
@@ -56,7 +60,7 @@ function Factory(spec) {
     /**
      * Action to dump all DB data.
      * @returns {Promise<null|Object>}
-     * @memberOf Fl32_Bwl_Cli_Db_Upgrade_A_Dump
+     * @memberOf Fl32_Bwl_Back_Cli_Db_Upgrade_A_Dump
      */
     async function action() {
         // DEFINE INNER FUNCTIONS
@@ -120,6 +124,8 @@ function Factory(spec) {
             const result = {};
             const tables = await getTables(trx);
             // app data
+            result[EAppFriend.ENTITY] = await selectItems(trx, tables, EAppFriend.ENTITY);
+            result[EAppFriendLink.ENTITY] = await selectItems(trx, tables, EAppFriendLink.ENTITY);
             result[EAppGroup.ENTITY] = await selectItems(trx, tables, EAppGroup.ENTITY);
             result[EAppGroupUser.ENTITY] = await selectItems(trx, tables, EAppGroupUser.ENTITY);
             result[EAppProfile.ENTITY] = await selectItems(trx, tables, EAppProfile.ENTITY);

@@ -49,10 +49,10 @@ class Fl32_Bwl_Back_Service_Sign_Up {
         const procAppProfileSave = spec['Fl32_Bwl_Back_Process_Profile_Save$']; // function singleton
         /** @function {@type Fl32_Bwl_Back_Process_Weight_Stat_Save.process} */
         const procWeightSave = spec['Fl32_Bwl_Back_Process_Weight_Stat_Save$']; // instance singleton
-        /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Profile} */
-        const EProfile = spec['Fl32_Bwl_Store_RDb_Schema_Profile#']; // class
-        /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Weight_Stat} */
-        const EWeightStat = spec['Fl32_Bwl_Store_RDb_Schema_Weight_Stat#']; // class
+        /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Profile} */
+        const EProfile = spec['Fl32_Bwl_Back_Store_RDb_Schema_Profile#']; // class
+        /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat} */
+        const EWeightStat = spec['Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat#']; // class
         /** @type {typeof Fl32_Teq_User_Shared_Api_Data_User} */
         const DUser = spec['Fl32_Teq_User_Shared_Api_Data_User#']; // class
 

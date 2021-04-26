@@ -15,8 +15,8 @@ const NS = 'Fl32_Bwl_Back_Process_Sign_In_Code_CleanUp';
  * @memberOf Fl32_Bwl_Back_Process_Sign_In_Code_CleanUp
  */
 function Factory(spec) {
-    /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Sign_In} */
-    const ESignIn = spec['Fl32_Bwl_Store_RDb_Schema_Sign_In#']; // class
+    /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Sign_In} */
+    const ESignIn = spec['Fl32_Bwl_Back_Store_RDb_Schema_Sign_In#']; // class
 
     /**
      * Clean up expired one-time sign in codes.

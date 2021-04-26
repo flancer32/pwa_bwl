@@ -1,12 +1,12 @@
 /**
  * Action to restore all DB data from dump.
  *
- * @namespace Fl32_Bwl_Cli_Db_Upgrade_A_Restore
+ * @namespace Fl32_Bwl_Back_Cli_Db_Upgrade_A_Restore
  */
 // MODULE'S IMPORT
 
 // DEFINE WORKING VARS
-const NS = 'Fl32_Bwl_Cli_Db_Upgrade_A_Restore';
+const NS = 'Fl32_Bwl_Back_Cli_Db_Upgrade_A_Restore';
 
 // DEFINE MODULE'S FUNCTIONS
 /**
@@ -14,7 +14,7 @@ const NS = 'Fl32_Bwl_Cli_Db_Upgrade_A_Restore';
  *
  * @param {TeqFw_Di_SpecProxy} spec
  * @constructor
- * @memberOf Fl32_Bwl_Cli_Db_Upgrade_A_Restore
+ * @memberOf Fl32_Bwl_Back_Cli_Db_Upgrade_A_Restore
  */
 function Factory(spec) {
     // PARSE INPUT & DEFINE WORKING VARS
@@ -22,18 +22,16 @@ function Factory(spec) {
     const connector = spec['TeqFw_Core_App_Db_Connector$']; // instance singleton
     /** @type {TeqFw_Core_App_Logger} */
     const logger = spec['TeqFw_Core_App_Logger$'];  // instance singleton
-    /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Group} */
-    const EAppGroup = spec['Fl32_Bwl_Store_RDb_Schema_Group#']; // class
-    /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Group_User} */
-    const EAppGroupUser = spec['Fl32_Bwl_Store_RDb_Schema_Group_User#']; // class
-    /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Profile} */
-    const EAppProfile = spec['Fl32_Bwl_Store_RDb_Schema_Profile#']; // class
-    /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Profile_Group_User} */
-    const EAppProfileGroupUser = spec['Fl32_Bwl_Store_RDb_Schema_Profile_Group_User#']; // class
-    /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Sign_In} */
-    const EAppSignIn = spec['Fl32_Bwl_Store_RDb_Schema_Sign_In#']; // class
-    /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Weight_Stat} */
-    const EAppWeightStat = spec['Fl32_Bwl_Store_RDb_Schema_Weight_Stat#']; // class
+    /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Friend} */
+    const EAppFriend = spec['Fl32_Bwl_Back_Store_RDb_Schema_Friend#']; // class
+    /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Friend_Link} */
+    const EAppFriendLink = spec['Fl32_Bwl_Back_Store_RDb_Schema_Friend_Link#']; // class
+    /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Profile} */
+    const EAppProfile = spec['Fl32_Bwl_Back_Store_RDb_Schema_Profile#']; // class
+    /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Sign_In} */
+    const EAppSignIn = spec['Fl32_Bwl_Back_Store_RDb_Schema_Sign_In#']; // class
+    /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat} */
+    const EAppWeightStat = spec['Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat#']; // class
     /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_User} */
     const EUser = spec['Fl32_Teq_User_Store_RDb_Schema_User#']; // class
     /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Auth_Password} */
@@ -57,7 +55,7 @@ function Factory(spec) {
      * Action to restore all DB data from dump.
      * @param {Object} dump
      * @returns {Promise<void>}
-     * @memberOf Fl32_Bwl_Cli_Db_Upgrade_A_Restore
+     * @memberOf Fl32_Bwl_Back_Cli_Db_Upgrade_A_Restore
      */
     async function action(dump) {
         // DEFINE INNER FUNCTIONS
@@ -69,7 +67,8 @@ function Factory(spec) {
          */
         async function setSerials(schema, serials) {
             for (const one of Object.keys(serials)) {
-                schema.raw(`SELECT setval('${one}', ${serials[one]})`);
+                if (one !== 'app_group_id_seq')
+                    schema.raw(`SELECT setval('${one}', ${serials[one]})`);
             }
             await schema;
         }
@@ -93,10 +92,9 @@ function Factory(spec) {
             await insertItems(trx, dump, EUserRefLink.ENTITY);
             await insertItems(trx, dump, EUserRefTree.ENTITY);
             // app
-            await insertItems(trx, dump, EAppGroup.ENTITY);
-            await insertItems(trx, dump, EAppGroupUser.ENTITY);
+            await insertItems(trx, dump, EAppFriend.ENTITY);
+            await insertItems(trx, dump, EAppFriendLink.ENTITY);
             await insertItems(trx, dump, EAppProfile.ENTITY);
-            await insertItems(trx, dump, EAppProfileGroupUser.ENTITY);
             await insertItems(trx, dump, EAppSignIn.ENTITY);
             await insertItems(trx, dump, EAppWeightStat.ENTITY);
             // serials for Postgres

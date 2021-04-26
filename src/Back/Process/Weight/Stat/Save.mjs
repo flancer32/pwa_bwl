@@ -15,8 +15,8 @@ const NS = 'Fl32_Bwl_Back_Process_Weight_Stat_Save';
  * @memberOf Fl32_Bwl_Back_Process_Weight_Stat_Save
  */
 function Factory(spec) {
-    /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Weight_Stat} */
-    const EWeightStat = spec['Fl32_Bwl_Store_RDb_Schema_Weight_Stat#']; // class
+    /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat} */
+    const EWeightStat = spec['Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat#']; // class
     /** @function {@type TeqFw_Core_App_Shared_Util.formatUtcDate} */
     const formatUtcDate = spec['TeqFw_Core_App_Shared_Util#formatUtcDate']; // function instance
 
@@ -24,7 +24,7 @@ function Factory(spec) {
      * Save weight stats data for the date.
      *
      * @param trx
-     * @param {Fl32_Bwl_Store_RDb_Schema_Weight_Stat} payload
+     * @param {Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat} payload
      * @returns {Promise<{output: {}, error: {}}>}
      * @memberOf Fl32_Bwl_Back_Process_Weight_Stat_Save
      */
@@ -33,7 +33,7 @@ function Factory(spec) {
 
         /**
          * @param trx
-         * @param {Fl32_Bwl_Store_RDb_Schema_Weight_Stat} item
+         * @param {Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat} item
          * @returns {Promise<boolean>}
          */
         async function itemExists(trx, item) {

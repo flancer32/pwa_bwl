@@ -1,12 +1,12 @@
 /**
  * Action to re-create database structure (drop-create tables).
  *
- * @namespace Fl32_Bwl_Cli_Db_Z_Restruct
+ * @namespace Fl32_Bwl_Back_Cli_Db_Z_Restruct
  */
 // MODULE'S IMPORT
 
 // DEFINE WORKING VARS
-const NS = 'Fl32_Bwl_Cli_Db_Z_Restruct';
+const NS = 'Fl32_Bwl_Back_Cli_Db_Z_Restruct';
 
 // DEFINE MODULE'S FUNCTIONS
 /**
@@ -14,7 +14,7 @@ const NS = 'Fl32_Bwl_Cli_Db_Z_Restruct';
  *
  * @param {TeqFw_Di_SpecProxy} spec
  * @constructor
- * @memberOf Fl32_Bwl_Cli_Db_Z_Restruct
+ * @memberOf Fl32_Bwl_Back_Cli_Db_Z_Restruct
  */
 function Factory(spec) {
     // PARSE INPUT & DEFINE WORKING VARS
@@ -31,7 +31,7 @@ function Factory(spec) {
     /**
      * Action to re-create database structure (drop-create tables).
      * @returns {Promise<void>}
-     * @memberOf Fl32_Bwl_Cli_Db_Z_Restruct
+     * @memberOf Fl32_Bwl_Back_Cli_Db_Z_Restruct
      */
     async function action() {
         const knex = await connector.getKnex();

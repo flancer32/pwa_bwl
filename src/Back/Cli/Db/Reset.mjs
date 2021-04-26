@@ -1,11 +1,11 @@
 /**
- * @namespace Fl32_Bwl_Cli_Db_Reset
+ * @namespace Fl32_Bwl_Back_Cli_Db_Reset
  */
 // MODULE'S IMPORT
 import $bcrypt from 'bcrypt';
 
 // DEFINE WORKING VARS
-const NS = 'Fl32_Bwl_Cli_Db_Reset';
+const NS = 'Fl32_Bwl_Back_Cli_Db_Reset';
 
 // DEFINE MODULE'S FUNCTIONS
 /**
@@ -14,7 +14,7 @@ const NS = 'Fl32_Bwl_Cli_Db_Reset';
  * @param {TeqFw_Di_SpecProxy} spec
  * @returns {TeqFw_Core_App_Cli_Command_Data}
  * @constructor
- * @memberOf Fl32_Bwl_Cli_Db_Reset
+ * @memberOf Fl32_Bwl_Back_Cli_Db_Reset
  */
 function Factory(spec) {
     // PARSE INPUT & DEFINE WORKING VARS
@@ -28,18 +28,18 @@ function Factory(spec) {
     const connector = spec['TeqFw_Core_App_Db_Connector$']; // instance singleton
     /** @type {TeqFw_Core_App_Logger} */
     const logger = spec['TeqFw_Core_App_Logger$'];  // instance singleton
-    /** @type {typeof Fl32_Bwl_Cli_Db_Z_Restruct.action} */
-    const actRestruct = spec['Fl32_Bwl_Cli_Db_Z_Restruct$']; // instance singleton
-    /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Group} */
-    const EAppGroup = spec['Fl32_Bwl_Store_RDb_Schema_Group#']; // class
-    /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Group_User} */
-    const EAppGroupUser = spec['Fl32_Bwl_Store_RDb_Schema_Group_User#']; // class
-    /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Profile} */
-    const EAppProfile = spec['Fl32_Bwl_Store_RDb_Schema_Profile#']; // class
-    /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Profile_Group_User} */
-    const EAppProfileGroupUser = spec['Fl32_Bwl_Store_RDb_Schema_Profile_Group_User#']; // class
-    /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Weight_Stat} */
-    const EAppWeightStat = spec['Fl32_Bwl_Store_RDb_Schema_Weight_Stat#']; // class
+    /** @function {@type Fl32_Bwl_Back_Cli_Db_Z_Restruct.action} */
+    const actRestruct = spec['Fl32_Bwl_Back_Cli_Db_Z_Restruct$']; // instance singleton
+    /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Group} */
+    const EAppGroup = spec['Fl32_Bwl_Back_Store_RDb_Schema_Group#']; // class
+    /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Group_User} */
+    const EAppGroupUser = spec['Fl32_Bwl_Back_Store_RDb_Schema_Group_User#']; // class
+    /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Profile} */
+    const EAppProfile = spec['Fl32_Bwl_Back_Store_RDb_Schema_Profile#']; // class
+    /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Profile_Group_User} */
+    const EAppProfileGroupUser = spec['Fl32_Bwl_Back_Store_RDb_Schema_Profile_Group_User#']; // class
+    /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat} */
+    const EAppWeightStat = spec['Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat#']; // class
     /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_User} */
     const EUser = spec['Fl32_Teq_User_Store_RDb_Schema_User#']; // class
     /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Auth_Password} */
@@ -414,10 +414,10 @@ function Factory(spec) {
             // MAIN FUNCTIONALITY
             await insertUsers(trx);
             await insertSessions(trx);
-            await insertGroups(trx);
-            await insertGroupUsers(trx);
+            // await insertGroups(trx);
+            // await insertGroupUsers(trx);
             await insertProfiles(trx);
-            await insertProfileGroupUsers(trx);
+            // await insertProfileGroupUsers(trx);
             await insertWeightStats(trx);
         }
 

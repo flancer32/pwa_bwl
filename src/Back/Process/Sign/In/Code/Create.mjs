@@ -20,8 +20,8 @@ const LIFETIME_MIN = 5;
  * @memberOf Fl32_Bwl_Back_Process_Sign_In_Code_Create
  */
 function Factory(spec) {
-    /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Sign_In} */
-    const ESignIn = spec['Fl32_Bwl_Store_RDb_Schema_Sign_In#']; // class
+    /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Sign_In} */
+    const ESignIn = spec['Fl32_Bwl_Back_Store_RDb_Schema_Sign_In#']; // class
     /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Id_Email} */
     const EIdEmail = spec['Fl32_Teq_User_Store_RDb_Schema_Id_Email#']; // class
 

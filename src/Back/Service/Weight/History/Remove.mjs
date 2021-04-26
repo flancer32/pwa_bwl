@@ -32,8 +32,8 @@ export default class Fl32_Bwl_Back_Service_Weight_History_Remove {
             /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_History_Remove_Response} */
             Response
         } = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_Remove']; // ES6 module
-        /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Weight_Stat} */
-        const EWeightStat = spec['Fl32_Bwl_Store_RDb_Schema_Weight_Stat#']; // class
+        /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat} */
+        const EWeightStat = spec['Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat#']; // class
 
         this.getRoute = function () {
             return DEF.SERV_WEIGHT_HISTORY_REMOVE;

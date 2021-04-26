@@ -23,10 +23,10 @@ export default class Fl32_Bwl_Back_Service_Weight_Stat_Save {
             /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save_Types} */
             Types
         } = spec['Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save']; // ES6 module
-        /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Weight_Stat} */
-        const EWeightStat = spec['Fl32_Bwl_Store_RDb_Schema_Weight_Stat#']; // class
-        /** @type {typeof Fl32_Bwl_Store_RDb_Schema_Profile} */
-        const EProfile = spec['Fl32_Bwl_Store_RDb_Schema_Profile#']; // class
+        /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat} */
+        const EWeightStat = spec['Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat#']; // class
+        /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Profile} */
+        const EProfile = spec['Fl32_Bwl_Back_Store_RDb_Schema_Profile#']; // class
         /** @function {@type Fl32_Bwl_Back_Process_Weight_Stat_Save.process} */
         const procSave = spec['Fl32_Bwl_Back_Process_Weight_Stat_Save$']; // instance singleton
 
