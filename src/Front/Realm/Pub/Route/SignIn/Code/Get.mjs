@@ -5,6 +5,7 @@
  */
 // MODULE'S VARS
 const NS = 'Fl32_Bwl_Front_Realm_Pub_Route_SignIn_Code_Get';
+const TIMEOUT = 3000;
 
 // MODULE'S FUNCTIONS
 /**
@@ -99,6 +100,10 @@ function Factory(spec) {
                     this.msg = this.$t('route.signIn.code.get.msg.failure', opts);
                 }
                 this.displayMsg = true;
+                setTimeout(() => {
+                    this.displayMsg = false;
+                    this.fldEmail = null
+                }, TIMEOUT);
             },
             ...mapMutations({
                 setStateUserAuthenticated: 'user/setAuthenticated',
