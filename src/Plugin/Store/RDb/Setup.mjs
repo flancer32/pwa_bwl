@@ -6,14 +6,8 @@ export default class Fl32_Bwl_Plugin_Store_RDb_Setup {
         const EFriend = spec['Fl32_Bwl_Back_Store_RDb_Schema_Friend#']; // class
         /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Friend_Link} */
         const EFriendLink = spec['Fl32_Bwl_Back_Store_RDb_Schema_Friend_Link#']; // class
-        /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Group} */
-        const EGroup = spec['Fl32_Bwl_Back_Store_RDb_Schema_Group#']; // class
-        /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Group_User} */
-        const EGroupUser = spec['Fl32_Bwl_Back_Store_RDb_Schema_Group_User#']; // class
         /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Profile} */
         const EProfile = spec['Fl32_Bwl_Back_Store_RDb_Schema_Profile#']; // class
-        /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Profile_Group_User} */
-        const EProfileGroupUser = spec['Fl32_Bwl_Back_Store_RDb_Schema_Profile_Group_User#']; // class
         /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Sign_In} */
         const ESignIn = spec['Fl32_Bwl_Back_Store_RDb_Schema_Sign_In#']; // class
         /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_User} */
@@ -27,15 +21,12 @@ export default class Fl32_Bwl_Plugin_Store_RDb_Setup {
          * @param schema
          */
         this.dropTables0 = function (schema) {
-            schema.dropTableIfExists(EGroup.ENTITY);
         };
         this.dropTables1 = function (schema) {
             /* drop related tables (foreign keys) */
             schema.dropTableIfExists(EFriend.ENTITY);
             schema.dropTableIfExists(EFriendLink.ENTITY);
-            schema.dropTableIfExists(EGroupUser.ENTITY);
             schema.dropTableIfExists(EProfile.ENTITY);
-            schema.dropTableIfExists(EProfileGroupUser.ENTITY);
             schema.dropTableIfExists(ESignIn.ENTITY);
             schema.dropTableIfExists(EWeightStat.ENTITY);
         };

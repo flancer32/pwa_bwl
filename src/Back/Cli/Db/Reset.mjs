@@ -30,14 +30,8 @@ function Factory(spec) {
     const logger = spec['TeqFw_Core_App_Logger$'];  // instance singleton
     /** @function {@type Fl32_Bwl_Back_Cli_Db_Z_Restruct.action} */
     const actRestruct = spec['Fl32_Bwl_Back_Cli_Db_Z_Restruct$']; // instance singleton
-    /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Group} */
-    const EAppGroup = spec['Fl32_Bwl_Back_Store_RDb_Schema_Group#']; // class
-    /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Group_User} */
-    const EAppGroupUser = spec['Fl32_Bwl_Back_Store_RDb_Schema_Group_User#']; // class
     /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Profile} */
     const EAppProfile = spec['Fl32_Bwl_Back_Store_RDb_Schema_Profile#']; // class
-    /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Profile_Group_User} */
-    const EAppProfileGroupUser = spec['Fl32_Bwl_Back_Store_RDb_Schema_Profile_Group_User#']; // class
     /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat} */
     const EAppWeightStat = spec['Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat#']; // class
     /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_User} */
@@ -71,46 +65,6 @@ function Factory(spec) {
          */
         async function populateWithData(trx) {
             // DEFINE INNER FUNCTIONS
-            async function insertGroups(trx) {
-                const isPg = trx.client.constructor.name === 'Client_PG';
-                await trx(EAppGroup.ENTITY).insert([{
-                    [EAppGroup.A_ID]: isPg ? undefined : DEF.DATA_GROUP_ID_ADMIN,
-                    [EAppGroup.A_ADMIN_REF]: DEF.DATA_USER_ID_ADMIN,
-                    [EAppGroup.A_DATE_CREATED]: '2021-02-01',
-                    [EAppGroup.A_MODE]: DEF.DATA_SHARING_MODE_PERCENT,
-                    [EAppGroup.A_NAME]: 'Percentage only',
-                }, {
-                    [EAppGroup.A_ID]: isPg ? undefined : DEF.DATA_GROUP_ID_CUST,
-                    [EAppGroup.A_ADMIN_REF]: DEF.DATA_USER_ID_CUST,
-                    [EAppGroup.A_DATE_CREATED]: '2021-02-01',
-                    [EAppGroup.A_MODE]: DEF.DATA_SHARING_MODE_ALL,
-                    [EAppGroup.A_NAME]: 'Sample',
-                }]);
-            }
-
-            async function insertGroupUsers(trx) {
-                await trx(EAppGroupUser.ENTITY).insert([{
-                    [EAppGroupUser.A_GROUP_REF]: DEF.DATA_GROUP_ID_ADMIN,
-                    [EAppGroupUser.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
-                    [EAppGroupUser.A_ACTIVE]: true,
-                    [EAppGroupUser.A_NICK]: 'alex',
-                }, {
-                    [EAppGroupUser.A_GROUP_REF]: DEF.DATA_GROUP_ID_ADMIN,
-                    [EAppGroupUser.A_USER_REF]: DEF.DATA_USER_ID_CUST,
-                    [EAppGroupUser.A_ACTIVE]: false,
-                    [EAppGroupUser.A_NICK]: 'tanja',
-                }, {
-                    [EAppGroupUser.A_GROUP_REF]: DEF.DATA_GROUP_ID_CUST,
-                    [EAppGroupUser.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
-                    [EAppGroupUser.A_ACTIVE]: true,
-                    [EAppGroupUser.A_NICK]: 'alex',
-                }, {
-                    [EAppGroupUser.A_GROUP_REF]: DEF.DATA_GROUP_ID_CUST,
-                    [EAppGroupUser.A_USER_REF]: DEF.DATA_USER_ID_CUST,
-                    [EAppGroupUser.A_ACTIVE]: true,
-                    [EAppGroupUser.A_NICK]: 'tanja',
-                }]);
-            }
 
             async function insertProfiles(trx) {
                 await trx(EAppProfile.ENTITY).insert([{
@@ -127,22 +81,6 @@ function Factory(spec) {
                     [EAppProfile.A_IS_FEMALE]: true,
                     [EAppProfile.A_WEIGHT_INIT]: 61,
                     [EAppProfile.A_WEIGHT_TARGET]: 58,
-                }]);
-            }
-
-            async function insertProfileGroupUsers(trx) {
-                await trx(EAppProfileGroupUser.ENTITY).insert([{
-                    [EAppProfileGroupUser.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
-                    [EAppProfileGroupUser.A_GROUP_REF]: DEF.DATA_GROUP_ID_ADMIN,
-                    [EAppProfileGroupUser.A_GROUP_USER_REF]: DEF.DATA_USER_ID_CUST,
-                    [EAppProfileGroupUser.A_COLOR]: 65535,
-                    [EAppProfileGroupUser.A_NICK]: 'Wife',
-                }, {
-                    [EAppProfileGroupUser.A_USER_REF]: DEF.DATA_USER_ID_CUST,
-                    [EAppProfileGroupUser.A_GROUP_REF]: DEF.DATA_GROUP_ID_CUST,
-                    [EAppProfileGroupUser.A_GROUP_USER_REF]: DEF.DATA_USER_ID_ADMIN,
-                    [EAppProfileGroupUser.A_COLOR]: 65535,
-                    [EAppProfileGroupUser.A_NICK]: 'Husband',
                 }]);
             }
 

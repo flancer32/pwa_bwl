@@ -26,14 +26,8 @@ function Factory(spec) {
     const EAppFriend = spec['Fl32_Bwl_Back_Store_RDb_Schema_Friend#']; // class
     /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Friend_Link} */
     const EAppFriendLink = spec['Fl32_Bwl_Back_Store_RDb_Schema_Friend_Link#']; // class
-    /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Group} */
-    const EAppGroup = spec['Fl32_Bwl_Back_Store_RDb_Schema_Group#']; // class
-    /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Group_User} */
-    const EAppGroupUser = spec['Fl32_Bwl_Back_Store_RDb_Schema_Group_User#']; // class
     /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Profile} */
     const EAppProfile = spec['Fl32_Bwl_Back_Store_RDb_Schema_Profile#']; // class
-    /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Profile_Group_User} */
-    const EAppProfileGroupUser = spec['Fl32_Bwl_Back_Store_RDb_Schema_Profile_Group_User#']; // class
     /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Sign_In} */
     const EAppSignIn = spec['Fl32_Bwl_Back_Store_RDb_Schema_Sign_In#']; // class
     /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat} */
@@ -126,10 +120,7 @@ function Factory(spec) {
             // app data
             result[EAppFriend.ENTITY] = await selectItems(trx, tables, EAppFriend.ENTITY);
             result[EAppFriendLink.ENTITY] = await selectItems(trx, tables, EAppFriendLink.ENTITY);
-            result[EAppGroup.ENTITY] = await selectItems(trx, tables, EAppGroup.ENTITY);
-            result[EAppGroupUser.ENTITY] = await selectItems(trx, tables, EAppGroupUser.ENTITY);
             result[EAppProfile.ENTITY] = await selectItems(trx, tables, EAppProfile.ENTITY);
-            result[EAppProfileGroupUser.ENTITY] = await selectItems(trx, tables, EAppProfileGroupUser.ENTITY);
             result[EAppSignIn.ENTITY] = await selectItems(trx, tables, EAppSignIn.ENTITY);
             result[EAppWeightStat.ENTITY] = await selectItems(trx, tables, EAppWeightStat.ENTITY);
             // users data
@@ -147,7 +138,6 @@ function Factory(spec) {
                 const knex = await connector.getKnex();
                 const schema = knex.schema;
                 const userId = `${EUser.ENTITY}_id_seq`;
-                const groupId = `${EAppGroup.ENTITY}_id_seq`;
                 result.serials = await getSerials(schema, [userId, groupId]);
             }
             // perform queries to insert data and commit changes
