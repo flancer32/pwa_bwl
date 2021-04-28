@@ -2,6 +2,9 @@
 
 "_Bruderschaft Weight Loss_" is the Progressive Web Application (PWA) to monitor weight changes in a group with a friends.
 
+* Pilot version: https://bwl.pilot.teqfw.com/ - reset automatically on every commit to `main`;
+* Live version: https://bwl.wiredgeese.com/ - updated manually, you need invitation to sign up (there is no username-password sign-in in the app, one-time link is sent to user email for sign-in).
+
 ## Setup Application for Development
 
 ```shell
