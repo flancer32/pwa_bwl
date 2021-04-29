@@ -10,7 +10,7 @@
 ```shell
 $ git clone git@github.com:flancer32/pwa_bwl.git
 $ cd pwa_bwl
-$ bash ./bin/deploy/dev/sh
+$ bash ./bin/deploy/dev.sh
 ```
 
 Look up for dependencies sources in `./own_modules/`.
