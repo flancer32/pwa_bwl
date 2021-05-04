@@ -28,6 +28,7 @@ function Factory(spec) {
     const connector = spec['TeqFw_Core_App_Db_Connector$']; // instance singleton
     /** @type {TeqFw_Core_App_Logger} */
     const logger = spec['TeqFw_Core_App_Logger$'];  // instance singleton
+    const {isPostgres} = spec['TeqFw_Core_App_Back_Util_RDb']; // ES6 destruct
     /** @function {@type Fl32_Bwl_Back_Cli_Db_Z_Restruct.action} */
     const actRestruct = spec['Fl32_Bwl_Back_Cli_Db_Z_Restruct$']; // instance singleton
     /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Profile} */
@@ -95,7 +96,8 @@ function Factory(spec) {
             }
 
             async function insertUsers(trx) {
-                const isPg = trx.client.constructor.name === 'Client_PG';
+                const isPg = isPostgres(trx.client);
+
                 await trx(EUser.ENTITY).insert([
                     {[EUser.A_ID]: isPg ? undefined : DEF.DATA_USER_ID_ADMIN},
                     {[EUser.A_ID]: isPg ? undefined : DEF.DATA_USER_ID_CUST},
