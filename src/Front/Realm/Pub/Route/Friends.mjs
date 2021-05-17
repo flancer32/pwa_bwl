@@ -24,6 +24,7 @@ const template = `
     <dialog-add
         :display="dialogAddDisplay"
         @onHide="dialogAddDisplay=false"
+        @onSubmit="onAddDialogSubmit"
     ></dialog-add>
 </div>
 `;
@@ -52,6 +53,10 @@ function Factory(spec) {
     const editGroup = spec['Fl32_Bwl_Front_Widget_Edit_Group$']; // vue comp tmpl
     /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.Item} */
     const Action = spec['Fl32_Bwl_Front_Layout_TopActions#Item']; // class
+    /** @function {@type Fl32_Bwl_Front_Gate_Friend_Link_Code_Create.gate} */
+    const gateCodeCreate = spec['Fl32_Bwl_Front_Gate_Friend_Link_Code_Create$']; // function singleton
+    /** @type {typeof Fl32_Bwl_Shared_Service_Route_Friend_Link_Code_Create.Request} */
+    const ReqCodeCreate = spec['Fl32_Bwl_Shared_Service_Route_Friend_Link_Code_Create#Request']; // class
     /** @function {@type Fl32_Teq_User_Front_Gate_RefLink_Create.gate} */
     const gateRefLinkCreate = spec['Fl32_Teq_User_Front_Gate_RefLink_Create$']; // function singleton
     /** @type {typeof Fl32_Teq_User_Shared_Service_Route_RefLink_Create_Request} */
@@ -83,7 +88,78 @@ function Factory(spec) {
                     if (one.friendId === friendId) this.selectedItem = one;
                 }
                 this.dialogAddDisplay = true;
-            }
+            },
+            async onAddDialogSubmit(isFriend) {
+                // DEFINE INNER FUNCTIONS
+
+                /**
+                 * Generate and share link to add new friendship relation.
+                 */
+                async function addFriend() {
+                    const req = new ReqCodeCreate();
+                    /** @type {Fl32_Bwl_Shared_Service_Route_Friend_Link_Code_Create.Response} */
+                    const res = await gateCodeCreate(req);
+                    const code = res.link.code;
+                    // compose URL to add new friend
+                    const host = `https://${config.urlBase}`;
+                    const realm = `/${DEF.REALM_PUB}/#`;
+                    const route = DEF.REALM_PUB_ROUTE_FRIENDS_ADD.replace(':code', code);
+                    const url = `${host}${realm}${route}`;
+                    // open sharing options or print out sign up link to console
+                    if (self.navigator.share) {
+                        // smartphone mode
+                        const data = {
+                            title: 'Bruderschaft Weight Loss',
+                            text: i18n.t('route.friends.share.welcome'),
+                            url,
+                        };
+                        await self.navigator.share(data);
+                    } else {
+                        // browser mode
+                        console.log(`add friend url: ${url}`);
+                    }
+                }
+
+                /**
+                 * Generate and share link to add new user in downline.
+                 */
+                async function addDownline() {
+                    // get referral link with limited lifetime
+                    const req = new ReqRefLinkCreate();
+                    /** @type {Fl32_Teq_User_Shared_Service_Route_RefLink_Create_Response} */
+                    const res = await gateRefLinkCreate(req);
+                    const code = res.link.refCode;
+                    // compose URL to sign up
+                    const host = `https://${config.urlBase}`;
+                    const realm = `/${DEF.REALM_SIGN}/#`;
+                    const route = DEF.REALM_SIGN_ROUTE_UP.replace(':refCode?', code);
+                    const url = `${host}${realm}${route}`;
+                    // open sharing options or print out sign up link to console
+                    if (self.navigator.share) {
+                        // smartphone mode
+                        const data = {
+                            title: 'Bruderschaft Weight Loss',
+                            text: i18n.t('route.friends.share.welcome'),
+                            url,
+                        };
+                        await self.navigator.share(data);
+                    } else {
+                        // browser mode
+                        console.log(`sign up url: ${url}`);
+                    }
+                }
+
+                // MAIN FUNCTIONALITY
+                try {
+                    if (isFriend) {
+                        await addFriend();
+                    } else {
+                        await addDownline();
+                    }
+                } catch (err) {
+                    console.log(`error: ${err}`);
+                }
+            },
         },
         async mounted() {
             // PARSE INPUT & DEFINE WORKING VARS
@@ -104,34 +180,6 @@ function Factory(spec) {
                      */
                     async function addNew() {
                         me.dialogAddDisplay = true; // display 'Add' dialog to select type of user: downline or friend
-                        // try {
-                        //     // get referral link with limited lifetime
-                        //     const req = new ReqRefLinkCreate();
-                        //     /** @type {Fl32_Teq_User_Shared_Service_Route_RefLink_Create_Response} */
-                        //     const res = await gateRefLinkCreate(req);
-                        //     const code = res.link.refCode;
-                        //     // compose URL to sign up
-                        //     const host = `https://${config.urlBase}`;
-                        //     const realm = `/${DEF.REALM_SIGN}/#`;
-                        //     const route = DEF.REALM_SIGN_ROUTE_UP.replace(':refCode?', code);
-                        //     const url = `${host}${realm}${route}`;
-                        //     // open sharing options or print out sign up link to console
-                        //     if (self.navigator.share) {
-                        //         // smartphone mode
-                        //         const data = {
-                        //             title: 'Bruderschaft Weight Loss',
-                        //             text: i18n.t('route.friends.share.welcome'),
-                        //             url,
-                        //         };
-                        //         await self.navigator.share(data);
-                        //     } else {
-                        //         // browser mode
-                        //         console.log(`sign up url: ${url}`);
-                        //     }
-                        //
-                        // } catch (err) {
-                        //     console.log(`error: ${err}`);
-                        // }
                     }
 
                     async function editSelected() {

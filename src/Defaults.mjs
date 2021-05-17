@@ -30,6 +30,7 @@ export default class Fl32_Bwl_Defaults {
     REALM_PUB = 'pub';
     REALM_PUB_ROUTE_DEV_LOGIN = '/dev/login';
     REALM_PUB_ROUTE_FRIENDS = '/friends';
+    REALM_PUB_ROUTE_FRIENDS_ADD = '/friends/add/:code';
     REALM_PUB_ROUTE_HISTORY = '/history';
     REALM_PUB_ROUTE_HOME = '/';
     REALM_PUB_ROUTE_SETTINGS = '/settings';

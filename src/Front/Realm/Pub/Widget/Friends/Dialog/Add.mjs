@@ -79,7 +79,8 @@ function Factory(spec) {
              * Pass selected values to the parent.
              */
             submit() {
-                this.$emit(EVT_SUBMIT, this.groupName, this.owner);
+                const isFriend = (this.fldType === TYPE_FRIEND);
+                this.$emit(EVT_SUBMIT, isFriend);
             }
         },
         watch: {
