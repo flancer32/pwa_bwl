@@ -1,7 +1,7 @@
 /**
  * TODO: don't use function factory for 'process' - there are some troubles with code lookup & refactoring in IDEA
  *
- * Create code to establish new friendship relation..
+ * Create code to establish new friendship relation.
  *
  * @namespace Fl32_Bwl_Back_Process_Friend_Link_Code_Create
  */

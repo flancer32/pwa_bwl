@@ -41,13 +41,14 @@ export default class Fl32_Bwl_Defaults {
     REALM_SIGN_ROUTE_UP = '/up/:refCode?';
 
     // SERVICES ROUTES
+    SERV_FRIEND_LINK_ADD = '/friend/link/add';
+    SERV_FRIEND_LINK_CODE_CREATE = '/friend/link/code/create';
     SERV_PROFILE_GET = '/profile/get';
     SERV_SIGN_IN_CODE_CHECK = '/sign/in/code/check';
     SERV_SIGN_IN_CODE_SEND = '/sign/in/code/send';
     SERV_SIGN_UP = '/sign/up';
     SERV_WEIGHT_HISTORY_LIST = '/weight/history/list';
     SERV_WEIGHT_HISTORY_REMOVE = '/weight/history/remove';
-    SERV_FRIEND_LINK_CODE_CREATE = '/friend/link/code/create';
     SERV_WEIGHT_STAT_SAVE = '/weight/stat/save';
 
     constructor(spec) {
