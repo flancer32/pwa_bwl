@@ -20,6 +20,8 @@ class Fl32_Bwl_Back_Service_Friend_Link_Add {
         const DEF = spec['Fl32_Bwl_Defaults$']; // instance singleton
         /** @type {TeqFw_Core_App_Db_Connector} */
         const rdb = spec['TeqFw_Core_App_Db_Connector$'];  // instance singleton
+        /** @type {TeqFw_Core_App_Logger} */
+        const logger = spec['TeqFw_Core_App_Logger$'];  // instance singleton
         /** @type {typeof TeqFw_Http2_Plugin_Handler_Service.Result} */
         const ApiResult = spec['TeqFw_Http2_Plugin_Handler_Service#Result']; // class
         const {
@@ -93,9 +95,19 @@ class Fl32_Bwl_Back_Service_Friend_Link_Add {
                         /** @type {Fl32_Bwl_Back_Store_RDb_Schema_Friend_Link} */
                         const link = await procGet({trx, code: apiReq.code});
                         if (link) {
-                            await procAdd({trx, leaderId: link.leader_ref, wingmanId: user.id});
+                            if (link.leader_ref !== user.id) {
+                                await procAdd({trx, leaderId: link.leader_ref, wingmanId: user.id});
+                                response.success = true;
+                            } else {
+                                const msg = `Cannot link user for himself. User ID: ${user.id}, code: ${apiReq.code}.`;
+                                logger.error(msg);
+                                response.failureCause = msg;
+                            }
                             await procRemove({trx, code: apiReq.code});
-                            response.success = true;
+                        } else {
+                            const msg = `Cannot find friendship link with code '${apiReq.code}'.`;
+                            logger.error(msg);
+                            response.failureCause = msg;
                         }
                         await trx.commit();
                     } catch (error) {

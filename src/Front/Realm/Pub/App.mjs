@@ -44,6 +44,11 @@ function Factory(spec) {
         component: () => container.get('Fl32_Bwl_Front_Realm_Pub_Route_Friends$')
     });
     router.addRoute({
+        path: DEF.REALM_PUB_ROUTE_FRIENDS_ADD,
+        component: () => container.get('Fl32_Bwl_Front_Realm_Pub_Route_Friends_Add$'),
+        props: true,
+    });
+    router.addRoute({
         path: DEF.REALM_PUB_ROUTE_HISTORY,
         component: () => container.get('Fl32_Bwl_Front_Realm_Pub_Route_History$')
     });

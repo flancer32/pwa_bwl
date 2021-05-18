@@ -19,6 +19,11 @@ class Request {
  * @memberOf Fl32_Bwl_Shared_Service_Route_Friend_Link_Add
  */
 class Response {
+    /**
+     * Cause of the failure if error is occured.
+     * @type {string}
+     */
+    failureCause;
     /** @type {boolean} */
     success = false;
 }
