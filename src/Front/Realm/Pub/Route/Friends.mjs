@@ -5,29 +5,7 @@
  */
 // MODULE'S VARS
 const NS = 'Fl32_Bwl_Front_Realm_Pub_Route_Friends';
-const ACTIVE = 'active';
 const FRIEND_ID = 'friendId';
-const FRIEND_NAME = 'friendName';
-
-const template = `
-<div>
-    <q-table
-            :columns="columns"
-            :rows-per-page-options="[0]"
-            :rows="rows"
-            @row-click="onRowClick"
-            hide-bottom
-            hide-no-data
-            row-key="${FRIEND_ID}"
-    >
-    </q-table>
-    <dialog-add
-        :display="dialogAddDisplay"
-        @onHide="dialogAddDisplay=false"
-        @onSubmit="onAddDialogSubmit"
-    ></dialog-add>
-</div>
-`;
 
 // MODULE'S FUNCTIONS
 /**
@@ -37,6 +15,7 @@ const template = `
  * @returns {Fl32_Bwl_Front_Realm_Pub_Route_Friends.vueCompTmpl}
  */
 function Factory(spec) {
+    // EXTRACT DEPS
     /** @type {Fl32_Bwl_Defaults} */
     const DEF = spec['Fl32_Bwl_Defaults$'];    // instance singleton
     /** @type {TeqFw_Core_App_Front_Data_Config} */
@@ -44,7 +23,8 @@ function Factory(spec) {
     /** @type {Fl32_Teq_User_Front_App_Session} */
     const session = spec[DEF.MOD_USER.DI_SESSION];  // named singleton
     const i18n = spec[DEF.MOD_CORE.DI_I18N]; // named singleton
-    const {ref} = spec[DEF.MOD_VUE.DI_VUE];    // destructuring instance singleton
+    /** @function {typeof TeqFw_Core_App_Shared_Util.formatDate} */
+    const formatDate = spec['TeqFw_Core_App_Shared_Util#formatDate']; // function singleton
     /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.IComponent} */
     const topActions = spec[DEF.DI_TOP_ACTIONS]; // vue comp tmpl
     /** @type {Fl32_Bwl_Front_Realm_Pub_Widget_Friends_Dialog_Add} */
@@ -61,7 +41,37 @@ function Factory(spec) {
     const gateRefLinkCreate = spec['Fl32_Teq_User_Front_Gate_RefLink_Create$']; // function singleton
     /** @type {typeof Fl32_Teq_User_Shared_Service_Route_RefLink_Create_Request} */
     const ReqRefLinkCreate = spec['Fl32_Teq_User_Shared_Service_Route_RefLink_Create#Request']; // class
+    /** @function {@type Fl32_Bwl_Front_Gate_Friend_List.gate} */
+    const gateList = spec['Fl32_Bwl_Front_Gate_Friend_List$']; // function singleton
+    /** @type {typeof Fl32_Bwl_Shared_Service_Route_Friend_List.Request} */
+    const ReqList = spec['Fl32_Bwl_Shared_Service_Route_Friend_List#Request']; // class
+    /** @type {typeof Fl32_Bwl_Shared_Service_Data_Friend_List_Item} */
+    const DItem = spec['Fl32_Bwl_Shared_Service_Data_Friend_List_Item#']; //class
 
+    // DEFINE WORKING VARS
+    const template = `
+<div>
+    <q-table
+            :columns="columns"
+            :loading="loading"
+            :rows-per-page-options="[0]"
+            :rows="rows"
+            @row-click="onRowClick"
+            hide-bottom
+            hide-no-data
+            row-key="${FRIEND_ID}"
+    >
+        <template v-slot:loading>
+            <q-inner-loading showing color="primary" />
+        </template>
+    </q-table>
+    <dialog-add
+        :display="dialogAddDisplay"
+        @onHide="dialogAddDisplay=false"
+        @onSubmit="onAddDialogSubmit"
+    ></dialog-add>
+</div>
+`;
 
     /**
      * Template to create new component instances using Vue.
@@ -75,8 +85,9 @@ function Factory(spec) {
         components: {editGroup, dialogAdd},
         data() {
             return {
-                rows: [],
                 dialogAddDisplay: false,
+                loading: false,
+                rows: [],
                 selectedItem: null,
             };
         },
@@ -196,30 +207,40 @@ function Factory(spec) {
                 topActions.setActions([actAdd]);
             }
 
+            async function loadItems() {
+                me.loading = true;
+                const result = [];
+                const req = new ReqList();
+                const res = await gateList(req);
+                if (res) result.push(...res.items);
+                me.loading = false;
+                return result;
+            }
+
             // MAIN FUNCTIONALITY
             if (await session.checkUserAuthenticated(this.$router)) {
                 resetTopActions();
-                this.rows = [];
+                this.rows = await loadItems();
             }
         },
         setup() {
+            const NAME = DItem.FRIEND_NAME;
+            const STARTED = DItem.DATE_STARTED;
             const columns = [
-                {name: FRIEND_NAME, label: i18n.t('route.friends.name'), field: FRIEND_NAME, align: 'left'},
-                {name: ACTIVE, label: i18n.t('route.friends.active'), field: ACTIVE, align: 'right'},
+                {name: NAME, label: i18n.t('route.friends.name'), field: NAME, align: 'left'},
+                {
+                    align: 'right',
+                    field: STARTED,
+                    format: (val) => formatDate(val),
+                    label: i18n.t('route.friends.created'),
+                    name: STARTED,
+                },
             ];
-            const loading = ref(false);
-            const rows = ref([]);
-            return {
-                columns,
-                loading,
-                rows,
-            };
-        }
+            return {columns};
+        },
     };
 }
 
 // MODULE'S EXPORT
 Object.defineProperty(Factory, 'name', {value: `${NS}.${Factory.name}`});
-export {
-    Factory as default,
-};
+export default Factory;
