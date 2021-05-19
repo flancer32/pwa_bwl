@@ -19,6 +19,7 @@ export default class Fl32_Bwl_Plugin_Init {
             return [
                 'Fl32_Bwl_Back_Service_Friend_Link_Add$',
                 'Fl32_Bwl_Back_Service_Friend_Link_Code_Create$',
+                'Fl32_Bwl_Back_Service_Friend_List$',
                 'Fl32_Bwl_Back_Service_Profile_Get$',
                 'Fl32_Bwl_Back_Service_Sign_In_Code_Check$',
                 'Fl32_Bwl_Back_Service_Sign_In_Code_Send$',
