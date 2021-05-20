@@ -7,6 +7,21 @@
 const NS = 'Fl32_Bwl_Front_Realm_Pub_Widget_Chart';
 const DOM_ID_CHART = 'appChartWidget';
 
+// MODULE'S CLASSES
+/**
+ *
+ * @memberOf Fl32_Bwl_Front_Realm_Pub_Widget_Chart
+ */
+class ChartData {
+    /** @type {number|null} */
+    target;
+    /** @type {{data: string[], labels: Date[]}} */
+    series;
+}
+
+Object.defineProperty(ChartData, 'name', {value: `${NS}.${ChartData.name}`});
+
+// MODULE'S FUNCTIONS
 /**
  * Factory to create template for new Vue component instances.
  *
@@ -36,17 +51,41 @@ function Factory(spec) {
         name: NS,
         template,
         props: {
-            dataSet: Object,
-            lineTarget: String, // "90.0"
+            chartData: ChartData,
         },
         watch: {
-            dataSet(current, old) {
+            /**
+             *
+             * @param {ChartData} current
+             * @param {ChartData} old
+             */
+            chartData(current, old) {
                 // DEFINE INNER FUNCTIONS
                 function draw(series, targetWeight) {
-                    // DEFINE INNER FUNCTIONS
-                    // MAIN FUNCTIONALITY
-                    const targetDataset = new Array(series.data.length).fill(targetWeight);
-                    const ctx = document.getElementById(DOM_ID_CHART).getContext('2d');
+                    const datasets = [];
+                    const labels = series.labels;
+                    // add main data set to chart
+                    const mainSet = {
+                        borderColor: 'rgba(250, 12, 128, 0.8)',
+                        borderWidth: 2,
+                        data: series.data,
+                        fill: false,
+                        label: i18n.t('wg.chart.current'),
+                        pointRadius: 2,
+                    };
+                    datasets.push(mainSet);
+                    // create and add target if exists
+                    if (targetWeight) {
+                        const targetDataset = new Array(series.data.length).fill(targetWeight);
+                        datasets.push({
+                            borderColor: 'rgba(0, 12, 128, 0.8)',
+                            borderWidth: 1,
+                            data: targetDataset,
+                            fill: false,
+                            label: i18n.t('wg.chart.target'),
+                            pointRadius: 0,
+                        });
+                    }
                     const options = {
                         // aspectRatio: 2, // default, should be computed
                         legend: {
@@ -72,33 +111,18 @@ function Factory(spec) {
                             yAxes: [{ticks: {fontSize: 10}}]
                         },
                     };
+                    // place chart to display
+                    const ctx = document.getElementById(DOM_ID_CHART).getContext('2d');
                     new Chart(ctx, {
                         type: 'line',
-                        data: {
-                            labels: series.labels,
-                            datasets: [{
-                                borderColor: 'rgba(250, 12, 128, 0.8)',
-                                borderWidth: 2,
-                                data: series.data,
-                                fill: false,
-                                label: i18n.t('wg.chart.current'),
-                                pointRadius: 2,
-                            }, {
-                                borderColor: 'rgba(0, 12, 128, 0.8)',
-                                borderWidth: 1,
-                                data: targetDataset,
-                                fill: false,
-                                label: i18n.t('wg.chart.target'),
-                                pointRadius: 0,
-                            },]
-                        },
+                        data: {labels, datasets},
                         options,
                     });
                 }
 
                 // MAIN FUNCTIONALITY
                 if (current === old) debugger;
-                draw(current, this.lineTarget);
+                draw(current.series, current.target);
             }
         },
         async mounted() {},
@@ -107,4 +131,7 @@ function Factory(spec) {
 
 // MODULE'S EXPORT
 Object.defineProperty(Factory, 'name', {value: `${NS}.${Factory.name}`});
-export default Factory;
+export {
+    ChartData,
+    Factory as default,
+};

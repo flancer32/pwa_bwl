@@ -27,6 +27,8 @@ function Factory(spec) {
     const session = spec[DEF.MOD_USER.DI_SESSION];  // named singleton
     /** @type {Fl32_Bwl_Front_Realm_Pub_Widget_Chart} */
     const chart = spec['Fl32_Bwl_Front_Realm_Pub_Widget_Chart$'];
+    /** @type {typeof Fl32_Bwl_Front_Realm_Pub_Widget_Chart.ChartData} */
+    const ChartData = spec['Fl32_Bwl_Front_Realm_Pub_Widget_Chart#ChartData'];
     /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.IComponent} */
     const topActions = spec[DEF.DI_TOP_ACTIONS]; // vue comp tmpl
     /** @function {@type Fl32_Teq_User_Front_Gate_Sign_Out.gate} */
@@ -83,8 +85,7 @@ function Factory(spec) {
         ></q-input>
     </div>
     <chart 
-        :dataSet="chartData"
-        :lineTarget="target"
+        :chartData="chartData"
     ></chart>
     <div class="id-filters t-grid cols" style="grid-template-columns: 2fr 1fr">
             <q-select
@@ -166,14 +167,14 @@ function Factory(spec) {
             },
             async editWeightSubmit() {
                 await this.setWeights();
-                await this.loadDataSet();
+                await this.loadChartData();
             },
             editWeightTarget() {
                 this.dialogDisplay = true;
                 this.weightType = TYPES.TARGET;
                 this.weightEdit = this.target;
             },
-            async loadDataSet() {
+            async loadChartData() {
                 const req = new ReqHistory();
                 req.dateFrom = this.dateFrom;
                 req.dateTo = this.dateTo;
@@ -184,7 +185,11 @@ function Factory(spec) {
                     dataSet.labels.push(new Date(one.date));
                     dataSet.data.push(one.weight);
                 }
-                this.chartData = dataSet;
+                const data = new ChartData();
+                data.series = dataSet;
+                // friendId = 0 for personal data; don't draw the target for friends
+                data.target = (req.friendId) ? null : this.target;
+                this.chartData = data;
             },
             async loadOptsDataSet() {
                 const result = [{label: this.$t('route.home.dataSet.personal'), value: 0}];
@@ -233,13 +238,13 @@ function Factory(spec) {
         watch: {
             dataSet(current, old) {
                 if (current !== old) {
-                    this.loadDataSet();
+                    this.loadChartData();
                 }
             },
             period(current, old) {
                 this.setPeriods();
                 if (current !== old) {
-                    this.loadDataSet();
+                    this.loadChartData();
                 }
             }
         },
@@ -266,7 +271,7 @@ function Factory(spec) {
                 await Promise.all([
                     this.setWeights(),
                     this.loadOptsDataSet(),
-                    this.loadDataSet(),
+                    this.loadChartData(),
                 ]);
             }
         },
