@@ -8,12 +8,12 @@ export default function Factory(spec) {
     const DEF = spec['Fl32_Bwl_Defaults$'];    // instance singleton
     /** @type {TeqFw_Core_App_Front_Gate_Connect} */
     const backConnect = spec['TeqFw_Core_App_Front_Gate_Connect$']; // instance singleton
-    /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_History_List_Response} */
+    /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_History_List.Response} */
     const Response = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_List#Response']; // class
 
     /**
-     * @param {Fl32_Bwl_Shared_Service_Route_Weight_History_List_Request} data
-     * @returns {Promise<Fl32_Bwl_Shared_Service_Route_Weight_History_List_Response|TeqFw_Core_App_Front_Gate_Response_Error>}
+     * @param {Fl32_Bwl_Shared_Service_Route_Weight_History_List.Request} data
+     * @returns {Promise<Fl32_Bwl_Shared_Service_Route_Weight_History_List.Response|TeqFw_Core_App_Front_Gate_Response_Error>}
      * @memberOf Fl32_Bwl_Front_Gate_Weight_History_List
      */
     async function gate(data) {

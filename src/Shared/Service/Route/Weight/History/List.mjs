@@ -1,21 +1,38 @@
 /**
  * Request and response for 'List Weight Stats Data' service.
+ *
+ * @namespace Fl32_Bwl_Shared_Service_Route_Weight_History_List
  */
-class Fl32_Bwl_Shared_Service_Route_Weight_History_List_Request {
+// MODULE'S VARS
+const NS = 'Fl32_Bwl_Shared_Service_Route_Weight_History_List';
+
+// MODULE'S CLASSES
+/**
+ * @memberOf Fl32_Bwl_Shared_Service_Route_Weight_History_List
+ */
+class Request {
     /** @type {Date} */
     dateFrom;
     /** @type {Date} */
     dateTo;
-    /** @type {String} 'asc' or 'desc'*/
+    /** @type {number} */
+    friendId;
+    /** @type {string} 'asc' or 'desc'*/
     order;
 }
 
-class Fl32_Bwl_Shared_Service_Route_Weight_History_List_Response {
+/**
+ * @memberOf Fl32_Bwl_Shared_Service_Route_Weight_History_List
+ */
+class Response {
     /** @type {Fl32_Bwl_Shared_Service_Data_Weight_History_Item[]} */
     items;
 }
 
+// MODULE'S EXPORT
+Object.defineProperty(Request, 'name', {value: `${NS}.${Request.name}`});
+Object.defineProperty(Response, 'name', {value: `${NS}.${Response.name}`});
 export {
-    Fl32_Bwl_Shared_Service_Route_Weight_History_List_Request as Request,
-    Fl32_Bwl_Shared_Service_Route_Weight_History_List_Response as Response,
+    Request,
+    Response,
 };

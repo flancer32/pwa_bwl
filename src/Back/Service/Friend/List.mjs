@@ -30,12 +30,8 @@ class Fl32_Bwl_Back_Service_Friend_List {
         } = spec['Fl32_Bwl_Shared_Service_Route_Friend_List']; // ES6 module
         /** @type {typeof Fl32_Bwl_Shared_Service_Data_Friend_List_Item} */
         const DItem = spec['Fl32_Bwl_Shared_Service_Data_Friend_List_Item#']; // class
-        /** @function {@type Fl32_Bwl_Back_Service_Friend_List_A_QGetItems.queryBuilder} */
-        const qGetItems = spec['Fl32_Bwl_Back_Service_Friend_List_A_QGetItems$']; // function singleton
-        /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Friend} */
-        const EFriend = spec['Fl32_Bwl_Back_Store_RDb_Schema_Friend#']; // class
-
-        // DEFINE INNER FUNCTIONS
+        /** @function {@type Fl32_Bwl_Back_Store_RDb_Query_Friend_GetItems.queryBuilder} */
+        const qGetItems = spec['Fl32_Bwl_Back_Store_RDb_Query_Friend_GetItems$']; // function singleton
 
         // DEFINE INSTANCE METHODS
 
@@ -85,9 +81,7 @@ class Fl32_Bwl_Back_Service_Friend_List {
                  */
                 async function getItems(trx, userId) {
                     const result = [];
-                    const query = qGetItems(trx);
-                    query.where(`${qGetItems.T_F}.${EFriend.A_LEADER_REF}`, userId);
-                    query.orWhere(`${qGetItems.T_F}.${EFriend.A_WINGMAN_REF}`, userId);
+                    const query = qGetItems({trx, userId});
                     const rs = await query;
                     for (const one of rs) {
                         const item = new DItem();

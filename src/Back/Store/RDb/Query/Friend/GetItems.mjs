@@ -1,16 +1,16 @@
 /**
  * Query to get user's friends data.
  *
- * @namespace Fl32_Bwl_Back_Service_Friend_List_A_QGetItems
+ * @namespace Fl32_Bwl_Back_Store_RDb_Query_Friend_GetItems
  */
 // MODULE'S VARS
-const NS = 'Fl32_Bwl_Back_Service_Friend_List_A_QGetItems';
+const NS = 'Fl32_Bwl_Back_Store_RDb_Query_Friend_GetItems';
 
 /**
  * Factory to create builder to get queries.
  *
- * @memberOf Fl32_Bwl_Back_Service_Friend_List_A_QGetItems
- * @returns {function(*): *}
+ * @memberOf Fl32_Bwl_Back_Store_RDb_Query_Friend_GetItems
+ * @returns {Fl32_Bwl_Back_Store_RDb_Query_Friend_GetItems.queryBuilder}
  */
 function Factory(spec) {
     // EXTRACT DEPS
@@ -19,14 +19,14 @@ function Factory(spec) {
     /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Profile} */
     const EUserProfile = spec['Fl32_Teq_User_Store_RDb_Schema_Profile#']; // class
 
-
     // DEFINE INNER FUNCTIONS
     /**
      * @param trx
+     * @param {number} userId
      * @returns {*}
-     * @memberOf Fl32_Bwl_Back_Service_Friend_List_A_QGetItems
+     * @memberOf Fl32_Bwl_Back_Store_RDb_Query_Friend_GetItems
      */
-    function queryBuilder(trx) {
+    function queryBuilder({trx, userId}) {
         // alias for the function itself
         const me = queryBuilder;
 
@@ -49,7 +49,11 @@ function Factory(spec) {
             `${me.T_UW}.${EUserProfile.A_USER_REF}`,
             `${me.T_F}.${EFriend.A_WINGMAN_REF}`);
         query.select([{[me.A_WINGMAN_NAME]: `${me.T_UW}.${EUserProfile.A_NAME}`}]);
-
+        // WHERE
+        if (userId != null) {
+            query.where(`${me.T_F}.${EFriend.A_LEADER_REF}`, userId);
+            query.orWhere(`${me.T_F}.${EFriend.A_WINGMAN_REF}`, userId);
+        }
         return query;
     }
 

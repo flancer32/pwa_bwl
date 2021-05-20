@@ -35,8 +35,12 @@ function Factory(spec) {
     const ReqSignOut = spec['Fl32_Teq_User_Shared_Service_Route_Sign_Out#Request']; // class
     /** @function {@type Fl32_Bwl_Front_Gate_Weight_History_List.gate} */
     const gateHistory = spec['Fl32_Bwl_Front_Gate_Weight_History_List$']; // function singleton
-    /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_History_List_Request} */
-    const RequestHistory = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_List#Request']; // class
+    /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_History_List.Request} */
+    const ReqHistory = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_List#Request']; // class
+    /** @function {@type Fl32_Bwl_Front_Gate_Friend_List.gate} */
+    const gateList = spec['Fl32_Bwl_Front_Gate_Friend_List$']; // function singleton
+    /** @type {typeof Fl32_Bwl_Shared_Service_Route_Friend_List.Request} */
+    const ReqList = spec['Fl32_Bwl_Shared_Service_Route_Friend_List#Request']; // class
     /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.Item} */
     const Action = spec['Fl32_Bwl_Front_Layout_TopActions#Item']; // class
     /** @type {Fl32_Bwl_Front_Widget_Edit_Weight.vueCompTmpl} */
@@ -84,7 +88,7 @@ function Factory(spec) {
     ></chart>
     <div class="id-filters t-grid cols" style="grid-template-columns: 2fr 1fr">
             <q-select
-                    :label="$t('route.home.dataSet')"
+                    :label="$t('route.home.dataSet.label')"
                     :options="optsDataSet"
                     stack-label
                     v-model="dataSet"
@@ -121,10 +125,11 @@ function Factory(spec) {
             return {
                 chartData: null, // data set to visualize with Chart widget
                 current: null,
-                dataSet: {label: 'Персональные', value: 0},
+                dataSet: {label: this.$t('route.home.dataSet.personal'), value: 0},
                 dateFrom: new Date(),
                 dateTo: new Date(),
                 dialogDisplay: false,
+                optsDataSet: [],
                 period: {label: 'All', value: PERIOD_ALL},
                 start: null,
                 target: null,
@@ -133,11 +138,6 @@ function Factory(spec) {
             };
         },
         computed: {
-            optsDataSet() {
-                return [
-                    {label: 'Персональные', value: 0}
-                ];
-            },
             optsPeriod() {
                 return [
                     {label: '1 week', value: PERIOD_WEEK_1},
@@ -174,9 +174,10 @@ function Factory(spec) {
                 this.weightEdit = this.target;
             },
             async loadDataSet() {
-                const req = new RequestHistory();
+                const req = new ReqHistory();
                 req.dateFrom = this.dateFrom;
                 req.dateTo = this.dateTo;
+                req.friendId = this.dataSet?.value;
                 const resHistory = await gateHistory(req);
                 const dataSet = {labels: [], data: []};
                 for (const one of resHistory.items) {
@@ -185,6 +186,22 @@ function Factory(spec) {
                 }
                 this.chartData = dataSet;
             },
+            async loadOptsDataSet() {
+                const result = [{label: this.$t('route.home.dataSet.personal'), value: 0}];
+                const req = new ReqList();
+                /** @type {Fl32_Bwl_Shared_Service_Route_Friend_List.Response} */
+                const res = await gateList(req);
+                if (res && Array.isArray(res.items)) {
+                    for (const one of res.items) {
+                        const item = {label: one.friendName, value: one.friendId};
+                        result.push(item);
+                    }
+                }
+                this.optsDataSet = result;
+            },
+            /**
+             * Reset period begin/end on 'Period' selector changes.
+             */
             setPeriods() {
                 this.dateFrom = new Date(0);
                 this.dateTo = new Date();
@@ -214,6 +231,11 @@ function Factory(spec) {
             }),
         },
         watch: {
+            dataSet(current, old) {
+                if (current !== old) {
+                    this.loadDataSet();
+                }
+            },
             period(current, old) {
                 this.setPeriods();
                 if (current !== old) {
@@ -241,7 +263,11 @@ function Factory(spec) {
             if (await session.checkUserAuthenticated(this.$router)) {
                 addTopActions();
                 this.setPeriods();
-                await Promise.all([this.setWeights(), this.loadDataSet()]);
+                await Promise.all([
+                    this.setWeights(),
+                    this.loadOptsDataSet(),
+                    this.loadDataSet(),
+                ]);
             }
         },
     };

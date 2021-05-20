@@ -64,7 +64,7 @@ function Factory(spec) {
     const dsWeights = spec['Fl32_Bwl_Front_DataSource_Weight$']; // instance singleton
     /** @type {Fl32_Bwl_Front_Gate_Weight_History_List.gate} */
     const gateList = spec['Fl32_Bwl_Front_Gate_Weight_History_List$']; // function singleton
-    /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_History_List_Request} */
+    /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_History_List.Request} */
     const ReqList = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_List#Request']; // class
     /** @type {Fl32_Bwl_Front_Gate_Weight_Stat_Save.gate} */
     const gateSave = spec['Fl32_Bwl_Front_Gate_Weight_Stat_Save$']; // function singleton
@@ -124,7 +124,7 @@ function Factory(spec) {
                 }
 
                 // MAIN FUNCTIONALITY
-                /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_List_Response} */
+                /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_List.Response} */
                 const res = await gateList(new ReqList());
                 this.rows = prepareItems(res.items);
             },

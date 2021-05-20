@@ -23,15 +23,18 @@ export default class Fl32_Bwl_Back_Service_Weight_History_List {
         /** @type {typeof TeqFw_Http2_Plugin_Handler_Service.Result} */
         const ApiResult = spec['TeqFw_Http2_Plugin_Handler_Service#Result']; // class
         const {
-            /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_History_Remove_Request} */
+            /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_History_List.Request} */
             Request,
-            /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_History_Remove_Response} */
+            /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_History_List.Response} */
             Response
-        } = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_Remove']; // ES6 module
+        } = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_List']; // ES6 module
         /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat} */
         const EWeightStat = spec['Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat#']; // class
         /** @type {typeof Fl32_Bwl_Shared_Service_Data_Weight_History_Item} */
         const DWeightItem = spec['Fl32_Bwl_Shared_Service_Data_Weight_History_Item#']; // class
+        /** @type {typeof Fl32_Bwl_Back_Store_RDb_Query_Friend_GetItems.queryBuilder} */
+        const qHistoryGetItems = spec['Fl32_Bwl_Back_Store_RDb_Query_Friend_GetItems$'];
+
 
         this.getRoute = function () {
             return DEF.SERV_WEIGHT_HISTORY_LIST;
@@ -45,7 +48,7 @@ export default class Fl32_Bwl_Back_Service_Weight_History_List {
             // DEFINE INNER FUNCTIONS
             /**
              * @param {TeqFw_Http2_Back_Server_Stream_Context} context
-             * @returns {Fl32_Bwl_Shared_Service_Route_Weight_History_List_Request}
+             * @returns {Fl32_Bwl_Shared_Service_Route_Weight_History_List.Request}
              * @memberOf Fl32_Bwl_Back_Service_Weight_History_List
              * @implements TeqFw_Http2_Api_Back_Service_Factory.parse
              */
@@ -66,7 +69,7 @@ export default class Fl32_Bwl_Back_Service_Weight_History_List {
         this.createService = function () {
             // DEFINE INNER FUNCTIONS
             /**
-             * @param {TeqFw_Http2_Back_Server_Handler_Api.Context} apiCtx
+             * @param {TeqFw_Http2_Plugin_Handler_Service.Context} apiCtx
              * @returns {Promise<TeqFw_Http2_Plugin_Handler_Service.Result>}
              * @memberOf Fl32_Bwl_Back_Service_Weight_History_List
              * @implements {TeqFw_Http2_Api_Back_Service_Factory.service}
@@ -77,25 +80,60 @@ export default class Fl32_Bwl_Back_Service_Weight_History_List {
                 /**
                  * @param trx
                  * @param {Fl32_Teq_User_Shared_Api_Data_User} user
-                 * @param {Fl32_Bwl_Shared_Service_Route_Weight_History_List_Request} apiReq
+                 * @param {Fl32_Bwl_Shared_Service_Route_Weight_History_List.Request} apiReq
                  * @return {Promise<*[]>}
                  */
                 async function selectItems(trx, user, apiReq) {
+                    // DEFINE INNER FUNCTIONS
+
+                    /**
+                     * @param trx
+                     * @param {number} userId
+                     * @param {number} friendId
+                     * @return {Promise<boolean>}
+                     */
+                    async function isValidFriend(trx, userId, friendId) {
+                        let result = false;
+                        const query = qHistoryGetItems({trx, userId}); // get all friends for the user
+                        const rs = await query;
+                        for (const one of rs) {
+                            const leaderId = one[qHistoryGetItems.A_LEADER_ID];
+                            const wingmanId = one[qHistoryGetItems.A_WINGMAN_ID];
+                            if ((friendId === leaderId) || (friendId === wingmanId)) {
+                                result = true;
+                                break;
+                            }
+                        }
+                        return result;
+                    }
+
+                    // MAIN FUNCTIONALITY
                     const result = [];
-                    const query = trx.from(EWeightStat.ENTITY);
-                    query.select();
-                    query.where(EWeightStat.A_USER_REF, user.id);
-                    if (apiReq.dateFrom) query.where(EWeightStat.A_DATE, '>=', formatDate(apiReq.dateFrom));
-                    if (apiReq.dateTo) query.where(EWeightStat.A_DATE, '<=', formatDate(apiReq.dateTo));
-                    if (apiReq.order === 'asc') query.orderBy(EWeightStat.A_DATE, 'asc');
-                    if (apiReq.order === 'desc') query.orderBy(EWeightStat.A_DATE, 'desc');
-                    /** @type {Array} */
-                    const rs = await query;
-                    for (const one of rs) {
-                        const item = new DWeightItem();
-                        item.date = formatDate(one[EWeightStat.A_DATE]);
-                        item.weight = one[EWeightStat.A_VALUE];
-                        result.push(item);
+                    let userId = user.id; // use current user by default to get weight history
+                    if (apiReq.friendId) {
+                        const isValid = await isValidFriend(trx, user.id, apiReq.friendId);
+                        if (isValid) {
+                            userId = apiReq.friendId;
+                        } else {
+                            userId = null;
+                        }
+                    }
+                    if (userId) {
+                        const query = trx.from(EWeightStat.ENTITY);
+                        query.select();
+                        query.where(EWeightStat.A_USER_REF, userId);
+                        if (apiReq.dateFrom) query.where(EWeightStat.A_DATE, '>=', formatDate(apiReq.dateFrom));
+                        if (apiReq.dateTo) query.where(EWeightStat.A_DATE, '<=', formatDate(apiReq.dateTo));
+                        if (apiReq.order === 'asc') query.orderBy(EWeightStat.A_DATE, 'asc');
+                        if (apiReq.order === 'desc') query.orderBy(EWeightStat.A_DATE, 'desc');
+                        /** @type {Array} */
+                        const rs = await query;
+                        for (const one of rs) {
+                            const item = new DWeightItem();
+                            item.date = formatDate(one[EWeightStat.A_DATE]);
+                            item.weight = one[EWeightStat.A_VALUE];
+                            result.push(item);
+                        }
                     }
                     return result;
                 }
@@ -104,7 +142,7 @@ export default class Fl32_Bwl_Back_Service_Weight_History_List {
                 const result = new ApiResult();
                 result.response = new Response();
                 const trx = await rdb.startTransaction();
-                /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_List_Request} */
+                /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_List.Request} */
                 const apiReq = apiCtx.request;
                 const shared = apiCtx.sharedContext;
                 try {
