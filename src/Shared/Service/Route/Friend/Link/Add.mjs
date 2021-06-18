@@ -20,7 +20,7 @@ class Request {
  */
 class Response {
     /**
-     * Cause of the failure if error is occured.
+     * Cause of the failure if error is occurred.
      * @type {string}
      */
     failureCause;

@@ -30,8 +30,7 @@ function Factory(spec) {
     const template = `
 <q-dialog :model-value="display" @hide="$emit('${EVT_HIDE}')">
     <q-card style="min-width: 350px">
-        <q-card-section class="t-grid gutter-xs align-items-center"
-                        style="grid-template-: auto auto; justify-items: left;">
+        <q-card-section class="t-grid gutter-xs align-items-center">
                         
                 <q-radio
                         :label="$t('wg.friends.dialog.add.downline')"
