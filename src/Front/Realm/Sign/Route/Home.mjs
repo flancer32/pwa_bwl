@@ -13,14 +13,10 @@ const NS = 'Fl32_Bwl_Front_Realm_Sign_Route_Home';
  * @memberOf Fl32_Bwl_Front_Realm_Sign_Route_Home
  * @returns {Fl32_Bwl_Front_Realm_Sign_Route_Home.vueCompTmpl}
  */
-function Factory(spec) {
-    /** @type {Fl32_Bwl_Defaults} */
-    const DEF = spec['Fl32_Bwl_Defaults$'];    // instance singleton
-    const {mapMutations, mapState} = spec[DEF.MOD_VUE.DI_VUEX];
-
+function Factory() {
     const template = `
 <div class="t-grid app-home">
-    <span>HOME</span>
+    <span>SIGN REALM HOME</span>
 </div>
 `;
 
@@ -33,25 +29,6 @@ function Factory(spec) {
     return {
         name: NS,
         template,
-        components: {},
-        data: function () {
-            return {};
-        },
-        computed: {
-            ...mapState({
-                stateTitle: state => state.title,
-                stateUserAuthenticated: state => state.user.authenticated,
-            })
-        },
-        methods: {
-            ...mapMutations({
-                setStateUserAuthenticated: 'user/setAuthenticated',
-            }),
-        },
-        async mounted() {
-
-        },
-        setup(props, context) {},
     };
 }
 

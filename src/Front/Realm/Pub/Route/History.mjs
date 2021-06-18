@@ -52,8 +52,8 @@ function Factory(spec) {
     const DEF = spec['Fl32_Bwl_Defaults$'];    // instance singleton
     const i18n = spec[DEF.MOD_CORE.DI_I18N]; // named singleton
     const {ref} = spec[DEF.MOD_VUE.DI_VUE];    // destructuring instance singleton
-    /** @type {Fl32_Teq_User_Front_App_Session} */
-    const session = spec[DEF.MOD_USER.DI_SESSION];  // named singleton
+    /** @type {Fl32_Teq_User_Front_Model_Session} */
+    const session = spec['Fl32_Teq_User_Front_Model_Session$']; // singleton
     /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.IComponent} */
     const topActions = spec[DEF.DI_TOP_ACTIONS]; // vue comp tmpl
     /** @type {Fl32_Bwl_Front_Widget_Edit_History} */

@@ -15,17 +15,14 @@ const NS = 'Fl32_Bwl_Front_Realm_Pub_Route_SignIn_Code_Check';
  */
 function Factory(spec) {
     // EXTRACT DEPS
-    /** @type {Fl32_Bwl_Defaults} */
-    const DEF = spec['Fl32_Bwl_Defaults$']; // instance singleton
-    /** @type {Fl32_Teq_User_Front_App_Session} */
-    const session = spec[DEF.MOD_USER.DI_SESSION]; // named singleton
+    /** @type {Fl32_Teq_User_Front_Model_Session} */
+    const session = spec['Fl32_Teq_User_Front_Model_Session$']; // singleton
     /** @type {TeqFw_Core_App_Front_Widget_Layout_Centered} */
     const layoutCentered = spec['TeqFw_Core_App_Front_Widget_Layout_Centered$']; // vue comp tmpl
     /** @function {@type Fl32_Bwl_Front_Gate_Sign_In_Code_Check.gate} */
     const gate = spec['Fl32_Bwl_Front_Gate_Sign_In_Code_Check$']; // function singleton
     /** @type {typeof Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Check_Request} */
     const Req = spec['Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Check#Request']; // class
-    const {mapMutations, mapState} = spec[DEF.MOD_VUE.DI_VUEX];
 
     // DEFINE WORKING VARS
     const template = `
@@ -36,10 +33,6 @@ function Factory(spec) {
     </div>
 </layout-centered>
 `;
-
-    // DEFINE INNER FUNCTIONS
-
-    // MAIN FUNCTIONALITY
 
     // COMPOSE RESULT
     /**
@@ -60,16 +53,6 @@ function Factory(spec) {
         props: {
             code: String,
         },
-        computed: {
-            ...mapState({
-                stateUserAuthenticated: state => state.user.authenticated,
-            })
-        },
-        methods: {
-            ...mapMutations({
-                setStateUserAuthenticated: 'user/setAuthenticated',
-            }),
-        },
         async mounted() {
             const req = new Req();
             req.code = this.code;
@@ -78,6 +61,7 @@ function Factory(spec) {
             if (res.constructor.name === 'TeqFw_Core_App_Front_Gate_Response_Error') {
                 this.error = res.message;
             } else {
+                debugger
                 await session.init();
                 const route = session.getRouteToRedirect();
                 this.$router.push(route);

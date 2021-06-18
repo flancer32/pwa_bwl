@@ -23,8 +23,8 @@ function Factory(spec) {
     // EXTRACT DEPS
     /** @type {Fl32_Bwl_Defaults} */
     const DEF = spec['Fl32_Bwl_Defaults$'];    // instance singleton
-    /** @type {Fl32_Teq_User_Front_App_Session} */
-    const session = spec[DEF.MOD_USER.DI_SESSION];  // named singleton
+    /** @type {Fl32_Teq_User_Front_Model_Session} */
+    const session = spec['Fl32_Teq_User_Front_Model_Session$']; // singleton
     /** @type {Fl32_Bwl_Front_Realm_Pub_Widget_Chart} */
     const chart = spec['Fl32_Bwl_Front_Realm_Pub_Widget_Chart$'];
     /** @type {typeof Fl32_Bwl_Front_Realm_Pub_Widget_Chart.ChartData} */
@@ -49,7 +49,6 @@ function Factory(spec) {
     const editWeight = spec['Fl32_Bwl_Front_Widget_Edit_Weight$']; // vue comp tmpl
     /** @type {Fl32_Bwl_Front_DataSource_Weight} */
     const dsWeights = spec['Fl32_Bwl_Front_DataSource_Weight$']; // instance singleton
-    const {mapMutations, mapState} = spec[DEF.MOD_VUE.DI_VUEX];
 
     // DEFINE WORKING VARS
     /** @type {Fl32_Bwl_Front_Widget_Edit_Weight.vueCompTmpl.TYPES} */
@@ -149,10 +148,6 @@ function Factory(spec) {
                     {label: 'All', value: PERIOD_ALL},
                 ];
             },
-            ...mapState({
-                stateTitle: state => state.title,
-                stateUserAuthenticated: state => state.user.authenticated,
-            })
         },
         methods: {
             editWeightCurrent() {
@@ -231,9 +226,6 @@ function Factory(spec) {
                 this.start = await dsWeights.getStart();
                 this.target = await dsWeights.getTarget();
             },
-            ...mapMutations({
-                setStateUserAuthenticated: 'user/setAuthenticated',
-            }),
         },
         watch: {
             dataSet(current, old) {

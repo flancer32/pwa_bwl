@@ -17,17 +17,14 @@ const NS = 'Fl32_Bwl_Front_Realm_Pub_Route_Dev_Login';
  */
 function Factory(spec) {
     // EXTRACT DEPS
-    /** @type {Fl32_Bwl_Defaults} */
-    const DEF = spec['Fl32_Bwl_Defaults$'];    // instance singleton
-    /** @type {Fl32_Teq_User_Front_App_Session} */
-    const session = spec[DEF.MOD_USER.DI_SESSION];  // named singleton
+    /** @type {Fl32_Teq_User_Front_Model_Session} */
+    const session = spec['Fl32_Teq_User_Front_Model_Session$']; // singleton
     /** @type {TeqFw_Core_App_Front_Widget_Layout_Centered} */
     const layoutCentered = spec['TeqFw_Core_App_Front_Widget_Layout_Centered$'];    // vue comp tmpl
     /** @type {Fl32_Teq_User_Front_Widget_SignIn} */
     const userSignIn = spec['Fl32_Teq_User_Front_Widget_SignIn$'];  // vue comp tmpl
     /** @type {typeof Fl32_Teq_User_Front_Widget_SignIn_Props} */
     const SignInProps = spec['Fl32_Teq_User_Front_Widget_SignIn#Props'];  // class
-    const {mapMutations, mapState} = spec[DEF.MOD_VUE.DI_VUEX];
 
     // DEFINE WORKING VARS
     const template = `
@@ -67,28 +64,13 @@ function Factory(spec) {
                 signIn: new SignInProps(),
             };
         },
-        computed: {
-            ...mapState({
-                stateUserAuthenticated: state => state.user.authenticated,
-            })
-        },
         methods: {
             onFailure() {
                 console.log('Failure');
             },
             async onSuccess() {
-                // session is initiated in 'Fl32_Teq_User_Front_Widget_SignIn' before @success event.
-                const user = session.getUser();
-                this.setStateUserAuthenticated(user);
-                this.$router.push('/');
+                this.$router.push(session.getRouteToRedirect());
             },
-            ...mapMutations({
-                setStateUserAuthenticated: 'user/setAuthenticated',
-            }),
-        },
-        mounted() {
-            const user = session.getUser();
-            this.setStateUserAuthenticated(user);
         },
     };
 }

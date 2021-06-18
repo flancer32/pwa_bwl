@@ -20,8 +20,8 @@ function Factory(spec) {
     const DEF = spec['Fl32_Bwl_Defaults$'];    // instance singleton
     /** @type {TeqFw_Core_App_Front_Data_Config} */
     const config = spec[DEF.MOD_CORE.DI_CONFIG]; // named singleton
-    /** @type {Fl32_Teq_User_Front_App_Session} */
-    const session = spec[DEF.MOD_USER.DI_SESSION];  // named singleton
+    /** @type {Fl32_Teq_User_Front_Model_Session} */
+    const session = spec['Fl32_Teq_User_Front_Model_Session$']; // singleton
     const i18n = spec[DEF.MOD_CORE.DI_I18N]; // named singleton
     /** @function {typeof TeqFw_Core_App_Shared_Util.formatDate} */
     const formatDate = spec['TeqFw_Core_App_Shared_Util#formatDate']; // function singleton

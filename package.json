@@ -28,6 +28,7 @@
     "@flancer32/teq_user": "github:flancer32/teq_user",
     "@teqfw/email": "github:teqfw/email",
     "@teqfw/i18n": "github:teqfw/i18n",
+    "vuex": "^4.0.0-rc.2",
     "mysql2": "*",
     "pg": "*"
   },

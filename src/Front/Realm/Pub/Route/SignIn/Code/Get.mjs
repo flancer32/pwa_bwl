@@ -16,19 +16,14 @@ const TIMEOUT = 3000;
  */
 function Factory(spec) {
     // EXTRACT DEPS
-    /** @type {Fl32_Bwl_Defaults} */
-    const DEF = spec['Fl32_Bwl_Defaults$']; // instance singleton
-    /** @type {Fl32_Teq_User_Front_App_Session} */
-    const session = spec[DEF.MOD_USER.DI_SESSION]; // named singleton
+    /** @type {Fl32_Teq_User_Front_Model_Session} */
+    const session = spec['Fl32_Teq_User_Front_Model_Session$']; // singleton
     /** @type {TeqFw_Core_App_Front_Widget_Layout_Centered} */
     const layoutCentered = spec['TeqFw_Core_App_Front_Widget_Layout_Centered$']; // vue comp tmpl
     /** @function {@type Fl32_Bwl_Front_Gate_Sign_In_Code_Send.gate} */
     const gateSend = spec['Fl32_Bwl_Front_Gate_Sign_In_Code_Send$']; // function singleton
     /** @type {typeof Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Send_Request} */
     const ReqSend = spec['Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Send#Request']; // class
-    /** @type {typeof Fl32_Teq_User_Shared_Api_Data_User} */
-    const DUser = spec['Fl32_Teq_User_Shared_Api_Data_User#']; // class
-    const {mapMutations, mapState} = spec[DEF.MOD_VUE.DI_VUEX];
 
     // DEFINE WORKING VARS
     const template = `
@@ -80,11 +75,6 @@ function Factory(spec) {
                 msg: null,
             };
         },
-        computed: {
-            ...mapState({
-                stateUserAuthenticated: state => state.user.authenticated,
-            })
-        },
         methods: {
             async onSubmit() {
                 this.loading = true;
@@ -105,16 +95,11 @@ function Factory(spec) {
                     this.fldEmail = null
                 }, TIMEOUT);
             },
-            ...mapMutations({
-                setStateUserAuthenticated: 'user/setAuthenticated',
-            }),
         },
         created() {
-            // get user data from session and save it to the app state
-            const user = session.getUser();
-            this.setStateUserAuthenticated(user);
+            debugger
             // redirect authenticated user to (default) route
-            if (user instanceof DUser) {
+            if (session.checkUserAuthenticated(this.$router)) {
                 const route = session.getRouteToRedirect();
                 this.$router.push(route);
             }

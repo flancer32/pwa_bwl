@@ -5,9 +5,6 @@
  * @return {Object}
  */
 function Fl32_Bwl_Front_Realm_Sign_State(spec) {
-    /** @type {Fl32_Teq_User_Front_State} */
-    const user = spec['Fl32_Teq_User_Front_State$'];   // singleton object
-
     return {
         namespaced: true,
         state: {
@@ -19,7 +16,7 @@ function Fl32_Bwl_Front_Realm_Sign_State(spec) {
                 target: 0,
             },
         },
-        modules: {user},
+        modules: {},
     };
 }
 

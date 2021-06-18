@@ -15,9 +15,6 @@ const NS = 'Fl32_Bwl_Front_Realm_Sign_Route_Up';
  */
 function Factory(spec) {
     // EXTRACT DEPS
-    /** @type {Fl32_Bwl_Defaults} */
-    const DEF = spec['Fl32_Bwl_Defaults$'];    // instance singleton
-    const {mapMutations, mapState} = spec[DEF.MOD_VUE.DI_VUEX];
     const {formatUtcTime, isEmpty} = spec['TeqFw_Core_App_Shared_Util']; // ES6 module destructing
     /** @type {Fl32_Bwl_Front_Realm_Sign_Widget_RegForm} */
     const regForm = spec['Fl32_Bwl_Front_Realm_Sign_Widget_RegForm$'];
@@ -89,15 +86,6 @@ function Factory(spec) {
                 result = formatUtcTime(time);
                 return result;
             },
-            ...mapState({
-                stateTitle: state => state.title,
-                stateUserAuthenticated: state => state.user.authenticated,
-            })
-        },
-        methods: {
-            ...mapMutations({
-                setStateUserAuthenticated: 'user/setAuthenticated',
-            }),
         },
         async mounted() {
             const me = this;

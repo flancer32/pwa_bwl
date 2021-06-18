@@ -76,22 +76,6 @@
                     });
                 }
 
-                /**
-                 * Init Vuex store and add it to Vue application.
-                 *
-                 * @param {Object} app
-                 * @param {TeqFw_Di_Container} container
-                 * @param {Fl32_Bwl_Defaults} DEF
-                 * @param {Object} Vuex
-                 */
-                async function initVuex(app, container, DEF, Vuex) {
-                    /** @type {Fl32_Bwl_Front_Realm_Sign_State} */
-                    const state = await container.get('Fl32_Bwl_Front_Realm_Sign_State$'); // object singleton
-                    const store = Vuex.createStore(state);
-                    container.set(DEF.MOD_CORE.DI_STORE, store);
-                    app.use(store);
-                }
-
                 // MAIN FUNCTIONALITY
 
                 // create vue application, init router, i18n, vuex, ...
@@ -105,7 +89,6 @@
                 result.use(self.Quasar, {config: {}});
                 self.Quasar.iconSet.set(self.Quasar.iconSet.svgMaterialIcons);
                 container.set(DEF.MOD_CORE.DI_QUASAR, self.Quasar);
-                await initVuex(result, container, DEF, self.Vuex);
                 return result;
             }
 
@@ -172,12 +155,10 @@
              * @param {Fl32_Bwl_Defaults} DEF
              */
             async function initSession(container, DEF) {
-                // setup session (load user permissions from server)
-                /** @type {Fl32_Teq_User_Front_App_Session} */
-                const session = await container.get('Fl32_Teq_User_Front_App_Session$'); // instance singleton
+                /** @type {Fl32_Teq_User_Front_Model_Session} */
+                const session = await container.get('Fl32_Teq_User_Front_Model_Session$'); // singleton
                 session.setRouteToSignIn(DEF.REALM_PUB_ROUTE_SIGN_IN_CODE_GET);
                 await session.init();
-                container.set(DEF.MOD_USER.DI_SESSION, session);    // TMP: put into container as singleton
             }
 
             // MAIN FUNCTIONALITY

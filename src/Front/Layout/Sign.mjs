@@ -19,7 +19,6 @@ function Factory(spec) {
     // EXTRACT DEPS
     /** @type {Fl32_Bwl_Defaults} */
     const DEF = spec['Fl32_Bwl_Defaults$'];
-    const {mapState} = spec[DEF.MOD_VUE.DI_VUEX];
     const {ref} = spec[DEF.MOD_VUE.DI_VUE];
 
     // DEFINE WORKING VARS
@@ -52,15 +51,6 @@ function Factory(spec) {
         name: NS,
         template,
         components: {},
-        computed: {
-            isAuthenticated() {
-                return this.stateUserAuthenticated !== null;
-            },
-            ...mapState({
-                stateTitle: state => state.title,
-                stateUserAuthenticated: state => state.user.authenticated,
-            })
-        },
         setup() {
             const leftDrawerOpen = ref(false);
             const rightDrawerOpen = ref(false);

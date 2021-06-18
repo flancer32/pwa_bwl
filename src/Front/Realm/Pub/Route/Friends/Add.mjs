@@ -15,10 +15,8 @@ const NS = 'Fl32_Bwl_Front_Realm_Pub_Route_Friends_Add';
  */
 function Factory(spec) {
     // EXTRACT DEPS
-    /** @type {Fl32_Bwl_Defaults} */
-    const DEF = spec['Fl32_Bwl_Defaults$'];    // instance singleton
-    /** @type {Fl32_Teq_User_Front_App_Session} */
-    const session = spec[DEF.MOD_USER.DI_SESSION];  // named singleton
+    /** @type {Fl32_Teq_User_Front_Model_Session} */
+    const session = spec['Fl32_Teq_User_Front_Model_Session$']; // singleton
     /** @function {@type Fl32_Bwl_Front_Gate_Friend_Link_Add.gate} */
     const gateAdd = spec['Fl32_Bwl_Front_Gate_Friend_Link_Add$']; // function singleton
     /** @type {typeof Fl32_Bwl_Shared_Service_Route_Friend_Link_Add.Request} */
