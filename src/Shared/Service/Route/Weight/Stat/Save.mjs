@@ -14,11 +14,13 @@ class Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save_Response {
 
 }
 
-class Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save_Types {
-    static CURRENT = 'current';
-    static START = 'start';
-    static TARGET = 'target';
-}
+class Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save_Types {}
+
+// static properties (compatible with Safari "< 14.1", "iOS < 14.5" form)
+Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save_Types.CURRENT = 'current';
+Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save_Types.START = 'start';
+Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save_Types.TARGET = 'target';
+
 
 export {
     Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save_Request as Request,

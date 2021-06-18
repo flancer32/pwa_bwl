@@ -7,7 +7,7 @@ import $path from 'path';
 import Container from '@teqfw/di';
 
 // TODO: should we have version as config parameter?
-const VERSION = '0.1.0';
+const VERSION = '0.11.0';
 
 /* Resolve paths to main folders */
 const url = new URL(import.meta.url);

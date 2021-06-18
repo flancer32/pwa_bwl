@@ -2,15 +2,6 @@
  * Group list item in services API.
  */
 class Fl32_Bwl_Shared_Service_Data_Profile {
-    static AGE = 'age';
-    static DATE_UPDATED = 'dateUpdated';
-    static HEIGHT = 'height';
-    static IS_FEMALE = 'isFemale';
-    static USER_ID = 'userId';
-    static WEIGHT_CURRENT = 'weightCurrent';
-    static WEIGHT_START = 'weightStart';
-    static WEIGHT_TARGET = 'weightTarget';
-
     age;
     dateUpdated;
     height;
@@ -21,6 +12,16 @@ class Fl32_Bwl_Shared_Service_Data_Profile {
     weightTarget;
 
 }
+
+// static properties (compatible with Safari "< 14.1", "iOS < 14.5" form)
+Fl32_Bwl_Shared_Service_Data_Profile.AGE = 'age';
+Fl32_Bwl_Shared_Service_Data_Profile.DATE_UPDATED = 'dateUpdated';
+Fl32_Bwl_Shared_Service_Data_Profile.HEIGHT = 'height';
+Fl32_Bwl_Shared_Service_Data_Profile.IS_FEMALE = 'isFemale';
+Fl32_Bwl_Shared_Service_Data_Profile.USER_ID = 'userId';
+Fl32_Bwl_Shared_Service_Data_Profile.WEIGHT_CURRENT = 'weightCurrent';
+Fl32_Bwl_Shared_Service_Data_Profile.WEIGHT_START = 'weightStart';
+Fl32_Bwl_Shared_Service_Data_Profile.WEIGHT_TARGET = 'weightTarget';
 
 Object.freeze(Fl32_Bwl_Shared_Service_Data_Profile);
 
