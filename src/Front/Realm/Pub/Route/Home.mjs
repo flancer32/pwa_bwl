@@ -33,8 +33,8 @@ function Factory(spec) {
     const topActions = spec[DEF.DI_TOP_ACTIONS]; // vue comp tmpl
     /** @function {@type Fl32_Teq_User_Front_Gate_Sign_Out.gate} */
     const gateSignOut = spec['Fl32_Teq_User_Front_Gate_Sign_Out$']; // function singleton
-    /** @type {typeof Fl32_Teq_User_Shared_Service_Route_Sign_Out.Request} */
-    const ReqSignOut = spec['Fl32_Teq_User_Shared_Service_Route_Sign_Out#Request']; // class
+    /** @type {Fl32_Teq_User_Shared_Service_Route_Sign_Out.Factory} */
+    const fSignOut = spec['Fl32_Teq_User_Shared_Service_Route_Sign_Out#Factory$']; // singleton
     /** @function {@type Fl32_Bwl_Front_Gate_Weight_History_List.gate} */
     const gateHistory = spec['Fl32_Bwl_Front_Gate_Weight_History_List$']; // function singleton
     /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_List.Factory} */
@@ -249,7 +249,7 @@ function Factory(spec) {
                 const actAdd = new Action();
                 actAdd.icon = 'logout';
                 actAdd.action = async function () {
-                    const req = new ReqSignOut();
+                    const req = fSignOut.createReq();
                     await gateSignOut(req);
                     self.location.reload();
                 };

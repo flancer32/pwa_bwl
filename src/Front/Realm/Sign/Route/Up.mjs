@@ -20,8 +20,8 @@ function Factory(spec) {
     const regForm = spec['Fl32_Bwl_Front_Realm_Sign_Widget_RegForm$'];
     /** @function {@type Fl32_Teq_User_Front_Gate_RefLink_Get.gate} */
     const gateGet = spec['Fl32_Teq_User_Front_Gate_RefLink_Get$']; // function singleton
-    /** @type {typeof Fl32_Teq_User_Shared_Service_Route_RefLink_Get.Request} */
-    const ReqGet = spec['Fl32_Teq_User_Shared_Service_Route_RefLink_Get#Request']; // class
+    /** @type { Fl32_Teq_User_Shared_Service_Route_RefLink_Get.Factory} */
+    const fGet = spec['Fl32_Teq_User_Shared_Service_Route_RefLink_Get#Factory$']; // singleton
 
     // DEFINE WORKING VARS
     const template = `
@@ -93,7 +93,7 @@ function Factory(spec) {
                 console.log('error');
             } else {
                 console.log(this.refCode);
-                const req = new ReqGet();
+                const req = fGet.createReq();
                 req.code = this.refCode;
                 /** @type {Fl32_Teq_User_Shared_Service_Route_RefLink_Get.Response} */
                 const res = await gateGet(req);

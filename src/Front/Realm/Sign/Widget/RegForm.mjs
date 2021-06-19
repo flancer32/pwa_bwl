@@ -26,12 +26,12 @@ function Factory(spec) {
     const {isEmpty} = spec['TeqFw_Core_App_Shared_Util']; // ES6 module destructing
     /** @function {@type Fl32_Teq_User_Front_Gate_Check_Existence.gate} */
     const gateCheckExist = spec['Fl32_Teq_User_Front_Gate_Check_Existence$']; // singleton function
-    /** @type {typeof Fl32_Teq_User_Shared_Service_Route_Check_Existence.Request} */
-    const ReqCheckExist = spec['Fl32_Teq_User_Shared_Service_Route_Check_Existence#Request']; // class
+    /** @type {Fl32_Teq_User_Shared_Service_Route_Check_Existence.Factory} */
+    const fCheckExist = spec['Fl32_Teq_User_Shared_Service_Route_Check_Existence#Factory$']; // singleton
     /** @function {@type Fl32_Bwl_Front_Gate_Sign_Up.gate} */
     const gateSignUp = spec['Fl32_Bwl_Front_Gate_Sign_Up$']; // function singleton
     /** @type {Fl32_Bwl_Shared_Service_Route_Sign_Up.Factory} */
-    const fSignUp = spec['Fl32_Bwl_Shared_Service_Route_Sign_Up#Factory']; // singleton
+    const fSignUp = spec['Fl32_Bwl_Shared_Service_Route_Sign_Up#Factory$']; // singleton
 
     // DEFINE WORKING VARS
     const template = `
@@ -202,7 +202,7 @@ function Factory(spec) {
              * Send request to server to check data existence.
              *
              * @param {String} value
-             * @param {String} type @see Fl32_Teq_User_Shared_Service_Route_Check_Existence_Request.TYPE_...
+             * @param {String} type @see Fl32_Teq_User_Shared_Service_Route_Check_Existence.Request.TYPE_...
              * @param {Boolean} fireError 'true' - error on exist (for `email`), 'false' - otherwise (for `refCode`)
              * @param {String} msg i18n-key for error message
              * @returns {Promise<void>}
@@ -214,7 +214,7 @@ function Factory(spec) {
                 const fn = async function () {
                     if (value) {
                         me.loading[type] = true;
-                        const req = new ReqCheckExist();
+                        const req = fCheckExist.createReq();
                         req.type = type;
                         req.value = value;
                         /** @type {Fl32_Teq_User_Shared_Service_Route_Check_Existence.Response} */
@@ -251,10 +251,10 @@ function Factory(spec) {
         },
         watch: {
             fldEmail(current) {
-                this.checkExistence(current, ReqCheckExist.TYPE_EMAIL, true, 'route.signUp.err.emailExists');
+                this.checkExistence(current, fCheckExist.TYPE_EMAIL, true, 'route.signUp.err.emailExists');
             },
             fldPhone(current) {
-                this.checkExistence(current, ReqCheckExist.TYPE_PHONE, true, 'route.signUp.err.phoneExists');
+                this.checkExistence(current, fCheckExist.TYPE_PHONE, true, 'route.signUp.err.phoneExists');
             },
         },
         emits: [EVT_SUBMIT],
