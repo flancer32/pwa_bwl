@@ -30,10 +30,10 @@ function Factory(spec) {
     const weight = spec['Fl32_Bwl_Front_Widget_Weight$']; // vue comp tmpl
     /** @type {Fl32_Bwl_Front_Gate_Weight_Stat_Save.gate} */
     const gate = spec['Fl32_Bwl_Front_Gate_Weight_Stat_Save$']; // function instance
-    /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save.Request} */
-    const Request = spec['Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save#Request']; // class
     /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save.Response} */
     const Response = spec['Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save#Response']; // class
+    /** @type {Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save.Factory} */
+    const factRoute = spec['Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save#Factory$']; // singleton
     /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save.Types} */
     const Types = spec['Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save#Types']; // class
     const {formatDate} = spec['Fl32_Bwl_Shared_Util']; // ES6 module destructing
@@ -120,7 +120,7 @@ function Factory(spec) {
             },
             async submit() {
                 const value = this.selectedWeight;
-                const req = new Request();
+                const req = factRoute.createReq();
                 req.date = this.date;
                 req.weight = value;
                 req.type = this.type;

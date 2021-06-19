@@ -37,12 +37,12 @@ function Factory(spec) {
     const ReqSignOut = spec['Fl32_Teq_User_Shared_Service_Route_Sign_Out#Request']; // class
     /** @function {@type Fl32_Bwl_Front_Gate_Weight_History_List.gate} */
     const gateHistory = spec['Fl32_Bwl_Front_Gate_Weight_History_List$']; // function singleton
-    /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_History_List.Request} */
-    const ReqHistory = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_List#Request']; // class
+    /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_List.Factory} */
+    const fHistory = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_List#Factory$']; // singleton
     /** @function {@type Fl32_Bwl_Front_Gate_Friend_List.gate} */
     const gateList = spec['Fl32_Bwl_Front_Gate_Friend_List$']; // function singleton
-    /** @type {typeof Fl32_Bwl_Shared_Service_Route_Friend_List.Request} */
-    const ReqList = spec['Fl32_Bwl_Shared_Service_Route_Friend_List#Request']; // class
+    /** @type {Fl32_Bwl_Shared_Service_Route_Friend_List.Factory} */
+    const fList = spec['Fl32_Bwl_Shared_Service_Route_Friend_List#Factory$']; // singleton
     /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.Item} */
     const Action = spec['Fl32_Bwl_Front_Layout_TopActions#Item']; // class
     /** @type {Fl32_Bwl_Front_Widget_Edit_Weight.vueCompTmpl} */
@@ -170,7 +170,7 @@ function Factory(spec) {
                 this.weightEdit = this.target;
             },
             async loadChartData() {
-                const req = new ReqHistory();
+                const req = fHistory.createReq();
                 req.dateFrom = this.dateFrom;
                 req.dateTo = this.dateTo;
                 req.friendId = this.dataSet?.value;
@@ -188,7 +188,7 @@ function Factory(spec) {
             },
             async loadOptsDataSet() {
                 const result = [{label: this.$t('route.home.dataSet.personal'), value: 0}];
-                const req = new ReqList();
+                const req = fList.createReq();
                 /** @type {Fl32_Bwl_Shared_Service_Route_Friend_List.Response} */
                 const res = await gateList(req);
                 if (res && Array.isArray(res.items)) {

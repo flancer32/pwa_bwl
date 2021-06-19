@@ -17,8 +17,8 @@ function Factory(spec) {
     const DEF = spec['Fl32_Bwl_Defaults$']; // instance singleton
     /** @type {TeqFw_Core_App_Front_Gate_Connect} */
     const backConnect = spec['TeqFw_Core_App_Front_Gate_Connect$']; // instance singleton
-    /** @type {typeof Fl32_Bwl_Shared_Service_Route_Friend_Link_Add.Response} */
-    const Response = spec['Fl32_Bwl_Shared_Service_Route_Friend_Link_Add#Response']; // class
+    /** @type {Fl32_Bwl_Shared_Service_Route_Friend_Link_Add.Factory} */
+    const factory = spec['Fl32_Bwl_Shared_Service_Route_Friend_Link_Add#Factory$']; // singleton
 
     // DEFINE INNER FUNCTIONS
     /**
@@ -29,9 +29,7 @@ function Factory(spec) {
     async function gate(data) {
         let result = false;
         const res = await backConnect.send(data, DEF.BACK_REALM, DEF.SERV_FRIEND_LINK_ADD);
-        if (res) {
-            result = Object.assign(new Response(), res);
-        }
+        if (res) result = factory.createRes(res);
         return result;
     }
 

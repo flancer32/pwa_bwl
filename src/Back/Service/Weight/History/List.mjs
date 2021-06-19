@@ -22,12 +22,8 @@ export default class Fl32_Bwl_Back_Service_Weight_History_List {
         } = spec['TeqFw_Core_App_Shared_Util']; // ES6 module
         /** @type {typeof TeqFw_Http2_Plugin_Handler_Service.Result} */
         const ApiResult = spec['TeqFw_Http2_Plugin_Handler_Service#Result']; // class
-        const {
-            /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_History_List.Request} */
-            Request,
-            /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_History_List.Response} */
-            Response
-        } = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_List']; // ES6 module
+        /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_List.Factory} */
+        const factRoute = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_List#Factory$']; // singleton
         /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat} */
         const EWeightStat = spec['Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat#']; // class
         /** @type {typeof Fl32_Bwl_Shared_Service_Dto_Weight_History_Item} */
@@ -54,7 +50,7 @@ export default class Fl32_Bwl_Back_Service_Weight_History_List {
              */
             function parse(context) {
                 const body = JSON.parse(context.body);
-                return Object.assign(new Request(), body.data); // clone HTTP body into API request object
+                return factRoute.createReq(body.data);
             }
 
             // COMPOSE RESULT
@@ -140,7 +136,8 @@ export default class Fl32_Bwl_Back_Service_Weight_History_List {
 
                 // MAIN FUNCTIONALITY
                 const result = new ApiResult();
-                result.response = new Response();
+                const response = factRoute.createRes();
+                result.response = response;
                 const trx = await rdb.startTransaction();
                 /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_List.Request} */
                 const apiReq = apiCtx.request;
@@ -149,7 +146,7 @@ export default class Fl32_Bwl_Back_Service_Weight_History_List {
                     /** @type {Fl32_Teq_User_Shared_Service_Dto_User} */
                     const user = shared[DEF.MOD_USER.HTTP_SHARE_CTX_USER];
                     if (user) {
-                        result.response.items = await selectItems(trx, user, apiReq);
+                       response.items = await selectItems(trx, user, apiReq);
                     } else {
                         result.headers[H2.HTTP2_HEADER_STATUS] = H2.HTTP_STATUS_UNAUTHORIZED;
                     }

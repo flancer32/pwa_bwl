@@ -23,12 +23,8 @@ class Fl32_Bwl_Back_Service_Sign_In_Code_Check {
         const rdb = spec['TeqFw_Core_App_Db_Connector$'];  // instance singleton
         /** @type {typeof TeqFw_Http2_Plugin_Handler_Service.Result} */
         const ApiResult = spec['TeqFw_Http2_Plugin_Handler_Service#Result']; // class
-        const {
-            /** @type {typeof Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Check.Request} */
-            Request,
-            /** @type {typeof Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Check.Response} */
-            Response
-        } = spec['Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Check']; // ES6 module destructing
+        /** @type {Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Check.Factory} */
+        const factRoute = spec['Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Check#Factory$']; // singleton
         /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Sign_In} */
         const ESignIn = spec['Fl32_Bwl_Back_Store_RDb_Schema_Sign_In#']; // class
         /** @function {@type TeqFw_Http2_Back_Util.cookieCreate} */
@@ -39,9 +35,6 @@ class Fl32_Bwl_Back_Service_Sign_In_Code_Check {
         const procCodeRemove = spec['Fl32_Bwl_Back_Process_Sign_In_Code_Remove$']; // function singleton
         /** @type {Fl32_Teq_User_Back_Process_Session_Open} */
         const procSessionOpen = spec['Fl32_Teq_User_Back_Process_Session_Open$']; // instance singleton
-
-
-        // DEFINE INNER FUNCTIONS
 
         // DEFINE INSTANCE METHODS
 
@@ -61,8 +54,7 @@ class Fl32_Bwl_Back_Service_Sign_In_Code_Check {
              */
             function parse(context) {
                 const body = JSON.parse(context.body);
-                // clone HTTP body into API request object
-                return Object.assign(new Request(), body.data);
+                return factRoute.createReq(body.data);
             }
 
             // COMPOSE RESULT
@@ -126,13 +118,12 @@ class Fl32_Bwl_Back_Service_Sign_In_Code_Check {
 
                 // MAIN FUNCTIONALITY
                 const result = new ApiResult();
-                const response = new Response();
+                const response = factRoute.createRes();
                 response.isSent = false;
                 result.response = response;
                 const trx = await rdb.startTransaction();
                 /** @type {Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Check.Request} */
                 const apiReq = apiCtx.request;
-                // const shared = apiCtx.sharedContext;
                 try {
                     const code = apiReq.code;
                     await procCodeCleanUp({trx});
@@ -156,8 +147,6 @@ class Fl32_Bwl_Back_Service_Sign_In_Code_Check {
             return service;
         };
     }
-
-    // DEFINE PROTO METHODS
 }
 
 export default Fl32_Bwl_Back_Service_Sign_In_Code_Check;

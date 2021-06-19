@@ -64,16 +64,16 @@ function Factory(spec) {
     const dsWeights = spec['Fl32_Bwl_Front_DataSource_Weight$']; // instance singleton
     /** @type {Fl32_Bwl_Front_Gate_Weight_History_List.gate} */
     const gateList = spec['Fl32_Bwl_Front_Gate_Weight_History_List$']; // function singleton
-    /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_History_List.Request} */
-    const ReqList = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_List#Request']; // class
+    /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_List.Factory} */
+    const fList = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_List#Factory$']; // singleton
     /** @type {Fl32_Bwl_Front_Gate_Weight_Stat_Save.gate} */
     const gateSave = spec['Fl32_Bwl_Front_Gate_Weight_Stat_Save$']; // function singleton
-    /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save.Request} */
-    const ReqSave = spec['Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save#Request']; // class
+    /** @type {Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save.Factory} */
+    const fSave = spec['Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save#Factory$']; // singleton
     /** @type {Fl32_Bwl_Front_Gate_Weight_History_Remove.gate} */
     const gateRemove = spec['Fl32_Bwl_Front_Gate_Weight_History_Remove$']; // function singleton
-    /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_History_Remove.Request} */
-    const ReqRemove = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_Remove#Request']; // class
+    /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_Remove.Factory} */
+    const fRemove = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_Remove#Factory$']; // singleton
     /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save.Types} */
     const TYPES = spec['Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save#Types'];
     const {formatDate} = spec['Fl32_Bwl_Shared_Util']; // ES6 module destructing
@@ -125,11 +125,11 @@ function Factory(spec) {
 
                 // MAIN FUNCTIONALITY
                 /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_List.Response} */
-                const res = await gateList(new ReqList());
+                const res = await gateList(fList.createReq());
                 this.rows = prepareItems(res.items);
             },
             async onEditHistoryRemove(date) {
-                const req = new ReqRemove();
+                const req = fRemove.createReq();
                 req.date = date;
                 const res = await gateRemove(req);
                 if (res) await this.loadHistory();
@@ -137,7 +137,7 @@ function Factory(spec) {
             async onEditHistorySubmit(date, weight) {
                 this.dateCurrent = date;
                 this.weightCurrent = weight;
-                const req = new ReqSave();
+                const req = fSave.createReq();
                 req.type = TYPES.CURRENT;
                 req.date = date;
                 req.weight = weight;

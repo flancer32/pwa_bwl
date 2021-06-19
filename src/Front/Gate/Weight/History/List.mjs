@@ -3,25 +3,31 @@
  * Use as "const gate = spec['Fl32_Bwl_Front_Gate_Weight_History_List$']".
  * @namespace Fl32_Bwl_Front_Gate_Weight_History_List
  */
-export default function Factory(spec) {
+// MODULE'S VARS
+const NS = 'Fl32_Bwl_Front_Gate_Weight_History_List';
+
+/**
+ * Factory to create frontend gate.
+ * @return function(Fl32_Ap_Shared_Service_Route_Profile_Get.Request): boolean
+ * @memberOf Fl32_Bwl_Front_Gate_Weight_History_List
+ */
+function Factory(spec) {
     /** @type {Fl32_Bwl_Defaults} */
     const DEF = spec['Fl32_Bwl_Defaults$'];    // instance singleton
     /** @type {TeqFw_Core_App_Front_Gate_Connect} */
     const backConnect = spec['TeqFw_Core_App_Front_Gate_Connect$']; // instance singleton
-    /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_History_List.Response} */
-    const Response = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_List#Response']; // class
+ /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_List.Factory} */
+    const factRoute = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_List#Factory$']; // singleton
 
     /**
      * @param {Fl32_Bwl_Shared_Service_Route_Weight_History_List.Request} data
-     * @returns {Promise<Fl32_Bwl_Shared_Service_Route_Weight_History_List.Response|TeqFw_Core_App_Front_Gate_Response_Error>}
+     * @returns {Promise<Fl32_Bwl_Shared_Service_Route_Weight_History_List.Response|boolean>}
      * @memberOf Fl32_Bwl_Front_Gate_Weight_History_List
      */
     async function gate(data) {
         let result = false;
         const res = await backConnect.send(data, DEF.BACK_REALM, DEF.SERV_WEIGHT_HISTORY_LIST);
-        if (res) {
-            result = Object.assign(new Response(), res);
-        }
+        if (res) result = factRoute.createRes(res);
         return result;
     }
 
@@ -29,3 +35,7 @@ export default function Factory(spec) {
     Object.defineProperty(gate, 'name', {value: 'Fl32_Bwl_Front_Gate_Weight_History_List.gate'});
     return gate;
 }
+
+// MODULE'S EXPORT
+Object.defineProperty(Factory, 'name', {value: `${NS}.${Factory.name}`});
+export default Factory;

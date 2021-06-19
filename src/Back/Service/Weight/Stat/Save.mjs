@@ -16,13 +16,11 @@ export default class Fl32_Bwl_Back_Service_Weight_Stat_Save {
         /** @type {typeof TeqFw_Http2_Plugin_Handler_Service.Result} */
         const ApiResult = spec['TeqFw_Http2_Plugin_Handler_Service#Result']; // class
         const {
-            /** @type {Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save.Request} */
-            Request,
-            /** @type {Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save.Response} */
-            Response,
             /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save.Types} */
             Types
         } = spec['Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save']; // ES6 module
+        /** @type {Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save.Factory} */
+        const factRoute = spec['Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save#Factory$']; // singleton
         /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat} */
         const EWeightStat = spec['Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat#']; // class
         /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Profile} */
@@ -48,7 +46,7 @@ export default class Fl32_Bwl_Back_Service_Weight_Stat_Save {
              */
             function parse(context) {
                 const body = JSON.parse(context.body);
-                return Object.assign(new Request(), body.data); // clone HTTP body into API request object
+                return factRoute.createReq(body.data);
             }
 
             // COMPOSE RESULT
@@ -93,7 +91,8 @@ export default class Fl32_Bwl_Back_Service_Weight_Stat_Save {
 
                 // MAIN FUNCTIONALITY
                 const result = new ApiResult();
-                result.response = new Response();
+                const response = factRoute.createRes();
+                result.response = response;
                 const trx = await rdb.startTransaction();
                 /** @type {Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save.Request} */
                 const apiReq = apiCtx.request;

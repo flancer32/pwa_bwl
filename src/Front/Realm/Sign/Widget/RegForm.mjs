@@ -30,8 +30,8 @@ function Factory(spec) {
     const ReqCheckExist = spec['Fl32_Teq_User_Shared_Service_Route_Check_Existence#Request']; // class
     /** @function {@type Fl32_Bwl_Front_Gate_Sign_Up.gate} */
     const gateSignUp = spec['Fl32_Bwl_Front_Gate_Sign_Up$']; // function singleton
-    /** @type {typeof Fl32_Bwl_Shared_Service_Route_Sign_Up.Request} */
-    const ReqSignUp = spec['Fl32_Bwl_Shared_Service_Route_Sign_Up#Request']; // class
+    /** @type {Fl32_Bwl_Shared_Service_Route_Sign_Up.Factory} */
+    const fSignUp = spec['Fl32_Bwl_Shared_Service_Route_Sign_Up#Factory']; // singleton
 
     // DEFINE WORKING VARS
     const template = `
@@ -233,7 +233,7 @@ function Factory(spec) {
             },
             async onSubmit() {
                 // code smell: we should return data to the parent component and process data from there
-                const req = new ReqSignUp();
+                const req = fSignUp.createReq();
                 req.refCode = this.refCode;
                 req.name = this.fldName;
                 req.email = this.fldEmail;

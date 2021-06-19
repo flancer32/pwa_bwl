@@ -22,12 +22,8 @@ class Fl32_Bwl_Back_Service_Friend_List {
         const rdb = spec['TeqFw_Core_App_Db_Connector$'];  // instance singleton
         /** @type {typeof TeqFw_Http2_Plugin_Handler_Service.Result} */
         const ApiResult = spec['TeqFw_Http2_Plugin_Handler_Service#Result']; // class
-        const {
-            /** @type {typeof Fl32_Bwl_Shared_Service_Route_Friend_List.Request} */
-            Request,
-            /** @type {typeof Fl32_Bwl_Shared_Service_Route_Friend_List.Response} */
-            Response
-        } = spec['Fl32_Bwl_Shared_Service_Route_Friend_List']; // ES6 module
+        /** @type {Fl32_Bwl_Shared_Service_Route_Friend_List.Factory} */
+        const factRoute = spec['Fl32_Bwl_Shared_Service_Route_Friend_List#Factory$']; // singleton
         /** @type {typeof Fl32_Bwl_Shared_Service_Dto_Friend_List_Item} */
         const DItem = spec['Fl32_Bwl_Shared_Service_Dto_Friend_List_Item#']; // class
         /** @function {@type Fl32_Bwl_Back_Store_RDb_Query_Friend_GetItems.queryBuilder} */
@@ -50,8 +46,7 @@ class Fl32_Bwl_Back_Service_Friend_List {
              */
             function parse(context) {
                 const body = JSON.parse(context.body);
-                // clone HTTP body into API request object
-                return Object.assign(new Request(), body.data);
+                return factRoute.createReq(body.data);
             }
 
             // COMPOSE RESULT
@@ -102,10 +97,8 @@ class Fl32_Bwl_Back_Service_Friend_List {
 
                 // MAIN FUNCTIONALITY
                 const result = new ApiResult();
-                const response = new Response();
+                const response = factRoute.createRes();
                 result.response = response;
-                // /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_Remove.Request} */
-                // const apiReq = apiCtx.request;
                 const shared = apiCtx.sharedContext;
                 /** @type {Fl32_Teq_User_Shared_Service_Dto_User} */
                 const user = shared[DEF.MOD_USER.HTTP_SHARE_CTX_USER];

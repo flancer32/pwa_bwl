@@ -14,13 +14,11 @@ const NS = 'Fl32_Bwl_Front_Gate_Friend_Link_Code_Create';
 function Factory(spec) {
     // EXTRACT DEPS
     /** @type {Fl32_Bwl_Defaults} */
-    const DEF = spec['Fl32_Bwl_Defaults$']; // instance singleton
+    const DEF = spec['Fl32_Bwl_Defaults$']; // singleton
     /** @type {TeqFw_Core_App_Front_Gate_Connect} */
-    const backConnect = spec['TeqFw_Core_App_Front_Gate_Connect$']; // instance singleton
-    /** @type {typeof Fl32_Bwl_Shared_Service_Route_Friend_Link_Code_Create.Response} */
-    const Response = spec['Fl32_Bwl_Shared_Service_Route_Friend_Link_Code_Create#Response']; // class
-    /** @type {typeof Fl32_Bwl_Shared_Service_Dto_Friend_Link} */
-    const DLink = spec['Fl32_Bwl_Shared_Service_Dto_Friend_Link#']; // class
+    const backConnect = spec['TeqFw_Core_App_Front_Gate_Connect$']; // singleton
+    /** @type {Fl32_Bwl_Shared_Service_Route_Friend_Link_Code_Create.Factory} */
+    const factory = spec['Fl32_Bwl_Shared_Service_Route_Friend_Link_Code_Create#Factory$']; // singleton
 
     // DEFINE INNER FUNCTIONS
     /**
@@ -31,11 +29,7 @@ function Factory(spec) {
     async function gate(data) {
         let result = false;
         const res = await backConnect.send(data, DEF.BACK_REALM, DEF.SERV_FRIEND_LINK_CODE_CREATE);
-        if (res) {
-            result = Object.assign(new Response(), res);
-            result.link = Object.assign(new DLink(), result.link);
-            result.link.dateExpired = new Date(result.link.dateExpired);
-        }
+        if (res) result = factory.createRes(res);
         return result;
     }
 
@@ -44,8 +38,6 @@ function Factory(spec) {
     return gate;
 }
 
-// MODULE'S FUNCTIONALITY
-Object.defineProperty(Factory, 'name', {value: `${NS}.${Factory.name}`});
-
 // MODULE'S EXPORT
+Object.defineProperty(Factory, 'name', {value: `${NS}.${Factory.name}`});
 export default Factory;

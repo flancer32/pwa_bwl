@@ -17,10 +17,8 @@ function Factory(spec) {
     const DEF = spec['Fl32_Bwl_Defaults$']; // instance singleton
     /** @type {TeqFw_Core_App_Front_Gate_Connect} */
     const backConnect = spec['TeqFw_Core_App_Front_Gate_Connect$']; // instance singleton
-    /** @type {typeof Fl32_Bwl_Shared_Service_Route_Friend_List.Response} */
-    const Response = spec['Fl32_Bwl_Shared_Service_Route_Friend_List#Response']; // class
-    /** @type {typeof Fl32_Bwl_Shared_Service_Dto_Friend_List_Item} */
-    const DItem = spec['Fl32_Bwl_Shared_Service_Dto_Friend_List_Item#']; //class
+    /** @type {Fl32_Bwl_Shared_Service_Route_Friend_List.Factory} */
+    const factory = spec['Fl32_Bwl_Shared_Service_Route_Friend_List#Factory$']; // singleton
 
     // DEFINE INNER FUNCTIONS
     /**
@@ -31,18 +29,7 @@ function Factory(spec) {
     async function gate(data) {
         let result = false;
         const res = await backConnect.send(data, DEF.BACK_REALM, DEF.SERV_FRIEND_LIST);
-        if (res) {
-            result = new Response();
-            result.items = [];
-            if (Array.isArray(res.items)) {
-                for (const one of res.items) {
-                    /** @type {Fl32_Bwl_Shared_Service_Dto_Friend_List_Item} */
-                    const item = Object.assign(new DItem(), one);
-                    item.dateStarted = new Date(item.dateStarted);
-                    result.items.push(item);
-                }
-            }
-        }
+        if (res) result = factory.createRes(res);
         return result;
     }
 
@@ -51,8 +38,6 @@ function Factory(spec) {
     return gate;
 }
 
-// MODULE'S FUNCTIONALITY
-Object.defineProperty(Factory, 'name', {value: `${NS}.${Factory.name}`});
-
 // MODULE'S EXPORT
+Object.defineProperty(Factory, 'name', {value: `${NS}.${Factory.name}`});
 export default Factory;

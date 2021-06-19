@@ -21,8 +21,9 @@ function Factory(spec) {
     const layoutCentered = spec['TeqFw_Core_App_Front_Widget_Layout_Centered$']; // vue comp tmpl
     /** @function {@type Fl32_Bwl_Front_Gate_Sign_In_Code_Check.gate} */
     const gate = spec['Fl32_Bwl_Front_Gate_Sign_In_Code_Check$']; // function singleton
-    /** @type {typeof Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Check.Request} */
-    const Req = spec['Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Check#Request']; // class
+    /** @type {Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Check.Factory} */
+    const factRoute = spec['Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Check#Factory$']; // singleton
+
 
     // DEFINE WORKING VARS
     const template = `
@@ -54,7 +55,7 @@ function Factory(spec) {
             code: String,
         },
         async mounted() {
-            const req = new Req();
+            const req = factRoute.createReq();
             req.code = this.code;
             /** @type {Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Check.Response} */
             const res = await gate(req);

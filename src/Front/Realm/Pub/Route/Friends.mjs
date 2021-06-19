@@ -34,17 +34,17 @@ function Factory(spec) {
     /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.Item} */
     const Action = spec['Fl32_Bwl_Front_Layout_TopActions#Item']; // class
     /** @function {@type Fl32_Bwl_Front_Gate_Friend_Link_Code_Create.gate} */
-    const gateCodeCreate = spec['Fl32_Bwl_Front_Gate_Friend_Link_Code_Create$']; // function singleton
-    /** @type {typeof Fl32_Bwl_Shared_Service_Route_Friend_Link_Code_Create.Request} */
-    const ReqCodeCreate = spec['Fl32_Bwl_Shared_Service_Route_Friend_Link_Code_Create#Request']; // class
+    const gateCodeCreate = spec['Fl32_Bwl_Front_Gate_Friend_Link_Code_Create$']; // singleton
+    /** @type {Fl32_Bwl_Shared_Service_Route_Friend_Link_Code_Create.Factory} */
+    const fCodeCreate = spec['Fl32_Bwl_Shared_Service_Route_Friend_Link_Code_Create#Factory$']; // singleton
     /** @function {@type Fl32_Teq_User_Front_Gate_RefLink_Create.gate} */
     const gateRefLinkCreate = spec['Fl32_Teq_User_Front_Gate_RefLink_Create$']; // function singleton
     /** @type {typeof Fl32_Teq_User_Shared_Service_Route_RefLink_Create.Request} */
     const ReqRefLinkCreate = spec['Fl32_Teq_User_Shared_Service_Route_RefLink_Create#Request']; // class
     /** @function {@type Fl32_Bwl_Front_Gate_Friend_List.gate} */
     const gateList = spec['Fl32_Bwl_Front_Gate_Friend_List$']; // function singleton
-    /** @type {typeof Fl32_Bwl_Shared_Service_Route_Friend_List.Request} */
-    const ReqList = spec['Fl32_Bwl_Shared_Service_Route_Friend_List#Request']; // class
+    /** @type {Fl32_Bwl_Shared_Service_Route_Friend_List.Factory} */
+    const fList = spec['Fl32_Bwl_Shared_Service_Route_Friend_List#Factory$']; // singleton
     /** @type {typeof Fl32_Bwl_Shared_Service_Dto_Friend_List_Item} */
     const DItem = spec['Fl32_Bwl_Shared_Service_Dto_Friend_List_Item#']; //class
 
@@ -107,7 +107,7 @@ function Factory(spec) {
                  * Generate and share link to add new friendship relation.
                  */
                 async function addFriend() {
-                    const req = new ReqCodeCreate();
+                    const req = new fCodeCreate.createReq();
                     /** @type {Fl32_Bwl_Shared_Service_Route_Friend_Link_Code_Create.Response} */
                     const res = await gateCodeCreate(req);
                     const code = res.link.code;
@@ -210,7 +210,7 @@ function Factory(spec) {
             async function loadItems() {
                 me.loading = true;
                 const result = [];
-                const req = new ReqList();
+                const req = fList.createReq();
                 const res = await gateList(req);
                 if (res) result.push(...res.items);
                 me.loading = false;

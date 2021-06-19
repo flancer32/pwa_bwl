@@ -13,20 +13,19 @@ function Factory(spec) {
     const DEF = spec['Fl32_Bwl_Defaults$'];    // instance singleton
     /** @type {TeqFw_Core_App_Front_Gate_Connect} */
     const backConnect = spec['TeqFw_Core_App_Front_Gate_Connect$']; // instance singleton
-    /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save.Response} */
-    const Response = spec['Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save#Response']; // class
+    /** @type {Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save.Factory} */
+    const factRoute = spec['Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save#Factory$']; // singleton
+
 
     /**
      * @param {Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save.Request} data
-     * @returns {Promise<Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save.Response|TeqFw_Core_App_Front_Gate_Response_Error>}
+     * @returns {Promise<Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save.Response|boolean>}
      * @memberOf Fl32_Bwl_Front_Gate_Weight_Stat_Save
      */
     async function gate(data) {
         let result = false;
         const res = await backConnect.send(data, DEF.BACK_REALM, DEF.SERV_WEIGHT_STAT_SAVE);
-        if (res) {
-            result = Object.assign(new Response(), res);
-        }
+        if (res) result = factRoute.createRes(res);
         return result;
     }
 
@@ -35,8 +34,6 @@ function Factory(spec) {
     return gate;
 }
 
-// MODULE'S FUNCTIONALITY
-Object.defineProperty(Factory, 'name', {value: `${NS}.${Factory.name}`});
-
 // MODULE'S EXPORT
+Object.defineProperty(Factory, 'name', {value: `${NS}.${Factory.name}`});
 export default Factory;

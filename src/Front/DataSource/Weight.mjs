@@ -56,9 +56,5 @@ class Fl32_Bwl_Front_DataSource_Weight {
 
 }
 
-// MODULE'S FUNCTIONS
-
-// MODULE'S FUNCTIONALITY
-
 // MODULE'S EXPORT
 export default Fl32_Bwl_Front_DataSource_Weight;

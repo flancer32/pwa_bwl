@@ -13,12 +13,8 @@ export default class Fl32_Bwl_Back_Service_Profile_Get {
         const rdb = spec['TeqFw_Core_App_Db_Connector$'];  // instance singleton
         /** @type {typeof TeqFw_Http2_Plugin_Handler_Service.Result} */
         const ApiResult = spec['TeqFw_Http2_Plugin_Handler_Service#Result']; // class
-        const {
-            /** @type {Fl32_Bwl_Shared_Service_Route_Profile_Get.Request} */
-            Request,
-            /** @type {Fl32_Bwl_Shared_Service_Route_Profile_Get.Response} */
-            Response
-        } = spec['Fl32_Bwl_Shared_Service_Route_Profile_Get']; // ES6 module
+        /** @type {Fl32_Bwl_Shared_Service_Route_Profile_Get.Factory} */
+        const factRoute = spec['Fl32_Bwl_Shared_Service_Route_Profile_Get#Factory$']; // singleton
         /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Profile} */
         const EProfile = spec['Fl32_Bwl_Back_Store_RDb_Schema_Profile#']; // class
         /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat} */
@@ -44,7 +40,7 @@ export default class Fl32_Bwl_Back_Service_Profile_Get {
              */
             function parse(context) {
                 const body = JSON.parse(context.body);
-                return Object.assign(new Request(), body.data); // clone HTTP body into API request object
+                return factRoute.createReq(body.data);
             }
 
             // COMPOSE RESULT
@@ -112,10 +108,8 @@ export default class Fl32_Bwl_Back_Service_Profile_Get {
                 // MAIN FUNCTIONALITY
                 const result = new ApiResult();
                 /** @type {Fl32_Bwl_Shared_Service_Route_Profile_Get.Response} */
-                const response = new Response();
+                const response = factRoute.createRes();
                 const trx = await rdb.startTransaction();
-                // /** @type {Fl32_Bwl_Shared_Service_Route_Profile_Get.Request} */
-                // const apiReq = apiCtx.request;
                 const shared = apiCtx.sharedContext;
                 try {
                     /** @type {Fl32_Teq_User_Shared_Service_Dto_User} */

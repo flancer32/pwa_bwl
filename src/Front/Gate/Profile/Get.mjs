@@ -3,25 +3,31 @@
  * Use as "const gate = spec['Fl32_Bwl_Front_Gate_Profile_Get$']".
  * @namespace Fl32_Bwl_Front_Gate_Profile_Get
  */
-export default function Factory(spec) {
+// MODULE'S VARS
+const NS = 'Fl32_Bwl_Front_Gate_Profile_Get';
+
+/**
+ * Factory to create frontend gate.
+ * @return function(Fl32_Ap_Shared_Service_Route_Profile_Get.Request): boolean
+ * @memberOf Fl32_Bwl_Front_Gate_Profile_Get
+ */
+function Factory(spec) {
     /** @type {Fl32_Bwl_Defaults} */
     const DEF = spec['Fl32_Bwl_Defaults$'];    // instance singleton
     /** @type {TeqFw_Core_App_Front_Gate_Connect} */
     const backConnect = spec['TeqFw_Core_App_Front_Gate_Connect$']; // instance singleton
-    /** @type {typeof Fl32_Bwl_Shared_Service_Route_Profile_Get.Response} */
-    const Response = spec['Fl32_Bwl_Shared_Service_Route_Profile_Get#Response']; // class
+    /** @type {Fl32_Bwl_Shared_Service_Route_Profile_Get.Factory} */
+    const factory = spec['Fl32_Bwl_Shared_Service_Route_Profile_Get#Factory$']; // singleton
 
     /**
      * @param {Fl32_Bwl_Shared_Service_Route_Profile_Get.Request} data
-     * @returns {Promise<Fl32_Bwl_Shared_Service_Route_Profile_Get.Response|TeqFw_Core_App_Front_Gate_Response_Error>}
+     * @returns {Promise<Fl32_Bwl_Shared_Service_Route_Profile_Get.Response|boolean>}
      * @memberOf Fl32_Bwl_Front_Gate_Profile_Get
      */
     async function gate(data) {
-        let result = new Response();
+        let result = false;
         const res = await backConnect.send(data, DEF.BACK_REALM, DEF.SERV_PROFILE_GET);
-        if (res) {
-            Object.assign(result, res);
-        }
+        if (res) result = factory.createRes(res);
         return result;
     }
 
@@ -29,3 +35,7 @@ export default function Factory(spec) {
     Object.defineProperty(gate, 'name', {value: 'Fl32_Bwl_Front_Gate_Profile_Get.gate'});
     return gate;
 }
+
+// MODULE'S EXPORT
+Object.defineProperty(Factory, 'name', {value: `${NS}.${Factory.name}`});
+export default Factory;

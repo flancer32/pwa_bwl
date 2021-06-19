@@ -19,8 +19,8 @@ function Factory(spec) {
     const session = spec['Fl32_Teq_User_Front_Model_Session$']; // singleton
     /** @function {@type Fl32_Bwl_Front_Gate_Friend_Link_Add.gate} */
     const gateAdd = spec['Fl32_Bwl_Front_Gate_Friend_Link_Add$']; // function singleton
-    /** @type {typeof Fl32_Bwl_Shared_Service_Route_Friend_Link_Add.Request} */
-    const ReqAdd = spec['Fl32_Bwl_Shared_Service_Route_Friend_Link_Add#Request']; // class
+    /** @type {Fl32_Bwl_Shared_Service_Route_Friend_Link_Add.Factory} */
+    const fAdd = spec['Fl32_Bwl_Shared_Service_Route_Friend_Link_Add#Factory$']; // singleton
 
     // DEFINE WORKING VARS
     const template = `
@@ -57,7 +57,7 @@ function Factory(spec) {
         },
         async mounted() {
             if (await session.checkUserAuthenticated(this.$router)) {
-                const req = new ReqAdd();
+                const req =  fAdd.createReq();
                 req.code = this.code;
                 /** @type {Fl32_Bwl_Shared_Service_Route_Friend_Link_Add.Response} */
                 const res = await gateAdd(req);

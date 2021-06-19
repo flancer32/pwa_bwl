@@ -47,7 +47,7 @@ class Factory {
          */
         this.createRes = function (data = null) {
             const res = new Response();
-            res.profile = (data?.profile instanceof DProfile) ? data.profile : fProfile.create(data.profile);
+            res.profile = (data?.profile instanceof DProfile) ? data.profile : fProfile.create(data?.profile);
             return res;
         }
     }

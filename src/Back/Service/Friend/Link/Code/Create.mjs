@@ -22,12 +22,8 @@ class Fl32_Bwl_Back_Service_Friend_Link_Code_Create {
         const rdb = spec['TeqFw_Core_App_Db_Connector$'];  // instance singleton
         /** @type {typeof TeqFw_Http2_Plugin_Handler_Service.Result} */
         const ApiResult = spec['TeqFw_Http2_Plugin_Handler_Service#Result']; // class
-        const {
-            /** @type {typeof Fl32_Bwl_Shared_Service_Route_Friend_Link_Code_Create.Request} */
-            Request,
-            /** @type {typeof Fl32_Bwl_Shared_Service_Route_Friend_Link_Code_Create.Response} */
-            Response
-        } = spec['Fl32_Bwl_Shared_Service_Route_Friend_Link_Code_Create']; // ES6 module
+        /** @type {Fl32_Bwl_Shared_Service_Route_Friend_Link_Code_Create.Factory} */
+        const factRoute = spec['Fl32_Bwl_Shared_Service_Route_Friend_Link_Code_Create#Factory$']; // singleton
         /** @type {typeof Fl32_Bwl_Shared_Service_Dto_Friend_Link} */
         const DLink = spec['Fl32_Bwl_Shared_Service_Dto_Friend_Link#']; // class
         /** @function {@type Fl32_Bwl_Back_Process_Friend_Link_Code_CleanUp.process} */
@@ -52,8 +48,7 @@ class Fl32_Bwl_Back_Service_Friend_Link_Code_Create {
              */
             function parse(context) {
                 const body = JSON.parse(context.body);
-                // clone HTTP body into API request object
-                return Object.assign(new Request(), body.data);
+                return factRoute.createReq(body.data);
             }
 
             // COMPOSE RESULT
@@ -73,14 +68,10 @@ class Fl32_Bwl_Back_Service_Friend_Link_Code_Create {
              * @memberOf Fl32_Bwl_Back_Service_Friend_Link_Code_Create
              */
             async function service(apiCtx) {
-                // DEFINE INNER FUNCTIONS
-
                 // MAIN FUNCTIONALITY
                 const result = new ApiResult();
-                const response = new Response();
+                const response = factRoute.createRes();
                 result.response = response;
-                // /** @type {Fl32_Bwl_Shared_Service_Route_Friend_Link_Code_Create.Request} */
-                // const apiReq = apiCtx.request;
                 const shared = apiCtx.sharedContext;
                 /** @type {Fl32_Teq_User_Shared_Service_Dto_User} */
                 const user = shared[DEF.MOD_USER.HTTP_SHARE_CTX_USER];

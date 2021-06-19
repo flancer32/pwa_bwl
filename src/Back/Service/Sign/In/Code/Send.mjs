@@ -20,12 +20,8 @@ class Fl32_Bwl_Back_Service_Sign_In_Code_Send {
         const rdb = spec['TeqFw_Core_App_Db_Connector$'];  // instance singleton
         /** @type {typeof TeqFw_Http2_Plugin_Handler_Service.Result} */
         const ApiResult = spec['TeqFw_Http2_Plugin_Handler_Service#Result']; // class
-        const {
-            /** @type {typeof Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Send.Request} */
-            Request,
-            /** @type {typeof Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Send.Response} */
-            Response
-        } = spec['Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Send']; // ES6 module
+        /** @type {Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Send.Factory} */
+        const factRoute = spec['Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Send#Factory$']; // singleton
         /** @function {@type Fl32_Bwl_Back_Process_Sign_In_Code_Create.process} */
         const procCreate = spec['Fl32_Bwl_Back_Process_Sign_In_Code_Create$']; // function singleton
         /** @function {@type Fl32_Bwl_Back_Process_Sign_In_Code_CleanUp.process} */
@@ -54,8 +50,7 @@ class Fl32_Bwl_Back_Service_Sign_In_Code_Send {
              */
             function parse(context) {
                 const body = JSON.parse(context.body);
-                // clone HTTP body into API request object
-                return Object.assign(new Request(), body.data);
+                return factRoute.createReq(body.data);
             }
 
             // COMPOSE RESULT
@@ -80,7 +75,7 @@ class Fl32_Bwl_Back_Service_Sign_In_Code_Send {
 
                 // MAIN FUNCTIONALITY
                 const result = new ApiResult();
-                const response = new Response();
+                const response = factRoute.createRes();
                 response.isSent = false;
                 result.response = response;
                 const trx = await rdb.startTransaction();

@@ -26,12 +26,8 @@ export default class Fl32_Bwl_Back_Service_Weight_History_Remove {
         } = spec['TeqFw_Core_App_Shared_Util']; // ES6 module destructing
         /** @type {typeof TeqFw_Http2_Plugin_Handler_Service.Result} */
         const ApiResult = spec['TeqFw_Http2_Plugin_Handler_Service#Result']; // class
-        const {
-            /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_History_Remove.Request} */
-            Request,
-            /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_History_Remove.Response} */
-            Response
-        } = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_Remove']; // ES6 module
+        /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_Remove.Factory} */
+        const factRoute = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_Remove#Factory$']; // singleton
         /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat} */
         const EWeightStat = spec['Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat#']; // class
 
@@ -53,10 +49,7 @@ export default class Fl32_Bwl_Back_Service_Weight_History_Remove {
              */
             function parse(context) {
                 const body = JSON.parse(context.body);
-                /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_Remove.Request} */
-                const result = Object.assign(new Request(), body.data); // clone HTTP body into API request object
-                result.date = new Date(result.date);
-                return result;
+                return factRoute.createReq(body.data);
             }
 
             // COMPOSE RESULT
@@ -87,7 +80,7 @@ export default class Fl32_Bwl_Back_Service_Weight_History_Remove {
 
                 // MAIN FUNCTIONALITY
                 const result = new ApiResult();
-                const response = new Response();
+                const response = factRoute.createRes();
                 result.response = response;
                 const trx = await rdb.startTransaction();
                 /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_Remove.Request} */

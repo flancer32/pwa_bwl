@@ -29,12 +29,8 @@ class Fl32_Bwl_Back_Service_Sign_Up {
             /** @function {typeof TeqFw_Http2_Back_Util.cookieCreate} */
             cookieCreate
         } = spec['TeqFw_Http2_Back_Util']; // ES6 module destructing
-        const {
-            /** @type {typeof Fl32_Bwl_Shared_Service_Route_Sign_Up.Request} */
-            Request,
-            /** @type {typeof Fl32_Bwl_Shared_Service_Route_Sign_Up.Response} */
-            Response
-        } = spec['Fl32_Bwl_Shared_Service_Route_Sign_Up']; // ES6 module
+        /** @type {Fl32_Bwl_Shared_Service_Route_Sign_Up.Factory} */
+        const factRoute = spec['Fl32_Bwl_Shared_Service_Route_Sign_Up#Factory$']; // singleton
         /** @function {@type Fl32_Teq_User_Back_Process_Referral_Link_CleanUp.process} */
         const procRefCleanUp = spec['Fl32_Teq_User_Back_Process_Referral_Link_CleanUp$']; // function singleton
         /** @function {@type Fl32_Teq_User_Back_Process_Referral_Link_Get.process} */
@@ -76,10 +72,7 @@ class Fl32_Bwl_Back_Service_Sign_Up {
              */
             function parse(context) {
                 const body = JSON.parse(context.body);
-                /** @type {Fl32_Bwl_Shared_Service_Route_Sign_Up.Request} */
-                const result = Object.assign(new Request(), body.data); // clone HTTP body into API request object
-                result.date = new Date(result.date);
-                return result;
+                return factRoute.createReq(body.data);
             }
 
             // COMPOSE RESULT
@@ -158,7 +151,7 @@ class Fl32_Bwl_Back_Service_Sign_Up {
 
                 // MAIN FUNCTIONALITY
                 const result = new ApiResult();
-                const response = new Response();
+                const response = factRoute.createRes();
                 result.response = response;
                 const trx = await rdb.startTransaction();
                 /** @type {Fl32_Bwl_Shared_Service_Route_Sign_Up.Request} */

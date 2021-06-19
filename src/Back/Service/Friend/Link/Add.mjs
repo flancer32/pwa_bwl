@@ -24,12 +24,8 @@ class Fl32_Bwl_Back_Service_Friend_Link_Add {
         const logger = spec['TeqFw_Core_App_Logger$'];  // instance singleton
         /** @type {typeof TeqFw_Http2_Plugin_Handler_Service.Result} */
         const ApiResult = spec['TeqFw_Http2_Plugin_Handler_Service#Result']; // class
-        const {
-            /** @type {typeof Fl32_Bwl_Shared_Service_Route_Friend_Link_Add.Request} */
-            Request,
-            /** @type {typeof Fl32_Bwl_Shared_Service_Route_Friend_Link_Add.Response} */
-            Response
-        } = spec['Fl32_Bwl_Shared_Service_Route_Friend_Link_Add']; // ES6 module
+        /** @type {Fl32_Bwl_Shared_Service_Route_Friend_Link_Add.Factory} */
+        const factRoute = spec['Fl32_Bwl_Shared_Service_Route_Friend_Link_Add#Factory$']; // singleton
         /** @function {@type Fl32_Bwl_Back_Process_Friend_Link_Code_CleanUp.process} */
         const procCleanUp = spec['Fl32_Bwl_Back_Process_Friend_Link_Code_CleanUp$']; // function singleton
         /** @function {@type Fl32_Bwl_Back_Process_Friend_Link_Code_Get.process } */
@@ -56,8 +52,7 @@ class Fl32_Bwl_Back_Service_Friend_Link_Add {
              */
             function parse(context) {
                 const body = JSON.parse(context.body);
-                // clone HTTP body into API request object
-                return Object.assign(new Request(), body.data);
+                return factRoute.createReq(body.data);
             }
 
             // COMPOSE RESULT
@@ -81,7 +76,7 @@ class Fl32_Bwl_Back_Service_Friend_Link_Add {
 
                 // MAIN FUNCTIONALITY
                 const result = new ApiResult();
-                const response = new Response();
+                const response = factRoute.createRes();
                 result.response = response;
                 /** @type {Fl32_Bwl_Shared_Service_Route_Friend_Link_Add.Request} */
                 const apiReq = apiCtx.request;

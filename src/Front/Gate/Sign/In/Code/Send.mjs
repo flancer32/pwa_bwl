@@ -14,22 +14,20 @@ function Factory(spec) {
     const DEF = spec['Fl32_Bwl_Defaults$'];    // instance singleton
     /** @type {TeqFw_Core_App_Front_Gate_Connect} */
     const backConnect = spec['TeqFw_Core_App_Front_Gate_Connect$']; // instance singleton
-    /** @type {typeof Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Send.Response} */
-    const Response = spec['Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Send#Response']; // class constructor
+    /** @type {Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Send.Factory} */
+    const factRoute = spec['Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Send#Factory$']; // singleton
 
     /**
      * Frontend gate to 'Send one-time sign-in code' service.
      *
      * @param {Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Send.Request} data
-     * @returns {Promise<Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Send.Response|TeqFw_Core_App_Front_Gate_Response_Error>}
+     * @returns {Promise<Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Send.Response|boolean>}
      * @memberOf Fl32_Bwl_Front_Gate_Sign_In_Code_Send
      */
     async function gate(data) {
         let result = false;
         const res = await backConnect.send(data, DEF.BACK_REALM, DEF.SERV_SIGN_IN_CODE_SEND);
-        if (res) {
-            result = Object.assign(new Response(), res);
-        }
+        if (res) result = factRoute.createRes(res);
         return result;
     }
 
@@ -38,8 +36,6 @@ function Factory(spec) {
     return gate;
 }
 
-// MODULE'S FUNCTIONALITY
-Object.defineProperty(Factory, 'name', {value: `${NS}.${Factory.name}`});
-
 // MODULE'S EXPORT
+Object.defineProperty(Factory, 'name', {value: `${NS}.${Factory.name}`});
 export default Factory;
