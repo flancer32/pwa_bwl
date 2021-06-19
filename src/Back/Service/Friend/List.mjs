@@ -28,8 +28,8 @@ class Fl32_Bwl_Back_Service_Friend_List {
             /** @type {typeof Fl32_Bwl_Shared_Service_Route_Friend_List.Response} */
             Response
         } = spec['Fl32_Bwl_Shared_Service_Route_Friend_List']; // ES6 module
-        /** @type {typeof Fl32_Bwl_Shared_Service_Data_Friend_List_Item} */
-        const DItem = spec['Fl32_Bwl_Shared_Service_Data_Friend_List_Item#']; // class
+        /** @type {typeof Fl32_Bwl_Shared_Service_Dto_Friend_List_Item} */
+        const DItem = spec['Fl32_Bwl_Shared_Service_Dto_Friend_List_Item#']; // class
         /** @function {@type Fl32_Bwl_Back_Store_RDb_Query_Friend_GetItems.queryBuilder} */
         const qGetItems = spec['Fl32_Bwl_Back_Store_RDb_Query_Friend_GetItems$']; // function singleton
 
@@ -107,7 +107,7 @@ class Fl32_Bwl_Back_Service_Friend_List {
                 // /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_Remove.Request} */
                 // const apiReq = apiCtx.request;
                 const shared = apiCtx.sharedContext;
-                /** @type {Fl32_Teq_User_Shared_Dto_User} */
+                /** @type {Fl32_Teq_User_Shared_Service_Dto_User} */
                 const user = shared[DEF.MOD_USER.HTTP_SHARE_CTX_USER];
                 if (user) {
                     // don't start transaction if not required

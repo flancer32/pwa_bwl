@@ -22,7 +22,7 @@ function Factory(spec) {
     const layoutCentered = spec['TeqFw_Core_App_Front_Widget_Layout_Centered$']; // vue comp tmpl
     /** @function {@type Fl32_Bwl_Front_Gate_Sign_In_Code_Send.gate} */
     const gateSend = spec['Fl32_Bwl_Front_Gate_Sign_In_Code_Send$']; // function singleton
-    /** @type {typeof Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Send_Request} */
+    /** @type {typeof Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Send.Request} */
     const ReqSend = spec['Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Send#Request']; // class
 
     // DEFINE WORKING VARS
@@ -80,7 +80,7 @@ function Factory(spec) {
                 this.loading = true;
                 const req = new ReqSend();
                 req.email = this.fldEmail;
-                /** @type {Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Send_Response} */
+                /** @type {Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Send.Response} */
                 const res = await gateSend(req);
                 this.loading = false;
                 const opts = {email: this.fldEmail};

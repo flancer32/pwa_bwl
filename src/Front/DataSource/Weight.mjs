@@ -14,7 +14,7 @@ class Fl32_Bwl_Front_DataSource_Weight {
     #current;
     /** @type {Fl32_Bwl_Front_Gate_Profile_Get.gate} */
     #gateProfile;
-    /** @type {Fl32_Bwl_Shared_Service_Route_Profile_Get_Request} */
+    /** @type {Fl32_Bwl_Shared_Service_Route_Profile_Get.Request} */
     #ReqProfile;
     /** @type {Number} */
     #start;
@@ -29,7 +29,7 @@ class Fl32_Bwl_Front_DataSource_Weight {
 
     async loadFromServer(forced = false) {
         if ((this.#current === undefined) || forced) {
-            /** @type {Fl32_Bwl_Shared_Service_Route_Profile_Get_Response} */
+            /** @type {Fl32_Bwl_Shared_Service_Route_Profile_Get.Response} */
             const res = await this.#gateProfile(new this.#ReqProfile());
             if (res.profile) {
                 this.#current = res.profile.weightCurrent;

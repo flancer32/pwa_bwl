@@ -21,7 +21,7 @@ function Factory(spec) {
     const layoutCentered = spec['TeqFw_Core_App_Front_Widget_Layout_Centered$']; // vue comp tmpl
     /** @function {@type Fl32_Bwl_Front_Gate_Sign_In_Code_Check.gate} */
     const gate = spec['Fl32_Bwl_Front_Gate_Sign_In_Code_Check$']; // function singleton
-    /** @type {typeof Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Check_Request} */
+    /** @type {typeof Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Check.Request} */
     const Req = spec['Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Check#Request']; // class
 
     // DEFINE WORKING VARS
@@ -56,7 +56,7 @@ function Factory(spec) {
         async mounted() {
             const req = new Req();
             req.code = this.code;
-            /** @type {Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Check_Response} */
+            /** @type {Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Check.Response} */
             const res = await gate(req);
             if (res.constructor.name === 'TeqFw_Core_App_Front_Gate_Response_Error') {
                 this.error = res.message;

@@ -26,11 +26,11 @@ function Factory(spec) {
     const {isEmpty} = spec['TeqFw_Core_App_Shared_Util']; // ES6 module destructing
     /** @function {@type Fl32_Teq_User_Front_Gate_Check_Existence.gate} */
     const gateCheckExist = spec['Fl32_Teq_User_Front_Gate_Check_Existence$']; // singleton function
-    /** @type {typeof Fl32_Teq_User_Shared_Service_Route_Check_Existence_Request} */
+    /** @type {typeof Fl32_Teq_User_Shared_Service_Route_Check_Existence.Request} */
     const ReqCheckExist = spec['Fl32_Teq_User_Shared_Service_Route_Check_Existence#Request']; // class
     /** @function {@type Fl32_Bwl_Front_Gate_Sign_Up.gate} */
     const gateSignUp = spec['Fl32_Bwl_Front_Gate_Sign_Up$']; // function singleton
-    /** @type {typeof Fl32_Bwl_Shared_Service_Route_Sign_Up_Request} */
+    /** @type {typeof Fl32_Bwl_Shared_Service_Route_Sign_Up.Request} */
     const ReqSignUp = spec['Fl32_Bwl_Shared_Service_Route_Sign_Up#Request']; // class
 
     // DEFINE WORKING VARS
@@ -182,7 +182,7 @@ function Factory(spec) {
             },
             rulesGender() {
                 return [
-                    () => this.fldGender != undefined && this.fldGender !== null || this.$t('route.signUp.err.required'),
+                    () => this.fldGender !== undefined && this.fldGender !== null || this.$t('route.signUp.err.required'),
                 ];
             },
             rulesName() {
@@ -217,7 +217,7 @@ function Factory(spec) {
                         const req = new ReqCheckExist();
                         req.type = type;
                         req.value = value;
-                        /** @type {Fl32_Teq_User_Shared_Service_Route_Check_Existence_Response} */
+                        /** @type {Fl32_Teq_User_Shared_Service_Route_Check_Existence.Response} */
                         const res = await gateCheckExist(req);
                         me.loading[type] = false;
                         if (res.exist === fireError) {
@@ -242,7 +242,7 @@ function Factory(spec) {
                 req.age = this.fldAge;
                 req.height = this.fldHeight;
                 req.weight = this.fldWeight;
-                /** @type {Fl32_Bwl_Shared_Service_Route_Sign_Up_Response} */
+                /** @type {Fl32_Bwl_Shared_Service_Route_Sign_Up.Response} */
                 const res = await gateSignUp(req);
                 if (res.sessionId) {
                     self.window.location.href = `/${DEF.REALM_PUB}/`;

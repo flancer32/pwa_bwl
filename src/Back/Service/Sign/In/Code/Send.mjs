@@ -21,9 +21,9 @@ class Fl32_Bwl_Back_Service_Sign_In_Code_Send {
         /** @type {typeof TeqFw_Http2_Plugin_Handler_Service.Result} */
         const ApiResult = spec['TeqFw_Http2_Plugin_Handler_Service#Result']; // class
         const {
-            /** @type {typeof Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Send_Request} */
+            /** @type {typeof Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Send.Request} */
             Request,
-            /** @type {typeof Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Send_Response} */
+            /** @type {typeof Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Send.Response} */
             Response
         } = spec['Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Send']; // ES6 module
         /** @function {@type Fl32_Bwl_Back_Process_Sign_In_Code_Create.process} */
@@ -48,7 +48,7 @@ class Fl32_Bwl_Back_Service_Sign_In_Code_Send {
             // DEFINE INNER FUNCTIONS
             /**
              * @param {TeqFw_Http2_Back_Server_Stream_Context} context
-             * @returns {Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Send_Request}
+             * @returns {Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Send.Request}
              * @memberOf Fl32_Bwl_Back_Service_Sign_In_Code_Send
              * @implements TeqFw_Http2_Api_Back_Service_Factory.parse
              */
@@ -84,7 +84,7 @@ class Fl32_Bwl_Back_Service_Sign_In_Code_Send {
                 response.isSent = false;
                 result.response = response;
                 const trx = await rdb.startTransaction();
-                /** @type {Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Send_Request} */
+                /** @type {Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Send.Request} */
                 const apiReq = apiCtx.request;
                 // const shared = apiCtx.sharedContext;
                 try {

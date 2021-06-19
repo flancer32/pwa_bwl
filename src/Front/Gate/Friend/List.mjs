@@ -19,8 +19,8 @@ function Factory(spec) {
     const backConnect = spec['TeqFw_Core_App_Front_Gate_Connect$']; // instance singleton
     /** @type {typeof Fl32_Bwl_Shared_Service_Route_Friend_List.Response} */
     const Response = spec['Fl32_Bwl_Shared_Service_Route_Friend_List#Response']; // class
-    /** @type {typeof Fl32_Bwl_Shared_Service_Data_Friend_List_Item} */
-    const DItem = spec['Fl32_Bwl_Shared_Service_Data_Friend_List_Item#']; //class
+    /** @type {typeof Fl32_Bwl_Shared_Service_Dto_Friend_List_Item} */
+    const DItem = spec['Fl32_Bwl_Shared_Service_Dto_Friend_List_Item#']; //class
 
     // DEFINE INNER FUNCTIONS
     /**
@@ -36,7 +36,7 @@ function Factory(spec) {
             result.items = [];
             if (Array.isArray(res.items)) {
                 for (const one of res.items) {
-                    /** @type {Fl32_Bwl_Shared_Service_Data_Friend_List_Item} */
+                    /** @type {Fl32_Bwl_Shared_Service_Dto_Friend_List_Item} */
                     const item = Object.assign(new DItem(), one);
                     item.dateStarted = new Date(item.dateStarted);
                     result.items.push(item);

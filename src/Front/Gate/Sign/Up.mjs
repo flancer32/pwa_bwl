@@ -14,12 +14,12 @@ function Factory(spec) {
     const DEF = spec['Fl32_Bwl_Defaults$'];    // instance singleton
     /** @type {TeqFw_Core_App_Front_Gate_Connect} */
     const backConnect = spec['TeqFw_Core_App_Front_Gate_Connect$']; // instance singleton
-    /** @type {typeof Fl32_Bwl_Shared_Service_Route_Sign_Up_Response} */
+    /** @type {typeof Fl32_Bwl_Shared_Service_Route_Sign_Up.Response} */
     const Response = spec['Fl32_Bwl_Shared_Service_Route_Sign_Up#Response']; // class
 
     /**
-     * @param {Fl32_Bwl_Shared_Service_Route_Sign_Up_Request} data
-     * @returns {Promise<Fl32_Bwl_Shared_Service_Route_Sign_Up_Response|TeqFw_Core_App_Front_Gate_Response_Error>}
+     * @param {Fl32_Bwl_Shared_Service_Route_Sign_Up.Request} data
+     * @returns {Promise<Fl32_Bwl_Shared_Service_Route_Sign_Up.Response|TeqFw_Core_App_Front_Gate_Response_Error>}
      * @memberOf Fl32_Bwl_Front_Gate_Sign_Up
      */
     async function gate(data) {

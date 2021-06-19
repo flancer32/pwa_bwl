@@ -101,7 +101,7 @@ function Factory(spec) {
             };
         },
         props: {
-            /** @type {Fl32_Bwl_Shared_Service_Data_Group_Item} */
+            /** @type {Fl32_Bwl_Shared_Service_Dto_Group_Item} */
             modelValue: null,
             display: Boolean, // control hide/display the widget from parent
         },
@@ -112,7 +112,7 @@ function Factory(spec) {
         },
         methods: {
             resetData() {
-                /** @type {Fl32_Bwl_Shared_Service_Data_Group_Item} */
+                /** @type {Fl32_Bwl_Shared_Service_Dto_Group_Item} */
                 const model = this.modelValue;
                 if (model) {
                     this.active = model.active;

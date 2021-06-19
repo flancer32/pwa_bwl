@@ -16,11 +16,11 @@ export default class Fl32_Bwl_Back_Service_Weight_Stat_Save {
         /** @type {typeof TeqFw_Http2_Plugin_Handler_Service.Result} */
         const ApiResult = spec['TeqFw_Http2_Plugin_Handler_Service#Result']; // class
         const {
-            /** @type {Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save_Request} */
+            /** @type {Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save.Request} */
             Request,
-            /** @type {Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save_Response} */
+            /** @type {Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save.Response} */
             Response,
-            /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save_Types} */
+            /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save.Types} */
             Types
         } = spec['Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save']; // ES6 module
         /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat} */
@@ -42,7 +42,7 @@ export default class Fl32_Bwl_Back_Service_Weight_Stat_Save {
             // DEFINE INNER FUNCTIONS
             /**
              * @param {TeqFw_Http2_Back_Server_Stream_Context} context
-             * @returns {Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save_Request}
+             * @returns {Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save.Request}
              * @memberOf Fl32_Bwl_Back_Service_Weight_Stat_Save
              * @implements TeqFw_Http2_Api_Back_Service_Factory.parse
              */
@@ -95,11 +95,11 @@ export default class Fl32_Bwl_Back_Service_Weight_Stat_Save {
                 const result = new ApiResult();
                 result.response = new Response();
                 const trx = await rdb.startTransaction();
-                /** @type {Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save_Request} */
+                /** @type {Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save.Request} */
                 const apiReq = apiCtx.request;
                 const shared = apiCtx.sharedContext;
                 try {
-                    /** @type {Fl32_Teq_User_Shared_Dto_User} */
+                    /** @type {Fl32_Teq_User_Shared_Service_Dto_User} */
                     const user = shared[DEF.MOD_USER.HTTP_SHARE_CTX_USER];
                     if (user) {
                         if (apiReq.type === Types.CURRENT) {

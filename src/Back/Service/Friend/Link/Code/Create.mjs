@@ -28,8 +28,8 @@ class Fl32_Bwl_Back_Service_Friend_Link_Code_Create {
             /** @type {typeof Fl32_Bwl_Shared_Service_Route_Friend_Link_Code_Create.Response} */
             Response
         } = spec['Fl32_Bwl_Shared_Service_Route_Friend_Link_Code_Create']; // ES6 module
-        /** @type {typeof Fl32_Bwl_Shared_Service_Data_Friend_Link} */
-        const DLink = spec['Fl32_Bwl_Shared_Service_Data_Friend_Link#']; // class
+        /** @type {typeof Fl32_Bwl_Shared_Service_Dto_Friend_Link} */
+        const DLink = spec['Fl32_Bwl_Shared_Service_Dto_Friend_Link#']; // class
         /** @function {@type Fl32_Bwl_Back_Process_Friend_Link_Code_CleanUp.process} */
         const procCleanUp = spec['Fl32_Bwl_Back_Process_Friend_Link_Code_CleanUp$']; // function singleton
         /** @function {@type Fl32_Bwl_Back_Process_Friend_Link_Code_Create.process} */
@@ -82,7 +82,7 @@ class Fl32_Bwl_Back_Service_Friend_Link_Code_Create {
                 // /** @type {Fl32_Bwl_Shared_Service_Route_Friend_Link_Code_Create.Request} */
                 // const apiReq = apiCtx.request;
                 const shared = apiCtx.sharedContext;
-                /** @type {Fl32_Teq_User_Shared_Dto_User} */
+                /** @type {Fl32_Teq_User_Shared_Service_Dto_User} */
                 const user = shared[DEF.MOD_USER.HTTP_SHARE_CTX_USER];
                 if (user) {
                     // don't start transaction if not required

@@ -68,13 +68,13 @@ function Factory(spec) {
     const ReqList = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_List#Request']; // class
     /** @type {Fl32_Bwl_Front_Gate_Weight_Stat_Save.gate} */
     const gateSave = spec['Fl32_Bwl_Front_Gate_Weight_Stat_Save$']; // function singleton
-    /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save_Request} */
+    /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save.Request} */
     const ReqSave = spec['Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save#Request']; // class
     /** @type {Fl32_Bwl_Front_Gate_Weight_History_Remove.gate} */
     const gateRemove = spec['Fl32_Bwl_Front_Gate_Weight_History_Remove$']; // function singleton
-    /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_History_Remove_Request} */
+    /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_History_Remove.Request} */
     const ReqRemove = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_Remove#Request']; // class
-    /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save_Types} */
+    /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save.Types} */
     const TYPES = spec['Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save#Types'];
     const {formatDate} = spec['Fl32_Bwl_Shared_Util']; // ES6 module destructing
 
@@ -100,7 +100,7 @@ function Factory(spec) {
                 // DEFINE INNER FUNCTIONS
                 /**
                  *
-                 * @param {Fl32_Bwl_Shared_Service_Data_Weight_History_Item[]} items
+                 * @param {Fl32_Bwl_Shared_Service_Dto_Weight_History_Item[]} items
                  * @returns {[]}
                  */
                 function prepareItems(items) {

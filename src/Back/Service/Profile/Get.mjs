@@ -14,17 +14,17 @@ export default class Fl32_Bwl_Back_Service_Profile_Get {
         /** @type {typeof TeqFw_Http2_Plugin_Handler_Service.Result} */
         const ApiResult = spec['TeqFw_Http2_Plugin_Handler_Service#Result']; // class
         const {
-            /** @type {Fl32_Bwl_Shared_Service_Route_Profile_Get_Request} */
+            /** @type {Fl32_Bwl_Shared_Service_Route_Profile_Get.Request} */
             Request,
-            /** @type {Fl32_Bwl_Shared_Service_Route_Profile_Get_Response} */
+            /** @type {Fl32_Bwl_Shared_Service_Route_Profile_Get.Response} */
             Response
         } = spec['Fl32_Bwl_Shared_Service_Route_Profile_Get']; // ES6 module
         /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Profile} */
         const EProfile = spec['Fl32_Bwl_Back_Store_RDb_Schema_Profile#']; // class
         /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat} */
         const EWeightStat = spec['Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat#']; // class
-        /** @type {typeof Fl32_Bwl_Shared_Service_Data_Profile} */
-        const DProfile = spec['Fl32_Bwl_Shared_Service_Data_Profile#']; // class
+        /** @type {typeof Fl32_Bwl_Shared_Service_Dto_Profile} */
+        const DProfile = spec['Fl32_Bwl_Shared_Service_Dto_Profile#']; // class
 
         this.getRoute = function () {
             return DEF.SERV_PROFILE_GET;
@@ -38,7 +38,7 @@ export default class Fl32_Bwl_Back_Service_Profile_Get {
             // DEFINE INNER FUNCTIONS
             /**
              * @param {TeqFw_Http2_Back_Server_Stream_Context} context
-             * @returns {Fl32_Bwl_Shared_Service_Route_Profile_Get_Request}
+             * @returns {Fl32_Bwl_Shared_Service_Route_Profile_Get.Request}
              * @memberOf Fl32_Bwl_Back_Service_Profile_Get
              * @implements TeqFw_Http2_Api_Back_Service_Factory.parse
              */
@@ -69,7 +69,7 @@ export default class Fl32_Bwl_Back_Service_Profile_Get {
                 /**
                  * @param trx
                  * @param {Number} userId
-                 * @returns {Promise<Fl32_Bwl_Shared_Service_Data_Profile>}
+                 * @returns {Promise<Fl32_Bwl_Shared_Service_Dto_Profile>}
                  */
                 async function selectProfile(trx, userId) {
                     const result = new DProfile();
@@ -111,14 +111,14 @@ export default class Fl32_Bwl_Back_Service_Profile_Get {
 
                 // MAIN FUNCTIONALITY
                 const result = new ApiResult();
-                /** @type {Fl32_Bwl_Shared_Service_Route_Profile_Get_Response} */
+                /** @type {Fl32_Bwl_Shared_Service_Route_Profile_Get.Response} */
                 const response = new Response();
                 const trx = await rdb.startTransaction();
-                // /** @type {Fl32_Bwl_Shared_Service_Route_Profile_Get_Request} */
+                // /** @type {Fl32_Bwl_Shared_Service_Route_Profile_Get.Request} */
                 // const apiReq = apiCtx.request;
                 const shared = apiCtx.sharedContext;
                 try {
-                    /** @type {Fl32_Teq_User_Shared_Dto_User} */
+                    /** @type {Fl32_Teq_User_Shared_Service_Dto_User} */
                     const user = shared[DEF.MOD_USER.HTTP_SHARE_CTX_USER];
                     if (user) {
                         response.profile = await selectProfile(trx, user.id);

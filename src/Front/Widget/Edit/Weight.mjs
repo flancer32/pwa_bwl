@@ -30,11 +30,11 @@ function Factory(spec) {
     const weight = spec['Fl32_Bwl_Front_Widget_Weight$']; // vue comp tmpl
     /** @type {Fl32_Bwl_Front_Gate_Weight_Stat_Save.gate} */
     const gate = spec['Fl32_Bwl_Front_Gate_Weight_Stat_Save$']; // function instance
-    /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save_Request} */
+    /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save.Request} */
     const Request = spec['Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save#Request']; // class
-    /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save_Response} */
+    /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save.Response} */
     const Response = spec['Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save#Response']; // class
-    /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save_Types} */
+    /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save.Types} */
     const Types = spec['Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save#Types']; // class
     const {formatDate} = spec['Fl32_Bwl_Shared_Util']; // ES6 module destructing
 
@@ -96,7 +96,7 @@ function Factory(spec) {
         },
         props: { // API to get values from parent widget
             display: Boolean, // hide/display dialog from parent
-            type: String, // start, current, target weight (see Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save_Types)
+            type: String, // start, current, target weight (see Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save.Types)
             weight: null, // initial weight
         },
         computed: {

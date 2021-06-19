@@ -24,9 +24,9 @@ class Fl32_Bwl_Back_Service_Sign_In_Code_Check {
         /** @type {typeof TeqFw_Http2_Plugin_Handler_Service.Result} */
         const ApiResult = spec['TeqFw_Http2_Plugin_Handler_Service#Result']; // class
         const {
-            /** @type {typeof Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Check_Request} */
+            /** @type {typeof Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Check.Request} */
             Request,
-            /** @type {typeof Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Check_Response} */
+            /** @type {typeof Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Check.Response} */
             Response
         } = spec['Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Check']; // ES6 module destructing
         /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Sign_In} */
@@ -55,7 +55,7 @@ class Fl32_Bwl_Back_Service_Sign_In_Code_Check {
             // DEFINE INNER FUNCTIONS
             /**
              * @param {TeqFw_Http2_Back_Server_Stream_Context} context
-             * @returns {Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Check_Request}
+             * @returns {Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Check.Request}
              * @memberOf Fl32_Bwl_Back_Service_Sign_In_Code_Check
              * @implements TeqFw_Http2_Api_Back_Service_Factory.parse
              */
@@ -130,7 +130,7 @@ class Fl32_Bwl_Back_Service_Sign_In_Code_Check {
                 response.isSent = false;
                 result.response = response;
                 const trx = await rdb.startTransaction();
-                /** @type {Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Check_Request} */
+                /** @type {Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Check.Request} */
                 const apiReq = apiCtx.request;
                 // const shared = apiCtx.sharedContext;
                 try {

@@ -27,9 +27,9 @@ export default class Fl32_Bwl_Back_Service_Weight_History_Remove {
         /** @type {typeof TeqFw_Http2_Plugin_Handler_Service.Result} */
         const ApiResult = spec['TeqFw_Http2_Plugin_Handler_Service#Result']; // class
         const {
-            /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_History_Remove_Request} */
+            /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_History_Remove.Request} */
             Request,
-            /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_History_Remove_Response} */
+            /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_History_Remove.Response} */
             Response
         } = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_Remove']; // ES6 module
         /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat} */
@@ -47,13 +47,13 @@ export default class Fl32_Bwl_Back_Service_Weight_History_Remove {
             // DEFINE INNER FUNCTIONS
             /**
              * @param {TeqFw_Http2_Back_Server_Stream_Context} context
-             * @returns {Fl32_Bwl_Shared_Service_Route_Weight_History_Remove_Request}
+             * @returns {Fl32_Bwl_Shared_Service_Route_Weight_History_Remove.Request}
              * @memberOf Fl32_Bwl_Back_Service_Weight_History_Remove
              * @implements TeqFw_Http2_Api_Back_Service_Factory.parse
              */
             function parse(context) {
                 const body = JSON.parse(context.body);
-                /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_Remove_Request} */
+                /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_Remove.Request} */
                 const result = Object.assign(new Request(), body.data); // clone HTTP body into API request object
                 result.date = new Date(result.date);
                 return result;
@@ -90,11 +90,11 @@ export default class Fl32_Bwl_Back_Service_Weight_History_Remove {
                 const response = new Response();
                 result.response = response;
                 const trx = await rdb.startTransaction();
-                /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_Remove_Request} */
+                /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_Remove.Request} */
                 const apiReq = apiCtx.request;
                 const shared = apiCtx.sharedContext;
                 try {
-                    /** @type {Fl32_Teq_User_Shared_Dto_User} */
+                    /** @type {Fl32_Teq_User_Shared_Service_Dto_User} */
                     const user = shared[DEF.MOD_USER.HTTP_SHARE_CTX_USER];
                     if (user) {
                         response.removed = await removeItems(trx, user.id, apiReq.date);

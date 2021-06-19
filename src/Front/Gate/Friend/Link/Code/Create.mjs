@@ -19,8 +19,8 @@ function Factory(spec) {
     const backConnect = spec['TeqFw_Core_App_Front_Gate_Connect$']; // instance singleton
     /** @type {typeof Fl32_Bwl_Shared_Service_Route_Friend_Link_Code_Create.Response} */
     const Response = spec['Fl32_Bwl_Shared_Service_Route_Friend_Link_Code_Create#Response']; // class
-    /** @type {typeof Fl32_Bwl_Shared_Service_Data_Friend_Link} */
-    const DLink = spec['Fl32_Bwl_Shared_Service_Data_Friend_Link#']; // class
+    /** @type {typeof Fl32_Bwl_Shared_Service_Dto_Friend_Link} */
+    const DLink = spec['Fl32_Bwl_Shared_Service_Dto_Friend_Link#']; // class
 
     // DEFINE INNER FUNCTIONS
     /**

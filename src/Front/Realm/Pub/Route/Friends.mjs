@@ -45,8 +45,8 @@ function Factory(spec) {
     const gateList = spec['Fl32_Bwl_Front_Gate_Friend_List$']; // function singleton
     /** @type {typeof Fl32_Bwl_Shared_Service_Route_Friend_List.Request} */
     const ReqList = spec['Fl32_Bwl_Shared_Service_Route_Friend_List#Request']; // class
-    /** @type {typeof Fl32_Bwl_Shared_Service_Data_Friend_List_Item} */
-    const DItem = spec['Fl32_Bwl_Shared_Service_Data_Friend_List_Item#']; //class
+    /** @type {typeof Fl32_Bwl_Shared_Service_Dto_Friend_List_Item} */
+    const DItem = spec['Fl32_Bwl_Shared_Service_Dto_Friend_List_Item#']; //class
 
     // DEFINE WORKING VARS
     const template = `
