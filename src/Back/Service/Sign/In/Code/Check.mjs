@@ -77,7 +77,7 @@ class Fl32_Bwl_Back_Service_Sign_In_Code_Check {
         this.createService = function () {
             // DEFINE INNER FUNCTIONS
             /**
-             * @param {TeqFw_Http2_Back_Server_Handler_Api.Context} apiCtx
+             * @param {TeqFw_Http2_Plugin_Handler_Service.Context} apiCtx
              * @returns {Promise<TeqFw_Http2_Plugin_Handler_Service.Result>}
              * @memberOf Fl32_Bwl_Back_Service_Sign_In_Code_Check
              * @implements {TeqFw_Http2_Api_Back_Service_Factory.service}

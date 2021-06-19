@@ -39,7 +39,7 @@ function Factory(spec) {
     const ReqCodeCreate = spec['Fl32_Bwl_Shared_Service_Route_Friend_Link_Code_Create#Request']; // class
     /** @function {@type Fl32_Teq_User_Front_Gate_RefLink_Create.gate} */
     const gateRefLinkCreate = spec['Fl32_Teq_User_Front_Gate_RefLink_Create$']; // function singleton
-    /** @type {typeof Fl32_Teq_User_Shared_Service_Route_RefLink_Create_Request} */
+    /** @type {typeof Fl32_Teq_User_Shared_Service_Route_RefLink_Create.Request} */
     const ReqRefLinkCreate = spec['Fl32_Teq_User_Shared_Service_Route_RefLink_Create#Request']; // class
     /** @function {@type Fl32_Bwl_Front_Gate_Friend_List.gate} */
     const gateList = spec['Fl32_Bwl_Front_Gate_Friend_List$']; // function singleton
@@ -137,7 +137,7 @@ function Factory(spec) {
                 async function addDownline() {
                     // get referral link with limited lifetime
                     const req = new ReqRefLinkCreate();
-                    /** @type {Fl32_Teq_User_Shared_Service_Route_RefLink_Create_Response} */
+                    /** @type {Fl32_Teq_User_Shared_Service_Route_RefLink_Create.Response} */
                     const res = await gateRefLinkCreate(req);
                     const code = res.link.refCode;
                     // compose URL to sign up

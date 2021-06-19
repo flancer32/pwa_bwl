@@ -53,8 +53,8 @@ class Fl32_Bwl_Back_Service_Sign_Up {
         const EProfile = spec['Fl32_Bwl_Back_Store_RDb_Schema_Profile#']; // class
         /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat} */
         const EWeightStat = spec['Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat#']; // class
-        /** @type {typeof Fl32_Teq_User_Shared_Api_Data_User} */
-        const DUser = spec['Fl32_Teq_User_Shared_Api_Data_User#']; // class
+        /** @type {typeof Fl32_Teq_User_Shared_Dto_User} */
+        const DUser = spec['Fl32_Teq_User_Shared_Dto_User#']; // class
 
         // DEFINE INNER FUNCTIONS
 
@@ -94,7 +94,7 @@ class Fl32_Bwl_Back_Service_Sign_Up {
         this.createService = function () {
             // DEFINE INNER FUNCTIONS
             /**
-             * @param {TeqFw_Http2_Back_Server_Handler_Api.Context} apiCtx
+             * @param {TeqFw_Http2_Plugin_Handler_Service.Context} apiCtx
              * @returns {Promise<TeqFw_Http2_Plugin_Handler_Service.Result>}
              * @memberOf Fl32_Bwl_Back_Service_Sign_Up
              * @implements {TeqFw_Http2_Api_Back_Service_Factory.service}

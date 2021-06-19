@@ -33,7 +33,7 @@ function Factory(spec) {
     const topActions = spec[DEF.DI_TOP_ACTIONS]; // vue comp tmpl
     /** @function {@type Fl32_Teq_User_Front_Gate_Sign_Out.gate} */
     const gateSignOut = spec['Fl32_Teq_User_Front_Gate_Sign_Out$']; // function singleton
-    /** @type {typeof Fl32_Teq_User_Shared_Service_Route_Sign_Out_Request} */
+    /** @type {typeof Fl32_Teq_User_Shared_Service_Route_Sign_Out.Request} */
     const ReqSignOut = spec['Fl32_Teq_User_Shared_Service_Route_Sign_Out#Request']; // class
     /** @function {@type Fl32_Bwl_Front_Gate_Weight_History_List.gate} */
     const gateHistory = spec['Fl32_Bwl_Front_Gate_Weight_History_List$']; // function singleton

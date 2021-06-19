@@ -20,7 +20,7 @@ function Factory(spec) {
     const regForm = spec['Fl32_Bwl_Front_Realm_Sign_Widget_RegForm$'];
     /** @function {@type Fl32_Teq_User_Front_Gate_RefLink_Get.gate} */
     const gateGet = spec['Fl32_Teq_User_Front_Gate_RefLink_Get$']; // function singleton
-    /** @type {typeof Fl32_Teq_User_Shared_Service_Route_RefLink_Get_Request} */
+    /** @type {typeof Fl32_Teq_User_Shared_Service_Route_RefLink_Get.Request} */
     const ReqGet = spec['Fl32_Teq_User_Shared_Service_Route_RefLink_Get#Request']; // class
 
     // DEFINE WORKING VARS
@@ -95,7 +95,7 @@ function Factory(spec) {
                 console.log(this.refCode);
                 const req = new ReqGet();
                 req.code = this.refCode;
-                /** @type {Fl32_Teq_User_Shared_Service_Route_RefLink_Get_Response} */
+                /** @type {Fl32_Teq_User_Shared_Service_Route_RefLink_Get.Response} */
                 const res = await gateGet(req);
                 if (res.link?.refCode === this.refCode) {
                     this.parent = res.link.parent;

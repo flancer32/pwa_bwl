@@ -63,7 +63,7 @@ export default class Fl32_Bwl_Back_Service_Weight_Stat_Save {
         this.createService = function () {
             // DEFINE INNER FUNCTIONS
             /**
-             * @param {TeqFw_Http2_Back_Server_Handler_Api.Context} apiCtx
+             * @param {TeqFw_Http2_Plugin_Handler_Service.Context} apiCtx
              * @returns {Promise<TeqFw_Http2_Plugin_Handler_Service.Result>}
              * @memberOf Fl32_Bwl_Back_Service_Weight_Stat_Save
              * @implements {TeqFw_Http2_Api_Back_Service_Factory.service}
@@ -99,7 +99,7 @@ export default class Fl32_Bwl_Back_Service_Weight_Stat_Save {
                 const apiReq = apiCtx.request;
                 const shared = apiCtx.sharedContext;
                 try {
-                    /** @type {Fl32_Teq_User_Shared_Api_Data_User} */
+                    /** @type {Fl32_Teq_User_Shared_Dto_User} */
                     const user = shared[DEF.MOD_USER.HTTP_SHARE_CTX_USER];
                     if (user) {
                         if (apiReq.type === Types.CURRENT) {

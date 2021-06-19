@@ -79,7 +79,7 @@ export default class Fl32_Bwl_Back_Service_Weight_History_List {
                 // DEFINE INNER FUNCTIONS
                 /**
                  * @param trx
-                 * @param {Fl32_Teq_User_Shared_Api_Data_User} user
+                 * @param {Fl32_Teq_User_Shared_Dto_User} user
                  * @param {Fl32_Bwl_Shared_Service_Route_Weight_History_List.Request} apiReq
                  * @return {Promise<*[]>}
                  */
@@ -146,7 +146,7 @@ export default class Fl32_Bwl_Back_Service_Weight_History_List {
                 const apiReq = apiCtx.request;
                 const shared = apiCtx.sharedContext;
                 try {
-                    /** @type {Fl32_Teq_User_Shared_Api_Data_User} */
+                    /** @type {Fl32_Teq_User_Shared_Dto_User} */
                     const user = shared[DEF.MOD_USER.HTTP_SHARE_CTX_USER];
                     if (user) {
                         result.response.items = await selectItems(trx, user, apiReq);
