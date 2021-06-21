@@ -73,14 +73,12 @@ function Factory(spec) {
                     [EAppProfile.A_AGE]: 48,
                     [EAppProfile.A_HEIGHT]: 175,
                     [EAppProfile.A_IS_FEMALE]: false,
-                    [EAppProfile.A_WEIGHT_INIT]: 92.3,
                     [EAppProfile.A_WEIGHT_TARGET]: 90,
                 }, {
                     [EAppProfile.A_USER_REF]: DEF.DATA_USER_ID_CUST,
                     [EAppProfile.A_AGE]: 47,
                     [EAppProfile.A_HEIGHT]: 165,
                     [EAppProfile.A_IS_FEMALE]: true,
-                    [EAppProfile.A_WEIGHT_INIT]: 61,
                     [EAppProfile.A_WEIGHT_TARGET]: 58,
                 }]);
             }

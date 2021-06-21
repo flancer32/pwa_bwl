@@ -22,6 +22,12 @@ function Factory(spec) {
     const connector = spec['TeqFw_Core_App_Db_Connector$']; // singleton
     /** @type {TeqFw_Core_App_Logger} */
     const logger = spec['TeqFw_Core_App_Logger$'];  // singleton
+    /** @type {Function|TeqFw_Core_App_Back_Util_RDb.serialsSet} */
+    const serialsSet = spec['TeqFw_Core_App_Back_Util_RDb#serialsSet']; // function
+    /** @type {Function|TeqFw_Core_App_Back_Util_RDb.isPostgres} */
+    const isPostgres = spec['TeqFw_Core_App_Back_Util_RDb#isPostgres']; // function
+    /** @type {Function|TeqFw_Core_App_Back_Util_RDb.itemsInsert} */
+    const itemsInsert = spec['TeqFw_Core_App_Back_Util_RDb#itemsInsert']; // function
     /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Friend} */
     const EAppFriend = spec['Fl32_Bwl_Back_Store_RDb_Schema_Friend#']; // class
     /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Friend_Link} */
@@ -58,51 +64,29 @@ function Factory(spec) {
      * @memberOf Fl32_Bwl_Back_Cli_Db_Upgrade_A_Restore
      */
     async function action(dump) {
-        // DEFINE INNER FUNCTIONS
-        /**
-         * Get nextval for Postgres serial.
-         * @param schema
-         * @param {Object} serials
-         * @returns {Promise<void>}
-         */
-        async function setSerials(schema, serials) {
-            for (const one of Object.keys(serials)) {
-                if (one !== 'app_group_id_seq')
-                    schema.raw(`SELECT setval('${one}', ${serials[one]})`);
-            }
-            await schema;
-        }
-
-        async function insertItems(trx, dump, entity) {
-            if (Array.isArray(dump[entity]) && dump[entity].length > 0) {
-                await trx(entity).insert(dump[entity]);
-            }
-        }
-
-        // MAIN FUNCTIONALITY
         const trx = await connector.startTransaction();
         try {
             // user
-            await insertItems(trx, dump, EUser.ENTITY);
-            await insertItems(trx, dump, EUserAuthPass.ENTITY);
-            await insertItems(trx, dump, EUserAuthSess.ENTITY);
-            await insertItems(trx, dump, EUserIdEmail.ENTITY);
-            await insertItems(trx, dump, EUserIdPhone.ENTITY);
-            await insertItems(trx, dump, EUserProfile.ENTITY);
-            await insertItems(trx, dump, EUserRefLink.ENTITY);
-            await insertItems(trx, dump, EUserRefTree.ENTITY);
+            await itemsInsert(trx, dump, EUser.ENTITY);
+            await itemsInsert(trx, dump, EUserAuthPass.ENTITY);
+            await itemsInsert(trx, dump, EUserAuthSess.ENTITY);
+            await itemsInsert(trx, dump, EUserIdEmail.ENTITY);
+            await itemsInsert(trx, dump, EUserIdPhone.ENTITY);
+            await itemsInsert(trx, dump, EUserProfile.ENTITY);
+            await itemsInsert(trx, dump, EUserRefLink.ENTITY);
+            await itemsInsert(trx, dump, EUserRefTree.ENTITY);
             // app
-            await insertItems(trx, dump, EAppFriend.ENTITY);
-            await insertItems(trx, dump, EAppFriendLink.ENTITY);
-            await insertItems(trx, dump, EAppProfile.ENTITY);
-            await insertItems(trx, dump, EAppSignIn.ENTITY);
-            await insertItems(trx, dump, EAppWeightStat.ENTITY);
+            await itemsInsert(trx, dump, EAppFriend.ENTITY);
+            await itemsInsert(trx, dump, EAppFriendLink.ENTITY);
+            await itemsInsert(trx, dump, EAppProfile.ENTITY);
+            await itemsInsert(trx, dump, EAppSignIn.ENTITY);
+            await itemsInsert(trx, dump, EAppWeightStat.ENTITY);
             // serials for Postgres
-            const isPg = trx.client.constructor.name === 'Client_PG';
+            const isPg = isPostgres(trx.client);
             if (isPg && dump.serials) {
                 const knex = await connector.getKnex();
                 const schema = knex.schema;
-                await setSerials(schema, dump.serials);
+                await serialsSet(schema, dump.serials);
             }
             trx.commit();
             logger.info('Data is restored from the dump.');

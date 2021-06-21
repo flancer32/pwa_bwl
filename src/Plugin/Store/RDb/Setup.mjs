@@ -96,8 +96,6 @@ export default class Fl32_Bwl_Plugin_Store_RDb_Setup {
                         .comment('true - for women (XX).');
                     table.integer(EProfile.A_HEIGHT).unsigned().notNullable()
                         .comment('Height in cm.');
-                    table.decimal(EProfile.A_WEIGHT_INIT, 4, 1).notNullable()
-                        .comment('Initial weight.');
                     table.decimal(EProfile.A_WEIGHT_TARGET, 4, 1)
                         .comment('Target weight.');
                     table.foreign(EProfile.A_USER_REF).references(EUser.A_ID).inTable(EUser.ENTITY)
