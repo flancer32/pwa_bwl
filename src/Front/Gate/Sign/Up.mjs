@@ -11,9 +11,9 @@ const NS = 'Fl32_Bwl_Front_Gate_Sign_Up';
  */
 function Factory(spec) {
     /** @type {Fl32_Bwl_Defaults} */
-    const DEF = spec['Fl32_Bwl_Defaults$'];    // instance singleton
+    const DEF = spec['Fl32_Bwl_Defaults$'];    // singleton
     /** @type {TeqFw_Core_App_Front_Gate_Connect} */
-    const backConnect = spec['TeqFw_Core_App_Front_Gate_Connect$']; // instance singleton
+    const backConnect = spec['TeqFw_Core_App_Front_Gate_Connect$']; // singleton
     /** @type {Fl32_Bwl_Shared_Service_Route_Sign_Up.Factory} */
     const factRoute = spec['Fl32_Bwl_Shared_Service_Route_Sign_Up#Factory$']; // singleton
 

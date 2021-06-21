@@ -19,18 +19,18 @@ const NS = 'Fl32_Bwl_Back_Cli_Db_Reset';
 function Factory(spec) {
     // PARSE INPUT & DEFINE WORKING VARS
     /** @type {Fl32_Bwl_Defaults} */
-    const DEF = spec['Fl32_Bwl_Defaults$'];   // instance singleton
+    const DEF = spec['Fl32_Bwl_Defaults$'];   // singleton
     /** @type {Fl32_Teq_User_Defaults} */
-    const DEF_USER = spec['Fl32_Teq_User_Defaults$'];   // instance singleton
+    const DEF_USER = spec['Fl32_Teq_User_Defaults$'];   // singleton
     /** @type {typeof TeqFw_Core_App_Cli_Command_Data} */
     const DCommand = spec['TeqFw_Core_App_Cli_Command#Data'];    // class
     /** @type {TeqFw_Core_App_Db_Connector} */
-    const connector = spec['TeqFw_Core_App_Db_Connector$']; // instance singleton
+    const connector = spec['TeqFw_Core_App_Db_Connector$']; // singleton
     /** @type {TeqFw_Core_App_Logger} */
-    const logger = spec['TeqFw_Core_App_Logger$'];  // instance singleton
+    const logger = spec['TeqFw_Core_App_Logger$'];  // singleton
     const {isPostgres} = spec['TeqFw_Core_App_Back_Util_RDb']; // ES6 destruct
     /** @function {@type Fl32_Bwl_Back_Cli_Db_Z_Restruct.action} */
-    const actRestruct = spec['Fl32_Bwl_Back_Cli_Db_Z_Restruct$']; // instance singleton
+    const actRestruct = spec['Fl32_Bwl_Back_Cli_Db_Z_Restruct$']; // singleton
     /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Profile} */
     const EAppProfile = spec['Fl32_Bwl_Back_Store_RDb_Schema_Profile#']; // class
     /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat} */

@@ -18,7 +18,7 @@ function Factory(spec) {
     /** @type {Fl32_Teq_User_Front_Model_Session} */
     const session = spec['Fl32_Teq_User_Front_Model_Session$']; // singleton
     /** @function {@type Fl32_Bwl_Front_Gate_Friend_Link_Add.gate} */
-    const gateAdd = spec['Fl32_Bwl_Front_Gate_Friend_Link_Add$']; // function singleton
+    const gateAdd = spec['Fl32_Bwl_Front_Gate_Friend_Link_Add$']; // singleton
     /** @type {Fl32_Bwl_Shared_Service_Route_Friend_Link_Add.Factory} */
     const fAdd = spec['Fl32_Bwl_Shared_Service_Route_Friend_Link_Add#Factory$']; // singleton
 

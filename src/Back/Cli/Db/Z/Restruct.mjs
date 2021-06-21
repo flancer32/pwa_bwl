@@ -19,13 +19,13 @@ const NS = 'Fl32_Bwl_Back_Cli_Db_Z_Restruct';
 function Factory(spec) {
     // PARSE INPUT & DEFINE WORKING VARS
     /** @type {TeqFw_Core_App_Db_Connector} */
-    const connector = spec['TeqFw_Core_App_Db_Connector$']; // instance singleton
+    const connector = spec['TeqFw_Core_App_Db_Connector$']; // singleton
     /** @type {TeqFw_Core_App_Logger} */
-    const logger = spec['TeqFw_Core_App_Logger$'];  // instance singleton
+    const logger = spec['TeqFw_Core_App_Logger$'];  // singleton
     /** @type {Fl32_Teq_User_Plugin_Store_RDb_Setup} */
-    const setupTeqUser = spec['Fl32_Teq_User_Plugin_Store_RDb_Setup$']; // instance singleton
+    const setupTeqUser = spec['Fl32_Teq_User_Plugin_Store_RDb_Setup$']; // singleton
     /** @type {Fl32_Bwl_Plugin_Store_RDb_Setup} */
-    const setupApp = spec['Fl32_Bwl_Plugin_Store_RDb_Setup$']; // instance singleton
+    const setupApp = spec['Fl32_Bwl_Plugin_Store_RDb_Setup$']; // singleton
 
     // DEFINE INNER FUNCTIONS
     /**

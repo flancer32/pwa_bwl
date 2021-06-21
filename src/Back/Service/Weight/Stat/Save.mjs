@@ -8,9 +8,9 @@ export default class Fl32_Bwl_Back_Service_Weight_Stat_Save {
 
     constructor(spec) {
         /** @type {Fl32_Bwl_Defaults} */
-        const DEF = spec['Fl32_Bwl_Defaults$']; // instance singleton
+        const DEF = spec['Fl32_Bwl_Defaults$']; // singleton
         /** @type {TeqFw_Core_App_Db_Connector} */
-        const rdb = spec['TeqFw_Core_App_Db_Connector$'];  // instance singleton
+        const rdb = spec['TeqFw_Core_App_Db_Connector$'];  // singleton
         /** @type {TeqFw_Core_App_Shared_Util.formatDateTime} */
         const formatDateTime = spec['TeqFw_Core_App_Shared_Util#formatDateTime']; // function instance
         /** @type {typeof TeqFw_Http2_Plugin_Handler_Service.Result} */
@@ -26,7 +26,7 @@ export default class Fl32_Bwl_Back_Service_Weight_Stat_Save {
         /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Profile} */
         const EProfile = spec['Fl32_Bwl_Back_Store_RDb_Schema_Profile#']; // class
         /** @function {@type Fl32_Bwl_Back_Process_Weight_Stat_Save.process} */
-        const procSave = spec['Fl32_Bwl_Back_Process_Weight_Stat_Save$']; // instance singleton
+        const procSave = spec['Fl32_Bwl_Back_Process_Weight_Stat_Save$']; // singleton
 
         this.getRoute = function () {
             return DEF.SERV_WEIGHT_STAT_SAVE;

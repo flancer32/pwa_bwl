@@ -14,9 +14,9 @@ const NS = 'Fl32_Bwl_Front_Gate_Friend_List';
 function Factory(spec) {
     // EXTRACT DEPS
     /** @type {Fl32_Bwl_Defaults} */
-    const DEF = spec['Fl32_Bwl_Defaults$']; // instance singleton
+    const DEF = spec['Fl32_Bwl_Defaults$']; // singleton
     /** @type {TeqFw_Core_App_Front_Gate_Connect} */
-    const backConnect = spec['TeqFw_Core_App_Front_Gate_Connect$']; // instance singleton
+    const backConnect = spec['TeqFw_Core_App_Front_Gate_Connect$']; // singleton
     /** @type {Fl32_Bwl_Shared_Service_Route_Friend_List.Factory} */
     const factory = spec['Fl32_Bwl_Shared_Service_Route_Friend_List#Factory$']; // singleton
 

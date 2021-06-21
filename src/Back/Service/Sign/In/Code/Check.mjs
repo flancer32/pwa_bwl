@@ -18,9 +18,9 @@ class Fl32_Bwl_Back_Service_Sign_In_Code_Check {
     constructor(spec) {
         // PARSE INPUT, INIT PROPS, DEFINE WORKING VARS
         /** @type {Fl32_Bwl_Defaults} */
-        const DEF = spec['Fl32_Bwl_Defaults$']; // instance singleton
+        const DEF = spec['Fl32_Bwl_Defaults$']; // singleton
         /** @type {TeqFw_Core_App_Db_Connector} */
-        const rdb = spec['TeqFw_Core_App_Db_Connector$'];  // instance singleton
+        const rdb = spec['TeqFw_Core_App_Db_Connector$'];  // singleton
         /** @type {typeof TeqFw_Http2_Plugin_Handler_Service.Result} */
         const ApiResult = spec['TeqFw_Http2_Plugin_Handler_Service#Result']; // class
         /** @type {Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Check.Factory} */
@@ -28,13 +28,13 @@ class Fl32_Bwl_Back_Service_Sign_In_Code_Check {
         /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Sign_In} */
         const ESignIn = spec['Fl32_Bwl_Back_Store_RDb_Schema_Sign_In#']; // class
         /** @function {@type TeqFw_Http2_Back_Util.cookieCreate} */
-        const cookieCreate = spec['TeqFw_Http2_Back_Util#cookieCreate']; // function singleton
+        const cookieCreate = spec['TeqFw_Http2_Back_Util#cookieCreate']; // singleton
         /** @function {@type Fl32_Bwl_Back_Process_Sign_In_Code_CleanUp.process} */
-        const procCodeCleanUp = spec['Fl32_Bwl_Back_Process_Sign_In_Code_CleanUp$']; // function singleton
+        const procCodeCleanUp = spec['Fl32_Bwl_Back_Process_Sign_In_Code_CleanUp$']; // singleton
         /** @function {@type Fl32_Bwl_Back_Process_Sign_In_Code_Remove.process} */
-        const procCodeRemove = spec['Fl32_Bwl_Back_Process_Sign_In_Code_Remove$']; // function singleton
+        const procCodeRemove = spec['Fl32_Bwl_Back_Process_Sign_In_Code_Remove$']; // singleton
         /** @type {Fl32_Teq_User_Back_Process_Session_Open} */
-        const procSessionOpen = spec['Fl32_Teq_User_Back_Process_Session_Open$']; // instance singleton
+        const procSessionOpen = spec['Fl32_Teq_User_Back_Process_Session_Open$']; // singleton
 
         // DEFINE INSTANCE METHODS
 

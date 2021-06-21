@@ -20,7 +20,7 @@ function Factory(spec) {
     /** @type {TeqFw_Core_App_Front_Widget_Layout_Centered} */
     const layoutCentered = spec['TeqFw_Core_App_Front_Widget_Layout_Centered$']; // vue comp tmpl
     /** @function {@type Fl32_Bwl_Front_Gate_Sign_In_Code_Check.gate} */
-    const gate = spec['Fl32_Bwl_Front_Gate_Sign_In_Code_Check$']; // function singleton
+    const gate = spec['Fl32_Bwl_Front_Gate_Sign_In_Code_Check$']; // singleton
     /** @type {Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Check.Factory} */
     const factRoute = spec['Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Check#Factory$']; // singleton
 

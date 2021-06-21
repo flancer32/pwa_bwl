@@ -22,7 +22,7 @@ const PERIOD_WEEK_2 = 'w2';
 function Factory(spec) {
     // EXTRACT DEPS
     /** @type {Fl32_Bwl_Defaults} */
-    const DEF = spec['Fl32_Bwl_Defaults$'];    // instance singleton
+    const DEF = spec['Fl32_Bwl_Defaults$'];    // singleton
     /** @type {Fl32_Teq_User_Front_Model_Session} */
     const session = spec['Fl32_Teq_User_Front_Model_Session$']; // singleton
     /** @type {Fl32_Bwl_Front_Realm_Pub_Widget_Chart} */
@@ -32,15 +32,15 @@ function Factory(spec) {
     /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.IComponent} */
     const topActions = spec[DEF.DI_TOP_ACTIONS]; // vue comp tmpl
     /** @function {@type Fl32_Teq_User_Front_Gate_Sign_Out.gate} */
-    const gateSignOut = spec['Fl32_Teq_User_Front_Gate_Sign_Out$']; // function singleton
+    const gateSignOut = spec['Fl32_Teq_User_Front_Gate_Sign_Out$']; // singleton
     /** @type {Fl32_Teq_User_Shared_Service_Route_Sign_Out.Factory} */
     const fSignOut = spec['Fl32_Teq_User_Shared_Service_Route_Sign_Out#Factory$']; // singleton
     /** @function {@type Fl32_Bwl_Front_Gate_Weight_History_List.gate} */
-    const gateHistory = spec['Fl32_Bwl_Front_Gate_Weight_History_List$']; // function singleton
+    const gateHistory = spec['Fl32_Bwl_Front_Gate_Weight_History_List$']; // singleton
     /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_List.Factory} */
     const fHistory = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_List#Factory$']; // singleton
     /** @function {@type Fl32_Bwl_Front_Gate_Friend_List.gate} */
-    const gateList = spec['Fl32_Bwl_Front_Gate_Friend_List$']; // function singleton
+    const gateList = spec['Fl32_Bwl_Front_Gate_Friend_List$']; // singleton
     /** @type {Fl32_Bwl_Shared_Service_Route_Friend_List.Factory} */
     const fList = spec['Fl32_Bwl_Shared_Service_Route_Friend_List#Factory$']; // singleton
     /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.Item} */
@@ -48,7 +48,7 @@ function Factory(spec) {
     /** @type {Fl32_Bwl_Front_Widget_Edit_Weight.vueCompTmpl} */
     const editWeight = spec['Fl32_Bwl_Front_Widget_Edit_Weight$']; // vue comp tmpl
     /** @type {Fl32_Bwl_Front_DataSource_Weight} */
-    const dsWeights = spec['Fl32_Bwl_Front_DataSource_Weight$']; // instance singleton
+    const dsWeights = spec['Fl32_Bwl_Front_DataSource_Weight$']; // singleton
 
     // DEFINE WORKING VARS
     /** @type {Fl32_Bwl_Front_Widget_Edit_Weight.vueCompTmpl.TYPES} */

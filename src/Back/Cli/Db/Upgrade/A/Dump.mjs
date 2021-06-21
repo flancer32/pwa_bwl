@@ -19,9 +19,9 @@ const NS = 'Fl32_Bwl_Back_Cli_Db_Upgrade_A_Dump';
 function Factory(spec) {
     // PARSE INPUT & DEFINE WORKING VARS
     /** @type {TeqFw_Core_App_Db_Connector} */
-    const connector = spec['TeqFw_Core_App_Db_Connector$']; // instance singleton
+    const connector = spec['TeqFw_Core_App_Db_Connector$']; // singleton
     /** @type {TeqFw_Core_App_Logger} */
-    const logger = spec['TeqFw_Core_App_Logger$'];  // instance singleton
+    const logger = spec['TeqFw_Core_App_Logger$'];  // singleton
     /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Friend} */
     const EAppFriend = spec['Fl32_Bwl_Back_Store_RDb_Schema_Friend#']; // class
     /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Friend_Link} */

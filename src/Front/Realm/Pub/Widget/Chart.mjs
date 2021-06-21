@@ -31,9 +31,9 @@ Object.defineProperty(ChartData, 'name', {value: `${NS}.${ChartData.name}`});
 function Factory(spec) {
     // EXTRACT DEPS
     /** @type {Fl32_Bwl_Defaults} */
-    const DEF = spec['Fl32_Bwl_Defaults$']; // instance singleton
-    const i18n = spec[DEF.MOD_CORE.DI_I18N]; // named singleton
-    const Chart = spec[DEF.DI_CHART]; // named singleton
+    const DEF = spec['Fl32_Bwl_Defaults$']; // singleton
+    const i18n = spec[DEF.MOD_CORE.DI_I18N]; // singleton
+    const Chart = spec[DEF.DI_CHART]; // singleton
 
     // DEFINE WORKING VARS
     const template = `

@@ -15,11 +15,11 @@ const NS = 'Fl32_Bwl_Front_Realm_Pub_App';
  */
 function Factory(spec) {
     /** @type {Fl32_Bwl_Defaults} */
-    const DEF = spec['Fl32_Bwl_Defaults$'];    // instance singleton
+    const DEF = spec['Fl32_Bwl_Defaults$'];    // singleton
     /** @type {TeqFw_Di_Container} */
-    const container = spec[DEF.MOD_CORE.DI_CONTAINER]; // named singleton
-    const router = spec[DEF.MOD_VUE.DI_ROUTER];  // named singleton
-    const app = spec[DEF.MOD_VUE.DI_APP];  // named singleton
+    const container = spec[DEF.MOD_CORE.DI_CONTAINER]; // singleton
+    const router = spec[DEF.MOD_VUE.DI_ROUTER];  // singleton
+    const app = spec[DEF.MOD_VUE.DI_APP];  // singleton
     /** @type {TeqFw_Core_App_Front_Widget_Layout_Centered} */
     const layoutCentered = spec['TeqFw_Core_App_Front_Widget_Layout_Centered$'];    // vue comp tmpl
     /** @type {Fl32_Bwl_Front_Layout_Pub} */

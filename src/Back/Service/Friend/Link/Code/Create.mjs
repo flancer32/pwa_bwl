@@ -17,9 +17,9 @@ class Fl32_Bwl_Back_Service_Friend_Link_Code_Create {
     constructor(spec) {
         // EXTRACT DEPS
         /** @type {Fl32_Bwl_Defaults} */
-        const DEF = spec['Fl32_Bwl_Defaults$']; // instance singleton
+        const DEF = spec['Fl32_Bwl_Defaults$']; // singleton
         /** @type {TeqFw_Core_App_Db_Connector} */
-        const rdb = spec['TeqFw_Core_App_Db_Connector$'];  // instance singleton
+        const rdb = spec['TeqFw_Core_App_Db_Connector$'];  // singleton
         /** @type {typeof TeqFw_Http2_Plugin_Handler_Service.Result} */
         const ApiResult = spec['TeqFw_Http2_Plugin_Handler_Service#Result']; // class
         /** @type {Fl32_Bwl_Shared_Service_Route_Friend_Link_Code_Create.Factory} */
@@ -27,9 +27,9 @@ class Fl32_Bwl_Back_Service_Friend_Link_Code_Create {
         /** @type {typeof Fl32_Bwl_Shared_Service_Dto_Friend_Link} */
         const DLink = spec['Fl32_Bwl_Shared_Service_Dto_Friend_Link#']; // class
         /** @function {@type Fl32_Bwl_Back_Process_Friend_Link_Code_CleanUp.process} */
-        const procCleanUp = spec['Fl32_Bwl_Back_Process_Friend_Link_Code_CleanUp$']; // function singleton
+        const procCleanUp = spec['Fl32_Bwl_Back_Process_Friend_Link_Code_CleanUp$']; // singleton
         /** @function {@type Fl32_Bwl_Back_Process_Friend_Link_Code_Create.process} */
-        const procCreate = spec['Fl32_Bwl_Back_Process_Friend_Link_Code_Create$']; // function singleton
+        const procCreate = spec['Fl32_Bwl_Back_Process_Friend_Link_Code_Create$']; // singleton
 
         // DEFINE INSTANCE METHODS
 

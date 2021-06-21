@@ -19,7 +19,7 @@ function Factory(spec) {
     /** @type {Fl32_Bwl_Front_Realm_Sign_Widget_RegForm} */
     const regForm = spec['Fl32_Bwl_Front_Realm_Sign_Widget_RegForm$'];
     /** @function {@type Fl32_Teq_User_Front_Gate_RefLink_Get.gate} */
-    const gateGet = spec['Fl32_Teq_User_Front_Gate_RefLink_Get$']; // function singleton
+    const gateGet = spec['Fl32_Teq_User_Front_Gate_RefLink_Get$']; // singleton
     /** @type { Fl32_Teq_User_Shared_Service_Route_RefLink_Get.Factory} */
     const fGet = spec['Fl32_Teq_User_Shared_Service_Route_RefLink_Get#Factory$']; // singleton
 

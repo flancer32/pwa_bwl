@@ -7,7 +7,7 @@ class Fl32_Bwl_Front_DataSource_Weight {
     constructor(spec) {
         // EXTRACT DEPS
         /** @type {Function|Fl32_Bwl_Front_Gate_Profile_Get} */
-        const gateProfile = spec['Fl32_Bwl_Front_Gate_Profile_Get$']; // function singleton
+        const gateProfile = spec['Fl32_Bwl_Front_Gate_Profile_Get$']; // singleton
         /** @type {Fl32_Bwl_Shared_Service_Route_Profile_Get.Factory} */
         const fProfile = spec['Fl32_Bwl_Shared_Service_Route_Profile_Get#Factory$']; // singleton
 

@@ -6,7 +6,7 @@ export default class Fl32_Bwl_Plugin_Init {
 
     constructor(spec) {
         /** @type {Fl32_Bwl_Defaults} */
-        const DEF = spec['Fl32_Bwl_Defaults$'];    // instance singleton
+        const DEF = spec['Fl32_Bwl_Defaults$'];    // singleton
 
         this.getCommands = function () {
             return [

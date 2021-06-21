@@ -21,7 +21,7 @@ function Factory(spec) {
     /** @type {TeqFw_Core_App_Front_Widget_Layout_Centered} */
     const layoutCentered = spec['TeqFw_Core_App_Front_Widget_Layout_Centered$']; // vue comp tmpl
     /** @function {@type Fl32_Bwl_Front_Gate_Sign_In_Code_Send.gate} */
-    const gateSend = spec['Fl32_Bwl_Front_Gate_Sign_In_Code_Send$']; // function singleton
+    const gateSend = spec['Fl32_Bwl_Front_Gate_Sign_In_Code_Send$']; // singleton
     /** @type {Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Send.Factory} */
     const fSend = spec['Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Send#Factory$']; // singleton
 

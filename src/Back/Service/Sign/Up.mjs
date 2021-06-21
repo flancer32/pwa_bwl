@@ -18,9 +18,9 @@ class Fl32_Bwl_Back_Service_Sign_Up {
     constructor(spec) {
         // PARSE INPUT, INIT PROPS, DEFINE WORKING VARS
         /** @type {Fl32_Bwl_Defaults} */
-        const DEF = spec['Fl32_Bwl_Defaults$']; // instance singleton
+        const DEF = spec['Fl32_Bwl_Defaults$']; // singleton
         /** @type {TeqFw_Core_App_Db_Connector} */
-        const rdb = spec['TeqFw_Core_App_Db_Connector$'];  // instance singleton
+        const rdb = spec['TeqFw_Core_App_Db_Connector$'];  // singleton
         /** @type {typeof TeqFw_Http2_Plugin_Handler_Service.Result} */
         const ApiResult = spec['TeqFw_Http2_Plugin_Handler_Service#Result']; // class
         /** @type {TeqFw_Core_App_Shared_Util.formatUtcDateTime} */
@@ -32,19 +32,19 @@ class Fl32_Bwl_Back_Service_Sign_Up {
         /** @type {Fl32_Bwl_Shared_Service_Route_Sign_Up.Factory} */
         const factRoute = spec['Fl32_Bwl_Shared_Service_Route_Sign_Up#Factory$']; // singleton
         /** @function {@type Fl32_Teq_User_Back_Process_Referral_Link_CleanUp.process} */
-        const procRefCleanUp = spec['Fl32_Teq_User_Back_Process_Referral_Link_CleanUp$']; // function singleton
+        const procRefCleanUp = spec['Fl32_Teq_User_Back_Process_Referral_Link_CleanUp$']; // singleton
         /** @function {@type Fl32_Teq_User_Back_Process_Referral_Link_Get.process} */
-        const procRefGet = spec['Fl32_Teq_User_Back_Process_Referral_Link_Get$']; // function singleton
+        const procRefGet = spec['Fl32_Teq_User_Back_Process_Referral_Link_Get$']; // singleton
         /** @function {@type Fl32_Teq_User_Back_Process_Referral_Link_Remove.process} */
-        const procRefRemove = spec['Fl32_Teq_User_Back_Process_Referral_Link_Remove$']; // function singleton
+        const procRefRemove = spec['Fl32_Teq_User_Back_Process_Referral_Link_Remove$']; // singleton
         /** @function {@type Fl32_Teq_User_Back_Process_User_Create.process} */
-        const procCreate = spec['Fl32_Teq_User_Back_Process_User_Create$']; // function singleton
+        const procCreate = spec['Fl32_Teq_User_Back_Process_User_Create$']; // singleton
         /** @type {Fl32_Teq_User_Back_Process_Session_Open} */
-        const procSessionOpen = spec['Fl32_Teq_User_Back_Process_Session_Open$']; // instance singleton
+        const procSessionOpen = spec['Fl32_Teq_User_Back_Process_Session_Open$']; // singleton
         /** @function {@type Fl32_Bwl_Back_Process_Profile_Save.process} */
-        const procAppProfileSave = spec['Fl32_Bwl_Back_Process_Profile_Save$']; // function singleton
+        const procAppProfileSave = spec['Fl32_Bwl_Back_Process_Profile_Save$']; // singleton
         /** @function {@type Fl32_Bwl_Back_Process_Weight_Stat_Save.process} */
-        const procWeightSave = spec['Fl32_Bwl_Back_Process_Weight_Stat_Save$']; // instance singleton
+        const procWeightSave = spec['Fl32_Bwl_Back_Process_Weight_Stat_Save$']; // singleton
         /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Profile} */
         const EProfile = spec['Fl32_Bwl_Back_Store_RDb_Schema_Profile#']; // class
         /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat} */

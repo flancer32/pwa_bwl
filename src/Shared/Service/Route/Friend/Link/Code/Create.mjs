@@ -31,7 +31,7 @@ class Factory {
         /** @type {typeof Fl32_Bwl_Shared_Service_Dto_Friend_Link} */
         const DLink = spec['Fl32_Bwl_Shared_Service_Dto_Friend_Link#']; // class
         /** @type {Fl32_Bwl_Shared_Service_Dto_Friend_Link.Factory} */
-        const fLink = spec['Fl32_Bwl_Shared_Service_Dto_Friend_Link#Factory$']; // instance singleton
+        const fLink = spec['Fl32_Bwl_Shared_Service_Dto_Friend_Link#Factory$']; // singleton
 
         /**
          * @param {Request|null} data

@@ -17,9 +17,9 @@ export default class Fl32_Bwl_Back_Service_Weight_History_Remove {
 
     constructor(spec) {
         /** @type {Fl32_Bwl_Defaults} */
-        const DEF = spec['Fl32_Bwl_Defaults$']; // instance singleton
+        const DEF = spec['Fl32_Bwl_Defaults$']; // singleton
         /** @type {TeqFw_Core_App_Db_Connector} */
-        const rdb = spec['TeqFw_Core_App_Db_Connector$'];  // instance singleton
+        const rdb = spec['TeqFw_Core_App_Db_Connector$'];  // singleton
         const {
             /** @type {TeqFw_Core_App_Shared_Util.formatDate} */
             formatDate

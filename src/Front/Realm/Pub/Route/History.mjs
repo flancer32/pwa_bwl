@@ -49,9 +49,9 @@ const template = `
  */
 function Factory(spec) {
     /** @type {Fl32_Bwl_Defaults} */
-    const DEF = spec['Fl32_Bwl_Defaults$'];    // instance singleton
-    const i18n = spec[DEF.MOD_CORE.DI_I18N]; // named singleton
-    const {ref} = spec[DEF.MOD_VUE.DI_VUE];    // destructuring instance singleton
+    const DEF = spec['Fl32_Bwl_Defaults$'];    // singleton
+    const i18n = spec[DEF.MOD_CORE.DI_I18N]; // singleton
+    const {ref} = spec[DEF.MOD_VUE.DI_VUE];    // destructuring singleton
     /** @type {Fl32_Teq_User_Front_Model_Session} */
     const session = spec['Fl32_Teq_User_Front_Model_Session$']; // singleton
     /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.IComponent} */
@@ -61,17 +61,17 @@ function Factory(spec) {
     /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.Item} */
     const Action = spec['Fl32_Bwl_Front_Layout_TopActions#Item']; // class
     /** @type {Fl32_Bwl_Front_DataSource_Weight} */
-    const dsWeights = spec['Fl32_Bwl_Front_DataSource_Weight$']; // instance singleton
+    const dsWeights = spec['Fl32_Bwl_Front_DataSource_Weight$']; // singleton
     /** @type {Fl32_Bwl_Front_Gate_Weight_History_List.gate} */
-    const gateList = spec['Fl32_Bwl_Front_Gate_Weight_History_List$']; // function singleton
+    const gateList = spec['Fl32_Bwl_Front_Gate_Weight_History_List$']; // singleton
     /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_List.Factory} */
     const fList = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_List#Factory$']; // singleton
     /** @type {Fl32_Bwl_Front_Gate_Weight_Stat_Save.gate} */
-    const gateSave = spec['Fl32_Bwl_Front_Gate_Weight_Stat_Save$']; // function singleton
+    const gateSave = spec['Fl32_Bwl_Front_Gate_Weight_Stat_Save$']; // singleton
     /** @type {Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save.Factory} */
     const fSave = spec['Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save#Factory$']; // singleton
     /** @type {Fl32_Bwl_Front_Gate_Weight_History_Remove.gate} */
-    const gateRemove = spec['Fl32_Bwl_Front_Gate_Weight_History_Remove$']; // function singleton
+    const gateRemove = spec['Fl32_Bwl_Front_Gate_Weight_History_Remove$']; // singleton
     /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_Remove.Factory} */
     const fRemove = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_Remove#Factory$']; // singleton
     /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save.Types} */
