@@ -1,57 +1,49 @@
 /**
  * Data source for user's actual weights (current, target, start).
- *
- * @namespace Fl32_Bwl_Front_DataSource_Weight
  */
-// MODULE'S IMPORT
-
-// MODULE'S VARS
-const NS = 'Fl32_Bwl_Front_DataSource_Weight';
-
 // MODULE'S CLASSES
 class Fl32_Bwl_Front_DataSource_Weight {
-    /** @type {Number} */
-    #current;
-    /** @type {Fl32_Bwl_Front_Gate_Profile_Get.gate} */
-    #gateProfile;
-    /** @type {Fl32_Bwl_Shared_Service_Route_Profile_Get.Request} */
-    #ReqProfile;
-    /** @type {Number} */
-    #start;
-    /** @type {Number} */
-    #target;
 
     constructor(spec) {
-        // CONSTRUCTOR INJECTED DEPS
-        this.#gateProfile = spec['Fl32_Bwl_Front_Gate_Profile_Get$']; // function singleton
-        this.#ReqProfile = spec['Fl32_Bwl_Shared_Service_Route_Profile_Get#Request']; // class
-    }
+        // EXTRACT DEPS
+        /** @type {Function|Fl32_Bwl_Front_Gate_Profile_Get} */
+        const gateProfile = spec['Fl32_Bwl_Front_Gate_Profile_Get$']; // function singleton
+        /** @type {Fl32_Bwl_Shared_Service_Route_Profile_Get.Factory} */
+        const fProfile = spec['Fl32_Bwl_Shared_Service_Route_Profile_Get#Factory$']; // singleton
 
-    async loadFromServer(forced = false) {
-        if ((this.#current === undefined) || forced) {
-            /** @type {Fl32_Bwl_Shared_Service_Route_Profile_Get.Response} */
-            const res = await this.#gateProfile(new this.#ReqProfile());
-            if (res.profile) {
-                this.#current = res.profile.weightCurrent;
-                this.#start = res.profile.weightStart;
-                this.#target = res.profile.weightTarget;
+        // DEFINE WORKING VARS / PROPS
+        /** @type {number} */
+        let current;
+        /** @type {number} */
+        let start;
+        /** @type {number} */
+        let target;
+
+        // DEFINE INSTANCE METHODS
+
+        this.loadFromServer = async function (forced = false) {
+            if ((current === undefined) || forced) {
+                /** @type {Fl32_Bwl_Shared_Service_Route_Profile_Get.Response} */
+                const res = await gateProfile(fProfile.createReq());
+                if (res.profile) {
+                    current = res.profile.weightCurrent;
+                    start = res.profile.weightStart;
+                    target = res.profile.weightTarget;
+                }
             }
         }
-    }
 
-    async getCurrent() {
-        await this.loadFromServer();
-        return this.#current;
-    }
+        this.getCurrent = function () {
+            return current;
+        }
 
-    async getStart() {
-        await this.loadFromServer();
-        return this.#start;
-    }
+        this.getStart = function () {
+            return start;
+        }
 
-    async getTarget() {
-        await this.loadFromServer();
-        return this.#target;
+        this.getTarget = function () {
+            return target;
+        }
     }
 
 }

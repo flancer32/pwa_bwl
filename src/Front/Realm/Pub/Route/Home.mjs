@@ -222,9 +222,9 @@ function Factory(spec) {
             },
             async setWeights() {
                 await dsWeights.loadFromServer(true);
-                this.current = await dsWeights.getCurrent();
-                this.start = await dsWeights.getStart();
-                this.target = await dsWeights.getTarget();
+                this.current = dsWeights.getCurrent();
+                this.start = dsWeights.getStart();
+                this.target = dsWeights.getTarget();
             },
         },
         watch: {

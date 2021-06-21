@@ -172,7 +172,8 @@ function Factory(spec) {
             // MAIN FUNCTIONALITY
             if (await session.checkUserAuthenticated(this.$router)) {
                 addTopActions();
-                this.weightCurrent = await dsWeights.getCurrent();
+                await dsWeights.loadFromServer(true);
+                this.weightCurrent = dsWeights.getCurrent();
                 await this.loadHistory();
             }
         },
