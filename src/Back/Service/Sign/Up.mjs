@@ -101,7 +101,6 @@ class Fl32_Bwl_Back_Service_Sign_Up {
                     entity[EProfile.A_HEIGHT] = apiReq.height;
                     entity[EProfile.A_IS_FEMALE] = apiReq.isFemale;
                     entity[EProfile.A_USER_REF] = userId;
-                    entity[EProfile.A_WEIGHT_INIT] = apiReq.weight;
                     entity[EProfile.A_WEIGHT_TARGET] = apiReq.weight;
                     await procAppProfileSave({trx, input: entity});
                 }

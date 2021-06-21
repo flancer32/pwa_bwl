@@ -55,16 +55,7 @@ function Factory(spec) {
     const TYPES = editWeight.TYPES;
     const template = `
 <div class="t-grid app-home">
-    <div class="app-home-stats">
-        <q-input
-                :label="$t('route.home.start')"
-                dense
-                outlined
-                readonly
-                stack-label
-                v-model="start"
-                v-on:click="editWeightStart"
-        ></q-input>
+    <div class="t-grid cols gutter-xs">
         <q-input
                 :label="$t('route.home.current')"
                 dense
@@ -86,7 +77,7 @@ function Factory(spec) {
     <chart 
         :chartData="chartData"
     ></chart>
-    <div class="id-filters t-grid cols" style="grid-template-columns: 2fr 1fr">
+    <div class="id-filters t-grid cols gutter-xs" style="grid-template-columns: 2fr 1fr">
             <q-select
                     :label="$t('route.home.dataSet.label')"
                     :options="optsDataSet"
@@ -131,7 +122,6 @@ function Factory(spec) {
                 dialogDisplay: false,
                 optsDataSet: [],
                 period: {label: 'All', value: PERIOD_ALL},
-                start: null,
                 target: null,
                 weightEdit: null,
                 weightType: TYPES.CURRENT,
@@ -154,11 +144,6 @@ function Factory(spec) {
                 this.dialogDisplay = true;
                 this.weightType = TYPES.CURRENT;
                 this.weightEdit = this.current;
-            },
-            editWeightStart() {
-                this.dialogDisplay = true;
-                this.weightType = TYPES.START;
-                this.weightEdit = this.start;
             },
             async editWeightSubmit() {
                 await this.setWeights();
@@ -223,7 +208,6 @@ function Factory(spec) {
             async setWeights() {
                 await dsWeights.loadFromServer(true);
                 this.current = dsWeights.getCurrent();
-                this.start = dsWeights.getStart();
                 this.target = dsWeights.getTarget();
             },
         },

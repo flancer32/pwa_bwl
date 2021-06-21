@@ -19,8 +19,6 @@ class Fl32_Bwl_Shared_Service_Dto_Profile {
     /** @type {number} */
     weightCurrent;
     /** @type {number} */
-    weightStart;
-    /** @type {number} */
     weightTarget;
 }
 
@@ -31,7 +29,6 @@ Fl32_Bwl_Shared_Service_Dto_Profile.HEIGHT = 'height';
 Fl32_Bwl_Shared_Service_Dto_Profile.IS_FEMALE = 'isFemale';
 Fl32_Bwl_Shared_Service_Dto_Profile.USER_ID = 'userId';
 Fl32_Bwl_Shared_Service_Dto_Profile.WEIGHT_CURRENT = 'weightCurrent';
-Fl32_Bwl_Shared_Service_Dto_Profile.WEIGHT_START = 'weightStart';
 Fl32_Bwl_Shared_Service_Dto_Profile.WEIGHT_TARGET = 'weightTarget';
 
 /**
@@ -54,7 +51,6 @@ class Factory {
             res.isFemale = data?.isFemale;
             res.userId = data?.userId;
             res.weightCurrent = data?.weightCurrent;
-            res.weightStart = data?.weightStart;
             res.weightTarget = data?.weightTarget;
             return res;
         }

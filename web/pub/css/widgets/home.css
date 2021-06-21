@@ -7,14 +7,6 @@
     padding: var(--grid-gap-sm);
 }
 
-.app-home-stats {
-    align-items: stretch;
-    display: grid;
-    grid-gap: var(--grid-gap-sm);
-    grid-template-columns: repeat(3, 1fr);
-    justify-items: stretch;
-}
-
 .app-home-controls {
     align-items: center;
     display: grid;

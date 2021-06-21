@@ -76,7 +76,6 @@ export default class Fl32_Bwl_Back_Service_Profile_Get {
                         [DProfile.HEIGHT]: EProfile.A_HEIGHT,
                         [DProfile.IS_FEMALE]: EProfile.A_IS_FEMALE,
                         [DProfile.USER_ID]: EProfile.A_USER_REF,
-                        [DProfile.WEIGHT_START]: EProfile.A_WEIGHT_INIT,
                         [DProfile.WEIGHT_TARGET]: EProfile.A_WEIGHT_TARGET,
                     });
                     query.where(EProfile.A_USER_REF, userId);

@@ -69,25 +69,23 @@ export default class Fl32_Bwl_Back_Service_Weight_Stat_Save {
             async function service(apiCtx) {
                 // DEFINE INNER FUNCTIONS
 
-                const saveCurrent = async (trx, apiReq, user) => {
+                async function saveCurrent(trx, apiReq, user) {
                     const payload = new EWeightStat();
                     payload[EWeightStat.A_DATE] = apiReq.date;
                     payload[EWeightStat.A_USER_REF] = user.id;
                     payload[EWeightStat.A_VALUE] = apiReq.weight;
                     await procSave({trx, payload});
-                };
+                }
 
-                const saveToProfile = async (trx, userId, weight, type, date) => {
+                async function saveToProfile(trx, userId, weight, type, date) {
                     const input = {[EProfile.A_DATE_UPDATED]: date};
-                    if (type === Types.START) {
-                        input[EProfile.A_WEIGHT_INIT] = weight;
-                    } else if (type === Types.TARGET) {
+                    if (type === Types.TARGET) {
                         input[EProfile.A_WEIGHT_TARGET] = weight;
                     }
                     await trx(EProfile.ENTITY)
                         .update(input)
                         .where(EProfile.A_USER_REF, userId);
-                };
+                }
 
                 // MAIN FUNCTIONALITY
                 const result = new ApiResult();
