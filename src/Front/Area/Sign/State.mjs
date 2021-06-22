@@ -4,7 +4,7 @@
  * @param {TeqFw_Di_SpecProxy} spec
  * @return {Object}
  */
-function Fl32_Bwl_Front_Realm_Sign_State(spec) {
+function Fl32_Bwl_Front_Area_Sign_State(spec) {
     return {
         namespaced: true,
         state: {
@@ -21,4 +21,4 @@ function Fl32_Bwl_Front_Realm_Sign_State(spec) {
 }
 
 // We should place function separately to allow JSDoc & IDEA hints & navigation.
-export default Fl32_Bwl_Front_Realm_Sign_State;
+export default Fl32_Bwl_Front_Area_Sign_State;

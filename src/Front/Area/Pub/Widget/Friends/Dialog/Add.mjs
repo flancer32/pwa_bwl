@@ -1,10 +1,10 @@
 /**
  * Dialog widget to select new relation type: friend (already registered user) or new user in downline.
  *
- * @namespace Fl32_Bwl_Front_Realm_Pub_Widget_Friends_Dialog_Add
+ * @namespace Fl32_Bwl_Front_Area_Pub_Widget_Friends_Dialog_Add
  */
 // MODULE'S VARS
-const NS = 'Fl32_Bwl_Front_Realm_Pub_Widget_Friends_Dialog_Add';
+const NS = 'Fl32_Bwl_Front_Area_Pub_Widget_Friends_Dialog_Add';
 const EVT_HIDE = 'onHide';
 const EVT_SUBMIT = 'onSubmit';
 const TYPE_DOWN = 'downline';
@@ -14,8 +14,8 @@ const TYPE_FRIEND = 'friend';
 /**
  * Factory to create template for new Vue component instances.
  *
- * @memberOf Fl32_Bwl_Front_Realm_Pub_Widget_Friends_Dialog_Add
- * @returns {Fl32_Bwl_Front_Realm_Pub_Widget_Friends_Dialog_Add.vueCompTmpl}
+ * @memberOf Fl32_Bwl_Front_Area_Pub_Widget_Friends_Dialog_Add
+ * @returns {Fl32_Bwl_Front_Area_Pub_Widget_Friends_Dialog_Add.vueCompTmpl}
  */
 function Factory(spec) {
     // EXTRACT DEPS
@@ -59,7 +59,7 @@ function Factory(spec) {
      * Template to create new component instances using Vue.
      *
      * @const {Object} vueCompTmpl
-     * @memberOf Fl32_Bwl_Front_Realm_Pub_Widget_Friends_Dialog_Add
+     * @memberOf Fl32_Bwl_Front_Area_Pub_Widget_Friends_Dialog_Add
      */
     return {
         /* Misc: https://v3.vuejs.org/api/options-misc.html */

@@ -1,16 +1,16 @@
 /**
  * Display data series as line chart.
  *
- * @namespace Fl32_Bwl_Front_Realm_Pub_Widget_Chart
+ * @namespace Fl32_Bwl_Front_Area_Pub_Widget_Chart
  */
 // MODULE'S VARS
-const NS = 'Fl32_Bwl_Front_Realm_Pub_Widget_Chart';
+const NS = 'Fl32_Bwl_Front_Area_Pub_Widget_Chart';
 const DOM_ID_CHART = 'appChartWidget';
 
 // MODULE'S CLASSES
 /**
  *
- * @memberOf Fl32_Bwl_Front_Realm_Pub_Widget_Chart
+ * @memberOf Fl32_Bwl_Front_Area_Pub_Widget_Chart
  */
 class ChartData {
     /** @type {number|null} */
@@ -25,8 +25,8 @@ Object.defineProperty(ChartData, 'name', {value: `${NS}.${ChartData.name}`});
 /**
  * Factory to create template for new Vue component instances.
  *
- * @memberOf Fl32_Bwl_Front_Realm_Pub_Widget_Chart
- * @returns {Fl32_Bwl_Front_Realm_Pub_Widget_Chart.vueCompTmpl}
+ * @memberOf Fl32_Bwl_Front_Area_Pub_Widget_Chart
+ * @returns {Fl32_Bwl_Front_Area_Pub_Widget_Chart.vueCompTmpl}
  */
 function Factory(spec) {
     // EXTRACT DEPS
@@ -45,7 +45,7 @@ function Factory(spec) {
      * Template to create new component instances using Vue.
      *
      * @const {Object} vueCompTmpl
-     * @memberOf Fl32_Bwl_Front_Realm_Pub_Widget_Chart
+     * @memberOf Fl32_Bwl_Front_Area_Pub_Widget_Chart
      */
     return {
         name: NS,

@@ -1,18 +1,18 @@
 /**
  * Root widget for 'Friends' route.
  *
- * @namespace Fl32_Bwl_Front_Realm_Pub_Route_Friends
+ * @namespace Fl32_Bwl_Front_Area_Pub_Route_Friends
  */
 // MODULE'S VARS
-const NS = 'Fl32_Bwl_Front_Realm_Pub_Route_Friends';
+const NS = 'Fl32_Bwl_Front_Area_Pub_Route_Friends';
 const FRIEND_ID = 'friendId';
 
 // MODULE'S FUNCTIONS
 /**
  * Factory to create template for new Vue component instances.
  *
- * @memberOf Fl32_Bwl_Front_Realm_Pub_Route_Friends
- * @returns {Fl32_Bwl_Front_Realm_Pub_Route_Friends.vueCompTmpl}
+ * @memberOf Fl32_Bwl_Front_Area_Pub_Route_Friends
+ * @returns {Fl32_Bwl_Front_Area_Pub_Route_Friends.vueCompTmpl}
  */
 function Factory(spec) {
     // EXTRACT DEPS
@@ -27,8 +27,8 @@ function Factory(spec) {
     const formatDate = spec['TeqFw_Core_App_Shared_Util#formatDate']; // singleton
     /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.IComponent} */
     const topActions = spec[DEF.DI_TOP_ACTIONS]; // vue comp tmpl
-    /** @type {Fl32_Bwl_Front_Realm_Pub_Widget_Friends_Dialog_Add} */
-    const dialogAdd = spec['Fl32_Bwl_Front_Realm_Pub_Widget_Friends_Dialog_Add$']; // vue comp tmpl
+    /** @type {Fl32_Bwl_Front_Area_Pub_Widget_Friends_Dialog_Add} */
+    const dialogAdd = spec['Fl32_Bwl_Front_Area_Pub_Widget_Friends_Dialog_Add$']; // vue comp tmpl
     /** @type {Fl32_Bwl_Front_Widget_Edit_Group} */
     const editGroup = spec['Fl32_Bwl_Front_Widget_Edit_Group$']; // vue comp tmpl
     /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.Item} */
@@ -77,7 +77,7 @@ function Factory(spec) {
      * Template to create new component instances using Vue.
      *
      * @const {Object} vueCompTmpl
-     * @memberOf Fl32_Bwl_Front_Realm_Pub_Route_Friends
+     * @memberOf Fl32_Bwl_Front_Area_Pub_Route_Friends
      */
     return {
         name: NS,

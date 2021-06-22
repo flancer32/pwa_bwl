@@ -1,17 +1,17 @@
 /**
  * Root widget for 'Friends / Add' route.
  *
- * @namespace Fl32_Bwl_Front_Realm_Pub_Route_Friends_Add
+ * @namespace Fl32_Bwl_Front_Area_Pub_Route_Friends_Add
  */
 // MODULE'S VARS
-const NS = 'Fl32_Bwl_Front_Realm_Pub_Route_Friends_Add';
+const NS = 'Fl32_Bwl_Front_Area_Pub_Route_Friends_Add';
 
 // MODULE'S FUNCTIONS
 /**
  * Factory to create template for new Vue component instances.
  *
- * @memberOf Fl32_Bwl_Front_Realm_Pub_Route_Friends_Add
- * @returns {Fl32_Bwl_Front_Realm_Pub_Route_Friends_Add.vueCompTmpl}
+ * @memberOf Fl32_Bwl_Front_Area_Pub_Route_Friends_Add
+ * @returns {Fl32_Bwl_Front_Area_Pub_Route_Friends_Add.vueCompTmpl}
  */
 function Factory(spec) {
     // EXTRACT DEPS
@@ -40,7 +40,7 @@ function Factory(spec) {
      * Template to create new component instances using Vue.
      *
      * @const {Object} vueCompTmpl
-     * @memberOf Fl32_Bwl_Front_Realm_Pub_Route_Friends_Add
+     * @memberOf Fl32_Bwl_Front_Area_Pub_Route_Friends_Add
      */
     return {
         name: NS,

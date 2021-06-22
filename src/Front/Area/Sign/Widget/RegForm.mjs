@@ -1,10 +1,10 @@
 /**
  * Registration form (step 1) to get authentication data.
  *
- * @namespace Fl32_Bwl_Front_Realm_Sign_Widget_RegForm
+ * @namespace Fl32_Bwl_Front_Area_Sign_Widget_RegForm
  */
 // MODULE'S VARS
-const NS = 'Fl32_Bwl_Front_Realm_Sign_Widget_RegForm';
+const NS = 'Fl32_Bwl_Front_Area_Sign_Widget_RegForm';
 const EVT_SUBMIT = 'onSubmit';
 const TIMEOUT = 1000;
 const GENDER_XX = 'woman';
@@ -16,8 +16,8 @@ const GENDER_XY = 'notWoman';
 /**
  * Factory to create template for new Vue component instances.
  *
- * @memberOf Fl32_Bwl_Front_Realm_Sign_Widget_RegForm
- * @returns {Fl32_Bwl_Front_Realm_Sign_Widget_RegForm.vueCompTmpl}
+ * @memberOf Fl32_Bwl_Front_Area_Sign_Widget_RegForm
+ * @returns {Fl32_Bwl_Front_Area_Sign_Widget_RegForm.vueCompTmpl}
  */
 function Factory(spec) {
     // EXTRACT DEPS
@@ -145,7 +145,7 @@ function Factory(spec) {
      * Template to create new component instances using Vue.
      *
      * @const {Object} vueCompTmpl
-     * @memberOf Fl32_Bwl_Front_Realm_Sign_Widget_RegForm
+     * @memberOf Fl32_Bwl_Front_Area_Sign_Widget_RegForm
      */
     return {
         name: NS,

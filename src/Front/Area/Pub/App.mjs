@@ -1,17 +1,17 @@
 /**
  * Frontend application for 'pub' realm.
  *
- * @namespace Fl32_Bwl_Front_Realm_Pub_App
+ * @namespace Fl32_Bwl_Front_Area_Pub_App
  */
 // MODULE'S VARS
-const NS = 'Fl32_Bwl_Front_Realm_Pub_App';
+const NS = 'Fl32_Bwl_Front_Area_Pub_App';
 
 // MODULE'S FUNCTIONS
 /**
  * Factory to create template for new Vue component instances.
  *
- * @memberOf Fl32_Bwl_Front_Realm_Pub_App
- * @returns {Fl32_Bwl_Front_Realm_Pub_App.vueCompTmpl}
+ * @memberOf Fl32_Bwl_Front_Area_Pub_App
+ * @returns {Fl32_Bwl_Front_Area_Pub_App.vueCompTmpl}
  */
 function Factory(spec) {
     /** @type {Fl32_Bwl_Defaults} */
@@ -37,37 +37,37 @@ function Factory(spec) {
     // setup application routes
     router.addRoute({
         path: DEF.REALM_PUB_ROUTE_DEV_LOGIN,
-        component: () => container.get('Fl32_Bwl_Front_Realm_Pub_Route_Dev_Login$')
+        component: () => container.get('Fl32_Bwl_Front_Area_Pub_Route_Dev_Login$')
     });
     router.addRoute({
         path: DEF.REALM_PUB_ROUTE_FRIENDS,
-        component: () => container.get('Fl32_Bwl_Front_Realm_Pub_Route_Friends$')
+        component: () => container.get('Fl32_Bwl_Front_Area_Pub_Route_Friends$')
     });
     router.addRoute({
         path: DEF.REALM_PUB_ROUTE_FRIENDS_ADD,
-        component: () => container.get('Fl32_Bwl_Front_Realm_Pub_Route_Friends_Add$'),
+        component: () => container.get('Fl32_Bwl_Front_Area_Pub_Route_Friends_Add$'),
         props: true,
     });
     router.addRoute({
         path: DEF.REALM_PUB_ROUTE_HISTORY,
-        component: () => container.get('Fl32_Bwl_Front_Realm_Pub_Route_History$')
+        component: () => container.get('Fl32_Bwl_Front_Area_Pub_Route_History$')
     });
     router.addRoute({
         path: DEF.REALM_PUB_ROUTE_HOME,
-        component: () => container.get('Fl32_Bwl_Front_Realm_Pub_Route_Home$')
+        component: () => container.get('Fl32_Bwl_Front_Area_Pub_Route_Home$')
     });
     router.addRoute({
         path: DEF.REALM_PUB_ROUTE_SETTINGS,
-        component: () => container.get('Fl32_Bwl_Front_Realm_Pub_Route_Settings$')
+        component: () => container.get('Fl32_Bwl_Front_Area_Pub_Route_Settings$')
     });
     router.addRoute({
         path: DEF.REALM_PUB_ROUTE_SIGN_IN_CODE_CHECK,
-        component: () => container.get('Fl32_Bwl_Front_Realm_Pub_Route_SignIn_Code_Check$'),
+        component: () => container.get('Fl32_Bwl_Front_Area_Pub_Route_SignIn_Code_Check$'),
         props: true,
     });
     router.addRoute({
         path: DEF.REALM_PUB_ROUTE_SIGN_IN_CODE_GET,
-        component: () => container.get('Fl32_Bwl_Front_Realm_Pub_Route_SignIn_Code_Get$')
+        component: () => container.get('Fl32_Bwl_Front_Area_Pub_Route_SignIn_Code_Get$')
     });
     app.use(router);
 
@@ -76,7 +76,7 @@ function Factory(spec) {
      * Template to create new component instances using Vue.
      *
      * @const {Object} vueCompTmpl
-     * @memberOf Fl32_Bwl_Front_Realm_Pub_App
+     * @memberOf Fl32_Bwl_Front_Area_Pub_App
      */
     return {
         name: NS,

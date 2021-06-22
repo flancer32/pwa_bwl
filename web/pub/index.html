@@ -173,7 +173,7 @@
                 container.set(DEF.DI_CHART, self.Chart); // https://www.chartjs.org/
                 // create Vue app, load root component and mount application to DOM
                 const app = await initApp(container, DEF);
-                const appRoot = await container.get('Fl32_Bwl_Front_Realm_Pub_App$'); // vue comp tmpl
+                const appRoot = await container.get('Fl32_Bwl_Front_Area_Pub_App$'); // vue comp tmpl
                 app.component('appRoot', appRoot);
                 // mount Vue application to the page
                 app.mount('BODY > DIV');

@@ -4,7 +4,7 @@
     "path": "./src"
   },
   "http2": {
-    "realms": [
+    "areas": [
       "pub",
       "sign"
     ]
