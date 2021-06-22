@@ -39,8 +39,8 @@ export default async function init() {
     // DEFINE INNER FUNCTIONS
 
     async function initConfig(container, rootPath) {
-        /** @type {TeqFw_Core_App_Config} */
-        const config = await container.get('TeqFw_Core_App_Config$');
+        /** @type {TeqFw_Core_App_Back_Config} */
+        const config = await container.get('TeqFw_Core_App_Back_Config$');
         config.load({rootPath});  // load local configuration
         /** @type {TeqFw_Core_App_Defaults} */
         const DEF = await container.get('TeqFw_Core_App_Defaults$');
@@ -67,8 +67,8 @@ export default async function init() {
     }
 
     // MAIN FUNCTIONALITY
-    /** @type {TeqFw_Core_App_Config} */
-    const config = await container.get('TeqFw_Core_App_Config$');
+    /** @type {TeqFw_Core_App_Back_Config} */
+    const config = await container.get('TeqFw_Core_App_Back_Config$');
     if (Object.keys(config.get()).length === 0) {
         // init env if has not been initiated before
         await initConfig(container, pathPrj);

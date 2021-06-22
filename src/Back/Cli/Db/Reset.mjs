@@ -12,7 +12,7 @@ const NS = 'Fl32_Bwl_Back_Cli_Db_Reset';
  * Factory to create CLI command to reset database structures and initialize test data.
  *
  * @param {TeqFw_Di_SpecProxy} spec
- * @returns {TeqFw_Core_App_Cli_Command_Data}
+ * @returns {TeqFw_Core_App_Back_Cli_Command_Data}
  * @constructor
  * @memberOf Fl32_Bwl_Back_Cli_Db_Reset
  */
@@ -22,8 +22,8 @@ function Factory(spec) {
     const DEF = spec['Fl32_Bwl_Defaults$'];   // singleton
     /** @type {Fl32_Teq_User_Defaults} */
     const DEF_USER = spec['Fl32_Teq_User_Defaults$'];   // singleton
-    /** @type {typeof TeqFw_Core_App_Cli_Command_Data} */
-    const DCommand = spec['TeqFw_Core_App_Cli_Command#Data'];    // class
+    /** @type {typeof TeqFw_Core_App_Back_Cli_Command_Data} */
+    const DCommand = spec['TeqFw_Core_App_Back_Cli_Command#Data'];    // class
     /** @type {TeqFw_Core_App_Db_Connector} */
     const connector = spec['TeqFw_Core_App_Db_Connector$']; // singleton
     /** @type {TeqFw_Core_App_Logger} */
@@ -56,7 +56,7 @@ function Factory(spec) {
     /**
      * Reset database structures and initialize test data.
      * @returns {Promise<void>}
-     * @memberOf TeqFw_Core_App_Cli_Version
+     * @memberOf TeqFw_Core_App_Back_Cli_Version
      */
     const action = async function () {
         // DEFINE INNER FUNCTIONS
