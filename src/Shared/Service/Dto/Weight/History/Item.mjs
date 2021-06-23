@@ -39,7 +39,7 @@ class Factory {
 
 // freeze class to deny attributes changes then export class
 Object.freeze(Fl32_Bwl_Shared_Service_Dto_Weight_History_Item);
-Object.defineProperty(Factory, 'name', {value: `${NS}.${Factory.name}`});
+Object.defineProperty(Factory, 'name', {value: `${NS}.${Factory.constructor.name}`});
 export {
     Fl32_Bwl_Shared_Service_Dto_Weight_History_Item as default,
     Factory

@@ -39,7 +39,7 @@ class Factory {
 
 // freeze class to deny attributes changes then export class
 Object.freeze(Fl32_Bwl_Shared_Service_Dto_Friend_Link);
-Object.defineProperty(Factory, 'name', {value: `${NS}.${Factory.name}`});
+Object.defineProperty(Factory, 'name', {value: `${NS}.${Factory.constructor.name}`});
 export {
     Fl32_Bwl_Shared_Service_Dto_Friend_Link as default,
     Factory

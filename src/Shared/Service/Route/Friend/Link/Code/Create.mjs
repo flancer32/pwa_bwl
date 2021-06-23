@@ -53,9 +53,9 @@ class Factory {
 }
 
 // MODULE'S EXPORT
-Object.defineProperty(Factory, 'name', {value: `${NS}.${Factory.name}`});
-Object.defineProperty(Request, 'name', {value: `${NS}.${Request.name}`});
-Object.defineProperty(Response, 'name', {value: `${NS}.${Response.name}`});
+Object.defineProperty(Factory, 'name', {value: `${NS}.${Factory.constructor.name}`});
+Object.defineProperty(Request, 'name', {value: `${NS}.${Request.constructor.name}`});
+Object.defineProperty(Response, 'name', {value: `${NS}.${Response.constructor.name}`});
 export {
     Factory,
     Request,
