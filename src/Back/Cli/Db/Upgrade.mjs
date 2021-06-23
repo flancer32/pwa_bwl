@@ -1,28 +1,30 @@
 /**
+ * Backup live data, upgrade database structures then restore data.
+ *
  * @namespace Fl32_Bwl_Back_Cli_Db_Upgrade
  */
-
 // DEFINE WORKING VARS
 const NS = 'Fl32_Bwl_Back_Cli_Db_Upgrade';
 
+// DEFINE MODULE'S FUNCTIONS
 /**
- * Factory class to create CLI command to backup live data, upgrade database structures then restore data.
+ * Factory to create CLI command.
  *
  * @param {TeqFw_Di_SpecProxy} spec
- * @returns {TeqFw_Core_Back_Cli_Command_Data}
+ * @returns {TeqFw_Core_Back_Api_Dto_Command}
  * @constructor
  * @memberOf Fl32_Bwl_Back_Cli_Db_Upgrade
  */
 function Factory(spec) {
     // PARSE INPUT & DEFINE WORKING VARS
     /** @type {Fl32_Bwl_Defaults} */
-    const DEF = spec['Fl32_Bwl_Defaults$'];   // singleton
-    /** @type {typeof TeqFw_Core_Back_Cli_Command_Data} */
-    const Command = spec['TeqFw_Core_Back_Cli_Command#Data'];    // class
+    const DEF = spec['Fl32_Bwl_Defaults$']; // singleton
+    /** @type {Function|TeqFw_Core_Back_Api_Dto_Command.Factory} */
+    const fCommand = spec['TeqFw_Core_Back_Api_Dto_Command#Factory$']; // singleton
     /** @type {TeqFw_Core_Back_RDb_Connector} */
     const connector = spec['TeqFw_Core_Back_RDb_Connector$']; // singleton
     /** @type {TeqFw_Core_Logger} */
-    const logger = spec['TeqFw_Core_Logger$'];  // singleton
+    const logger = spec['TeqFw_Core_Logger$']; // singleton
     /** @type {Function|Fl32_Bwl_Back_Cli_Db_Z_Restruct.action} */
     const actRestruct = spec['Fl32_Bwl_Back_Cli_Db_Z_Restruct$']; // singleton
     /** @type {Function|Fl32_Bwl_Back_Cli_Db_Upgrade_A_Dump.action} */
@@ -30,11 +32,9 @@ function Factory(spec) {
     /** @type {Function|Fl32_Bwl_Back_Cli_Db_Upgrade_A_Restore.action} */
     const actRestore = spec['Fl32_Bwl_Back_Cli_Db_Upgrade_A_Restore$']; // singleton
 
-
     // DEFINE INNER FUNCTIONS
     /**
-     * Backup data, drop-create tables then restore data.
-     *
+     * Command action.
      * @returns {Promise<void>}
      * @memberOf Fl32_Bwl_Back_Cli_Db_Upgrade
      */
@@ -53,21 +53,17 @@ function Factory(spec) {
         // close DB connections
         await connector.disconnect();
     };
-
-    // MAIN FUNCTIONALITY
     Object.defineProperty(action, 'name', {value: `${NS}.${action.name}`});
 
     // COMPOSE RESULT
-    const result = new Command();
-    result.ns = DEF.BACK_REALM;
-    result.name = 'db-upgrade';
-    result.desc = 'Backup data, drop-create tables then restore data.';
-    result.action = action;
-    return result;
+    const res = fCommand.create();
+    res.ns = DEF.BACK_REALM;
+    res.name = 'db-upgrade';
+    res.desc = 'Backup data, drop-create tables then restore data.';
+    res.action = action;
+    return res;
 }
 
-// MODULE'S FUNCTIONALITY
-Object.defineProperty(Factory, 'name', {value: `${NS}.${Factory.constructor.name}`});
-
 // MODULE'S EXPORT
+Object.defineProperty(Factory, 'name', {value: `${NS}.${Factory.constructor.name}`});
 export default Factory;

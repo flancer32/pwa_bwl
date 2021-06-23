@@ -1,4 +1,6 @@
 /**
+ * Reset database structures and initialize test data.
+ *
  * @namespace Fl32_Bwl_Back_Cli_Db_Reset
  */
 // MODULE'S IMPORT
@@ -9,25 +11,23 @@ const NS = 'Fl32_Bwl_Back_Cli_Db_Reset';
 
 // DEFINE MODULE'S FUNCTIONS
 /**
- * Factory to create CLI command to reset database structures and initialize test data.
+ * Factory to create CLI command.
  *
  * @param {TeqFw_Di_SpecProxy} spec
- * @returns {TeqFw_Core_Back_Cli_Command_Data}
+ * @returns {TeqFw_Core_Back_Api_Dto_Command}
  * @constructor
  * @memberOf Fl32_Bwl_Back_Cli_Db_Reset
  */
 function Factory(spec) {
-    // PARSE INPUT & DEFINE WORKING VARS
+    // EXTRACT DEPS
     /** @type {Fl32_Bwl_Defaults} */
-    const DEF = spec['Fl32_Bwl_Defaults$'];   // singleton
-    /** @type {Fl32_Teq_User_Defaults} */
-    const DEF_USER = spec['Fl32_Teq_User_Defaults$'];   // singleton
-    /** @type {typeof TeqFw_Core_Back_Cli_Command_Data} */
-    const DCommand = spec['TeqFw_Core_Back_Cli_Command#Data'];    // class
+    const DEF = spec['Fl32_Bwl_Defaults$']; // singleton
+    /** @type {Function|TeqFw_Core_Back_Api_Dto_Command.Factory} */
+    const fCommand = spec['TeqFw_Core_Back_Api_Dto_Command#Factory$']; // singleton
     /** @type {TeqFw_Core_Back_RDb_Connector} */
     const connector = spec['TeqFw_Core_Back_RDb_Connector$']; // singleton
     /** @type {TeqFw_Core_Logger} */
-    const logger = spec['TeqFw_Core_Logger$'];  // singleton
+    const logger = spec['TeqFw_Core_Logger$']; // singleton
     const {isPostgres} = spec['TeqFw_Core_Back_Util_RDb']; // ES6 destruct
     /** @function {@type Fl32_Bwl_Back_Cli_Db_Z_Restruct.action} */
     const actRestruct = spec['Fl32_Bwl_Back_Cli_Db_Z_Restruct$']; // singleton
@@ -54,7 +54,7 @@ function Factory(spec) {
 
     // DEFINE INNER FUNCTIONS
     /**
-     * Reset database structures and initialize test data.
+     * Command action.
      * @returns {Promise<void>}
      * @memberOf TeqFw_Core_Back_Cli_Version
      */
@@ -104,8 +104,8 @@ function Factory(spec) {
                     {[EUserProfile.A_USER_REF]: DEF.DATA_USER_ID_ADMIN, [EUserProfile.A_NAME]: 'Admin'},
                     {[EUserProfile.A_USER_REF]: DEF.DATA_USER_ID_CUST, [EUserProfile.A_NAME]: 'Customer'},
                 ]);
-                const hash1 = await $bcrypt.hash('test', DEF_USER.BCRYPT_HASH_ROUNDS);
-                const hash2 = await $bcrypt.hash('test', DEF_USER.BCRYPT_HASH_ROUNDS);
+                const hash1 = await $bcrypt.hash('test', DEF.MOD_USER.BCRYPT_HASH_ROUNDS);
+                const hash2 = await $bcrypt.hash('test', DEF.MOD_USER.BCRYPT_HASH_ROUNDS);
                 await trx(EUserAuthPass.ENTITY).insert([
                     {
                         [EUserAuthPass.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
@@ -375,12 +375,10 @@ function Factory(spec) {
         }
         await connector.disconnect();
     };
-
-    // MAIN FUNCTIONALITY
     Object.defineProperty(action, 'name', {value: `${NS}.${action.name}`});
 
     // COMPOSE RESULT
-    const result = new DCommand();
+    const result = fCommand.create();
     result.ns = DEF.BACK_REALM;
     result.name = 'db-reset';
     result.desc = 'Reset database structures and initialize test data.';
@@ -388,8 +386,6 @@ function Factory(spec) {
     return result;
 }
 
-// MODULE'S FUNCTIONALITY
-Object.defineProperty(Factory, 'name', {value: `${NS}.${Factory.constructor.name}`});
-
 // MODULE'S EXPORT
+Object.defineProperty(Factory, 'name', {value: `${NS}.${Factory.constructor.name}`});
 export default Factory;
