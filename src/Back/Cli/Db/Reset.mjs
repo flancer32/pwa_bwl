@@ -24,8 +24,8 @@ function Factory(spec) {
     const DEF_USER = spec['Fl32_Teq_User_Defaults$'];   // singleton
     /** @type {typeof TeqFw_Core_Back_Cli_Command_Data} */
     const DCommand = spec['TeqFw_Core_Back_Cli_Command#Data'];    // class
-    /** @type {TeqFw_Core_Db_Connector} */
-    const connector = spec['TeqFw_Core_Db_Connector$']; // singleton
+    /** @type {TeqFw_Core_Back_RDb_Connector} */
+    const connector = spec['TeqFw_Core_Back_RDb_Connector$']; // singleton
     /** @type {TeqFw_Core_Logger} */
     const logger = spec['TeqFw_Core_Logger$'];  // singleton
     const {isPostgres} = spec['TeqFw_Core_Back_Util_RDb']; // ES6 destruct

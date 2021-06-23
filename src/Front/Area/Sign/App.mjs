@@ -18,7 +18,7 @@ function Factory(spec) {
     /** @type {Fl32_Bwl_Defaults} */
     const DEF = spec['Fl32_Bwl_Defaults$'];    // singleton
     /** @type {TeqFw_Di_Container} */
-    const container = spec[DEF.MOD_CORE.DI_CONTAINER]; // singleton
+    const container = spec['TeqFw_Di_Container$']; // singleton
     const router = spec[DEF.MOD_VUE.DI_ROUTER];  // singleton
     const app = spec[DEF.MOD_VUE.DI_APP];  // singleton
     /** @type {TeqFw_Core_Front_Widget_Layout_Centered} */

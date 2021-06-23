@@ -15,8 +15,8 @@ describe('Fl32_Bwl_Back_Process_Sign_In_Code_Email', () => {
         assert.strictEqual(proc.name, 'Fl32_Bwl_Back_Process_Sign_In_Code_Email.process');
 
         // get database connector then execute the process
-        /** @type {TeqFw_Core_Db_Connector} */
-        const rdb = await container.get('TeqFw_Core_Db_Connector$');  // singleton instance
+        /** @type {TeqFw_Core_Back_RDb_Connector} */
+        const rdb = await container.get('TeqFw_Core_Back_RDb_Connector$');  // singleton instance
         try {
             const trx = await rdb.startTransaction();
             const res = await proc({to: 'flancer64@gmail.com', code: '3214'});

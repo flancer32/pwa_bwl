@@ -19,12 +19,6 @@ const TYPE_FRIEND = 'friend';
  */
 function Factory(spec) {
     // EXTRACT DEPS
-    /** @type {Fl32_Bwl_Defaults} */
-    const DEF = spec['Fl32_Bwl_Defaults$'];
-    /** @type {TeqFw_Di_Container} */
-    const container = spec[DEF.MOD_CORE.DI_CONTAINER]; // singleton
-    const i18next = spec[DEF.MOD_CORE.DI_I18N]; // singleton
-    const {ref} = spec[DEF.MOD_VUE.DI_VUE];    // singleton destructuring
 
     // DEFINE WORKING VARS
     const template = `
