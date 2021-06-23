@@ -15,8 +15,8 @@ function Factory(spec) {
     // EXTRACT DEPS
     /** @type {Fl32_Bwl_Defaults} */
     const DEF = spec['Fl32_Bwl_Defaults$']; // singleton
-    /** @type {TeqFw_Core_App_Front_Gate_Connect} */
-    const backConnect = spec['TeqFw_Core_App_Front_Gate_Connect$']; // singleton
+    /** @type {TeqFw_Http2_Front_Gate_Connect} */
+    const backConnect = spec['TeqFw_Http2_Front_Gate_Connect$']; // singleton
     /** @type {Fl32_Bwl_Shared_Service_Route_Friend_List.Factory} */
     const factory = spec['Fl32_Bwl_Shared_Service_Route_Friend_List#Factory$']; // singleton
 

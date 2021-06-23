@@ -59,7 +59,7 @@ function Factory(spec) {
             req.code = this.code;
             /** @type {Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Check.Response} */
             const res = await gate(req);
-            if (res.constructor.name === 'TeqFw_Core_App_Front_Gate_Response_Error') {
+            if (res.constructor.name === 'TeqFw_Http2_Front_Gate_Response_Error') {
                 this.error = res.message;
             } else {
                 debugger

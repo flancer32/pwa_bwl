@@ -12,8 +12,8 @@ const NS = 'Fl32_Bwl_Front_Gate_Sign_In_Code_Check';
 function Factory(spec) {
     /** @type {Fl32_Bwl_Defaults} */
     const DEF = spec['Fl32_Bwl_Defaults$'];    // singleton
-    /** @type {TeqFw_Core_App_Front_Gate_Connect} */
-    const backConnect = spec['TeqFw_Core_App_Front_Gate_Connect$']; // singleton
+    /** @type {TeqFw_Http2_Front_Gate_Connect} */
+    const backConnect = spec['TeqFw_Http2_Front_Gate_Connect$']; // singleton
     /** @type {Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Check.Factory} */
     const factory = spec['Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Check#Factory$']; // singleton
 

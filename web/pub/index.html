@@ -12,6 +12,8 @@
         async function bootstrap() {
             const API = './api';
             const REALM = 'pub';
+            const API_LOAD_CFG = `${API}/http2/load/config`;
+            const API_LOAD_NS = `${API}/http2/load/namespaces`;
 
             // DEFINE INNER FUNCTIONS
 
@@ -101,7 +103,7 @@
              */
             async function initConfig(container, DEF) {
                 // load frontend configuration and user profile
-                const res = await fetch(`${API}/core/load/config`);
+                const res = await fetch(API_LOAD_CFG);
                 const json = await res.json();
                 const DConfig = await container.get('TeqFw_Core_App_Front_Data_Config#'); // class constructor
                 /** @type {TeqFw_Core_App_Front_Data_Config} */
@@ -124,7 +126,7 @@
                  */
                 async function loadNamespaces() {
                     // load frontend configuration and user profile
-                    const res = await fetch(`${API}/core/load/namespaces`);
+                    const res = await fetch(API_LOAD_NS);
                     const json = await res.json();
                     return json.data;
                 }
