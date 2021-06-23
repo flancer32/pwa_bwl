@@ -17,8 +17,8 @@ function Factory(spec) {
     // EXTRACT DEPS
     /** @type {Fl32_Teq_User_Front_Model_Session} */
     const session = spec['Fl32_Teq_User_Front_Model_Session$']; // singleton
-    /** @type {TeqFw_Core_App_Front_Widget_Layout_Centered} */
-    const layoutCentered = spec['TeqFw_Core_App_Front_Widget_Layout_Centered$']; // vue comp tmpl
+    /** @type {TeqFw_Core_Front_Widget_Layout_Centered} */
+    const layoutCentered = spec['TeqFw_Core_Front_Widget_Layout_Centered$']; // vue comp tmpl
     /** @function {@type Fl32_Bwl_Front_Gate_Sign_In_Code_Check.gate} */
     const gate = spec['Fl32_Bwl_Front_Gate_Sign_In_Code_Check$']; // singleton
     /** @type {Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Check.Factory} */

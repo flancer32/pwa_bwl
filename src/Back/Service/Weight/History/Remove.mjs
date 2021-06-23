@@ -18,12 +18,12 @@ export default class Fl32_Bwl_Back_Service_Weight_History_Remove {
     constructor(spec) {
         /** @type {Fl32_Bwl_Defaults} */
         const DEF = spec['Fl32_Bwl_Defaults$']; // singleton
-        /** @type {TeqFw_Core_App_Db_Connector} */
-        const rdb = spec['TeqFw_Core_App_Db_Connector$'];  // singleton
+        /** @type {TeqFw_Core_Db_Connector} */
+        const rdb = spec['TeqFw_Core_Db_Connector$'];  // singleton
         const {
-            /** @type {TeqFw_Core_App_Shared_Util.formatDate} */
+            /** @type {TeqFw_Core_Shared_Util.formatDate} */
             formatDate
-        } = spec['TeqFw_Core_App_Shared_Util']; // ES6 module destructing
+        } = spec['TeqFw_Core_Shared_Util']; // ES6 module destructing
         /** @type {typeof TeqFw_Http2_Plugin_Handler_Service.Result} */
         const ApiResult = spec['TeqFw_Http2_Plugin_Handler_Service#Result']; // class
         /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_Remove.Factory} */

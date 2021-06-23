@@ -9,7 +9,7 @@ const NS = 'Fl32_Bwl_Back_Cli_Db_Upgrade';
  * Factory class to create CLI command to backup live data, upgrade database structures then restore data.
  *
  * @param {TeqFw_Di_SpecProxy} spec
- * @returns {TeqFw_Core_App_Back_Cli_Command_Data}
+ * @returns {TeqFw_Core_Back_Cli_Command_Data}
  * @constructor
  * @memberOf Fl32_Bwl_Back_Cli_Db_Upgrade
  */
@@ -17,12 +17,12 @@ function Factory(spec) {
     // PARSE INPUT & DEFINE WORKING VARS
     /** @type {Fl32_Bwl_Defaults} */
     const DEF = spec['Fl32_Bwl_Defaults$'];   // singleton
-    /** @type {typeof TeqFw_Core_App_Back_Cli_Command_Data} */
-    const Command = spec['TeqFw_Core_App_Back_Cli_Command#Data'];    // class
-    /** @type {TeqFw_Core_App_Db_Connector} */
-    const connector = spec['TeqFw_Core_App_Db_Connector$']; // singleton
-    /** @type {TeqFw_Core_App_Logger} */
-    const logger = spec['TeqFw_Core_App_Logger$'];  // singleton
+    /** @type {typeof TeqFw_Core_Back_Cli_Command_Data} */
+    const Command = spec['TeqFw_Core_Back_Cli_Command#Data'];    // class
+    /** @type {TeqFw_Core_Db_Connector} */
+    const connector = spec['TeqFw_Core_Db_Connector$']; // singleton
+    /** @type {TeqFw_Core_Logger} */
+    const logger = spec['TeqFw_Core_Logger$'];  // singleton
     /** @type {Function|Fl32_Bwl_Back_Cli_Db_Z_Restruct.action} */
     const actRestruct = spec['Fl32_Bwl_Back_Cli_Db_Z_Restruct$']; // singleton
     /** @type {Function|Fl32_Bwl_Back_Cli_Db_Upgrade_A_Dump.action} */

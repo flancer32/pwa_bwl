@@ -62,7 +62,7 @@ function Factory(spec) {
     /** @type {Fl32_Bwl_Front_Widget_Weight.vueCompTmpl} */
     const weight = spec['Fl32_Bwl_Front_Widget_Weight$']; // vue comp tmpl
     const {formatDate: dateForUi} = spec['Fl32_Bwl_Shared_Util']; // ES6 module destructing
-    const {formatDate: dateAsStr} = spec['TeqFw_Core_App_Shared_Util']; // ES6 module destructing
+    const {formatDate: dateAsStr} = spec['TeqFw_Core_Shared_Util']; // ES6 module destructing
     /**
      * Template to create new instances using Vue.
      *

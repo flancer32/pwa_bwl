@@ -18,10 +18,10 @@ class Fl32_Bwl_Back_Service_Friend_Link_Add {
         // EXTRACT DEPS
         /** @type {Fl32_Bwl_Defaults} */
         const DEF = spec['Fl32_Bwl_Defaults$']; // singleton
-        /** @type {TeqFw_Core_App_Db_Connector} */
-        const rdb = spec['TeqFw_Core_App_Db_Connector$'];  // singleton
-        /** @type {TeqFw_Core_App_Logger} */
-        const logger = spec['TeqFw_Core_App_Logger$'];  // singleton
+        /** @type {TeqFw_Core_Db_Connector} */
+        const rdb = spec['TeqFw_Core_Db_Connector$'];  // singleton
+        /** @type {TeqFw_Core_Logger} */
+        const logger = spec['TeqFw_Core_Logger$'];  // singleton
         /** @type {typeof TeqFw_Http2_Plugin_Handler_Service.Result} */
         const ApiResult = spec['TeqFw_Http2_Plugin_Handler_Service#Result']; // class
         /** @type {Fl32_Bwl_Shared_Service_Route_Friend_Link_Add.Factory} */

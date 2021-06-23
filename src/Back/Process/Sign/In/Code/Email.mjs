@@ -17,11 +17,9 @@ const NS = 'Fl32_Bwl_Back_Process_Sign_In_Code_Email';
 function Factory(spec) {
     /** @type {Fl32_Bwl_Defaults} */
     const DEF = spec['Fl32_Bwl_Defaults$'];    // singleton
-    /** @type {TeqFw_Core_App_Logger} */
-    const logger = spec['TeqFw_Core_App_Logger$'];  // singleton
-    /** @type {TeqFw_Core_App_Front_Data_Config} */
-    const config = spec[DEF.MOD_CORE.DI_CONFIG]; // singleton
-    /** @function {@type TeqFw_Email_Back_Process_Email.process} */
+    /** @type {TeqFw_Core_Back_Config} */
+    const config = spec['TeqFw_Core_Back_Config$']; // singleton
+    /** @type {Function|TeqFw_Email_Back_Process_Email.process} */
     const procEmail = spec['TeqFw_Email_Back_Process_Email$']; // singleton
 
     /**
@@ -33,7 +31,7 @@ function Factory(spec) {
      * @memberOf Fl32_Bwl_Back_Process_Sign_In_Code_Email
      */
     async function process({to, code}) {
-        const urlBase = config.local.web.urlBase;
+        const urlBase = config.get()?.local.web.urlBase;
         const realm = DEF.REALM_PUB;
         const route = DEF.REALM_PUB_ROUTE_SIGN_IN_CODE_CHECK.replace(':code', code);
         const url = `https://${urlBase}/${realm}/#${route}`;

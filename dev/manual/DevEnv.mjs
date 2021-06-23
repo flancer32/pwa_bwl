@@ -24,7 +24,7 @@ const container = new Container();
 // add backend sources to map
 container.addSourceMapping('Fl32_Bwl', srcApp, true, 'mjs');
 container.addSourceMapping('Fl32_Teq_User', srcFl32User, true, 'mjs');
-container.addSourceMapping('TeqFw_Core_App', srcTeqFwCore, true, 'mjs');
+container.addSourceMapping('TeqFw_Core', srcTeqFwCore, true, 'mjs');
 container.addSourceMapping('TeqFw_Di', srcTeqFwDi, true, 'mjs');
 container.addSourceMapping('TeqFw_Http2', srcTeqFwHttp2, true, 'mjs');
 container.addSourceMapping('TeqFw_Ui_Quasar', srcTeqFwUiQuasar, true, 'mjs');
@@ -39,17 +39,16 @@ export default async function init() {
     // DEFINE INNER FUNCTIONS
 
     async function initConfig(container, rootPath) {
-        /** @type {TeqFw_Core_App_Back_Config} */
-        const config = await container.get('TeqFw_Core_App_Back_Config$');
+        /** @type {TeqFw_Core_Back_Config} */
+        const config = await container.get('TeqFw_Core_Back_Config$');
         config.load({rootPath});  // load local configuration
-        /** @type {TeqFw_Core_App_Defaults} */
-        const DEF = await container.get('TeqFw_Core_App_Defaults$');
-        container.set(DEF.DI_CONFIG, config.get());
+        /** @type {TeqFw_Core_Defaults} */
+        const DEF = await container.get('TeqFw_Core_Defaults$');
     }
 
     async function initDb(container) {
-        /** @type {TeqFw_Core_App_Db_Connector} */
-        const rdb = await container.get('TeqFw_Core_App_Db_Connector$');  // singleton instance
+        /** @type {TeqFw_Core_Db_Connector} */
+        const rdb = await container.get('TeqFw_Core_Db_Connector$');  // singleton instance
         await rdb.init();
         // const finalizer = function (boo) {
         //     debugger
@@ -59,16 +58,16 @@ export default async function init() {
     }
 
     async function initLogger(container) {
-        /** @type {TeqFw_Core_App_Logger} */
-        const logger = await container.get('TeqFw_Core_App_Logger$');
-        /** @type {TeqFw_Core_App_Logger_Transport_Console} */
-        const logTransport = await container.get('TeqFw_Core_App_Logger_Transport_Console$');
+        /** @type {TeqFw_Core_Logger} */
+        const logger = await container.get('TeqFw_Core_Logger$');
+        /** @type {TeqFw_Core_Logger_Transport_Console} */
+        const logTransport = await container.get('TeqFw_Core_Logger_Transport_Console$');
         logger.addTransport(logTransport);
     }
 
     // MAIN FUNCTIONALITY
-    /** @type {TeqFw_Core_App_Back_Config} */
-    const config = await container.get('TeqFw_Core_App_Back_Config$');
+    /** @type {TeqFw_Core_Back_Config} */
+    const config = await container.get('TeqFw_Core_Back_Config$');
     if (Object.keys(config.get()).length === 0) {
         // init env if has not been initiated before
         await initConfig(container, pathPrj);

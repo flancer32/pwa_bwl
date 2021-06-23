@@ -15,7 +15,7 @@ const NS = 'Fl32_Bwl_Front_Area_Sign_Route_Up';
  */
 function Factory(spec) {
     // EXTRACT DEPS
-    const {formatUtcTime, isEmpty} = spec['TeqFw_Core_App_Shared_Util']; // ES6 module destructing
+    const {formatUtcTime, isEmpty} = spec['TeqFw_Core_Shared_Util']; // ES6 module destructing
     /** @type {Fl32_Bwl_Front_Area_Sign_Widget_RegForm} */
     const regForm = spec['Fl32_Bwl_Front_Area_Sign_Widget_RegForm$'];
     /** @function {@type Fl32_Teq_User_Front_Gate_RefLink_Get.gate} */

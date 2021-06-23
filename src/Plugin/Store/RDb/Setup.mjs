@@ -1,7 +1,7 @@
 export default class Fl32_Bwl_Plugin_Store_RDb_Setup {
     constructor(spec) {
-        /** @function {@type TeqFw_Core_App_Back_Util_RDb.nameFK} */
-        const nameFK = spec['TeqFw_Core_App_Back_Util_RDb#nameFK'];
+        /** @function {@type TeqFw_Core_Back_Util_RDb.nameFK} */
+        const nameFK = spec['TeqFw_Core_Back_Util_RDb#nameFK'];
         /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Friend} */
         const EFriend = spec['Fl32_Bwl_Back_Store_RDb_Schema_Friend#']; // class
         /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Friend_Link} */

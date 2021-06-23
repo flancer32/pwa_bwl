@@ -18,13 +18,13 @@ function Factory(spec) {
     // EXTRACT DEPS
     /** @type {Fl32_Bwl_Defaults} */
     const DEF = spec['Fl32_Bwl_Defaults$'];    // singleton
-    /** @type {TeqFw_Core_App_Front_Data_Config} */
-    const config = spec[DEF.MOD_CORE.DI_CONFIG]; // singleton
+    /** @type {TeqFw_Core_Front_Data_Config} */
+    const config = spec['TeqFw_Core_Front_Data_Config$']; // singleton
     /** @type {Fl32_Teq_User_Front_Model_Session} */
     const session = spec['Fl32_Teq_User_Front_Model_Session$']; // singleton
     const i18n = spec[DEF.MOD_CORE.DI_I18N]; // singleton
-    /** @function {typeof TeqFw_Core_App_Shared_Util.formatDate} */
-    const formatDate = spec['TeqFw_Core_App_Shared_Util#formatDate']; // singleton
+    /** @function {typeof TeqFw_Core_Shared_Util.formatDate} */
+    const formatDate = spec['TeqFw_Core_Shared_Util#formatDate']; // singleton
     /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.IComponent} */
     const topActions = spec[DEF.DI_TOP_ACTIONS]; // vue comp tmpl
     /** @type {Fl32_Bwl_Front_Area_Pub_Widget_Friends_Dialog_Add} */

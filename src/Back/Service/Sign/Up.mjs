@@ -19,12 +19,12 @@ class Fl32_Bwl_Back_Service_Sign_Up {
         // PARSE INPUT, INIT PROPS, DEFINE WORKING VARS
         /** @type {Fl32_Bwl_Defaults} */
         const DEF = spec['Fl32_Bwl_Defaults$']; // singleton
-        /** @type {TeqFw_Core_App_Db_Connector} */
-        const rdb = spec['TeqFw_Core_App_Db_Connector$'];  // singleton
+        /** @type {TeqFw_Core_Db_Connector} */
+        const rdb = spec['TeqFw_Core_Db_Connector$'];  // singleton
         /** @type {typeof TeqFw_Http2_Plugin_Handler_Service.Result} */
         const ApiResult = spec['TeqFw_Http2_Plugin_Handler_Service#Result']; // class
-        /** @type {TeqFw_Core_App_Shared_Util.formatUtcDateTime} */
-        const formatUtcDateTime = spec['TeqFw_Core_App_Shared_Util#formatUtcDateTime']; // function instance
+        /** @type {TeqFw_Core_Shared_Util.formatUtcDateTime} */
+        const formatUtcDateTime = spec['TeqFw_Core_Shared_Util#formatUtcDateTime']; // function instance
         const {
             /** @function {typeof TeqFw_Http2_Back_Util.cookieCreate} */
             cookieCreate

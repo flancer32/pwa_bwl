@@ -23,7 +23,7 @@ function Factory(spec) {
     // EXTRACT DEPS
     /** @type {Fl32_Bwl_Defaults} */
     const DEF = spec['Fl32_Bwl_Defaults$'];    // singleton
-    const {isEmpty} = spec['TeqFw_Core_App_Shared_Util']; // ES6 module destructing
+    const {isEmpty} = spec['TeqFw_Core_Shared_Util']; // ES6 module destructing
     /** @function {@type Fl32_Teq_User_Front_Gate_Check_Existence.gate} */
     const gateCheckExist = spec['Fl32_Teq_User_Front_Gate_Check_Existence$']; // singleton function
     /** @type {Fl32_Teq_User_Shared_Service_Route_Check_Existence.Factory} */

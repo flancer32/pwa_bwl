@@ -9,8 +9,8 @@ export default class Fl32_Bwl_Back_Service_Profile_Get {
     constructor(spec) {
         /** @type {Fl32_Bwl_Defaults} */
         const DEF = spec['Fl32_Bwl_Defaults$']; // singleton
-        /** @type {TeqFw_Core_App_Db_Connector} */
-        const rdb = spec['TeqFw_Core_App_Db_Connector$'];  // singleton
+        /** @type {TeqFw_Core_Db_Connector} */
+        const rdb = spec['TeqFw_Core_Db_Connector$'];  // singleton
         /** @type {typeof TeqFw_Http2_Plugin_Handler_Service.Result} */
         const ApiResult = spec['TeqFw_Http2_Plugin_Handler_Service#Result']; // class
         /** @type {Fl32_Bwl_Shared_Service_Route_Profile_Get.Factory} */
