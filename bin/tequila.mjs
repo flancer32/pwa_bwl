@@ -18,7 +18,7 @@ try {
     /* Create and setup DI container */
     /** @type {TeqFw_Di_Container} */
     const container = new Container();
-    const srcCore = $path.join(root, 'node_modules/@teqfw/core-app/src');
+    const srcCore = $path.join(root, 'node_modules/@teqfw/core/src');
     const srcDi = $path.join(root, 'node_modules/@teqfw/di/src');
     container.addSourceMapping('TeqFw_Core', srcCore, true, 'mjs');
     container.addSourceMapping('TeqFw_Di', srcDi, true, 'mjs');

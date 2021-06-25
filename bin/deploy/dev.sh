@@ -20,7 +20,7 @@ echo "Clone dependencies from github to inner folders."
 mkdir -p "${DIR_ROOT}/own_modules/@teqfw/"
 mkdir -p "${DIR_ROOT}/own_modules/@flancer32/"
 git clone git@github.com:flancer32/teq_user.git "${DIR_ROOT}/own_modules/@flancer32/teq_user"
-git clone git@github.com:teqfw/core-app.git "${DIR_ROOT}/own_modules/@teqfw/core-app"
+git clone git@github.com:teqfw/core.git "${DIR_ROOT}/own_modules/@teqfw/core"
 git clone git@github.com:teqfw/di.git "${DIR_ROOT}/own_modules/@teqfw/di"
 git clone git@github.com:teqfw/email.git "${DIR_ROOT}/own_modules/@teqfw/email"
 git clone git@github.com:teqfw/http2.git "${DIR_ROOT}/own_modules/@teqfw/http2"
@@ -31,7 +31,7 @@ git clone git@github.com:teqfw/vue.git "${DIR_ROOT}/own_modules/@teqfw/vue"
 echo "Link dependencies to '/usr/lib/node_modules/'."
 cd "${DIR_ROOT}/own_modules/@flancer32/teq_user" || exit 255
 sudo npm link
-cd "${DIR_ROOT}/own_modules/@teqfw/core-app" || exit 255
+cd "${DIR_ROOT}/own_modules/@teqfw/core" || exit 255
 sudo npm link
 cd "${DIR_ROOT}/own_modules/@teqfw/di" || exit 255
 sudo npm link
@@ -50,7 +50,7 @@ echo "Link dependencies to the project."
 cd "${DIR_ROOT}" || exit 255
 npm link \
   "@flancer32/teq_user" \
-  "@teqfw/core-app" \
+  "@teqfw/core" \
   "@teqfw/di" \
   "@teqfw/email" \
   "@teqfw/http2" \
