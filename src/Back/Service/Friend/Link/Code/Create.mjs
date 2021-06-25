@@ -10,7 +10,7 @@ import {constants as H2} from 'http2';
 const NS = 'Fl32_Bwl_Back_Service_Friend_Link_Code_Create';
 
 /**
- * @implements TeqFw_Http2_Api_Back_Service_Factory
+ * @implements TeqFw_Http2_Back_Api_Service_Factory
  */
 class Fl32_Bwl_Back_Service_Friend_Link_Code_Create {
 

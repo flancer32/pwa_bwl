@@ -57,7 +57,7 @@ function Factory(spec) {
 
     // COMPOSE RESULT
     const res = fCommand.create();
-    res.ns = DEF.BACK_REALM;
+    res.realm = DEF.BACK_REALM;
     res.name = 'db-upgrade';
     res.desc = 'Backup data, drop-create tables then restore data.';
     res.action = action;

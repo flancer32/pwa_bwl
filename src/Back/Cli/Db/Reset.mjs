@@ -378,12 +378,12 @@ function Factory(spec) {
     Object.defineProperty(action, 'name', {value: `${NS}.${action.name}`});
 
     // COMPOSE RESULT
-    const result = fCommand.create();
-    result.ns = DEF.BACK_REALM;
-    result.name = 'db-reset';
-    result.desc = 'Reset database structures and initialize test data.';
-    result.action = action;
-    return result;
+    const res = fCommand.create();
+    res.realm = DEF.BACK_REALM;
+    res.name = 'db-reset';
+    res.desc = 'Reset database structures and initialize test data.';
+    res.action = action;
+    return res;
 }
 
 // MODULE'S EXPORT
