@@ -87,7 +87,7 @@
                 const router = initRouter(self.VueRouter);
                 container.set(DEF.MOD_VUE.DI_ROUTER, router);
                 const i18next = await initI18n(container, result);
-                container.set(DEF.MOD_CORE.DI_I18N, i18next);
+                container.set(DEF.MOD_I18N.DI.I18N, i18next);
                 // init quasar framework
                 result.use(self.Quasar, {config: {}});
                 self.Quasar.iconSet.set(self.Quasar.iconSet.svgMaterialIcons);

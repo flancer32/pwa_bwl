@@ -22,7 +22,7 @@ function Factory(spec) {
     const config = spec['TeqFw_Core_Front_Data_Config$']; // singleton
     /** @type {Fl32_Teq_User_Front_Model_Session} */
     const session = spec['Fl32_Teq_User_Front_Model_Session$']; // singleton
-    const i18n = spec[DEF.MOD_CORE.DI_I18N]; // singleton
+    const i18n = spec[DEF.MOD_I18N.DI.I18N]; // singleton
     /** @function {typeof TeqFw_Core_Shared_Util.formatDate} */
     const formatDate = spec['TeqFw_Core_Shared_Util#formatDate']; // singleton
     /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.IComponent} */

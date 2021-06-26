@@ -56,7 +56,7 @@ const template = `
 function Factory(spec) {
     /** @type {Fl32_Bwl_Defaults} */
     const DEF = spec['Fl32_Bwl_Defaults$']; // singleton
-    const i18n = spec[DEF.MOD_CORE.DI_I18N]; // singleton
+    const i18n = spec[DEF.MOD_I18N.DI.I18N]; // singleton
     /** @type {Fl32_Bwl_Front_Widget_Dialog_Date} */
     const dialogDate = spec['Fl32_Bwl_Front_Widget_Dialog_Date$']; // vue comp tmpl
     /** @type {Fl32_Bwl_Front_Widget_Weight.vueCompTmpl} */

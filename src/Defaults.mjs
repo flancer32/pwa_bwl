@@ -19,6 +19,8 @@ export default class Fl32_Bwl_Defaults {
     MOD_CORE;
     /** @type {TeqFw_Http2_Defaults} */
     MOD_HTTP2;
+    /** @type {TeqFw_I18n_Defaults} */
+    MOD_I18N;
     /** @type {TeqFw_Ui_Quasar_Defaults} */
     MOD_QUASAR;
     /** @type {Fl32_Teq_User_Defaults} */
@@ -55,6 +57,7 @@ export default class Fl32_Bwl_Defaults {
     constructor(spec) {
         this.MOD_CORE = spec['TeqFw_Core_Defaults$']; // singleton
         this.MOD_HTTP2 = spec['TeqFw_Http2_Defaults$']; // singleton
+        this.MOD_I18N = spec['TeqFw_I18n_Defaults$']; // singleton
         this.MOD_QUASAR = spec['TeqFw_Ui_Quasar_Defaults$']; // singleton
         this.MOD_USER = spec['Fl32_Teq_User_Defaults$']; // singleton
         this.MOD_VUE = spec['TeqFw_Vue_Defaults$']; // singleton

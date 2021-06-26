@@ -77,7 +77,7 @@ class DMember {
 function Factory(spec) {
     /** @type {Fl32_Bwl_Defaults} */
     const DEF = spec['Fl32_Bwl_Defaults$']; // singleton
-    const i18n = spec[DEF.MOD_CORE.DI_I18N]; // singleton
+    const i18n = spec[DEF.MOD_I18N.DI.I18N]; // singleton
     const {formatDate: dateForUi} = spec['Fl32_Bwl_Shared_Util']; // ES6 module destructing
 
     /**
