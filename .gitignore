@@ -8,5 +8,5 @@
 /composer.lock
 /package-lock.json
 /tmp/
-/var/server.pid
+/var/*.pid
 /var/store/**
