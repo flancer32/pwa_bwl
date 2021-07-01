@@ -42,8 +42,6 @@ export default async function init() {
         /** @type {TeqFw_Core_Back_Config} */
         const config = await container.get('TeqFw_Core_Back_Config$');
         config.load({rootPath});  // load local configuration
-        /** @type {TeqFw_Core_Defaults} */
-        const DEF = await container.get('TeqFw_Core_Defaults$');
     }
 
     async function initDb(container) {

@@ -26,6 +26,7 @@ class Response {
 /**
  * Factory to create new DTOs.
  * @memberOf Fl32_Bwl_Shared_Service_Route_Demo
+ * @implements TeqFw_Web_Back_Api_Service_Factory_IRoute
  */
 class Factory {
     constructor() {
@@ -48,6 +49,9 @@ class Factory {
             res.success = data?.success || false;
             return res;
         }
+
+        this.getRoute = () => '/demo';
+
     }
 }
 

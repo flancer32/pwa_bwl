@@ -15,16 +15,10 @@ export default class Fl32_Bwl_Back_Service_Demo {
     constructor(spec) {
         // EXTRACT DEPS
         /** @type {Fl32_Bwl_Shared_Service_Route_Demo.Factory} */
-        const fReqRes = spec['Fl32_Bwl_Shared_Service_Route_Demo#Factory$'];
+        const fRouteDto = spec['Fl32_Bwl_Shared_Service_Route_Demo#Factory$'];
 
         // DEFINE INSTANCE METHODS
-        this.getDtoFactory = function () {
-            return fReqRes;
-        }
-
-        this.getRoute = function () {
-            return '/demo';
-        }
+        this.getDtoFactory = () => fRouteDto;
 
         this.getService = function () {
             // DEFINE INNER FUNCTIONS
@@ -32,7 +26,7 @@ export default class Fl32_Bwl_Back_Service_Demo {
              *
              * @param {TeqFw_Web_Back_Api_Service_IContext} context
              */
-            function service(context) {
+            async function service(context) {
                 /** @type {TeqFw_Web_Back_Api_Service_IContext} : IDEA suggestions failure */
                 const ctx = context;
                 const out = ctx.getOutData();
