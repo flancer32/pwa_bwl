@@ -1,4 +1,4 @@
-export default class Fl32_Bwl_Defaults {
+export default class Fl32_Bwl_Shared_Defaults {
     BACK_REALM = 'app';  // realm for API services ('/api/app/...') and CLI commands ('app-...')
 
     DATA_GROUP_ID_ADMIN = 1; // app's sample data

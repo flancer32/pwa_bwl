@@ -21,8 +21,8 @@ const GENDER_XY = 'notWoman';
  */
 function Factory(spec) {
     // EXTRACT DEPS
-    /** @type {Fl32_Bwl_Defaults} */
-    const DEF = spec['Fl32_Bwl_Defaults$'];    // singleton
+    /** @type {Fl32_Bwl_Shared_Defaults} */
+    const DEF = spec['Fl32_Bwl_Shared_Defaults$'];    // singleton
     const {isEmpty} = spec['TeqFw_Core_Shared_Util']; // ES6 module destructing
     /** @function {@type Fl32_Teq_User_Front_Gate_Check_Existence.gate} */
     const gateCheckExist = spec['Fl32_Teq_User_Front_Gate_Check_Existence$']; // singleton function

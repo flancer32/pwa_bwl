@@ -10,16 +10,16 @@
 
     <script>
         async function bootstrap() {
-            const AREA = 'pub';
+            const DOOR = 'pub';
             const API = './api';
-            const API_LOAD_CFG = `${API}/web/load/config`;
-            const API_LOAD_NS = `${API}/web/load/namespaces`;
+            const API_LOAD_CFG = `${API}/@teqfw/web/load/config`;
+            const API_LOAD_NS = `${API}/@teqfw/web/load/namespaces`;
 
             // DEFINE INNER FUNCTIONS
 
             /**
              * @param {TeqFw_Di_Container} container
-             * @param {Fl32_Bwl_Defaults} DEF
+             * @param {Fl32_Bwl_Shared_Defaults} DEF
              * @return Object
              */
             async function initApp(container, DEF) {
@@ -47,17 +47,20 @@
                     await self.i18next.init({defaultNS, supportedLngs, fallbackLng});
                     const lng = self.i18next.language;
                     // load i18n resources for current language
-                    const gate = await container.get('TeqFw_I18n_Front_Gate_Load$');
+                    /** @type {TeqFw_Web_Front_Service_Gate} */
+                    const gate = await container.get('TeqFw_Web_Front_Service_Gate$');
+                    /** @type {TeqFw_I18n_Shared_Service_Route_Load.Factory} */
+                    const route = await container.get('TeqFw_I18n_Shared_Service_Route_Load#Factory$');
                     /** @type {TeqFw_I18n_Shared_Service_Route_Load.Request} */
-                    const req = await container.get('TeqFw_I18n_Shared_Service_Route_Load#Request$$'); // new instance
+                    const req = route.createReq();
                     req.lang = lng;
                     req.namespace = defaultNS;
-                    const res = await gate(req);
+                    const res = await gate.send(req, route);
                     self.i18next.addResourceBundle(lng, defaultNS, res, true, true);
                     // load resources for fallback language
                     if (lng !== fallbackLng) {
                         req.lang = fallbackLng;
-                        const res = await gate(req);
+                        const res = await gate.send(req);
                         self.i18next.addResourceBundle(fallbackLng, defaultNS, res, true, true);
                     }
                     // config options after 'init'
@@ -91,7 +94,7 @@
                 // init quasar framework
                 result.use(self.Quasar, {config: {}});
                 self.Quasar.iconSet.set(self.Quasar.iconSet.svgMaterialIcons);
-                container.set(DEF.MOD_CORE.DI_QUASAR, self.Quasar);
+                container.set(DEF.MOD_QUASAR.DI_QUASAR, self.Quasar);
                 return result;
             }
 
@@ -99,25 +102,25 @@
              * Load frontend configuration from API using simple 'fetch' and place it into DI container.
              *
              * @param {TeqFw_Di_Container} container
-             * @param {Fl32_Bwl_Defaults} DEF
+             * @param {Fl32_Bwl_Shared_Defaults} DEF
              */
             async function initConfig(container, DEF) {
                 // load frontend configuration and user profile
                 const res = await fetch(API_LOAD_CFG);
                 const json = await res.json();
-                /** @type {TeqFw_Core_Front_Data_Config.Factory} */
-                const fConfig = await container.get('TeqFw_Core_Front_Data_Config#Factory$'); // singleton
-                /** @type {TeqFw_Core_Front_Data_Config} */
+                /** @type {TeqFw_Web_Front_Api_Dto_Config.Factory} */
+                const fConfig = await container.get('TeqFw_Web_Front_Api_Dto_Config#Factory$'); // singleton
+                /** @type {TeqFw_Web_Front_Api_Dto_Config} */
                 const result = fConfig.create(json.data);
-                result.area = AREA;
-                container.set('TeqFw_Core_Front_Data_Config$', result);
+                result.door = DOOR;
+                container.set('TeqFw_Web_Front_Api_Dto_Config$', result);
             }
 
             /**
              * Import code, create and setup Dependency Injection container for frontend,
              * place old-style loaded JS object inside.
              *
-             * @returns {Promise<{container: TeqFw_Di_Container, DEF: Fl32_Bwl_Defaults}>}
+             * @returns {Promise<{container: TeqFw_Di_Container, DEF: Fl32_Bwl_Shared_Defaults}>}
              */
             async function initDiContainer() {
 
@@ -133,7 +136,7 @@
                 }
 
                 // MAIN FUNCTIONALITY
-                const baseUrl = `${location.origin}/${AREA}`;
+                const baseUrl = `${location.origin}/${DOOR}`;
                 // create and setup DI Container
                 const modContainer = await import('./src/@teqfw/di/Container.mjs');
                 /** @type {TeqFw_Di_Container} */
@@ -145,9 +148,13 @@
                         container.addSourceMapping(item.ns, baseUrl + item.path, true, item.ext);
                     }
                 }
+                // TODO: TMP setup implementations for interfaces
+                const theAjaxLed = await container.get('TeqFw_Web_Front_Model_AjaxLed$');
+                container.set('TeqFw_Web_Front_Api_Gate_IAjaxLed$', theAjaxLed);
+
                 // get hardcoded config for the application
-                /** @type {Fl32_Bwl_Defaults} */
-                const DEF = await container.get('Fl32_Bwl_Defaults$');
+                /** @type {Fl32_Bwl_Shared_Defaults} */
+                const DEF = await container.get('Fl32_Bwl_Shared_Defaults$');
                 // save old-style loaded JS objects into DI container (see <script src="..."> at the end of HTML)
                 container.set(DEF.MOD_VUE.DI_VUE, self.Vue);
                 container.set(DEF.MOD_VUE.DI_VUEX, self.Vuex);
@@ -156,11 +163,11 @@
 
             /**
              * @param {TeqFw_Di_Container} container
-             * @param {Fl32_Bwl_Defaults} DEF
+             * @param {Fl32_Bwl_Shared_Defaults} DEF
              */
             async function initSession(container, DEF) {
                 /** @type {Fl32_Teq_User_Front_Model_Session} */
-                const session = await container.get('Fl32_Teq_User_Front_Model_Session$'); // singleton
+                const session = await container.get('Fl32_Teq_User_Front_Model_Session$');
                 session.setRouteToSignIn(DEF.REALM_PUB_ROUTE_SIGN_IN_CODE_GET);
                 await session.init();
             }

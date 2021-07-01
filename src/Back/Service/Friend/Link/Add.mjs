@@ -16,8 +16,8 @@ class Fl32_Bwl_Back_Service_Friend_Link_Add {
 
     constructor(spec) {
         // EXTRACT DEPS
-        /** @type {Fl32_Bwl_Defaults} */
-        const DEF = spec['Fl32_Bwl_Defaults$']; // singleton
+        /** @type {Fl32_Bwl_Shared_Defaults} */
+        const DEF = spec['Fl32_Bwl_Shared_Defaults$']; // singleton
         /** @type {TeqFw_Core_Back_RDb_Connector} */
         const rdb = spec['TeqFw_Core_Back_RDb_Connector$'];  // singleton
         /** @type {TeqFw_Core_Logger} */

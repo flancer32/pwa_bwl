@@ -15,8 +15,8 @@ const NS = 'Fl32_Bwl_Front_Area_Sign_App';
  */
 function Factory(spec) {
     // EXTRACT DEPS
-    /** @type {Fl32_Bwl_Defaults} */
-    const DEF = spec['Fl32_Bwl_Defaults$'];    // singleton
+    /** @type {Fl32_Bwl_Shared_Defaults} */
+    const DEF = spec['Fl32_Bwl_Shared_Defaults$'];    // singleton
     /** @type {TeqFw_Di_Container} */
     const container = spec['TeqFw_Di_Container$']; // singleton
     const router = spec[DEF.MOD_VUE.DI_ROUTER];  // singleton

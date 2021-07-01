@@ -9,16 +9,16 @@
 
     <script>
         async function bootstrap() {
-            const AREA = 'sign';
+            const DOOR = 'sign';
             const API = './api';
-            const API_LOAD_CFG = `${API}/http2/load/config`;
-            const API_LOAD_NS = `${API}/http2/load/namespaces`;
+            const API_LOAD_CFG = `${API}/@teqfw/web/load/config`;
+            const API_LOAD_NS = `${API}/@teqfw/web/load/namespaces`;
 
             // DEFINE INNER FUNCTIONS
 
             /**
              * @param {TeqFw_Di_Container} container
-             * @param {Fl32_Bwl_Defaults} DEF
+             * @param {Fl32_Bwl_Shared_Defaults} DEF
              * @return Object
              */
             async function initApp(container, DEF) {
@@ -90,7 +90,7 @@
                 // init quasar framework
                 result.use(self.Quasar, {config: {}});
                 self.Quasar.iconSet.set(self.Quasar.iconSet.svgMaterialIcons);
-                container.set(DEF.MOD_CORE.DI_QUASAR, self.Quasar);
+                container.set(DEF.MOD_QUASAR.DI_QUASAR, self.Quasar);
                 return result;
             }
 
@@ -98,25 +98,25 @@
              * Load frontend configuration from API using simple 'fetch' and place it into DI container.
              *
              * @param {TeqFw_Di_Container} container
-             * @param {Fl32_Bwl_Defaults} DEF
+             * @param {Fl32_Bwl_Shared_Defaults} DEF
              */
             async function initConfig(container, DEF) {
                 // load frontend configuration and user profile
                 const res = await fetch(API_LOAD_CFG);
                 const json = await res.json();
-                /** @type {TeqFw_Core_Front_Data_Config.Factory} */
-                const fConfig = await container.get('TeqFw_Core_Front_Data_Config#Factory$'); // singleton
-                /** @type {TeqFw_Core_Front_Data_Config} */
+                /** @type {TeqFw_Web_Front_Api_Dto_Config.Factory} */
+                const fConfig = await container.get('TeqFw_Web_Front_Api_Dto_Config#Factory$'); // singleton
+                /** @type {TeqFw_Web_Front_Api_Dto_Config} */
                 const result = fConfig.create(json.data);
-                result.area = AREA;
-                container.set('TeqFw_Core_Front_Data_Config$', result);
+                result.door = DOOR;
+                container.set('TeqFw_Web_Front_Api_Dto_Config$', result);
             }
 
             /**
              * Import code, create and setup Dependency Injection container for frontend,
              * place old-style loaded JS object inside.
              *
-             * @returns {Promise<{container: TeqFw_Di_Container, DEF: Fl32_Bwl_Defaults}>}
+             * @returns {Promise<{container: TeqFw_Di_Container, DEF: Fl32_Bwl_Shared_Defaults}>}
              */
             async function initDiContainer() {
 
@@ -132,7 +132,7 @@
                 }
 
                 // MAIN FUNCTIONALITY
-                const baseUrl = `${location.origin}/${AREA}`;
+                const baseUrl = `${location.origin}/${DOOR}`;
                 // create and setup DI Container
                 const modContainer = await import('./src/@teqfw/di/Container.mjs');
                 /** @type {TeqFw_Di_Container} */
@@ -145,8 +145,8 @@
                     }
                 }
                 // get hardcoded config for the application
-                /** @type {Fl32_Bwl_Defaults} */
-                const DEF = await container.get('Fl32_Bwl_Defaults$');
+                /** @type {Fl32_Bwl_Shared_Defaults} */
+                const DEF = await container.get('Fl32_Bwl_Shared_Defaults$');
                 // save old-style loaded JS objects into DI container (see <script src="..."> at the end of HTML)
                 container.set(DEF.MOD_VUE.DI_VUE, self.Vue);
                 container.set(DEF.MOD_VUE.DI_VUEX, self.Vuex);
@@ -155,7 +155,7 @@
 
             /**
              * @param {TeqFw_Di_Container} container
-             * @param {Fl32_Bwl_Defaults} DEF
+             * @param {Fl32_Bwl_Shared_Defaults} DEF
              */
             async function initSession(container, DEF) {
                 /** @type {Fl32_Teq_User_Front_Model_Session} */

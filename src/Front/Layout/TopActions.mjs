@@ -1,6 +1,6 @@
 /**
  * Layout widget for context related actions.
- * This widget is placed into DI container as 'Fl32_Bwl_Defaults.DI_TOP_ACTIONS'.
+ * This widget is placed into DI container as 'Fl32_Bwl_Shared_Defaults.DI_TOP_ACTIONS'.
  *
  * @namespace Fl32_Bwl_Front_Layout_TopActions
  */
@@ -47,8 +47,8 @@ const IComponent = {
  * @returns {Fl32_Bwl_Front_Layout_TopActions.IComponent}
  */
 function Factory(spec) {
-    /** @type {Fl32_Bwl_Defaults} */
-    const DEF = spec['Fl32_Bwl_Defaults$'];
+    /** @type {Fl32_Bwl_Shared_Defaults} */
+    const DEF = spec['Fl32_Bwl_Shared_Defaults$'];
     /** @type {TeqFw_Di_Container} */
     const container = spec['TeqFw_Di_Container$']; // singleton
 

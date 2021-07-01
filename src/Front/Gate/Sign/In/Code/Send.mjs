@@ -10,8 +10,8 @@ const NS = 'Fl32_Bwl_Front_Gate_Sign_In_Code_Send';
  * Factory to create frontend gate.
  */
 function Factory(spec) {
-    /** @type {Fl32_Bwl_Defaults} */
-    const DEF = spec['Fl32_Bwl_Defaults$'];    // singleton
+    /** @type {Fl32_Bwl_Shared_Defaults} */
+    const DEF = spec['Fl32_Bwl_Shared_Defaults$'];    // singleton
     /** @type {TeqFw_Http2_Front_Gate_Connect} */
     const backConnect = spec['TeqFw_Http2_Front_Gate_Connect$']; // singleton
     /** @type {Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Send.Factory} */

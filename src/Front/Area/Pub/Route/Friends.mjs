@@ -16,10 +16,10 @@ const FRIEND_ID = 'friendId';
  */
 function Factory(spec) {
     // EXTRACT DEPS
-    /** @type {Fl32_Bwl_Defaults} */
-    const DEF = spec['Fl32_Bwl_Defaults$'];    // singleton
-    /** @type {TeqFw_Core_Front_Data_Config} */
-    const config = spec['TeqFw_Core_Front_Data_Config$']; // singleton
+    /** @type {Fl32_Bwl_Shared_Defaults} */
+    const DEF = spec['Fl32_Bwl_Shared_Defaults$'];    // singleton
+    /** @type {TeqFw_Web_Front_Api_Dto_Config} */
+    const config = spec['TeqFw_Web_Front_Api_Dto_Config$']; // singleton
     /** @type {Fl32_Teq_User_Front_Model_Session} */
     const session = spec['Fl32_Teq_User_Front_Model_Session$']; // singleton
     const i18n = spec[DEF.MOD_I18N.DI.I18N]; // singleton

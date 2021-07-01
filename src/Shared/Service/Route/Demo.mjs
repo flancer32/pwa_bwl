@@ -50,7 +50,7 @@ class Factory {
             return res;
         }
 
-        this.getRoute = () => '/demo';
+        this.getRoute = () => '/@flancer32/pwa_bwl/demo';
 
     }
 }

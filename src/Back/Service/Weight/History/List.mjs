@@ -12,8 +12,8 @@ import {constants as H2} from 'http2';
 export default class Fl32_Bwl_Back_Service_Weight_History_List {
 
     constructor(spec) {
-        /** @type {Fl32_Bwl_Defaults} */
-        const DEF = spec['Fl32_Bwl_Defaults$']; // singleton
+        /** @type {Fl32_Bwl_Shared_Defaults} */
+        const DEF = spec['Fl32_Bwl_Shared_Defaults$']; // singleton
         /** @type {TeqFw_Core_Back_RDb_Connector} */
         const rdb = spec['TeqFw_Core_Back_RDb_Connector$'];  // singleton
         const {

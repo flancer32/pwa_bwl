@@ -15,8 +15,8 @@ const NS = 'Fl32_Bwl_Back_Process_Sign_In_Code_Email';
  * @memberOf Fl32_Bwl_Back_Process_Sign_In_Code_Email
  */
 function Factory(spec) {
-    /** @type {Fl32_Bwl_Defaults} */
-    const DEF = spec['Fl32_Bwl_Defaults$'];    // singleton
+    /** @type {Fl32_Bwl_Shared_Defaults} */
+    const DEF = spec['Fl32_Bwl_Shared_Defaults$'];    // singleton
     /** @type {TeqFw_Core_Back_Config} */
     const config = spec['TeqFw_Core_Back_Config$']; // singleton
     /** @type {Function|TeqFw_Email_Back_Process_Email.process} */
