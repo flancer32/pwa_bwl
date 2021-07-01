@@ -1,5 +1,5 @@
 /**
- * Request and response for 'Sign In Code Check' service.
+ * Route data for service to sign in code check.
  *
  * @namespace Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Check
  */
@@ -25,11 +25,18 @@ class Response {
 
 
 /**
- * Factory to create new DTOs.
+ * Factory to create new DTOs and get route address.
+ * @implements TeqFw_Web_Back_Api_Service_Factory_IRoute
  * @memberOf Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Check
  */
 class Factory {
-    constructor() {
+    constructor(spec) {
+        // EXTRACT DEPS
+        /** @type {Fl32_Bwl_Shared_Defaults} */
+        const DEF = spec['Fl32_Bwl_Shared_Defaults$'];
+
+        // DEFINE INSTANCE METHODS
+        this.getRoute = () => `/${DEF.NAME}${DEF.SRV.SIGN.IN.CODE.CHECK}`;
 
         /**
          * @param {Request|null} data

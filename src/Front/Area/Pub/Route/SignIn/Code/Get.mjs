@@ -17,13 +17,13 @@ const TIMEOUT = 3000;
 function Factory(spec) {
     // EXTRACT DEPS
     /** @type {Fl32_Teq_User_Front_Model_Session} */
-    const session = spec['Fl32_Teq_User_Front_Model_Session$']; // singleton
+    const session = spec['Fl32_Teq_User_Front_Model_Session$'];
     /** @type {TeqFw_Core_Front_Widget_Layout_Centered} */
-    const layoutCentered = spec['TeqFw_Core_Front_Widget_Layout_Centered$']; // vue comp tmpl
-    /** @function {@type Fl32_Bwl_Front_Gate_Sign_In_Code_Send.gate} */
-    const gateSend = spec['Fl32_Bwl_Front_Gate_Sign_In_Code_Send$']; // singleton
+    const layoutCentered = spec['TeqFw_Core_Front_Widget_Layout_Centered$'];
+     /** @type {TeqFw_Web_Front_Service_Gate} */
+    const gate = spec['TeqFw_Web_Front_Service_Gate$'];
     /** @type {Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Send.Factory} */
-    const fSend = spec['Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Send#Factory$']; // singleton
+    const route = spec['Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Send#Factory$'];
 
     // DEFINE WORKING VARS
     const template = `
@@ -78,10 +78,11 @@ function Factory(spec) {
         methods: {
             async onSubmit() {
                 this.loading = true;
-                const req = fSend.createReq();
+                const req = route.createReq();
                 req.email = this.fldEmail;
+                // noinspection JSValidateTypes
                 /** @type {Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Send.Response} */
-                const res = await gateSend(req);
+                const res = await gate.send(req, route);
                 this.loading = false;
                 const opts = {email: this.fldEmail};
                 if (res.isSent) {

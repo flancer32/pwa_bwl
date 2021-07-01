@@ -1,4 +1,6 @@
 export default class Fl32_Bwl_Shared_Defaults {
+    NAME = '@flancer32/pwa_bwl';
+
     BACK_REALM = 'app';  // realm for API services ('/api/app/...') and CLI commands ('app-...')
 
     DATA_GROUP_ID_ADMIN = 1; // app's sample data
@@ -41,6 +43,17 @@ export default class Fl32_Bwl_Shared_Defaults {
     REALM_SIGN_ROUTE_UP = '/up/:refCode?';
 
     // SERVICES ROUTES
+    SRV = {
+        SIGN: {
+            IN: {
+                CODE: {
+                    CHECK: '/sign/in/code/check',
+                    SEND: '/sign/in/code/send'
+                }
+            }
+        }
+    };
+
     SERV_FRIEND_LINK_ADD = '/friend/link/add';
     SERV_FRIEND_LINK_CODE_CREATE = '/friend/link/code/create';
     SERV_FRIEND_LIST = '/friend/list';

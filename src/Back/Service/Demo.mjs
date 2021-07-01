@@ -15,10 +15,10 @@ export default class Fl32_Bwl_Back_Service_Demo {
     constructor(spec) {
         // EXTRACT DEPS
         /** @type {Fl32_Bwl_Shared_Service_Route_Demo.Factory} */
-        const fRoute = spec['Fl32_Bwl_Shared_Service_Route_Demo#Factory$'];
+        const route = spec['Fl32_Bwl_Shared_Service_Route_Demo#Factory$'];
 
         // DEFINE INSTANCE METHODS
-        this.getRouteFactory = () => fRoute;
+        this.getRouteFactory = () => route;
 
         this.getService = function () {
             // DEFINE INNER FUNCTIONS

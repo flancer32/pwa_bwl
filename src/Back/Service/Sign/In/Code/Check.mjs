@@ -1,5 +1,5 @@
 /**
- * Service to check one-time sign-in code and to initiate new session.
+ * Check one-time sign-in code and to initiate new session.
  *
  * @namespace Fl32_Bwl_Back_Service_Sign_In_Code_Check
  */
@@ -10,21 +10,16 @@ import {constants as H2} from 'http2';
 const NS = 'Fl32_Bwl_Back_Service_Sign_In_Code_Check';
 
 /**
- * Service to check one-time sign-in code and to initiate new session.
- * @implements TeqFw_Http2_Back_Api_Service_Factory
+ * @implements TeqFw_Web_Back_Api_Service_IFactory
  */
-class Fl32_Bwl_Back_Service_Sign_In_Code_Check {
+export default class Fl32_Bwl_Back_Service_Sign_In_Code_Check {
 
     constructor(spec) {
-        // PARSE INPUT, INIT PROPS, DEFINE WORKING VARS
+        // EXTRACT DEPS
         /** @type {Fl32_Bwl_Shared_Defaults} */
         const DEF = spec['Fl32_Bwl_Shared_Defaults$']; // singleton
         /** @type {TeqFw_Core_Back_RDb_Connector} */
         const rdb = spec['TeqFw_Core_Back_RDb_Connector$'];  // singleton
-        /** @type {typeof TeqFw_Http2_Plugin_Handler_Service.Result} */
-        const ApiResult = spec['TeqFw_Http2_Plugin_Handler_Service#Result']; // class
-        /** @type {Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Check.Factory} */
-        const factRoute = spec['Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Check#Factory$']; // singleton
         /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Sign_In} */
         const ESignIn = spec['Fl32_Bwl_Back_Store_RDb_Schema_Sign_In#']; // class
         /** @function {@type TeqFw_Http2_Back_Util.cookieCreate} */
@@ -35,46 +30,19 @@ class Fl32_Bwl_Back_Service_Sign_In_Code_Check {
         const procCodeRemove = spec['Fl32_Bwl_Back_Process_Sign_In_Code_Remove$']; // singleton
         /** @type {Fl32_Teq_User_Back_Process_Session_Open} */
         const procSessionOpen = spec['Fl32_Teq_User_Back_Process_Session_Open$']; // singleton
+        /** @type {Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Check.Factory} */
+        const route = spec['Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Check#Factory$'];
 
         // DEFINE INSTANCE METHODS
+        this.getRouteFactory = () => route;
 
-        this.getRoute = () => DEF.SERV_SIGN_IN_CODE_CHECK;
-
-        /**
-         * Factory to create function to validate and structure incoming data.
-         * @returns {TeqFw_Http2_Back_Api_Service_Factory.parse}
-         */
-        this.createInputParser = function () {
+        this.getService = function () {
             // DEFINE INNER FUNCTIONS
             /**
-             * @param {TeqFw_Http2_Back_Server_Stream_Context} context
-             * @returns {Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Check.Request}
-             * @memberOf Fl32_Bwl_Back_Service_Sign_In_Code_Check
-             * @implements TeqFw_Http2_Back_Api_Service_Factory.parse
+             * @param {TeqFw_Web_Back_Api_Service_IContext} context
+             * @return Promise<void>
              */
-            function parse(context) {
-                const body = JSON.parse(context.body);
-                return factRoute.createReq(body.data);
-            }
-
-            // COMPOSE RESULT
-            Object.defineProperty(parse, 'name', {value: `${NS}.${parse.name}`});
-            return parse;
-        };
-
-        /**
-         * Factory to create service (handler to process HTTP API request).
-         * @returns {TeqFw_Http2_Back_Api_Service_Factory.service}
-         */
-        this.createService = function () {
-            // DEFINE INNER FUNCTIONS
-            /**
-             * @param {TeqFw_Http2_Plugin_Handler_Service.Context} apiCtx
-             * @returns {Promise<TeqFw_Http2_Plugin_Handler_Service.Result>}
-             * @memberOf Fl32_Bwl_Back_Service_Sign_In_Code_Check
-             * @implements {TeqFw_Http2_Back_Api_Service_Factory.service}
-             */
-            async function service(apiCtx) {
+            async function service(context) {
                 // DEFINE INNER FUNCTIONS
                 /**
                  * @param trx
@@ -117,36 +85,33 @@ class Fl32_Bwl_Back_Service_Sign_In_Code_Check {
                 }
 
                 // MAIN FUNCTIONALITY
-                const result = new ApiResult();
-                const response = factRoute.createRes();
-                response.isSent = false;
-                result.response = response;
-                const trx = await rdb.startTransaction();
                 /** @type {Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Check.Request} */
-                const apiReq = apiCtx.request;
+                const req = context.getInData();
+                /** @type {Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Check.Response} */
+                const res = context.getOutData();
+                //
+                const trx = await rdb.startTransaction();
                 try {
-                    const code = apiReq.code;
+                    const code = req.code;
                     await procCodeCleanUp({trx});
                     const userId = await getUserIdByCode(trx, code);
                     if (userId !== null) {
                         await procCodeRemove({trx, code});
                         const {sessionId, cookie} = await initSession(trx, userId);
-                        result.headers[H2.HTTP2_HEADER_SET_COOKIE] = cookie;
-                        response.sessionId = sessionId;
+                        context.setOutHeader(H2.HTTP2_HEADER_SET_COOKIE, cookie);
+                        res.sessionId = sessionId;
                     }
                     await trx.commit();
                 } catch (error) {
                     await trx.rollback();
                     throw error;
                 }
-                return result;
             }
 
-            // COMPOSE RESULT
+            // MAIN FUNCTIONALITY
             Object.defineProperty(service, 'name', {value: `${NS}.${service.name}`});
             return service;
-        };
+        }
+
     }
 }
-
-export default Fl32_Bwl_Back_Service_Sign_In_Code_Check;

@@ -1,5 +1,5 @@
 /**
- * Service to send one-time sign-in code to email.
+ * Send one-time sign-in code to email.
  *
  * @namespace Fl32_Bwl_Back_Service_Sign_In_Code_Send
  */
@@ -7,101 +7,54 @@
 const NS = 'Fl32_Bwl_Back_Service_Sign_In_Code_Send';
 
 /**
- * Service to remove weight stats data for the user.
- * @implements TeqFw_Http2_Back_Api_Service_Factory
+ * @implements TeqFw_Web_Back_Api_Service_IFactory
  */
-class Fl32_Bwl_Back_Service_Sign_In_Code_Send {
+export default class Fl32_Bwl_Back_Service_Sign_In_Code_Send {
 
     constructor(spec) {
-        // PARSE INPUT, INIT PROPS, DEFINE WORKING VARS
-        /** @type {Fl32_Bwl_Shared_Defaults} */
-        const DEF = spec['Fl32_Bwl_Shared_Defaults$']; // singleton
-        /** @type {TeqFw_Core_Back_RDb_Connector} */
-        const rdb = spec['TeqFw_Core_Back_RDb_Connector$'];  // singleton
-        /** @type {typeof TeqFw_Http2_Plugin_Handler_Service.Result} */
-        const ApiResult = spec['TeqFw_Http2_Plugin_Handler_Service#Result']; // class
+        // EXTRACT DEPS
         /** @type {Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Send.Factory} */
-        const factRoute = spec['Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Send#Factory$']; // singleton
+        const route = spec['Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Send#Factory$'];
+        /** @type {TeqFw_Core_Back_RDb_Connector} */
+        const rdb = spec['TeqFw_Core_Back_RDb_Connector$'];
         /** @function {@type Fl32_Bwl_Back_Process_Sign_In_Code_Create.process} */
-        const procCreate = spec['Fl32_Bwl_Back_Process_Sign_In_Code_Create$']; // singleton
+        const procCreate = spec['Fl32_Bwl_Back_Process_Sign_In_Code_Create$'];
         /** @function {@type Fl32_Bwl_Back_Process_Sign_In_Code_CleanUp.process} */
-        const procCleanUp = spec['Fl32_Bwl_Back_Process_Sign_In_Code_CleanUp$']; // singleton
+        const procCleanUp = spec['Fl32_Bwl_Back_Process_Sign_In_Code_CleanUp$'];
         /** @function {@type Fl32_Bwl_Back_Process_Sign_In_Code_Email.process} */
-        const procEmail = spec['Fl32_Bwl_Back_Process_Sign_In_Code_Email$']; // singleton
-
-
-        // DEFINE INNER FUNCTIONS
+        const procEmail = spec['Fl32_Bwl_Back_Process_Sign_In_Code_Email$'];
 
         // DEFINE INSTANCE METHODS
+        this.getRouteFactory = () => route;
 
-        this.getRoute = () => DEF.SERV_SIGN_IN_CODE_SEND;
-
-        /**
-         * Factory to create function to validate and structure incoming data.
-         * @returns {TeqFw_Http2_Back_Api_Service_Factory.parse}
-         */
-        this.createInputParser = function () {
+        this.getService = function () {
             // DEFINE INNER FUNCTIONS
             /**
-             * @param {TeqFw_Http2_Back_Server_Stream_Context} context
-             * @returns {Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Send.Request}
-             * @memberOf Fl32_Bwl_Back_Service_Sign_In_Code_Send
-             * @implements TeqFw_Http2_Back_Api_Service_Factory.parse
+             * @param {TeqFw_Web_Back_Api_Service_IContext} context
+             * @return Promise<void>
              */
-            function parse(context) {
-                const body = JSON.parse(context.body);
-                return factRoute.createReq(body.data);
-            }
-
-            // COMPOSE RESULT
-            Object.defineProperty(parse, 'name', {value: `${NS}.${parse.name}`});
-            return parse;
-        };
-
-        /**
-         * Factory to create service (handler to process HTTP API request).
-         * @returns {TeqFw_Http2_Back_Api_Service_Factory.service}
-         */
-        this.createService = function () {
-            // DEFINE INNER FUNCTIONS
-            /**
-             * @param {TeqFw_Http2_Plugin_Handler_Service.Context} apiCtx
-             * @returns {Promise<TeqFw_Http2_Plugin_Handler_Service.Result>}
-             * @memberOf Fl32_Bwl_Back_Service_Sign_In_Code_Send
-             * @implements {TeqFw_Http2_Back_Api_Service_Factory.service}
-             */
-            async function service(apiCtx) {
-                // DEFINE INNER FUNCTIONS
-
-                // MAIN FUNCTIONALITY
-                const result = new ApiResult();
-                const response = factRoute.createRes();
-                response.isSent = false;
-                result.response = response;
-                const trx = await rdb.startTransaction();
+            async function service(context) {
                 /** @type {Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Send.Request} */
-                const apiReq = apiCtx.request;
-                // const shared = apiCtx.sharedContext;
+                const req = context.getInData();
+                /** @type {Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Send.Response} */
+                const res = context.getOutData();
+                res.isSent = false;
+                const trx = await rdb.startTransaction();
                 try {
-                    const email = apiReq.email;
+                    const email = req.email;
                     await procCleanUp({trx});
                     const code = await procCreate({trx, email});
-                    if (code !== null) response.isSent = await procEmail({to: email, code});
+                    if (code !== null) res.isSent = await procEmail({to: email, code});
                     await trx.commit();
                 } catch (error) {
                     await trx.rollback();
                     throw error;
                 }
-                return result;
             }
 
-            // COMPOSE RESULT
+            // MAIN FUNCTIONALITY
             Object.defineProperty(service, 'name', {value: `${NS}.${service.name}`});
             return service;
-        };
+        }
     }
-
-    // DEFINE PROTO METHODS
 }
-
-export default Fl32_Bwl_Back_Service_Sign_In_Code_Send;
