@@ -15,13 +15,13 @@ const NS = 'Fl32_Bwl_Front_Area_Sign_Route_Up';
  */
 function Factory(spec) {
     // EXTRACT DEPS
-    const {formatUtcTime, isEmpty} = spec['TeqFw_Core_Shared_Util']; // ES6 module destructing
+    const {formatUtcTime, isEmpty} = spec['TeqFw_Core_Shared_Util'];
     /** @type {Fl32_Bwl_Front_Area_Sign_Widget_RegForm} */
     const regForm = spec['Fl32_Bwl_Front_Area_Sign_Widget_RegForm$'];
-    /** @function {@type Fl32_Teq_User_Front_Gate_RefLink_Get.gate} */
-    const gateGet = spec['Fl32_Teq_User_Front_Gate_RefLink_Get$']; // singleton
-    /** @type { Fl32_Teq_User_Shared_Service_Route_RefLink_Get.Factory} */
-    const fGet = spec['Fl32_Teq_User_Shared_Service_Route_RefLink_Get#Factory$']; // singleton
+    /** @type {TeqFw_Web_Front_Service_Gate} */
+    const gate = spec['TeqFw_Web_Front_Service_Gate$'];
+    /** @type {Fl32_Teq_User_Shared_Service_Route_RefLink_Get.Factory} */
+    const route = spec['Fl32_Teq_User_Shared_Service_Route_RefLink_Get#Factory$'];
 
     // DEFINE WORKING VARS
     const template = `
@@ -93,10 +93,11 @@ function Factory(spec) {
                 console.log('error');
             } else {
                 console.log(this.refCode);
-                const req = fGet.createReq();
+                const req = route.createReq();
                 req.code = this.refCode;
+                // noinspection JSValidateTypes
                 /** @type {Fl32_Teq_User_Shared_Service_Route_RefLink_Get.Response} */
-                const res = await gateGet(req);
+                const res = await gate.send(req, route);
                 if (res.link?.refCode === this.refCode) {
                     this.parent = res.link.parent;
                     me.timeLeft = (new Date(res.link.dateExpired)).getTime() - (new Date()).getTime();

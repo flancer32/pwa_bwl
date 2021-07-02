@@ -29,6 +29,7 @@ export default class Fl32_Bwl_Shared_Defaults {
     MOD_VUE;
 
     // FRONTEND ROUTES
+    // TODO: rename REALM to DOOR
     REALM_PUB = 'pub';
     REALM_PUB_ROUTE_DEV_LOGIN = '/dev/login';
     REALM_PUB_ROUTE_FRIENDS = '/friends';

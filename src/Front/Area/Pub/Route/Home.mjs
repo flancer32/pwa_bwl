@@ -22,33 +22,33 @@ const PERIOD_WEEK_2 = 'w2';
 function Factory(spec) {
     // EXTRACT DEPS
     /** @type {Fl32_Bwl_Shared_Defaults} */
-    const DEF = spec['Fl32_Bwl_Shared_Defaults$'];    // singleton
+    const DEF = spec['Fl32_Bwl_Shared_Defaults$'];
     /** @type {Fl32_Teq_User_Front_Model_Session} */
-    const session = spec['Fl32_Teq_User_Front_Model_Session$']; // singleton
+    const session = spec['Fl32_Teq_User_Front_Model_Session$'];
     /** @type {Fl32_Bwl_Front_Area_Pub_Widget_Chart} */
     const chart = spec['Fl32_Bwl_Front_Area_Pub_Widget_Chart$'];
     /** @type {typeof Fl32_Bwl_Front_Area_Pub_Widget_Chart.ChartData} */
     const ChartData = spec['Fl32_Bwl_Front_Area_Pub_Widget_Chart#ChartData'];
     /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.IComponent} */
-    const topActions = spec[DEF.DI_TOP_ACTIONS]; // vue comp tmpl
-    /** @function {@type Fl32_Teq_User_Front_Gate_Sign_Out.gate} */
-    const gateSignOut = spec['Fl32_Teq_User_Front_Gate_Sign_Out$']; // singleton
+    const topActions = spec[DEF.DI_TOP_ACTIONS];
+    /** @type {TeqFw_Web_Front_Service_Gate} */
+    const gate = spec['TeqFw_Web_Front_Service_Gate$'];
     /** @type {Fl32_Teq_User_Shared_Service_Route_Sign_Out.Factory} */
-    const fSignOut = spec['Fl32_Teq_User_Shared_Service_Route_Sign_Out#Factory$']; // singleton
+    const routeSignOut = spec['Fl32_Teq_User_Shared_Service_Route_Sign_Out#Factory$'];
     /** @function {@type Fl32_Bwl_Front_Gate_Weight_History_List.gate} */
-    const gateHistory = spec['Fl32_Bwl_Front_Gate_Weight_History_List$']; // singleton
+    const gateHistory = spec['Fl32_Bwl_Front_Gate_Weight_History_List$'];
     /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_List.Factory} */
-    const fHistory = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_List#Factory$']; // singleton
+    const fHistory = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_List#Factory$'];
     /** @function {@type Fl32_Bwl_Front_Gate_Friend_List.gate} */
-    const gateList = spec['Fl32_Bwl_Front_Gate_Friend_List$']; // singleton
+    const gateList = spec['Fl32_Bwl_Front_Gate_Friend_List$'];
     /** @type {Fl32_Bwl_Shared_Service_Route_Friend_List.Factory} */
-    const fList = spec['Fl32_Bwl_Shared_Service_Route_Friend_List#Factory$']; // singleton
+    const fList = spec['Fl32_Bwl_Shared_Service_Route_Friend_List#Factory$'];
     /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.Item} */
-    const Action = spec['Fl32_Bwl_Front_Layout_TopActions#Item']; // class
+    const Action = spec['Fl32_Bwl_Front_Layout_TopActions#Item'];
     /** @type {Fl32_Bwl_Front_Widget_Edit_Weight.vueCompTmpl} */
-    const editWeight = spec['Fl32_Bwl_Front_Widget_Edit_Weight$']; // vue comp tmpl
+    const editWeight = spec['Fl32_Bwl_Front_Widget_Edit_Weight$'];
     /** @type {Fl32_Bwl_Front_DataSource_Weight} */
-    const dsWeights = spec['Fl32_Bwl_Front_DataSource_Weight$']; // singleton
+    const dsWeights = spec['Fl32_Bwl_Front_DataSource_Weight$'];
 
     // DEFINE WORKING VARS
     /** @type {Fl32_Bwl_Front_Widget_Edit_Weight.vueCompTmpl.TYPES} */
@@ -233,8 +233,8 @@ function Factory(spec) {
                 const actAdd = new Action();
                 actAdd.icon = 'logout';
                 actAdd.action = async function () {
-                    const req = fSignOut.createReq();
-                    await gateSignOut(req);
+                    const req = routeSignOut.createReq();
+                    await gate.send(req, routeSignOut);
                     self.location.reload();
                 };
                 topActions.setActions([actAdd]);

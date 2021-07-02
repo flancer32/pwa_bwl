@@ -37,10 +37,11 @@ function Factory(spec) {
     const gateCodeCreate = spec['Fl32_Bwl_Front_Gate_Friend_Link_Code_Create$']; // singleton
     /** @type {Fl32_Bwl_Shared_Service_Route_Friend_Link_Code_Create.Factory} */
     const fCodeCreate = spec['Fl32_Bwl_Shared_Service_Route_Friend_Link_Code_Create#Factory$']; // singleton
-    /** @function {@type Fl32_Teq_User_Front_Gate_RefLink_Create.gate} */
-    const gateRefLinkCreate = spec['Fl32_Teq_User_Front_Gate_RefLink_Create$']; // singleton
+    /** @type {TeqFw_Web_Front_Service_Gate} */
+    const gate = spec['TeqFw_Web_Front_Service_Gate$'];
     /** @type {Fl32_Teq_User_Shared_Service_Route_RefLink_Create.Factory} */
-    const fRefLinkCreate = spec['Fl32_Teq_User_Shared_Service_Route_RefLink_Create#Factory$']; // singleton
+    const routeRefLinkCreate = spec['Fl32_Teq_User_Shared_Service_Route_RefLink_Create#Factory$'];
+
     /** @function {@type Fl32_Bwl_Front_Gate_Friend_List.gate} */
     const gateList = spec['Fl32_Bwl_Front_Gate_Friend_List$']; // singleton
     /** @type {Fl32_Bwl_Shared_Service_Route_Friend_List.Factory} */
@@ -136,9 +137,10 @@ function Factory(spec) {
                  */
                 async function addDownline() {
                     // get referral link with limited lifetime
-                    const req = fRefLinkCreate.createReq();
+                    const req = routeRefLinkCreate.createReq();
+                    // noinspection JSValidateTypes
                     /** @type {Fl32_Teq_User_Shared_Service_Route_RefLink_Create.Response} */
-                    const res = await gateRefLinkCreate(req);
+                    const res = await gate.send(req, routeRefLinkCreate);
                     const code = res.link.refCode;
                     // compose URL to sign up
                     const host = `https://${config.urlBase}`;
