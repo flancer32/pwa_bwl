@@ -17,37 +17,32 @@ const FRIEND_ID = 'friendId';
 function Factory(spec) {
     // EXTRACT DEPS
     /** @type {Fl32_Bwl_Shared_Defaults} */
-    const DEF = spec['Fl32_Bwl_Shared_Defaults$'];    // singleton
+    const DEF = spec['Fl32_Bwl_Shared_Defaults$'];
     /** @type {TeqFw_Web_Front_Api_Dto_Config} */
-    const config = spec['TeqFw_Web_Front_Api_Dto_Config$']; // singleton
+    const config = spec['TeqFw_Web_Front_Api_Dto_Config$'];
     /** @type {Fl32_Teq_User_Front_Model_Session} */
-    const session = spec['Fl32_Teq_User_Front_Model_Session$']; // singleton
-    const i18n = spec[DEF.MOD_I18N.DI.I18N]; // singleton
+    const session = spec['Fl32_Teq_User_Front_Model_Session$'];
+    const i18n = spec[DEF.MOD_I18N.DI.I18N];
     /** @function {typeof TeqFw_Core_Shared_Util.formatDate} */
-    const formatDate = spec['TeqFw_Core_Shared_Util#formatDate']; // singleton
+    const formatDate = spec['TeqFw_Core_Shared_Util#formatDate'];
     /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.IComponent} */
-    const topActions = spec[DEF.DI_TOP_ACTIONS]; // vue comp tmpl
+    const topActions = spec[DEF.DI_TOP_ACTIONS];
     /** @type {Fl32_Bwl_Front_Area_Pub_Widget_Friends_Dialog_Add} */
-    const dialogAdd = spec['Fl32_Bwl_Front_Area_Pub_Widget_Friends_Dialog_Add$']; // vue comp tmpl
+    const dialogAdd = spec['Fl32_Bwl_Front_Area_Pub_Widget_Friends_Dialog_Add$'];
     /** @type {Fl32_Bwl_Front_Widget_Edit_Group} */
-    const editGroup = spec['Fl32_Bwl_Front_Widget_Edit_Group$']; // vue comp tmpl
+    const editGroup = spec['Fl32_Bwl_Front_Widget_Edit_Group$'];
     /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.Item} */
-    const Action = spec['Fl32_Bwl_Front_Layout_TopActions#Item']; // class
-    /** @function {@type Fl32_Bwl_Front_Gate_Friend_Link_Code_Create.gate} */
-    const gateCodeCreate = spec['Fl32_Bwl_Front_Gate_Friend_Link_Code_Create$']; // singleton
-    /** @type {Fl32_Bwl_Shared_Service_Route_Friend_Link_Code_Create.Factory} */
-    const fCodeCreate = spec['Fl32_Bwl_Shared_Service_Route_Friend_Link_Code_Create#Factory$']; // singleton
+    const Action = spec['Fl32_Bwl_Front_Layout_TopActions#Item'];
     /** @type {TeqFw_Web_Front_Service_Gate} */
     const gate = spec['TeqFw_Web_Front_Service_Gate$'];
     /** @type {Fl32_Teq_User_Shared_Service_Route_RefLink_Create.Factory} */
     const routeRefLinkCreate = spec['Fl32_Teq_User_Shared_Service_Route_RefLink_Create#Factory$'];
-
-    /** @function {@type Fl32_Bwl_Front_Gate_Friend_List.gate} */
-    const gateList = spec['Fl32_Bwl_Front_Gate_Friend_List$']; // singleton
+    /** @type {Fl32_Bwl_Shared_Service_Route_Friend_Link_Code_Create.Factory} */
+    const routeFriendCodeCreate = spec['Fl32_Bwl_Shared_Service_Route_Friend_Link_Code_Create#Factory$'];
     /** @type {Fl32_Bwl_Shared_Service_Route_Friend_List.Factory} */
-    const fList = spec['Fl32_Bwl_Shared_Service_Route_Friend_List#Factory$']; // singleton
+    const routeList = spec['Fl32_Bwl_Shared_Service_Route_Friend_List#Factory$'];
     /** @type {typeof Fl32_Bwl_Shared_Service_Dto_Friend_List_Item} */
-    const DItem = spec['Fl32_Bwl_Shared_Service_Dto_Friend_List_Item#']; //class
+    const DItem = spec['Fl32_Bwl_Shared_Service_Dto_Friend_List_Item#'];
 
     // DEFINE WORKING VARS
     const template = `
@@ -108,9 +103,10 @@ function Factory(spec) {
                  * Generate and share link to add new friendship relation.
                  */
                 async function addFriend() {
-                    const req = new fCodeCreate.createReq();
+                    const req = new routeFriendCodeCreate.createReq();
+                    // noinspection JSValidateTypes
                     /** @type {Fl32_Bwl_Shared_Service_Route_Friend_Link_Code_Create.Response} */
-                    const res = await gateCodeCreate(req);
+                    const res = await gate.send(req, routeFriendCodeCreate);
                     const code = res.link.code;
                     // compose URL to add new friend
                     const host = `https://${config.urlBase}`;
@@ -212,8 +208,8 @@ function Factory(spec) {
             async function loadItems() {
                 me.loading = true;
                 const result = [];
-                const req = fList.createReq();
-                const res = await gateList(req);
+                const req = routeList.createReq();
+                const res = await gate.send(req, routeList);
                 if (res) result.push(...res.items);
                 me.loading = false;
                 return result;

@@ -24,19 +24,18 @@ const EVT_SUBMIT = 'onSubmit';
 function Factory(spec) {
     // EXTRACT DEPS
     /** @type {Fl32_Bwl_Shared_Defaults} */
-    const DEF = spec['Fl32_Bwl_Shared_Defaults$'];    // singleton
-    const i18n = spec[DEF.MOD_I18N.DI.I18N];   // singleton
+    const DEF = spec['Fl32_Bwl_Shared_Defaults$'];
+    const i18n = spec[DEF.MOD_I18N.DI.I18N];
     /** @type {Fl32_Bwl_Front_Widget_Weight.vueCompTmpl} */
-    const weight = spec['Fl32_Bwl_Front_Widget_Weight$']; // vue comp tmpl
-    /** @type {Fl32_Bwl_Front_Gate_Weight_Stat_Save.gate} */
-    const gate = spec['Fl32_Bwl_Front_Gate_Weight_Stat_Save$']; // function instance
-    /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save.Response} */
-    const Response = spec['Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save#Response']; // class
+    const weight = spec['Fl32_Bwl_Front_Widget_Weight$'];
+    /** @type {TeqFw_Web_Front_Service_Gate} */
+    const gate = spec['TeqFw_Web_Front_Service_Gate$'];
     /** @type {Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save.Factory} */
-    const factRoute = spec['Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save#Factory$']; // singleton
+    const route = spec['Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save#Factory$'];
     /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save.Types} */
-    const Types = spec['Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save#Types']; // class
-    const {formatDate} = spec['Fl32_Bwl_Shared_Util']; // ES6 module destructing
+    const Types = spec['Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save#Types'];
+    /** @type {Function|Fl32_Bwl_Shared_Util.formatDate} */
+    const formatDate = spec['Fl32_Bwl_Shared_Util#formatDate'];
 
     // DEFINE WORKING VARS
     /**
@@ -120,12 +119,12 @@ function Factory(spec) {
             },
             async submit() {
                 const value = this.selectedWeight;
-                const req = factRoute.createReq();
+                const req = route.createReq();
                 req.date = this.date;
                 req.weight = value;
                 req.type = this.type;
-                const res = await gate(req);
-                if (res instanceof Response) {
+                const res = await gate.send(req, route);
+                if (res) {
                     this.$emit(EVT_SUBMIT, value, this.type);
                 } else {
                     console.log('Error: cannot update weight on server. See dev. tools logs.');

@@ -1,5 +1,5 @@
 /**
- * Request and response for 'List Weight Stats Data' service.
+ * Route data for service to list weight stats data.
  *
  * @namespace Fl32_Bwl_Shared_Service_Route_Weight_History_List
  */
@@ -30,16 +30,22 @@ class Response {
 }
 
 /**
- * Factory to create new DTOs.
+ * Factory to create new DTOs and get route address.
+ * @implements TeqFw_Web_Back_Api_Service_Factory_IRoute
  * @memberOf Fl32_Bwl_Shared_Service_Route_Weight_History_List
  */
 class Factory {
     constructor(spec) {
         // EXTRACT DEPS
+        /** @type {Fl32_Bwl_Shared_Defaults} */
+        const DEF = spec['Fl32_Bwl_Shared_Defaults$'];
         /** @type {typeof Fl32_Bwl_Shared_Service_Dto_Weight_History_Item} */
-        const DItem = spec['Fl32_Bwl_Shared_Service_Dto_Weight_History_Item#']; // class
+        const DItem = spec['Fl32_Bwl_Shared_Service_Dto_Weight_History_Item#'];
         /** @type {Fl32_Bwl_Shared_Service_Dto_Weight_History_Item.Factory} */
-        const fItem = spec['Fl32_Bwl_Shared_Service_Dto_Weight_History_Item#Factory$']; // singleton
+        const fItem = spec['Fl32_Bwl_Shared_Service_Dto_Weight_History_Item#Factory$'];
+
+        // DEFINE INSTANCE METHODS
+        this.getRoute = () => `/${DEF.NAME}${DEF.SRV.SIGN.IN.CODE.SEND}`;
 
         /**
          * @param {Request|null} data

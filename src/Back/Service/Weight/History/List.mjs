@@ -1,78 +1,50 @@
 /**
- * Service to get weight stats data for the user.
+ * Get weight stats data for the user.
  *
  * @namespace Fl32_Bwl_Back_Service_Weight_History_List
  */
 import {constants as H2} from 'http2';
 
+// MODULE'S VARS
+const NS = 'Fl32_Bwl_Back_Service_Weight_History_List';
+
 /**
- * Service to get weight stats data for the user.
- * @implements TeqFw_Http2_Back_Api_Service_Factory
+ * @implements TeqFw_Web_Back_Api_Service_IFactory
  */
 export default class Fl32_Bwl_Back_Service_Weight_History_List {
 
     constructor(spec) {
-        /** @type {Fl32_Bwl_Shared_Defaults} */
-        const DEF = spec['Fl32_Bwl_Shared_Defaults$']; // singleton
+        /** @type {Fl32_Bwl_Back_Defaults} */
+        const DEF = spec['Fl32_Bwl_Back_Defaults$'];
         /** @type {TeqFw_Core_Back_RDb_Connector} */
-        const rdb = spec['TeqFw_Core_Back_RDb_Connector$'];  // singleton
-        const {
-            /** @function {@type TeqFw_Core_Shared_Util.formatDate} */
-            formatDate
-        } = spec['TeqFw_Core_Shared_Util']; // ES6 module
+        const rdb = spec['TeqFw_Core_Back_RDb_Connector$'];
+        /** @type {Function|TeqFw_Core_Shared_Util.formatDate} */
+        const formatDate = spec['TeqFw_Core_Shared_Util#formatDate'];
         /** @type {typeof TeqFw_Http2_Plugin_Handler_Service.Result} */
-        const ApiResult = spec['TeqFw_Http2_Plugin_Handler_Service#Result']; // class
+        const ApiResult = spec['TeqFw_Http2_Plugin_Handler_Service#Result'];
         /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_List.Factory} */
-        const factRoute = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_List#Factory$']; // singleton
+        const factRoute = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_List#Factory$'];
         /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat} */
-        const EWeightStat = spec['Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat#']; // class
+        const EWeightStat = spec['Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat#'];
         /** @type {typeof Fl32_Bwl_Shared_Service_Dto_Weight_History_Item} */
-        const DWeightItem = spec['Fl32_Bwl_Shared_Service_Dto_Weight_History_Item#']; // class
+        const DWeightItem = spec['Fl32_Bwl_Shared_Service_Dto_Weight_History_Item#'];
         /** @type {typeof Fl32_Bwl_Back_Store_RDb_Query_Friend_GetItems.queryBuilder} */
         const qHistoryGetItems = spec['Fl32_Bwl_Back_Store_RDb_Query_Friend_GetItems$'];
+        /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_List.Factory} */
+        const route = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_List#Factory$'];
 
+        // DEFINE INSTANCE METHODS
+        this.getRouteFactory = () => route;
 
-        this.getRoute = function () {
-            return DEF.SERV_WEIGHT_HISTORY_LIST;
-        };
-
-        /**
-         * Factory to create function to validate and structure incoming data.
-         * @returns {TeqFw_Http2_Back_Api_Service_Factory.parse}
-         */
-        this.createInputParser = function () {
+        this.getService = function () {
             // DEFINE INNER FUNCTIONS
             /**
-             * @param {TeqFw_Http2_Back_Server_Stream_Context} context
-             * @returns {Fl32_Bwl_Shared_Service_Route_Weight_History_List.Request}
-             * @memberOf Fl32_Bwl_Back_Service_Weight_History_List
-             * @implements TeqFw_Http2_Back_Api_Service_Factory.parse
+             * @param {TeqFw_Web_Back_Api_Service_IContext} context
+             * @return Promise<void>
              */
-            function parse(context) {
-                const body = JSON.parse(context.body);
-                return factRoute.createReq(body.data);
-            }
-
-            // COMPOSE RESULT
-            Object.defineProperty(parse, 'name', {value: `${this.constructor.name}.${parse.name}`});
-            return parse;
-        };
-
-        /**
-         * Factory to create service (handler to process HTTP API request).
-         * @returns {TeqFw_Http2_Back_Api_Service_Factory.service}
-         */
-        this.createService = function () {
-            // DEFINE INNER FUNCTIONS
-            /**
-             * @param {TeqFw_Http2_Plugin_Handler_Service.Context} apiCtx
-             * @returns {Promise<TeqFw_Http2_Plugin_Handler_Service.Result>}
-             * @memberOf Fl32_Bwl_Back_Service_Weight_History_List
-             * @implements {TeqFw_Http2_Back_Api_Service_Factory.service}
-             */
-            async function service(apiCtx) {
-
+            async function service(context) {
                 // DEFINE INNER FUNCTIONS
+
                 /**
                  * @param trx
                  * @param {Fl32_Teq_User_Shared_Service_Dto_User} user
@@ -135,33 +107,31 @@ export default class Fl32_Bwl_Back_Service_Weight_History_List {
                 }
 
                 // MAIN FUNCTIONALITY
-                const result = new ApiResult();
-                const response = factRoute.createRes();
-                result.response = response;
-                const trx = await rdb.startTransaction();
                 /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_List.Request} */
-                const apiReq = apiCtx.request;
-                const shared = apiCtx.sharedContext;
+                const req = context.getInData();
+                /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_List.Response} */
+                const res = context.getOutData();
+                const shared = context.getHandlersShare();
+                //
+                const trx = await rdb.startTransaction();
                 try {
                     /** @type {Fl32_Teq_User_Shared_Service_Dto_User} */
-                    const user = shared[DEF.MOD_USER.HTTP_SHARE_CTX_USER];
+                    const user = shared[DEF.MOD.USER.HTTP_SHARE_CTX_USER];
                     if (user) {
-                       response.items = await selectItems(trx, user, apiReq);
+                        res.items = await selectItems(trx, user, req);
                     } else {
-                        result.headers[H2.HTTP2_HEADER_STATUS] = H2.HTTP_STATUS_UNAUTHORIZED;
+                        context.setOutHeader(DEF.MOD.WEB.HTTP.HEADER.STATUS, H2.HTTP_STATUS_UNAUTHORIZED);
                     }
                     await trx.commit();
                 } catch (error) {
                     await trx.rollback();
                     throw error;
                 }
-                return result;
             }
 
-            // COMPOSE RESULT
-            Object.defineProperty(service, 'name', {value: `${this.constructor.name}.${service.name}`});
+            // MAIN FUNCTIONALITY
+            Object.defineProperty(service, 'name', {value: `${NS}.${service.name}`});
             return service;
-        };
+        }
     }
-
 }

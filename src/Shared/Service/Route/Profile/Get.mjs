@@ -1,5 +1,5 @@
 /**
- * Request and response for 'Get application profile for the user' service.
+ * Route data for service to get application profile for the user.
  *
  * @namespace Fl32_Bwl_Shared_Service_Route_Profile_Get
  */
@@ -10,8 +10,7 @@ const NS = 'Fl32_Bwl_Shared_Service_Route_Profile_Get';
 /**
  * @memberOf Fl32_Bwl_Shared_Service_Route_Profile_Get
  */
-class Request {
-}
+class Request {}
 
 /**
  * @memberOf Fl32_Bwl_Shared_Service_Route_Profile_Get
@@ -22,16 +21,23 @@ class Response {
 }
 
 /**
- * Factory to create new DTOs.
+ * Factory to create new DTOs and get route address.
+ * @implements TeqFw_Web_Back_Api_Service_Factory_IRoute
  * @memberOf Fl32_Bwl_Shared_Service_Route_Profile_Get
  */
 class Factory {
     constructor(spec) {
         // EXTRACT DEPS
+        /** @type {Fl32_Bwl_Shared_Defaults} */
+        const DEF = spec['Fl32_Bwl_Shared_Defaults$'];
         /** @type {typeof Fl32_Bwl_Shared_Service_Dto_Profile} */
-        const DProfile = spec['Fl32_Bwl_Shared_Service_Dto_Profile#']; // class
+        const DProfile = spec['Fl32_Bwl_Shared_Service_Dto_Profile#'];
         /** @type {Fl32_Bwl_Shared_Service_Dto_Profile.Factory} */
-        const fProfile = spec['Fl32_Bwl_Shared_Service_Dto_Profile#Factory$']; // singleton
+        const fProfile = spec['Fl32_Bwl_Shared_Service_Dto_Profile#Factory$'];
+
+        // DEFINE INSTANCE METHODS
+
+        this.getRoute = () => `/${DEF.NAME}${DEF.SRV.PROFILE.GET}`;
 
         /**
          * @param {Request|null} data

@@ -1,5 +1,5 @@
 /**
- * Request and response for service to generate code for link to establish friendship relations.
+ * Route data for service to generate code for link to establish friendship relations.
  *
  * @namespace Fl32_Bwl_Shared_Service_Route_Friend_Link_Code_Create
  */
@@ -10,8 +10,7 @@ const NS = 'Fl32_Bwl_Shared_Service_Route_Friend_Link_Code_Create';
 /**
  * @memberOf Fl32_Bwl_Shared_Service_Route_Friend_Link_Code_Create
  */
-class Request {
-}
+class Request {}
 
 /**
  * @memberOf Fl32_Bwl_Shared_Service_Route_Friend_Link_Code_Create
@@ -22,16 +21,22 @@ class Response {
 }
 
 /**
- * Factory to create new DTOs.
+ * Factory to create new DTOs and get route address.
+ * @implements TeqFw_Web_Back_Api_Service_Factory_IRoute
  * @memberOf Fl32_Bwl_Shared_Service_Route_Friend_Link_Code_Create
  */
 class Factory {
     constructor(spec) {
         // EXTRACT DEPS
+        /** @type {Fl32_Bwl_Shared_Defaults} */
+        const DEF = spec['Fl32_Bwl_Shared_Defaults$'];
         /** @type {typeof Fl32_Bwl_Shared_Service_Dto_Friend_Link} */
         const DLink = spec['Fl32_Bwl_Shared_Service_Dto_Friend_Link#']; // class
         /** @type {Fl32_Bwl_Shared_Service_Dto_Friend_Link.Factory} */
         const fLink = spec['Fl32_Bwl_Shared_Service_Dto_Friend_Link#Factory$']; // singleton
+
+        // DEFINE INSTANCE METHODS
+        this.getRoute = () => `/${DEF.NAME}${DEF.SRV.FRIEND.LINK.CODE.CREATE}`;
 
         /**
          * @param {Request|null} data

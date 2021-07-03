@@ -1,67 +1,48 @@
+/**
+ * Get application profile for the user.
+ *
+ * @namespace Fl32_Bwl_Back_Service_Profile_Get
+ */
+// MODULE'S IMPORT
 import {constants as H2} from 'http2';
 
+// MODULE'S VARS
+const NS = 'Fl32_Bwl_Back_Service_Profile_Get';
+
 /**
- * Service to get application profile for the user.
- * @implements TeqFw_Http2_Back_Api_Service_Factory
+ * @implements TeqFw_Web_Back_Api_Service_IFactory
  */
 export default class Fl32_Bwl_Back_Service_Profile_Get {
 
     constructor(spec) {
-        /** @type {Fl32_Bwl_Shared_Defaults} */
-        const DEF = spec['Fl32_Bwl_Shared_Defaults$']; // singleton
+        // EXTRACT DEPS
+        /** @type {Fl32_Bwl_Back_Defaults} */
+        const DEF = spec['Fl32_Bwl_Back_Defaults$'];
         /** @type {TeqFw_Core_Back_RDb_Connector} */
-        const rdb = spec['TeqFw_Core_Back_RDb_Connector$'];  // singleton
-        /** @type {typeof TeqFw_Http2_Plugin_Handler_Service.Result} */
-        const ApiResult = spec['TeqFw_Http2_Plugin_Handler_Service#Result']; // class
+        const rdb = spec['TeqFw_Core_Back_RDb_Connector$'];
         /** @type {Fl32_Bwl_Shared_Service_Route_Profile_Get.Factory} */
-        const factRoute = spec['Fl32_Bwl_Shared_Service_Route_Profile_Get#Factory$']; // singleton
+        const route = spec['Fl32_Bwl_Shared_Service_Route_Profile_Get#Factory$'];
         /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Profile} */
-        const EProfile = spec['Fl32_Bwl_Back_Store_RDb_Schema_Profile#']; // class
+        const EProfile = spec['Fl32_Bwl_Back_Store_RDb_Schema_Profile#'];
         /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat} */
-        const EWeightStat = spec['Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat#']; // class
+        const EWeightStat = spec['Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat#'];
         /** @type {typeof Fl32_Bwl_Shared_Service_Dto_Profile} */
-        const DProfile = spec['Fl32_Bwl_Shared_Service_Dto_Profile#']; // class
+        const DProfile = spec['Fl32_Bwl_Shared_Service_Dto_Profile#'];
 
-        this.getRoute = function () {
-            return DEF.SERV_PROFILE_GET;
-        };
+        // DEFINE INSTANCE METHODS
 
-        /**
-         * Factory to create function to validate and structure incoming data.
-         * @returns {TeqFw_Http2_Back_Api_Service_Factory.parse}
-         */
-        this.createInputParser = function () {
+        this.getRouteFactory = () => route;
+
+
+        this.getService = function () {
             // DEFINE INNER FUNCTIONS
             /**
-             * @param {TeqFw_Http2_Back_Server_Stream_Context} context
-             * @returns {Fl32_Bwl_Shared_Service_Route_Profile_Get.Request}
-             * @memberOf Fl32_Bwl_Back_Service_Profile_Get
-             * @implements TeqFw_Http2_Back_Api_Service_Factory.parse
+             * @param {TeqFw_Web_Back_Api_Service_IContext} context
+             * @return Promise<void>
              */
-            function parse(context) {
-                const body = JSON.parse(context.body);
-                return factRoute.createReq(body.data);
-            }
-
-            // COMPOSE RESULT
-            Object.defineProperty(parse, 'name', {value: `${this.constructor.name}.${parse.name}`});
-            return parse;
-        };
-
-        /**
-         * Factory to create service (handler to process HTTP API request).
-         * @returns {TeqFw_Http2_Back_Api_Service_Factory.service}
-         */
-        this.createService = function () {
-            // DEFINE INNER FUNCTIONS
-            /**
-             * @param {TeqFw_Http2_Plugin_Handler_Service.Context} apiCtx
-             * @returns {Promise<TeqFw_Http2_Plugin_Handler_Service.Result>}
-             * @memberOf Fl32_Bwl_Back_Service_Profile_Get
-             * @implements {TeqFw_Http2_Back_Api_Service_Factory.service}
-             */
-            async function service(apiCtx) {
+            async function service(context) {
                 // DEFINE INNER FUNCTIONS
+
                 /**
                  * @param trx
                  * @param {Number} userId
@@ -105,33 +86,32 @@ export default class Fl32_Bwl_Back_Service_Profile_Get {
                 }
 
                 // MAIN FUNCTIONALITY
-                const result = new ApiResult();
+                /** @type {Fl32_Bwl_Shared_Service_Route_Profile_Get.Request} */
+                const req = context.getInData();
                 /** @type {Fl32_Bwl_Shared_Service_Route_Profile_Get.Response} */
-                const response = factRoute.createRes();
+                const res = context.getOutData();
+                const shared = context.getHandlersShare();
+                //
                 const trx = await rdb.startTransaction();
-                const shared = apiCtx.sharedContext;
                 try {
                     /** @type {Fl32_Teq_User_Shared_Service_Dto_User} */
-                    const user = shared[DEF.MOD_USER.HTTP_SHARE_CTX_USER];
+                    const user = shared[DEF.MOD.USER.HTTP_SHARE_CTX_USER];
                     if (user) {
-                        response.profile = await selectProfile(trx, user.id);
-                        response.profile.weightCurrent = await selectCurrentWeight(trx, user.id);
+                        res.profile = await selectProfile(trx, user.id);
+                        res.profile.weightCurrent = await selectCurrentWeight(trx, user.id);
                     } else {
-                        result.headers[H2.HTTP2_HEADER_STATUS] = H2.HTTP_STATUS_UNAUTHORIZED;
+                        context.setOutHeader(DEF.MOD.WEB.HTTP.HEADER.STATUS, H2.HTTP_STATUS_UNAUTHORIZED);
                     }
                     await trx.commit();
                 } catch (error) {
                     await trx.rollback();
                     throw error;
                 }
-                result.response = response;
-                return result;
             }
 
-            // COMPOSE RESULT
-            Object.defineProperty(service, 'name', {value: `${this.constructor.name}.${service.name}`});
+            // MAIN FUNCTIONALITY
+            Object.defineProperty(service, 'name', {value: `${NS}.${service.name}`});
             return service;
-        };
+        }
     }
-
 }

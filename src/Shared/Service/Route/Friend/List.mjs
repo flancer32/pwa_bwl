@@ -1,5 +1,5 @@
 /**
- * Request and response for service to get list of user's friends.
+ * Route data for service to get list of user's friends.
  *
  * @namespace Fl32_Bwl_Shared_Service_Route_Friend_List
  */
@@ -10,8 +10,7 @@ const NS = 'Fl32_Bwl_Shared_Service_Route_Friend_List';
 /**
  * @memberOf Fl32_Bwl_Shared_Service_Route_Friend_List
  */
-class Request {
-}
+class Request {}
 
 /**
  * @memberOf Fl32_Bwl_Shared_Service_Route_Friend_List
@@ -22,16 +21,22 @@ class Response {
 }
 
 /**
- * Factory to create new DTOs.
+ * Factory to create new DTOs and get route address.
+ * @implements TeqFw_Web_Back_Api_Service_Factory_IRoute
  * @memberOf Fl32_Bwl_Shared_Service_Route_Friend_List
  */
 class Factory {
     constructor(spec) {
         // EXTRACT DEPS
+        /** @type {Fl32_Bwl_Shared_Defaults} */
+        const DEF = spec['Fl32_Bwl_Shared_Defaults$'];
         /** @type {typeof Fl32_Bwl_Shared_Service_Dto_Friend_List_Item} */
-        const DItem = spec['Fl32_Bwl_Shared_Service_Dto_Friend_List_Item#']; // class
+        const DItem = spec['Fl32_Bwl_Shared_Service_Dto_Friend_List_Item#'];
         /** @type {Fl32_Bwl_Shared_Service_Dto_Friend_List_Item.Factory} */
-        const fItem = spec['Fl32_Bwl_Shared_Service_Dto_Friend_List_Item#Factory$']; // singleton
+        const fItem = spec['Fl32_Bwl_Shared_Service_Dto_Friend_List_Item#Factory$'];
+
+        // DEFINE INSTANCE METHODS
+        this.getRoute = () => `/${DEF.NAME}${DEF.SRV.FRIEND.LIST}`;
 
         /**
          * @param {Request|null} data

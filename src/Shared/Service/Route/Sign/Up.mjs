@@ -1,5 +1,5 @@
 /**
- * Request and response for 'Sign Up' service.
+ * Route data for service to sign up new user.
  *
  * @namespace Fl32_Bwl_Shared_Service_Route_Sign_Up
  */
@@ -38,11 +38,19 @@ class Response {
 }
 
 /**
- * Factory to create new DTOs.
+ * Factory to create new DTOs and get route address.
+ * @implements TeqFw_Web_Back_Api_Service_Factory_IRoute
  * @memberOf Fl32_Bwl_Shared_Service_Route_Sign_Up
  */
 class Factory {
-    constructor() {
+    constructor(spec) {
+        // EXTRACT DEPS
+        /** @type {Fl32_Bwl_Shared_Defaults} */
+        const DEF = spec['Fl32_Bwl_Shared_Defaults$'];
+
+        // DEFINE INSTANCE METHODS
+        this.getRoute = () => `/${DEF.NAME}${DEF.SRV.SIGN.UP}`;
+
         /**
          * @param {Request|null} data
          * @return {Fl32_Bwl_Shared_Service_Route_Sign_Up.Request}

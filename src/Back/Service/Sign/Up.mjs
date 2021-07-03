@@ -1,5 +1,5 @@
 /**
- * Service to sign up new user w/o password.
+ * Sign up new user w/o password.
  *
  * @namespace Fl32_Bwl_Back_Service_Sign_Up
  */
@@ -10,98 +10,64 @@ import {constants as H2} from 'http2';
 const NS = 'Fl32_Bwl_Back_Service_Sign_Up';
 
 /**
- * Service to sign up new user w/o password.
- * @implements TeqFw_Http2_Back_Api_Service_Factory
+ * @implements TeqFw_Web_Back_Api_Service_IFactory
  */
-class Fl32_Bwl_Back_Service_Sign_Up {
+export default class Fl32_Bwl_Back_Service_Sign_Up {
 
     constructor(spec) {
-        // PARSE INPUT, INIT PROPS, DEFINE WORKING VARS
-        /** @type {Fl32_Bwl_Shared_Defaults} */
-        const DEF = spec['Fl32_Bwl_Shared_Defaults$']; // singleton
+        // EXTRACT DEPS
+        /** @type {Fl32_Bwl_Back_Defaults} */
+        const DEF = spec['Fl32_Bwl_Back_Defaults$'];
         /** @type {TeqFw_Core_Back_RDb_Connector} */
-        const rdb = spec['TeqFw_Core_Back_RDb_Connector$'];  // singleton
-        /** @type {typeof TeqFw_Http2_Plugin_Handler_Service.Result} */
-        const ApiResult = spec['TeqFw_Http2_Plugin_Handler_Service#Result']; // class
+        const rdb = spec['TeqFw_Core_Back_RDb_Connector$'];
         /** @type {TeqFw_Core_Shared_Util.formatUtcDateTime} */
-        const formatUtcDateTime = spec['TeqFw_Core_Shared_Util#formatUtcDateTime']; // function instance
-        const {
-            /** @function {typeof TeqFw_Http2_Back_Util.cookieCreate} */
-            cookieCreate
-        } = spec['TeqFw_Http2_Back_Util']; // ES6 module destructing
+        const formatUtcDateTime = spec['TeqFw_Core_Shared_Util#formatUtcDateTime'];
+        /** @type {Function|TeqFw_Http2_Back_Util.cookieCreate} */
+        const cookieCreate = spec['TeqFw_Http2_Back_Util#cookieCreate'];
         /** @type {Fl32_Bwl_Shared_Service_Route_Sign_Up.Factory} */
-        const factRoute = spec['Fl32_Bwl_Shared_Service_Route_Sign_Up#Factory$']; // singleton
+        const route = spec['Fl32_Bwl_Shared_Service_Route_Sign_Up#Factory$'];
         /** @function {@type Fl32_Teq_User_Back_Process_Referral_Link_CleanUp.process} */
-        const procRefCleanUp = spec['Fl32_Teq_User_Back_Process_Referral_Link_CleanUp$']; // singleton
+        const procRefCleanUp = spec['Fl32_Teq_User_Back_Process_Referral_Link_CleanUp$'];
         /** @function {@type Fl32_Teq_User_Back_Process_Referral_Link_Get.process} */
-        const procRefGet = spec['Fl32_Teq_User_Back_Process_Referral_Link_Get$']; // singleton
+        const procRefGet = spec['Fl32_Teq_User_Back_Process_Referral_Link_Get$'];
         /** @function {@type Fl32_Teq_User_Back_Process_Referral_Link_Remove.process} */
-        const procRefRemove = spec['Fl32_Teq_User_Back_Process_Referral_Link_Remove$']; // singleton
+        const procRefRemove = spec['Fl32_Teq_User_Back_Process_Referral_Link_Remove$'];
         /** @function {@type Fl32_Teq_User_Back_Process_User_Create.process} */
-        const procCreate = spec['Fl32_Teq_User_Back_Process_User_Create$']; // singleton
+        const procCreate = spec['Fl32_Teq_User_Back_Process_User_Create$'];
         /** @type {Fl32_Teq_User_Back_Process_Session_Open} */
-        const procSessionOpen = spec['Fl32_Teq_User_Back_Process_Session_Open$']; // singleton
+        const procSessionOpen = spec['Fl32_Teq_User_Back_Process_Session_Open$'];
         /** @function {@type Fl32_Bwl_Back_Process_Profile_Save.process} */
-        const procAppProfileSave = spec['Fl32_Bwl_Back_Process_Profile_Save$']; // singleton
+        const procAppProfileSave = spec['Fl32_Bwl_Back_Process_Profile_Save$'];
         /** @function {@type Fl32_Bwl_Back_Process_Weight_Stat_Save.process} */
-        const procWeightSave = spec['Fl32_Bwl_Back_Process_Weight_Stat_Save$']; // singleton
+        const procWeightSave = spec['Fl32_Bwl_Back_Process_Weight_Stat_Save$'];
         /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Profile} */
-        const EProfile = spec['Fl32_Bwl_Back_Store_RDb_Schema_Profile#']; // class
+        const EProfile = spec['Fl32_Bwl_Back_Store_RDb_Schema_Profile#'];
         /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat} */
-        const EWeightStat = spec['Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat#']; // class
+        const EWeightStat = spec['Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat#'];
         /** @type {typeof Fl32_Teq_User_Shared_Service_Dto_User} */
-        const DUser = spec['Fl32_Teq_User_Shared_Service_Dto_User#']; // class
+        const DUser = spec['Fl32_Teq_User_Shared_Service_Dto_User#'];
 
-        // DEFINE INNER FUNCTIONS
 
         // DEFINE INSTANCE METHODS
 
-        this.getRoute = () => DEF.SERV_SIGN_UP;
+        this.getRouteFactory = () => route;
 
-        /**
-         * Factory to create function to validate and structure incoming data.
-         * @returns {TeqFw_Http2_Back_Api_Service_Factory.parse}
-         */
-        this.createInputParser = function () {
+        this.getService = function () {
             // DEFINE INNER FUNCTIONS
             /**
-             * @param {TeqFw_Http2_Back_Server_Stream_Context} context
-             * @returns {Fl32_Bwl_Shared_Service_Route_Sign_Up.Request}
-             * @memberOf Fl32_Bwl_Back_Service_Sign_Up
-             * @implements TeqFw_Http2_Back_Api_Service_Factory.parse
+             * @param {TeqFw_Web_Back_Api_Service_IContext} context
+             * @return Promise<void>
              */
-            function parse(context) {
-                const body = JSON.parse(context.body);
-                return factRoute.createReq(body.data);
-            }
-
-            // COMPOSE RESULT
-            Object.defineProperty(parse, 'name', {value: `${NS}.${parse.name}`});
-            return parse;
-        };
-
-        /**
-         * Factory to create service (handler to process HTTP API request).
-         * @returns {TeqFw_Http2_Back_Api_Service_Factory.service}
-         */
-        this.createService = function () {
-            // DEFINE INNER FUNCTIONS
-            /**
-             * @param {TeqFw_Http2_Plugin_Handler_Service.Context} apiCtx
-             * @returns {Promise<TeqFw_Http2_Plugin_Handler_Service.Result>}
-             * @memberOf Fl32_Bwl_Back_Service_Sign_Up
-             * @implements {TeqFw_Http2_Back_Api_Service_Factory.service}
-             */
-            async function service(apiCtx) {
+            async function service(context) {
                 // DEFINE INNER FUNCTIONS
 
                 async function addProfile(trx, req, userId) {
                     const entity = new EProfile();
-                    entity[EProfile.A_AGE] = apiReq.age;
-                    entity[EProfile.A_HEIGHT] = apiReq.height;
-                    entity[EProfile.A_IS_FEMALE] = apiReq.isFemale;
+                    entity[EProfile.A_AGE] = req.age;
+                    entity[EProfile.A_HEIGHT] = req.height;
+                    entity[EProfile.A_IS_FEMALE] = req.isFemale;
                     entity[EProfile.A_USER_REF] = userId;
-                    entity[EProfile.A_WEIGHT_TARGET] = apiReq.weight;
+                    entity[EProfile.A_WEIGHT_TARGET] = req.weight;
                     await procAppProfileSave({trx, input: entity});
                 }
 
@@ -109,7 +75,7 @@ class Fl32_Bwl_Back_Service_Sign_Up {
                  * @param trx
                  * @param {Fl32_Bwl_Shared_Service_Route_Sign_Up.Request} req
                  * @param {Number} parentId
-                 * @returns {Promise<void>}
+                 * @returns {Promise<number>}
                  */
                 async function addUser(trx, req, parentId) {
                     const user = new DUser();
@@ -117,8 +83,7 @@ class Fl32_Bwl_Back_Service_Sign_Up {
                     user.emails = [req.email];
                     if (req.phone) user.phones = [req.phone];
                     user.parentId = parentId;
-                    const userId = await procCreate({trx, user});
-                    return userId;
+                    return await procCreate({trx, user});
                 }
 
                 async function addCurrentWeight(trx, userId, weight) {
@@ -149,44 +114,41 @@ class Fl32_Bwl_Back_Service_Sign_Up {
                 }
 
                 // MAIN FUNCTIONALITY
-                const result = new ApiResult();
-                const response = factRoute.createRes();
-                result.response = response;
+                /** @type {Fl32_Bwl_Shared_Service_Route_Sign_Up.Request} */
+                const req = context.getInData();
+                /** @type {Fl32_Bwl_Shared_Service_Route_Sign_Up.Response} */
+                const res = context.getOutData();
+                const shared = context.getHandlersShare();
+                //
                 const trx = await rdb.startTransaction();
                 /** @type {Fl32_Bwl_Shared_Service_Route_Sign_Up.Request} */
-                const apiReq = apiCtx.request;
                 try {
                     // clean up expired links
                     await procRefCleanUp({trx});
                     // load link data by code
-                    const code = apiReq.refCode;
+                    const code = req.refCode;
                     /** @type {Fl32_Teq_User_Store_RDb_Schema_Ref_Link} */
                     const linkData = await procRefGet({trx, code});
                     if (linkData) {
                         const parentId = linkData.user_ref;
-                        const userId = await addUser(trx, apiReq, parentId);
-                        await addProfile(trx, apiReq, userId);
-                        await addCurrentWeight(trx, userId, apiReq.weight);
+                        const userId = await addUser(trx, req, parentId);
+                        await addProfile(trx, req, userId);
+                        await addCurrentWeight(trx, userId, req.weight);
                         await procRefRemove({trx, code});
                         const {sessionId, cookie} = await initSession(trx, userId);
-                        result.headers[H2.HTTP2_HEADER_SET_COOKIE] = cookie;
-                        response.sessionId = sessionId;
+                        context.setOutHeader(H2.HTTP2_HEADER_SET_COOKIE, cookie);
+                        res.sessionId = sessionId;
                     }
                     await trx.commit();
                 } catch (error) {
                     await trx.rollback();
                     throw error;
                 }
-                return result;
             }
 
-            // COMPOSE RESULT
+            // MAIN FUNCTIONALITY
             Object.defineProperty(service, 'name', {value: `${NS}.${service.name}`});
             return service;
-        };
+        }
     }
-
-    // DEFINE PROTO METHODS
 }
-
-export default Fl32_Bwl_Back_Service_Sign_Up;

@@ -49,34 +49,31 @@ const template = `
  */
 function Factory(spec) {
     /** @type {Fl32_Bwl_Shared_Defaults} */
-    const DEF = spec['Fl32_Bwl_Shared_Defaults$'];    // singleton
-    const i18n = spec[DEF.MOD_I18N.DI.I18N]; // singleton
-    const {ref} = spec[DEF.MOD_VUE.DI_VUE];    // destructuring singleton
+    const DEF = spec['Fl32_Bwl_Shared_Defaults$'];
+    const i18n = spec[DEF.MOD_I18N.DI.I18N];
+    const {ref} = spec[DEF.MOD_VUE.DI_VUE];
     /** @type {Fl32_Teq_User_Front_Model_Session} */
-    const session = spec['Fl32_Teq_User_Front_Model_Session$']; // singleton
+    const session = spec['Fl32_Teq_User_Front_Model_Session$'];
     /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.IComponent} */
-    const topActions = spec[DEF.DI_TOP_ACTIONS]; // vue comp tmpl
+    const topActions = spec[DEF.DI_TOP_ACTIONS];
     /** @type {Fl32_Bwl_Front_Widget_Edit_History} */
-    const editHistory = spec['Fl32_Bwl_Front_Widget_Edit_History$']; // vue comp tmpl
+    const editHistory = spec['Fl32_Bwl_Front_Widget_Edit_History$'];
     /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.Item} */
-    const Action = spec['Fl32_Bwl_Front_Layout_TopActions#Item']; // class
+    const Action = spec['Fl32_Bwl_Front_Layout_TopActions#Item'];
     /** @type {Fl32_Bwl_Front_DataSource_Weight} */
-    const dsWeights = spec['Fl32_Bwl_Front_DataSource_Weight$']; // singleton
-    /** @type {Fl32_Bwl_Front_Gate_Weight_History_List.gate} */
-    const gateList = spec['Fl32_Bwl_Front_Gate_Weight_History_List$']; // singleton
-    /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_List.Factory} */
-    const fList = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_List#Factory$']; // singleton
-    /** @type {Fl32_Bwl_Front_Gate_Weight_Stat_Save.gate} */
-    const gateSave = spec['Fl32_Bwl_Front_Gate_Weight_Stat_Save$']; // singleton
-    /** @type {Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save.Factory} */
-    const fSave = spec['Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save#Factory$']; // singleton
-    /** @type {Fl32_Bwl_Front_Gate_Weight_History_Remove.gate} */
-    const gateRemove = spec['Fl32_Bwl_Front_Gate_Weight_History_Remove$']; // singleton
-    /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_Remove.Factory} */
-    const fRemove = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_Remove#Factory$']; // singleton
+    const dsWeights = spec['Fl32_Bwl_Front_DataSource_Weight$'];
     /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save.Types} */
     const TYPES = spec['Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save#Types'];
-    const {formatDate} = spec['Fl32_Bwl_Shared_Util']; // ES6 module destructing
+    /** @type {Function|Fl32_Bwl_Shared_Util.formatDate} */
+    const formatDate = spec['Fl32_Bwl_Shared_Util#formatDate'];
+    /** @type {TeqFw_Web_Front_Service_Gate} */
+    const gate = spec['TeqFw_Web_Front_Service_Gate$'];
+    /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_List.Factory} */
+    const routeList = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_List#Factory$'];
+    /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_Remove.Factory} */
+    const routeRemove = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_Remove#Factory$'];
+    /** @type {Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save.Factory} */
+    const routeSave = spec['Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save#Factory$'];
 
     /**
      * Template to create new component instances using Vue.
@@ -124,24 +121,27 @@ function Factory(spec) {
                 }
 
                 // MAIN FUNCTIONALITY
+                // noinspection JSValidateTypes
                 /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_List.Response} */
-                const res = await gateList(fList.createReq());
-                this.rows = prepareItems(res.items);
+                const res = await gate.send(routeList.createReq(), routeList);
+                if (res) {
+                    this.rows = prepareItems(res.items);
+                }
             },
             async onEditHistoryRemove(date) {
-                const req = fRemove.createReq();
+                const req = routeRemove.createReq();
                 req.date = date;
-                const res = await gateRemove(req);
+                const res = await gate.send(req, routeRemove);
                 if (res) await this.loadHistory();
             },
             async onEditHistorySubmit(date, weight) {
                 this.dateCurrent = date;
                 this.weightCurrent = weight;
-                const req = fSave.createReq();
+                const req = routeSave.createReq();
                 req.type = TYPES.CURRENT;
                 req.date = date;
                 req.weight = weight;
-                const res = await gateSave(req);
+                const res = await gate.send(req, routeSave);
                 if (res) await this.loadHistory();
             },
             onRowClick(evt, row) {

@@ -1,5 +1,5 @@
 /**
- * Service to remove weight stats data for the user.
+ * Remove weight stats data for the user.
  *
  * @namespace Fl32_Bwl_Back_Service_Weight_History_Remove
  */
@@ -10,67 +10,34 @@ import {constants as H2} from 'http2';
 const NS = 'Fl32_Bwl_Back_Service_Weight_History_Remove';
 
 /**
- * Service to remove weight stats data for the user.
- * @implements TeqFw_Http2_Back_Api_Service_Factory
+ * @implements TeqFw_Web_Back_Api_Service_IFactory
  */
 export default class Fl32_Bwl_Back_Service_Weight_History_Remove {
 
     constructor(spec) {
-        /** @type {Fl32_Bwl_Shared_Defaults} */
-        const DEF = spec['Fl32_Bwl_Shared_Defaults$']; // singleton
+        /** @type {Fl32_Bwl_Back_Defaults} */
+        const DEF = spec['Fl32_Bwl_Back_Defaults$'];
         /** @type {TeqFw_Core_Back_RDb_Connector} */
-        const rdb = spec['TeqFw_Core_Back_RDb_Connector$'];  // singleton
-        const {
-            /** @type {TeqFw_Core_Shared_Util.formatDate} */
-            formatDate
-        } = spec['TeqFw_Core_Shared_Util']; // ES6 module destructing
-        /** @type {typeof TeqFw_Http2_Plugin_Handler_Service.Result} */
-        const ApiResult = spec['TeqFw_Http2_Plugin_Handler_Service#Result']; // class
+        const rdb = spec['TeqFw_Core_Back_RDb_Connector$'];
+        /** @type {Function|TeqFw_Core_Shared_Util.formatDate} */
+        const formatDate = spec['TeqFw_Core_Shared_Util#formatDate'];
         /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_Remove.Factory} */
-        const factRoute = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_Remove#Factory$']; // singleton
+        const route = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_Remove#Factory$'];
         /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat} */
-        const EWeightStat = spec['Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat#']; // class
+        const EWeightStat = spec['Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat#'];
 
-        this.getRoute = function () {
-            return DEF.SERV_WEIGHT_HISTORY_REMOVE;
-        };
+        // DEFINE INSTANCE METHODS
+        this.getRouteFactory = () => route;
 
-        /**
-         * Factory to create function to validate and structure incoming data.
-         * @returns {TeqFw_Http2_Back_Api_Service_Factory.parse}
-         */
-        this.createInputParser = function () {
+        this.getService = function () {
             // DEFINE INNER FUNCTIONS
             /**
-             * @param {TeqFw_Http2_Back_Server_Stream_Context} context
-             * @returns {Fl32_Bwl_Shared_Service_Route_Weight_History_Remove.Request}
-             * @memberOf Fl32_Bwl_Back_Service_Weight_History_Remove
-             * @implements TeqFw_Http2_Back_Api_Service_Factory.parse
+             * @param {TeqFw_Web_Back_Api_Service_IContext} context
+             * @return Promise<void>
              */
-            function parse(context) {
-                const body = JSON.parse(context.body);
-                return factRoute.createReq(body.data);
-            }
-
-            // COMPOSE RESULT
-            Object.defineProperty(parse, 'name', {value: `${NS}.${parse.name}`});
-            return parse;
-        };
-
-        /**
-         * Factory to create service (handler to process HTTP API request).
-         * @returns {TeqFw_Http2_Back_Api_Service_Factory.service}
-         */
-        this.createService = function () {
-            // DEFINE INNER FUNCTIONS
-            /**
-             * @param {TeqFw_Http2_Plugin_Handler_Service.Context} apiCtx
-             * @returns {Promise<TeqFw_Http2_Plugin_Handler_Service.Result>}
-             * @memberOf Fl32_Bwl_Back_Service_Weight_History_Remove
-             * @implements {TeqFw_Http2_Back_Api_Service_Factory.service}
-             */
-            async function service(apiCtx) {
+            async function service(context) {
                 // DEFINE INNER FUNCTIONS
+
                 async function removeItems(trx, userId, date) {
                     const query = trx.from(EWeightStat.ENTITY)
                         .where(EWeightStat.A_USER_REF, userId)
@@ -79,33 +46,31 @@ export default class Fl32_Bwl_Back_Service_Weight_History_Remove {
                 }
 
                 // MAIN FUNCTIONALITY
-                const result = new ApiResult();
-                const response = factRoute.createRes();
-                result.response = response;
-                const trx = await rdb.startTransaction();
                 /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_Remove.Request} */
-                const apiReq = apiCtx.request;
-                const shared = apiCtx.sharedContext;
+                const req = context.getInData();
+                /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_Remove.Response} */
+                const res = context.getOutData();
+                const shared = context.getHandlersShare();
+                //
+                const trx = await rdb.startTransaction();
                 try {
                     /** @type {Fl32_Teq_User_Shared_Service_Dto_User} */
-                    const user = shared[DEF.MOD_USER.HTTP_SHARE_CTX_USER];
+                    const user = shared[DEF.MOD.USER.HTTP_SHARE_CTX_USER];
                     if (user) {
-                        response.removed = await removeItems(trx, user.id, apiReq.date);
+                        res.removed = await removeItems(trx, user.id, req.date);
                     } else {
-                        result.headers[H2.HTTP2_HEADER_STATUS] = H2.HTTP_STATUS_UNAUTHORIZED;
+                        context.setOutHeader(DEF.MOD.WEB.HTTP.HEADER.STATUS, H2.HTTP_STATUS_UNAUTHORIZED);
                     }
                     await trx.commit();
                 } catch (error) {
                     await trx.rollback();
                     throw error;
                 }
-                return result;
             }
 
-            // COMPOSE RESULT
+            // MAIN FUNCTIONALITY
             Object.defineProperty(service, 'name', {value: `${NS}.${service.name}`});
             return service;
-        };
+        }
     }
-
 }

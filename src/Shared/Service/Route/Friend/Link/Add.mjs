@@ -1,5 +1,5 @@
 /**
- * Request and response for service to generate code for link to establish friendship relations.
+ * Route data for service to establish friendship relations using generated code.
  *
  * @namespace Fl32_Bwl_Shared_Service_Route_Friend_Link_Add
  */
@@ -29,11 +29,19 @@ class Response {
 }
 
 /**
- * Factory to create new DTOs.
+ * Factory to create new DTOs and get route address.
+ * @implements TeqFw_Web_Back_Api_Service_Factory_IRoute
  * @memberOf Fl32_Bwl_Shared_Service_Route_Friend_Link_Add
  */
 class Factory {
-    constructor() {
+    constructor(spec) {
+        // EXTRACT DEPS
+        /** @type {Fl32_Bwl_Shared_Defaults} */
+        const DEF = spec['Fl32_Bwl_Shared_Defaults$'];
+
+        // DEFINE INSTANCE METHODS
+        this.getRoute = () => `/${DEF.NAME}${DEF.SRV.FRIEND.LINK.ADD}`;
+
         /**
          * @param {Request|null} data
          * @return {Fl32_Bwl_Shared_Service_Route_Friend_Link_Add.Request}

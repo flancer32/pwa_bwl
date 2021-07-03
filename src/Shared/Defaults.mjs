@@ -3,14 +3,10 @@ export default class Fl32_Bwl_Shared_Defaults {
 
     BACK_REALM = 'app';  // realm for API services ('/api/app/...') and CLI commands ('app-...')
 
-    DATA_GROUP_ID_ADMIN = 1; // app's sample data
-    DATA_GROUP_ID_CUST = 2;
     DATA_REF_CODE_OTHER = 'other';
     DATA_REF_CODE_ROOT = 'root';
     DATA_SESS_ID_ADMIN = 'sessIdForAdmin';
     DATA_SESS_ID_CUST = 'sessIdForCust';
-    DATA_SHARING_MODE_ALL = 'a'; // all info is available for sharing in groups (user weight)
-    DATA_SHARING_MODE_PERCENT = 'p'; // only relative info is available for sharing in groups (percentage)
     DATA_USER_ID_ADMIN = 1;
     DATA_USER_ID_CUST = 2;
 
@@ -45,23 +41,36 @@ export default class Fl32_Bwl_Shared_Defaults {
 
     // SERVICES ROUTES
     SRV = {
+        FRIEND: {
+            LINK: {
+                ADD: '/friend/link/add',
+                CODE:
+                    {CREATE: '/friend/link/code/create'}
+            },
+            LIST: '/friend/list'
+        },
+        PROFILE: {GET: '/profile/get'},
         SIGN: {
             IN: {
                 CODE: {
                     CHECK: '/sign/in/code/check',
                     SEND: '/sign/in/code/send'
                 }
+            },
+            UP: '/sign/up'
+        },
+        WEIGHT: {
+            HISTORY: {
+                LIST: '/weight/history/list',
+                REMOVE: '/weight/history/remove'
+            },
+            STAT: {
+                SAVE: '/weight/stat/save'
             }
         }
     };
 
-    SERV_FRIEND_LINK_ADD = '/friend/link/add';
-    SERV_FRIEND_LINK_CODE_CREATE = '/friend/link/code/create';
-    SERV_FRIEND_LIST = '/friend/list';
-    SERV_PROFILE_GET = '/profile/get';
-    SERV_SIGN_IN_CODE_CHECK = '/sign/in/code/check';
-    SERV_SIGN_IN_CODE_SEND = '/sign/in/code/send';
-    SERV_SIGN_UP = '/sign/up';
+
     SERV_WEIGHT_HISTORY_LIST = '/weight/history/list';
     SERV_WEIGHT_HISTORY_REMOVE = '/weight/history/remove';
     SERV_WEIGHT_STAT_SAVE = '/weight/stat/save';

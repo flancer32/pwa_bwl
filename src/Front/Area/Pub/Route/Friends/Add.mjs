@@ -16,11 +16,11 @@ const NS = 'Fl32_Bwl_Front_Area_Pub_Route_Friends_Add';
 function Factory(spec) {
     // EXTRACT DEPS
     /** @type {Fl32_Teq_User_Front_Model_Session} */
-    const session = spec['Fl32_Teq_User_Front_Model_Session$']; // singleton
-    /** @function {@type Fl32_Bwl_Front_Gate_Friend_Link_Add.gate} */
-    const gateAdd = spec['Fl32_Bwl_Front_Gate_Friend_Link_Add$']; // singleton
+    const session = spec['Fl32_Teq_User_Front_Model_Session$'];
+    /** @type {TeqFw_Web_Front_Service_Gate} */
+    const gate = spec['TeqFw_Web_Front_Service_Gate$'];
     /** @type {Fl32_Bwl_Shared_Service_Route_Friend_Link_Add.Factory} */
-    const fAdd = spec['Fl32_Bwl_Shared_Service_Route_Friend_Link_Add#Factory$']; // singleton
+    const route = spec['Fl32_Bwl_Shared_Service_Route_Friend_Link_Add#Factory$'];
 
     // DEFINE WORKING VARS
     const template = `
@@ -57,13 +57,16 @@ function Factory(spec) {
         },
         async mounted() {
             if (await session.checkUserAuthenticated(this.$router)) {
-                const req =  fAdd.createReq();
+                const req = route.createReq();
                 req.code = this.code;
+                // noinspection JSValidateTypes
                 /** @type {Fl32_Bwl_Shared_Service_Route_Friend_Link_Add.Response} */
-                const res = await gateAdd(req);
-                this.displayResult = true;
-                this.displaySuccess = res.success;
-                this.failureCause = res.failureCause;
+                const res = await gate.send(req, route);
+                if (res) {
+                    this.displayResult = true;
+                    this.displaySuccess = res.success;
+                    this.failureCause = res.failureCause;
+                }
             }
         },
     };

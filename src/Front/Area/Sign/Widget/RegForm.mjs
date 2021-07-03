@@ -22,16 +22,14 @@ const GENDER_XY = 'notWoman';
 function Factory(spec) {
     // EXTRACT DEPS
     /** @type {Fl32_Bwl_Shared_Defaults} */
-    const DEF = spec['Fl32_Bwl_Shared_Defaults$'];    // singleton
-    const {isEmpty} = spec['TeqFw_Core_Shared_Util']; // ES6 module destructing
-    /** @function {@type Fl32_Teq_User_Front_Gate_Check_Existence.gate} */
-    const gateCheckExist = spec['Fl32_Teq_User_Front_Gate_Check_Existence$']; // singleton function
+    const DEF = spec['Fl32_Bwl_Shared_Defaults$'];
+    const {isEmpty} = spec['TeqFw_Core_Shared_Util'];
+    /** @type {TeqFw_Web_Front_Service_Gate} */
+    const gate = spec['TeqFw_Web_Front_Service_Gate$'];
     /** @type {Fl32_Teq_User_Shared_Service_Route_Check_Existence.Factory} */
-    const fCheckExist = spec['Fl32_Teq_User_Shared_Service_Route_Check_Existence#Factory$']; // singleton
-    /** @function {@type Fl32_Bwl_Front_Gate_Sign_Up.gate} */
-    const gateSignUp = spec['Fl32_Bwl_Front_Gate_Sign_Up$']; // singleton
+    const routeExist = spec['Fl32_Teq_User_Shared_Service_Route_Check_Existence#Factory$'];
     /** @type {Fl32_Bwl_Shared_Service_Route_Sign_Up.Factory} */
-    const fSignUp = spec['Fl32_Bwl_Shared_Service_Route_Sign_Up#Factory$']; // singleton
+    const routeSignUp = spec['Fl32_Bwl_Shared_Service_Route_Sign_Up#Factory$'];
 
     // DEFINE WORKING VARS
     const template = `
@@ -214,13 +212,14 @@ function Factory(spec) {
                 const fn = async function () {
                     if (value) {
                         me.loading[type] = true;
-                        const req = fCheckExist.createReq();
+                        const req = routeExist.createReq();
                         req.type = type;
                         req.value = value;
+                        // noinspection JSValidateTypes
                         /** @type {Fl32_Teq_User_Shared_Service_Route_Check_Existence.Response} */
-                        const res = await gateCheckExist(req);
+                        const res = await gate.send(req, routeExist);
                         me.loading[type] = false;
-                        if (res.exist === fireError) {
+                        if (res && (res.exist === fireError)) {
                             me.error[type] = true;
                             me.errorMsg[type] = me.$t(msg);
                         }
@@ -233,7 +232,7 @@ function Factory(spec) {
             },
             async onSubmit() {
                 // code smell: we should return data to the parent component and process data from there
-                const req = fSignUp.createReq();
+                const req = routeSignUp.createReq();
                 req.refCode = this.refCode;
                 req.name = this.fldName;
                 req.email = this.fldEmail;
@@ -242,19 +241,20 @@ function Factory(spec) {
                 req.age = this.fldAge;
                 req.height = this.fldHeight;
                 req.weight = this.fldWeight;
+                // noinspection JSValidateTypes
                 /** @type {Fl32_Bwl_Shared_Service_Route_Sign_Up.Response} */
-                const res = await gateSignUp(req);
-                if (res.sessionId) {
+                const res = await gate.send(req, routeSignUp);
+                if (res && res.sessionId) {
                     self.window.location.href = `/${DEF.REALM_PUB}/`;
                 }
             },
         },
         watch: {
             fldEmail(current) {
-                this.checkExistence(current, fCheckExist.TYPE_EMAIL, true, 'route.signUp.err.emailExists');
+                this.checkExistence(current, routeExist.TYPE_EMAIL, true, 'route.signUp.err.emailExists');
             },
             fldPhone(current) {
-                this.checkExistence(current, fCheckExist.TYPE_PHONE, true, 'route.signUp.err.phoneExists');
+                this.checkExistence(current, routeExist.TYPE_PHONE, true, 'route.signUp.err.phoneExists');
             },
         },
         emits: [EVT_SUBMIT],

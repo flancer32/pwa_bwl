@@ -35,14 +35,10 @@ function Factory(spec) {
     const gate = spec['TeqFw_Web_Front_Service_Gate$'];
     /** @type {Fl32_Teq_User_Shared_Service_Route_Sign_Out.Factory} */
     const routeSignOut = spec['Fl32_Teq_User_Shared_Service_Route_Sign_Out#Factory$'];
-    /** @function {@type Fl32_Bwl_Front_Gate_Weight_History_List.gate} */
-    const gateHistory = spec['Fl32_Bwl_Front_Gate_Weight_History_List$'];
-    /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_List.Factory} */
-    const fHistory = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_List#Factory$'];
-    /** @function {@type Fl32_Bwl_Front_Gate_Friend_List.gate} */
-    const gateList = spec['Fl32_Bwl_Front_Gate_Friend_List$'];
     /** @type {Fl32_Bwl_Shared_Service_Route_Friend_List.Factory} */
-    const fList = spec['Fl32_Bwl_Shared_Service_Route_Friend_List#Factory$'];
+    const routeFriends = spec['Fl32_Bwl_Shared_Service_Route_Friend_List#Factory$'];
+    /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_List.Factory} */
+    const routeHistory = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_List#Factory$'];
     /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.Item} */
     const Action = spec['Fl32_Bwl_Front_Layout_TopActions#Item'];
     /** @type {Fl32_Bwl_Front_Widget_Edit_Weight.vueCompTmpl} */
@@ -155,27 +151,32 @@ function Factory(spec) {
                 this.weightEdit = this.target;
             },
             async loadChartData() {
-                const req = fHistory.createReq();
+                const req = routeHistory.createReq();
                 req.dateFrom = this.dateFrom;
                 req.dateTo = this.dateTo;
                 req.friendId = this.dataSet?.value;
-                const resHistory = await gateHistory(req);
-                const dataSet = {labels: [], data: []};
-                for (const one of resHistory.items) {
-                    dataSet.labels.push(new Date(one.date));
-                    dataSet.data.push(one.weight);
+                // noinspection JSValidateTypes
+                /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_List.Response} */
+                const res = await gate.send(req, routeHistory);
+                if (res) {
+                    const dataSet = {labels: [], data: []};
+                    for (const one of res.items) {
+                        dataSet.labels.push(new Date(one.date));
+                        dataSet.data.push(one.weight);
+                    }
+                    const data = new ChartData();
+                    data.series = dataSet;
+                    // friendId = 0 for personal data; don't draw the target for friends
+                    data.target = (req.friendId) ? null : this.target;
+                    this.chartData = data;
                 }
-                const data = new ChartData();
-                data.series = dataSet;
-                // friendId = 0 for personal data; don't draw the target for friends
-                data.target = (req.friendId) ? null : this.target;
-                this.chartData = data;
             },
             async loadOptsDataSet() {
                 const result = [{label: this.$t('route.home.dataSet.personal'), value: 0}];
-                const req = fList.createReq();
+                const req = routeFriends.createReq();
+                // noinspection JSValidateTypes
                 /** @type {Fl32_Bwl_Shared_Service_Route_Friend_List.Response} */
-                const res = await gateList(req);
+                const res = await gate.send(req, routeFriends);
                 if (res && Array.isArray(res.items)) {
                     for (const one of res.items) {
                         const item = {label: one.friendName, value: one.friendId};

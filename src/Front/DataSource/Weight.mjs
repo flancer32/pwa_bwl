@@ -2,20 +2,18 @@
  * Data source for user's actual weights (current, target, start).
  */
 // MODULE'S CLASSES
-class Fl32_Bwl_Front_DataSource_Weight {
+export default class Fl32_Bwl_Front_DataSource_Weight {
 
     constructor(spec) {
         // EXTRACT DEPS
-        /** @type {Function|Fl32_Bwl_Front_Gate_Profile_Get} */
-        const gateProfile = spec['Fl32_Bwl_Front_Gate_Profile_Get$']; // singleton
+        /** @type {TeqFw_Web_Front_Service_Gate} */
+        const gate = spec['TeqFw_Web_Front_Service_Gate$'];
         /** @type {Fl32_Bwl_Shared_Service_Route_Profile_Get.Factory} */
-        const fProfile = spec['Fl32_Bwl_Shared_Service_Route_Profile_Get#Factory$']; // singleton
+        const route = spec['Fl32_Bwl_Shared_Service_Route_Profile_Get#Factory$'];
 
         // DEFINE WORKING VARS / PROPS
         /** @type {number} */
         let current;
-        /** @type {number} */
-        let start;
         /** @type {number} */
         let target;
 
@@ -23,11 +21,11 @@ class Fl32_Bwl_Front_DataSource_Weight {
 
         this.loadFromServer = async function (forced = false) {
             if ((current === undefined) || forced) {
+                // noinspection JSValidateTypes
                 /** @type {Fl32_Bwl_Shared_Service_Route_Profile_Get.Response} */
-                const res = await gateProfile(fProfile.createReq());
-                if (res.profile) {
+                const res = await gate.send(route.createReq(), route);
+                if (res && res.profile) {
                     current = res.profile.weightCurrent;
-                    start = res.profile.weightStart;
                     target = res.profile.weightTarget;
                 }
             }
@@ -37,16 +35,9 @@ class Fl32_Bwl_Front_DataSource_Weight {
             return current;
         }
 
-        this.getStart = function () {
-            return start;
-        }
-
         this.getTarget = function () {
             return target;
         }
     }
 
 }
-
-// MODULE'S EXPORT
-export default Fl32_Bwl_Front_DataSource_Weight;

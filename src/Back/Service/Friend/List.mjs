@@ -1,5 +1,5 @@
 /**
- * Service to get list of user's friends.
+ * Get list of user's friends.
  *
  * @namespace Fl32_Bwl_Back_Service_Friend_List
  */
@@ -10,62 +10,34 @@ import {constants as H2} from 'http2';
 const NS = 'Fl32_Bwl_Back_Service_Friend_List';
 
 /**
- * @implements TeqFw_Http2_Back_Api_Service_Factory
+ * @implements TeqFw_Web_Back_Api_Service_IFactory
  */
-class Fl32_Bwl_Back_Service_Friend_List {
+export default class Fl32_Bwl_Back_Service_Friend_List {
 
     constructor(spec) {
         // EXTRACT DEPS
-        /** @type {Fl32_Bwl_Shared_Defaults} */
-        const DEF = spec['Fl32_Bwl_Shared_Defaults$']; // singleton
+        /** @type {Fl32_Bwl_Back_Defaults} */
+        const DEF = spec['Fl32_Bwl_Back_Defaults$'];
         /** @type {TeqFw_Core_Back_RDb_Connector} */
-        const rdb = spec['TeqFw_Core_Back_RDb_Connector$'];  // singleton
-        /** @type {typeof TeqFw_Http2_Plugin_Handler_Service.Result} */
-        const ApiResult = spec['TeqFw_Http2_Plugin_Handler_Service#Result']; // class
+        const rdb = spec['TeqFw_Core_Back_RDb_Connector$'];
         /** @type {Fl32_Bwl_Shared_Service_Route_Friend_List.Factory} */
-        const factRoute = spec['Fl32_Bwl_Shared_Service_Route_Friend_List#Factory$']; // singleton
+        const route = spec['Fl32_Bwl_Shared_Service_Route_Friend_List#Factory$'];
         /** @type {typeof Fl32_Bwl_Shared_Service_Dto_Friend_List_Item} */
-        const DItem = spec['Fl32_Bwl_Shared_Service_Dto_Friend_List_Item#']; // class
+        const DItem = spec['Fl32_Bwl_Shared_Service_Dto_Friend_List_Item#'];
         /** @function {@type Fl32_Bwl_Back_Store_RDb_Query_Friend_GetItems.queryBuilder} */
-        const qGetItems = spec['Fl32_Bwl_Back_Store_RDb_Query_Friend_GetItems$']; // singleton
+        const qGetItems = spec['Fl32_Bwl_Back_Store_RDb_Query_Friend_GetItems$'];
 
         // DEFINE INSTANCE METHODS
 
-        this.getRoute = () => DEF.SERV_FRIEND_LIST;
+        this.getRouteFactory = () => route;
 
-        /**
-         * Factory to create function to validate and structure incoming data.
-         * @returns {function(TeqFw_Http2_Back_Server_Stream_Context): Fl32_Bwl_Shared_Service_Route_Friend_List.Request}
-         */
-        this.createInputParser = function () {
+        this.getService = function () {
             // DEFINE INNER FUNCTIONS
             /**
-             * @param {TeqFw_Http2_Back_Server_Stream_Context} context
-             * @returns {Fl32_Bwl_Shared_Service_Route_Friend_List.Request}
-             * @memberOf Fl32_Bwl_Back_Service_Friend_List
+             * @param {TeqFw_Web_Back_Api_Service_IContext} context
+             * @return Promise<void>
              */
-            function parse(context) {
-                const body = JSON.parse(context.body);
-                return factRoute.createReq(body.data);
-            }
-
-            // COMPOSE RESULT
-            Object.defineProperty(parse, 'name', {value: `${NS}.${parse.name}`});
-            return parse;
-        };
-
-        /**
-         * Factory to create service (handler to process HTTP API request).
-         * @returns {function(TeqFw_Http2_Plugin_Handler_Service.Context): TeqFw_Http2_Plugin_Handler_Service.Result}
-         */
-        this.createService = function () {
-            // DEFINE INNER FUNCTIONS
-            /**
-             * @param {TeqFw_Http2_Plugin_Handler_Service.Context} apiCtx
-             * @returns {Promise<TeqFw_Http2_Plugin_Handler_Service.Result>}
-             * @memberOf Fl32_Bwl_Back_Service_Friend_List
-             */
-            async function service(apiCtx) {
+            async function service(context) {
                 // DEFINE INNER FUNCTIONS
 
                 /**
@@ -96,35 +68,32 @@ class Fl32_Bwl_Back_Service_Friend_List {
                 }
 
                 // MAIN FUNCTIONALITY
-                const result = new ApiResult();
-                const response = factRoute.createRes();
-                result.response = response;
-                const shared = apiCtx.sharedContext;
+                /** @type {Fl32_Bwl_Shared_Service_Route_Friend_List.Request} */
+                const req = context.getInData();
+                /** @type {Fl32_Bwl_Shared_Service_Route_Friend_List.Response} */
+                const res = context.getOutData();
+                const shared = context.getHandlersShare();
+                //
                 /** @type {Fl32_Teq_User_Shared_Service_Dto_User} */
-                const user = shared[DEF.MOD_USER.HTTP_SHARE_CTX_USER];
+                const user = shared[DEF.MOD.USER.HTTP_SHARE_CTX_USER];
                 if (user) {
                     // don't start transaction if not required
                     const trx = await rdb.startTransaction();
                     try {
-                        response.items = await getItems(trx, user.id);
+                        res.items = await getItems(trx, user.id);
                         await trx.commit();
                     } catch (error) {
                         await trx.rollback();
                         throw error;
                     }
                 } else {
-                    result.headers[H2.HTTP2_HEADER_STATUS] = H2.HTTP_STATUS_UNAUTHORIZED;
+                    context.setOutHeader(DEF.MOD.WEB.HTTP.HEADER.STATUS, H2.HTTP_STATUS_UNAUTHORIZED);
                 }
-                return result;
             }
 
-            // COMPOSE RESULT
+            // MAIN FUNCTIONALITY
             Object.defineProperty(service, 'name', {value: `${NS}.${service.name}`});
             return service;
-        };
+        }
     }
-
-    // DEFINE PROTO METHODS
 }
-
-export default Fl32_Bwl_Back_Service_Friend_List;
