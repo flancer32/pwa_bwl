@@ -20,10 +20,6 @@ export default class Fl32_Bwl_Back_Service_Weight_History_List {
         const rdb = spec['TeqFw_Core_Back_RDb_Connector$'];
         /** @type {Function|TeqFw_Core_Shared_Util.formatDate} */
         const formatDate = spec['TeqFw_Core_Shared_Util#formatDate'];
-        /** @type {typeof TeqFw_Http2_Plugin_Handler_Service.Result} */
-        const ApiResult = spec['TeqFw_Http2_Plugin_Handler_Service#Result'];
-        /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_List.Factory} */
-        const factRoute = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_List#Factory$'];
         /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat} */
         const EWeightStat = spec['Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat#'];
         /** @type {typeof Fl32_Bwl_Shared_Service_Dto_Weight_History_Item} */

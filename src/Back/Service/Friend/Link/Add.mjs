@@ -17,25 +17,21 @@ export default class Fl32_Bwl_Back_Service_Friend_Link_Add {
     constructor(spec) {
         // EXTRACT DEPS
         /** @type {Fl32_Bwl_Back_Defaults} */
-        const DEF = spec['Fl32_Bwl_Shared_Defaults$']; // singleton
+        const DEF = spec['Fl32_Bwl_Shared_Defaults$'];
         /** @type {TeqFw_Core_Back_RDb_Connector} */
-        const rdb = spec['TeqFw_Core_Back_RDb_Connector$'];  // singleton
+        const rdb = spec['TeqFw_Core_Back_RDb_Connector$'];
         /** @type {TeqFw_Core_Logger} */
-        const logger = spec['TeqFw_Core_Logger$'];  // singleton
-        /** @type {typeof TeqFw_Http2_Plugin_Handler_Service.Result} */
-        const ApiResult = spec['TeqFw_Http2_Plugin_Handler_Service#Result']; // class
-        /** @type {Fl32_Bwl_Shared_Service_Route_Friend_Link_Add.Factory} */
-        const factRoute = spec['Fl32_Bwl_Shared_Service_Route_Friend_Link_Add#Factory$']; // singleton
+        const logger = spec['TeqFw_Core_Logger$'];
         /** @type {Fl32_Bwl_Shared_Service_Route_Friend_Link_Add.Factory} */
         const route = spec['Fl32_Bwl_Shared_Service_Route_Friend_Link_Add#Factory$'];
         /** @function {@type Fl32_Bwl_Back_Process_Friend_Link_Code_CleanUp.process} */
-        const procCleanUp = spec['Fl32_Bwl_Back_Process_Friend_Link_Code_CleanUp$']; // singleton
+        const procCleanUp = spec['Fl32_Bwl_Back_Process_Friend_Link_Code_CleanUp$'];
         /** @function {@type Fl32_Bwl_Back_Process_Friend_Link_Code_Get.process } */
-        const procGet = spec['Fl32_Bwl_Back_Process_Friend_Link_Code_Get$']; // singleton
+        const procGet = spec['Fl32_Bwl_Back_Process_Friend_Link_Code_Get$'];
         /** @function {@type Fl32_Bwl_Back_Process_Friend_Link_Add.process } */
-        const procAdd = spec['Fl32_Bwl_Back_Process_Friend_Link_Add$']; // singleton
+        const procAdd = spec['Fl32_Bwl_Back_Process_Friend_Link_Add$'];
         /** @function {@type Fl32_Bwl_Back_Process_Friend_Link_Code_Remove.process} */
-        const procRemove = spec['Fl32_Bwl_Back_Process_Friend_Link_Code_Remove$']; // singleton
+        const procRemove = spec['Fl32_Bwl_Back_Process_Friend_Link_Code_Remove$'];
 
         // DEFINE INSTANCE METHODS
 
