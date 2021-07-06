@@ -22,8 +22,8 @@ export default class Fl32_Bwl_Back_Service_Sign_Up {
         const rdb = spec['TeqFw_Core_Back_RDb_Connector$'];
         /** @type {TeqFw_Core_Shared_Util.formatUtcDateTime} */
         const formatUtcDateTime = spec['TeqFw_Core_Shared_Util#formatUtcDateTime'];
-        /** @type {Function|TeqFw_Http2_Back_Util.cookieCreate} */
-        const cookieCreate = spec['TeqFw_Http2_Back_Util#cookieCreate'];
+        /** @type {Function|TeqFw_Web_Back_Util.cookieCreate} */
+        const cookieCreate = spec['TeqFw_Web_Back_Util#cookieCreate'];
         /** @type {Fl32_Bwl_Shared_Service_Route_Sign_Up.Factory} */
         const route = spec['Fl32_Bwl_Shared_Service_Route_Sign_Up#Factory$'];
         /** @function {@type Fl32_Teq_User_Back_Process_Referral_Link_CleanUp.process} */
@@ -105,10 +105,10 @@ export default class Fl32_Bwl_Back_Service_Sign_Up {
                     const sessionId = output.sessId;
                     // set session cookie
                     const cookie = cookieCreate({
-                        name: DEF.MOD_USER.SESSION_COOKIE_NAME,
+                        name: DEF.MOD.USER.SESSION_COOKIE_NAME,
                         value: sessionId,
-                        expires: DEF.MOD_USER.SESSION_COOKIE_LIFETIME,
-                        path: `/${DEF.REALM_PUB}`
+                        expires: DEF.MOD.USER.SESSION_COOKIE_LIFETIME,
+                        path: `/${DEF.DOOR.PUB}`
                     });
                     return {sessionId, cookie};
                 }
@@ -118,7 +118,7 @@ export default class Fl32_Bwl_Back_Service_Sign_Up {
                 const req = context.getInData();
                 /** @type {Fl32_Bwl_Shared_Service_Route_Sign_Up.Response} */
                 const res = context.getOutData();
-                const shared = context.getHandlersShare();
+                // const shared = context.getHandlersShare();
                 //
                 const trx = await rdb.startTransaction();
                 /** @type {Fl32_Bwl_Shared_Service_Route_Sign_Up.Request} */

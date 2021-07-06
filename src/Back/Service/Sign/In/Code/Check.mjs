@@ -22,8 +22,8 @@ export default class Fl32_Bwl_Back_Service_Sign_In_Code_Check {
         const rdb = spec['TeqFw_Core_Back_RDb_Connector$'];  // singleton
         /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Sign_In} */
         const ESignIn = spec['Fl32_Bwl_Back_Store_RDb_Schema_Sign_In#']; // class
-        /** @function {@type TeqFw_Http2_Back_Util.cookieCreate} */
-        const cookieCreate = spec['TeqFw_Http2_Back_Util#cookieCreate']; // singleton
+        /** @function {@type TeqFw_Web_Back_Util.cookieCreate} */
+        const cookieCreate = spec['TeqFw_Web_Back_Util#cookieCreate']; // singleton
         /** @function {@type Fl32_Bwl_Back_Process_Sign_In_Code_CleanUp.process} */
         const procCodeCleanUp = spec['Fl32_Bwl_Back_Process_Sign_In_Code_CleanUp$']; // singleton
         /** @function {@type Fl32_Bwl_Back_Process_Sign_In_Code_Remove.process} */

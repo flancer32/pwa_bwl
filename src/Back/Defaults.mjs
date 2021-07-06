@@ -2,6 +2,10 @@
  * Plugin constants (hardcoded configuration) for backend code.
  */
 export default class Fl32_Bwl_Back_Defaults {
+    DOOR = {
+        PUB: 'pub',
+        SIGN: 'sign'
+    }
 
     MOD = {
         USER: null,

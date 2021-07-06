@@ -60,7 +60,6 @@ function Factory(spec) {
             /** @type {Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Check.Response} */
             const res = await gate.send(req, route);
             if (res) {
-                debugger
                 await session.init();
                 const route = session.getRouteToRedirect();
                 this.$router.push(route);

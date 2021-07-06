@@ -98,7 +98,6 @@ function Factory(spec) {
             },
         },
         created() {
-            debugger
             // redirect authenticated user to (default) route
             if (session.checkUserAuthenticated(this.$router)) {
                 const route = session.getRouteToRedirect();
