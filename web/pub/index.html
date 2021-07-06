@@ -37,8 +37,8 @@
                 async function initI18n(container, app) {
                     // PARSE INPUT & DEFINE WORKING VARS
                     const defaultNS = 'pub';
-                    const supportedLngs = ['en', 'ru'];
-                    const fallbackLng = 'en';
+                    const supportedLngs = ['ru'];
+                    const fallbackLng = 'ru';
 
                     // MAIN FUNCTIONALITY
                     // self.i18next - see "./src/i18next/i18next.min.js"
@@ -84,7 +84,7 @@
 
                 // MAIN FUNCTIONALITY
 
-                // create vue application, init router, i18n, vuex, ...
+                // create vue application, init router, i18n, ...
                 const result = self.Vue.createApp({});
                 container.set(DEF.MOD_VUE.DI_APP, result);
                 const router = initRouter(self.VueRouter);

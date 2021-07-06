@@ -63,10 +63,12 @@ function Factory(spec) {
                 /** @type {Fl32_Bwl_Shared_Service_Route_Friend_Link_Add.Response} */
                 const res = await gate.send(req, route);
                 if (res) {
-                    this.displayResult = true;
                     this.displaySuccess = res.success;
                     this.failureCause = res.failureCause;
+                } else {
+                    this.displaySuccess = false;
                 }
+                this.displayResult = true;
             }
         },
     };

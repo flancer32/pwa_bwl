@@ -16,8 +16,8 @@ export default class Fl32_Bwl_Back_Service_Sign_In_Code_Check {
 
     constructor(spec) {
         // EXTRACT DEPS
-        /** @type {Fl32_Bwl_Shared_Defaults} */
-        const DEF = spec['Fl32_Bwl_Shared_Defaults$']; // singleton
+        /** @type {Fl32_Bwl_Back_Defaults} */
+        const DEF = spec['Fl32_Bwl_Back_Defaults$']; // singleton
         /** @type {TeqFw_Core_Back_RDb_Connector} */
         const rdb = spec['TeqFw_Core_Back_RDb_Connector$'];  // singleton
         /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Sign_In} */
@@ -76,10 +76,10 @@ export default class Fl32_Bwl_Back_Service_Sign_In_Code_Check {
                     const sessionId = output.sessId;
                     // set session cookie
                     const cookie = cookieCreate({
-                        name: DEF.MOD_USER.SESSION_COOKIE_NAME,
+                        name: DEF.MOD.USER.SESSION_COOKIE_NAME,
                         value: sessionId,
-                        expires: DEF.MOD_USER.SESSION_COOKIE_LIFETIME,
-                        path: `/${DEF.REALM_PUB}`
+                        expires: DEF.MOD.USER.SESSION_COOKIE_LIFETIME,
+                        path: `/${DEF.DOOR.PUB}`
                     });
                     return {sessionId, cookie};
                 }
