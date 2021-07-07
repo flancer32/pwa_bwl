@@ -29,7 +29,6 @@
         "Fl32_Bwl_Back_Service_Weight_Stat_Save"
       ]
     },
-    "root": "root",
     "doors": ["pub", "sign"],
     "spaces": ["api", "src", "web"]
   }
