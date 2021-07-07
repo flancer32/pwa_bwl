@@ -55,11 +55,11 @@ export default class Fl32_Bwl_Back_Service_Weight_History_Remove {
                 const trx = await rdb.startTransaction();
                 try {
                     /** @type {Fl32_Teq_User_Shared_Service_Dto_User} */
-                    const user = shared[DEF.MOD.USER.HTTP_SHARE_CTX_USER];
+                    const user = shared[DEF.MOD_USER.HTTP_SHARE_CTX_USER];
                     if (user) {
                         res.removed = await removeItems(trx, user.id, req.date);
                     } else {
-                        context.setOutHeader(DEF.MOD.WEB.HTTP.HEADER.STATUS, H2.HTTP_STATUS_UNAUTHORIZED);
+                        context.setOutHeader(DEF.MOD_WEB.HTTP_HEADER_STATUS, H2.HTTP_STATUS_UNAUTHORIZED);
                     }
                     await trx.commit();
                 } catch (error) {

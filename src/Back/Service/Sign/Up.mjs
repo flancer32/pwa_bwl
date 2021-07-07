@@ -105,9 +105,9 @@ export default class Fl32_Bwl_Back_Service_Sign_Up {
                     const sessionId = output.sessId;
                     // set session cookie
                     const cookie = cookieCreate({
-                        name: DEF.MOD.USER.SESSION_COOKIE_NAME,
+                        name: DEF.MOD_USER.SESSION_COOKIE_NAME,
                         value: sessionId,
-                        expires: DEF.MOD.USER.SESSION_COOKIE_LIFETIME,
+                        expires: DEF.MOD_USER.SESSION_COOKIE_LIFETIME,
                         path: `/${DEF.DOOR.PUB}`
                     });
                     return {sessionId, cookie};

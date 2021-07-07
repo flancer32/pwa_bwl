@@ -75,7 +75,7 @@ export default class Fl32_Bwl_Back_Service_Friend_List {
                 const shared = context.getHandlersShare();
                 //
                 /** @type {Fl32_Teq_User_Shared_Service_Dto_User} */
-                const user = shared[DEF.MOD.USER.HTTP_SHARE_CTX_USER];
+                const user = shared[DEF.MOD_USER.HTTP_SHARE_CTX_USER];
                 if (user) {
                     // don't start transaction if not required
                     const trx = await rdb.startTransaction();
@@ -87,7 +87,7 @@ export default class Fl32_Bwl_Back_Service_Friend_List {
                         throw error;
                     }
                 } else {
-                    context.setOutHeader(DEF.MOD.WEB.HTTP.HEADER.STATUS, H2.HTTP_STATUS_UNAUTHORIZED);
+                    context.setOutHeader(DEF.MOD_WEB.HTTP_HEADER_STATUS, H2.HTTP_STATUS_UNAUTHORIZED);
                 }
             }
 

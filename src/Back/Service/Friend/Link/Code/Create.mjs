@@ -17,15 +17,15 @@ export default class Fl32_Bwl_Back_Service_Friend_Link_Code_Create {
     constructor(spec) {
         // EXTRACT DEPS
         /** @type {Fl32_Bwl_Back_Defaults} */
-        const DEF = spec['Fl32_Bwl_Back_Defaults$']; 
+        const DEF = spec['Fl32_Bwl_Back_Defaults$'];
         /** @type {TeqFw_Core_Back_RDb_Connector} */
-        const rdb = spec['TeqFw_Core_Back_RDb_Connector$'];  
+        const rdb = spec['TeqFw_Core_Back_RDb_Connector$'];
         /** @type {typeof Fl32_Bwl_Shared_Service_Dto_Friend_Link} */
-        const DLink = spec['Fl32_Bwl_Shared_Service_Dto_Friend_Link#']; 
+        const DLink = spec['Fl32_Bwl_Shared_Service_Dto_Friend_Link#'];
         /** @function {@type Fl32_Bwl_Back_Process_Friend_Link_Code_CleanUp.process} */
-        const procCleanUp = spec['Fl32_Bwl_Back_Process_Friend_Link_Code_CleanUp$']; 
+        const procCleanUp = spec['Fl32_Bwl_Back_Process_Friend_Link_Code_CleanUp$'];
         /** @function {@type Fl32_Bwl_Back_Process_Friend_Link_Code_Create.process} */
-        const procCreate = spec['Fl32_Bwl_Back_Process_Friend_Link_Code_Create$']; 
+        const procCreate = spec['Fl32_Bwl_Back_Process_Friend_Link_Code_Create$'];
         /** @type {Fl32_Bwl_Shared_Service_Route_Friend_Link_Code_Create.Factory} */
         const route = spec['Fl32_Bwl_Shared_Service_Route_Friend_Link_Code_Create#Factory$'];
 
@@ -50,7 +50,7 @@ export default class Fl32_Bwl_Back_Service_Friend_Link_Code_Create {
                 const shared = context.getHandlersShare();
                 //
                 /** @type {Fl32_Teq_User_Shared_Service_Dto_User} */
-                const user = shared[DEF.MOD.USER.HTTP_SHARE_CTX_USER];
+                const user = shared[DEF.MOD_USER.HTTP_SHARE_CTX_USER];
                 if (user) {
                     // don't start transaction if not required
                     const trx = await rdb.startTransaction();

@@ -21,24 +21,14 @@ export default class Fl32_Bwl_Back_Defaults {
     MOD_USER;
     /** @type {TeqFw_Web_Back_Defaults} */
     MOD_WEB;
-    /**
-     * @deprecated use "MOD_" instead
-     * @type {{WEB: TeqFw_Web_Back_Defaults, USER: Fl32_Teq_User_Back_Defaults}}
-     */
-    MOD = {
-        /** @type {Fl32_Teq_User_Back_Defaults} */
-        USER: null,
-        /** @type {TeqFw_Web_Back_Defaults} */
-        WEB: null
-    }
 
     /** @type {Fl32_Bwl_Shared_Defaults} */
     SHARED = null;
 
     constructor(spec) {
         // EXTRACT DEPS
-        this.MOD.USER = spec['Fl32_Teq_User_Back_Defaults$'];
-        this.MOD.WEB = spec['TeqFw_Web_Back_Defaults$'];
+        this.MOD_USER = spec['Fl32_Teq_User_Back_Defaults$'];
+        this.MOD_WEB = spec['TeqFw_Web_Back_Defaults$'];
         this.SHARED = spec['Fl32_Bwl_Shared_Defaults$'];
 
         // MAIN FUNCTIONALITY
