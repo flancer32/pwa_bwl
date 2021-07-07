@@ -1,46 +1,23 @@
 export default class Fl32_Bwl_Shared_Defaults {
-    NAME = '@flancer32/pwa_bwl';
 
     // FRONTEND ROUTES
-    // TODO: rename REALM to DOOR
-    REALM_PUB = 'pub';
-    REALM_PUB_ROUTE_SIGN_IN_CODE_CHECK = '/signIn/code/check/:code';
+    DOOR_PUB = 'pub';
+    DOOR_PUB_ROUTE_SIGN_IN_CODE_CHECK = '/signIn/code/check/:code';
+    DOOR_SIGN = 'sign';
 
-    // SERVICES ROUTES
-    SRV = {
-        FRIEND: {
-            LINK: {
-                ADD: '/friend/link/add',
-                CODE:
-                    {CREATE: '/friend/link/code/create'}
-            },
-            LIST: '/friend/list'
-        },
-        PROFILE: {GET: '/profile/get'},
-        SIGN: {
-            IN: {
-                CODE: {
-                    CHECK: '/sign/in/code/check',
-                    SEND: '/sign/in/code/send'
-                }
-            },
-            UP: '/sign/up'
-        },
-        WEIGHT: {
-            HISTORY: {
-                LIST: '/weight/history/list',
-                REMOVE: '/weight/history/remove'
-            },
-            STAT: {
-                SAVE: '/weight/stat/save'
-            }
-        }
-    };
+    NAME = '@flancer32/pwa_bwl';
 
-
-    SERV_WEIGHT_HISTORY_LIST = '/weight/history/list';
-    SERV_WEIGHT_HISTORY_REMOVE = '/weight/history/remove';
-    SERV_WEIGHT_STAT_SAVE = '/weight/stat/save';
+    // WEB SERVICES ROUTES
+    WEB_FRIEND_LINK_ADD = '/friend/link/add';
+    WEB_FRIEND_LINK_CODE_CREATE = '/friend/link/code/create';
+    WEB_FRIEND_LIST = '/friend/list';
+    WEB_PROFILE_GET = '/profile/get';
+    WEB_SIGN_IN_CODE_CHECK = '/sign/in/code/check';
+    WEB_SIGN_IN_CODE_SEND = '/sign/in/code/send';
+    WEB_SIGN_UP = '/sign/up';
+    WEB_WEIGHT_HISTORY_LIST = '/weight/history/list';
+    WEB_WEIGHT_HISTORY_REMOVE = '/weight/history/remove';
+    WEB_WEIGHT_STAT_SAVE = '/weight/stat/save';
 
     constructor(spec) {
         Object.freeze(this);

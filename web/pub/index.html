@@ -169,7 +169,7 @@
             async function initSession(container, DEF) {
                 /** @type {Fl32_Teq_User_Front_Model_Session} */
                 const session = await container.get('Fl32_Teq_User_Front_Model_Session$');
-                session.setRouteToSignIn(DEF.REALM_PUB_ROUTE_SIGN_IN_CODE_GET);
+                session.setRouteToSignIn(DEF.DOOR_PUB_ROUTE_SIGN_IN_CODE_GET);
                 await session.init();
             }
 

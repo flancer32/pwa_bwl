@@ -45,7 +45,7 @@ class Factory {
         const fItem = spec['Fl32_Bwl_Shared_Service_Dto_Weight_History_Item#Factory$'];
 
         // DEFINE INSTANCE METHODS
-        this.getRoute = () => `/${DEF.NAME}${DEF.SRV.WEIGHT.HISTORY.LIST}`;
+        this.getRoute = () => `/${DEF.NAME}${DEF.WEB_WEIGHT_HISTORY_LIST}`;
 
         /**
          * @param {Request|null} data

@@ -38,7 +38,7 @@ class Factory {
         const DEF = spec['Fl32_Bwl_Shared_Defaults$'];
 
         // DEFINE INSTANCE METHODS
-        this.getRoute = () => `/${DEF.NAME}${DEF.SRV.WEIGHT.HISTORY.REMOVE}`;
+        this.getRoute = () => `/${DEF.NAME}${DEF.WEB_WEIGHT_HISTORY_REMOVE}`;
 
         /**
          * @param {Request|null} data

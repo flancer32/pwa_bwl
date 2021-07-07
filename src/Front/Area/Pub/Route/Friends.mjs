@@ -111,8 +111,8 @@ function Factory(spec) {
                     const code = res.link.code;
                     // compose URL to add new friend
                     const host = `https://${config.urlBase}`;
-                    const realm = `/${DEF.REALM_PUB}/#`;
-                    const route = DEF.REALM_PUB_ROUTE_FRIENDS_ADD.replace(':code', code);
+                    const realm = `/${DEF.SHARED.DOOR_PUB}/#`;
+                    const route = DEF.DOOR_PUB_ROUTE_FRIENDS_ADD.replace(':code', code);
                     const url = `${host}${realm}${route}`;
                     // open sharing options or print out sign up link to console
                     if (self.navigator.share) {
@@ -141,9 +141,9 @@ function Factory(spec) {
                     const code = res.link.refCode;
                     // compose URL to sign up
                     const host = `https://${config.urlBase}`;
-                    const realm = `/${DEF.REALM_SIGN}/#`;
-                    const route = DEF.REALM_SIGN_ROUTE_UP.replace(':refCode?', code);
-                    const url = `${host}${realm}${route}`;
+                    const door = `/${DEF.SHARED.DOOR_SIGN}/#`;
+                    const route = DEF.DOOR_SIGN_ROUTE_UP.replace(':refCode?', code);
+                    const url = `${host}${door}${route}`;
                     // open sharing options or print out sign up link to console
                     if (self.navigator.share) {
                         // smartphone mode

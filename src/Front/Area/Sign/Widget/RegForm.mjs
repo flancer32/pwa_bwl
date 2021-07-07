@@ -245,7 +245,7 @@ function Factory(spec) {
                 /** @type {Fl32_Bwl_Shared_Service_Route_Sign_Up.Response} */
                 const res = await gate.send(req, routeSignUp);
                 if (res && res.sessionId) {
-                    self.window.location.href = `/${DEF.REALM_PUB}/`;
+                    self.window.location.href = `/${DEF.SHARED.DOOR_PUB}/`;
                 }
             },
         },

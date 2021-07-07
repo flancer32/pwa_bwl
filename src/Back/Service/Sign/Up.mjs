@@ -108,7 +108,7 @@ export default class Fl32_Bwl_Back_Service_Sign_Up {
                         name: DEF.MOD_USER.SESSION_COOKIE_NAME,
                         value: sessionId,
                         expires: DEF.MOD_USER.SESSION_COOKIE_LIFETIME,
-                        path: `/${DEF.DOOR.PUB}`
+                        path: `/${DEF.SHARED.DOOR_PUB}`
                     });
                     return {sessionId, cookie};
                 }

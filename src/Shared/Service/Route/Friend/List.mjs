@@ -36,7 +36,7 @@ class Factory {
         const fItem = spec['Fl32_Bwl_Shared_Service_Dto_Friend_List_Item#Factory$'];
 
         // DEFINE INSTANCE METHODS
-        this.getRoute = () => `/${DEF.NAME}${DEF.SRV.FRIEND.LIST}`;
+        this.getRoute = () => `/${DEF.NAME}${DEF.WEB_FRIEND_LIST}`;
 
         /**
          * @param {Request|null} data

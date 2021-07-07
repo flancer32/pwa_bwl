@@ -36,7 +36,7 @@ class Factory {
         const DEF = spec['Fl32_Bwl_Shared_Defaults$'];
 
         // DEFINE INSTANCE METHODS
-        this.getRoute = () => `/${DEF.NAME}${DEF.SRV.SIGN.IN.CODE.CHECK}`;
+        this.getRoute = () => `/${DEF.NAME}${DEF.WEB_SIGN_IN_CODE_CHECK}`;
 
         /**
          * @param {Request|null} data

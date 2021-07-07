@@ -37,7 +37,7 @@ class Factory {
 
         // DEFINE INSTANCE METHODS
 
-        this.getRoute = () => `/${DEF.NAME}${DEF.SRV.PROFILE.GET}`;
+        this.getRoute = () => `/${DEF.NAME}${DEF.WEB_PROFILE_GET}`;
 
         /**
          * @param {Request|null} data

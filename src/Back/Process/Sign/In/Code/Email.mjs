@@ -32,8 +32,8 @@ function Factory(spec) {
      */
     async function process({to, code}) {
         const urlBase = config.get()?.local.web.urlBase;
-        const realm = DEF.SHARED.REALM_PUB;
-        const route = DEF.SHARED.REALM_PUB_ROUTE_SIGN_IN_CODE_CHECK.replace(':code', code);
+        const realm = DEF.SHARED.DOOR_PUB;
+        const route = DEF.SHARED.DOOR_PUB_ROUTE_SIGN_IN_CODE_CHECK.replace(':code', code);
         const url = `https://${urlBase}/${realm}/#${route}`;
         const subject = 'BWL login link';
         const text = `BWL sign in link: ${url}`;

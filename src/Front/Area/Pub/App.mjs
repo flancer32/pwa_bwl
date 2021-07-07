@@ -15,11 +15,11 @@ const NS = 'Fl32_Bwl_Front_Area_Pub_App';
  */
 function Factory(spec) {
     /** @type {Fl32_Bwl_Front_Defaults} */
-    const DEF = spec['Fl32_Bwl_Front_Defaults$'];    
+    const DEF = spec['Fl32_Bwl_Front_Defaults$'];
     /** @type {TeqFw_Di_Container} */
-    const container = spec['TeqFw_Di_Container$']; 
-    const router = spec[DEF.MOD_VUE.DI_ROUTER];  
-    const app = spec[DEF.MOD_VUE.DI_APP];  
+    const container = spec['TeqFw_Di_Container$'];
+    const router = spec[DEF.MOD_VUE.DI_ROUTER];
+    const app = spec[DEF.MOD_VUE.DI_APP];
     /** @type {TeqFw_Core_Front_Widget_Layout_Centered} */
     const layoutCentered = spec['TeqFw_Core_Front_Widget_Layout_Centered$'];    // vue comp tmpl
     /** @type {Fl32_Bwl_Front_Layout_Pub} */
@@ -36,37 +36,37 @@ function Factory(spec) {
 
     // setup application routes
     router.addRoute({
-        path: DEF.REALM_PUB_ROUTE_DEV_LOGIN,
+        path: DEF.DOOR_PUB_ROUTE_DEV_LOGIN,
         component: () => container.get('Fl32_Bwl_Front_Area_Pub_Route_Dev_Login$')
     });
     router.addRoute({
-        path: DEF.REALM_PUB_ROUTE_FRIENDS,
+        path: DEF.DOOR_PUB_ROUTE_FRIENDS,
         component: () => container.get('Fl32_Bwl_Front_Area_Pub_Route_Friends$')
     });
     router.addRoute({
-        path: DEF.REALM_PUB_ROUTE_FRIENDS_ADD,
+        path: DEF.DOOR_PUB_ROUTE_FRIENDS_ADD,
         component: () => container.get('Fl32_Bwl_Front_Area_Pub_Route_Friends_Add$'),
         props: true,
     });
     router.addRoute({
-        path: DEF.REALM_PUB_ROUTE_HISTORY,
+        path: DEF.DOOR_PUB_ROUTE_HISTORY,
         component: () => container.get('Fl32_Bwl_Front_Area_Pub_Route_History$')
     });
     router.addRoute({
-        path: DEF.REALM_PUB_ROUTE_HOME,
+        path: DEF.DOOR_PUB_ROUTE_HOME,
         component: () => container.get('Fl32_Bwl_Front_Area_Pub_Route_Home$')
     });
     router.addRoute({
-        path: DEF.REALM_PUB_ROUTE_SETTINGS,
+        path: DEF.DOOR_PUB_ROUTE_SETTINGS,
         component: () => container.get('Fl32_Bwl_Front_Area_Pub_Route_Settings$')
     });
     router.addRoute({
-        path: DEF.REALM_PUB_ROUTE_SIGN_IN_CODE_CHECK,
+        path: DEF.DOOR_PUB_ROUTE_SIGN_IN_CODE_CHECK,
         component: () => container.get('Fl32_Bwl_Front_Area_Pub_Route_SignIn_Code_Check$'),
         props: true,
     });
     router.addRoute({
-        path: DEF.REALM_PUB_ROUTE_SIGN_IN_CODE_GET,
+        path: DEF.DOOR_PUB_ROUTE_SIGN_IN_CODE_GET,
         component: () => container.get('Fl32_Bwl_Front_Area_Pub_Route_SignIn_Code_Get$')
     });
     app.use(router);

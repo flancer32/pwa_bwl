@@ -12,18 +12,13 @@ export default class Fl32_Bwl_Back_Defaults {
     DATA_USER_ID_ADMIN = 1;
     DATA_USER_ID_CUST = 2;
 
-    DOOR = {
-        PUB: 'pub',
-        SIGN: 'sign'
-    }
-
     /** @type {Fl32_Teq_User_Back_Defaults} */
     MOD_USER;
     /** @type {TeqFw_Web_Back_Defaults} */
     MOD_WEB;
 
     /** @type {Fl32_Bwl_Shared_Defaults} */
-    SHARED = null;
+    SHARED;
 
     constructor(spec) {
         // EXTRACT DEPS

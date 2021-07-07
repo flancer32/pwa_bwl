@@ -31,12 +31,12 @@ class Factory {
         /** @type {Fl32_Bwl_Shared_Defaults} */
         const DEF = spec['Fl32_Bwl_Shared_Defaults$'];
         /** @type {typeof Fl32_Bwl_Shared_Service_Dto_Friend_Link} */
-        const DLink = spec['Fl32_Bwl_Shared_Service_Dto_Friend_Link#']; 
+        const DLink = spec['Fl32_Bwl_Shared_Service_Dto_Friend_Link#'];
         /** @type {Fl32_Bwl_Shared_Service_Dto_Friend_Link.Factory} */
-        const fLink = spec['Fl32_Bwl_Shared_Service_Dto_Friend_Link#Factory$']; 
+        const fLink = spec['Fl32_Bwl_Shared_Service_Dto_Friend_Link#Factory$'];
 
         // DEFINE INSTANCE METHODS
-        this.getRoute = () => `/${DEF.NAME}${DEF.SRV.FRIEND.LINK.CODE.CREATE}`;
+        this.getRoute = () => `/${DEF.NAME}${DEF.WEB_FRIEND_LINK_CODE_CREATE}`;
 
         /**
          * @param {Request|null} data
