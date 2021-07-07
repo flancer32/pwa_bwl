@@ -1,43 +1,10 @@
 export default class Fl32_Bwl_Shared_Defaults {
     NAME = '@flancer32/pwa_bwl';
 
-    BACK_REALM = 'app';  // realm for API services ('/api/app/...') and CLI commands ('app-...')
-
-    DATA_REF_CODE_OTHER = 'other';
-    DATA_REF_CODE_ROOT = 'root';
-    DATA_SESS_ID_ADMIN = 'sessIdForAdmin';
-    DATA_SESS_ID_CUST = 'sessIdForCust';
-    DATA_USER_ID_ADMIN = 1;
-    DATA_USER_ID_CUST = 2;
-
-    DI_CHART = 'appChart'; // DI container label for Chart library (https://www.chartjs.org/).
-    DI_TOP_ACTIONS = 'appTopActions'; // DI container label for Top Actions widget
-
-    /** @type {TeqFw_Http2_Back_Defaults} */
-    MOD_HTTP2;
-    /** @type {TeqFw_I18n_Back_Defaults} */
-    MOD_I18N;
-    /** @type {TeqFw_Ui_Quasar_Defaults} */
-    MOD_QUASAR;
-    /** @type {Fl32_Teq_User_Back_Defaults} */
-    MOD_USER;
-    /** @type {TeqFw_Vue_Defaults} */
-    MOD_VUE;
-
     // FRONTEND ROUTES
     // TODO: rename REALM to DOOR
     REALM_PUB = 'pub';
-    REALM_PUB_ROUTE_DEV_LOGIN = '/dev/login';
-    REALM_PUB_ROUTE_FRIENDS = '/friends';
-    REALM_PUB_ROUTE_FRIENDS_ADD = '/friends/add/:code';
-    REALM_PUB_ROUTE_HISTORY = '/history';
-    REALM_PUB_ROUTE_HOME = '/';
-    REALM_PUB_ROUTE_SETTINGS = '/settings';
     REALM_PUB_ROUTE_SIGN_IN_CODE_CHECK = '/signIn/code/check/:code';
-    REALM_PUB_ROUTE_SIGN_IN_CODE_GET = '/signIn/code/get';
-    REALM_SIGN = 'sign';
-    REALM_SIGN_ROUTE_HOME = '/';
-    REALM_SIGN_ROUTE_UP = '/up/:refCode?';
 
     // SERVICES ROUTES
     SRV = {
@@ -76,11 +43,6 @@ export default class Fl32_Bwl_Shared_Defaults {
     SERV_WEIGHT_STAT_SAVE = '/weight/stat/save';
 
     constructor(spec) {
-        this.MOD_HTTP2 = spec['TeqFw_Http2_Back_Defaults$']; 
-        this.MOD_I18N = spec['TeqFw_I18n_Back_Defaults$']; 
-        this.MOD_QUASAR = spec['TeqFw_Ui_Quasar_Defaults$']; 
-        this.MOD_USER = spec['Fl32_Teq_User_Back_Defaults$']; 
-        this.MOD_VUE = spec['TeqFw_Vue_Defaults$']; 
         Object.freeze(this);
     }
 }

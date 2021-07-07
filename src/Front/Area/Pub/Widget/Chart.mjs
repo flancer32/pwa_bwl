@@ -30,8 +30,8 @@ Object.defineProperty(ChartData, 'name', {value: `${NS}.${ChartData.name}`});
  */
 function Factory(spec) {
     // EXTRACT DEPS
-    /** @type {Fl32_Bwl_Shared_Defaults} */
-    const DEF = spec['Fl32_Bwl_Shared_Defaults$'];
+    /** @type {Fl32_Bwl_Front_Defaults} */
+    const DEF = spec['Fl32_Bwl_Front_Defaults$'];
     const i18n = spec[DEF.MOD_I18N.DI_I18N];
     const Chart = spec[DEF.DI_CHART];
 

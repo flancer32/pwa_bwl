@@ -14,8 +14,8 @@ const NS = 'Fl32_Bwl_Front_Area_Pub_App';
  * @returns {Fl32_Bwl_Front_Area_Pub_App.vueCompTmpl}
  */
 function Factory(spec) {
-    /** @type {Fl32_Bwl_Shared_Defaults} */
-    const DEF = spec['Fl32_Bwl_Shared_Defaults$'];    
+    /** @type {Fl32_Bwl_Front_Defaults} */
+    const DEF = spec['Fl32_Bwl_Front_Defaults$'];    
     /** @type {TeqFw_Di_Container} */
     const container = spec['TeqFw_Di_Container$']; 
     const router = spec[DEF.MOD_VUE.DI_ROUTER];  

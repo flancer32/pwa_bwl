@@ -20,37 +20,37 @@ const NS = 'Fl32_Bwl_Back_Cli_Db_Reset';
  */
 function Factory(spec) {
     // EXTRACT DEPS
-    /** @type {Fl32_Bwl_Shared_Defaults} */
-    const DEF = spec['Fl32_Bwl_Shared_Defaults$']; 
+    /** @type {Fl32_Bwl_Back_Defaults} */
+    const DEF = spec['Fl32_Bwl_Back_Defaults$'];
     /** @type {Function|TeqFw_Core_Back_Api_Dto_Command.Factory} */
-    const fCommand = spec['TeqFw_Core_Back_Api_Dto_Command#Factory$']; 
+    const fCommand = spec['TeqFw_Core_Back_Api_Dto_Command#Factory$'];
     /** @type {TeqFw_Core_Back_RDb_Connector} */
-    const connector = spec['TeqFw_Core_Back_RDb_Connector$']; 
+    const connector = spec['TeqFw_Core_Back_RDb_Connector$'];
     /** @type {TeqFw_Core_Logger} */
-    const logger = spec['TeqFw_Core_Logger$']; 
+    const logger = spec['TeqFw_Core_Logger$'];
     const {isPostgres} = spec['TeqFw_Core_Back_Util_RDb']; // ES6 destruct
     /** @function {@type Fl32_Bwl_Back_Cli_Db_Z_Restruct.action} */
-    const actRestruct = spec['Fl32_Bwl_Back_Cli_Db_Z_Restruct$']; 
+    const actRestruct = spec['Fl32_Bwl_Back_Cli_Db_Z_Restruct$'];
     /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Profile} */
-    const EAppProfile = spec['Fl32_Bwl_Back_Store_RDb_Schema_Profile#']; 
+    const EAppProfile = spec['Fl32_Bwl_Back_Store_RDb_Schema_Profile#'];
     /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat} */
-    const EAppWeightStat = spec['Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat#']; 
+    const EAppWeightStat = spec['Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat#'];
     /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_User} */
-    const EUser = spec['Fl32_Teq_User_Store_RDb_Schema_User#']; 
+    const EUser = spec['Fl32_Teq_User_Store_RDb_Schema_User#'];
     /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Auth_Password} */
-    const EUserAuthPass = spec['Fl32_Teq_User_Store_RDb_Schema_Auth_Password#']; 
+    const EUserAuthPass = spec['Fl32_Teq_User_Store_RDb_Schema_Auth_Password#'];
     /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Auth_Session} */
-    const EUserAuthSess = spec['Fl32_Teq_User_Store_RDb_Schema_Auth_Session#']; 
+    const EUserAuthSess = spec['Fl32_Teq_User_Store_RDb_Schema_Auth_Session#'];
     /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Id_Email} */
-    const EUserIdEmail = spec['Fl32_Teq_User_Store_RDb_Schema_Id_Email#']; 
+    const EUserIdEmail = spec['Fl32_Teq_User_Store_RDb_Schema_Id_Email#'];
     /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Id_Phone} */
-    const EUserIdPhone = spec['Fl32_Teq_User_Store_RDb_Schema_Id_Phone#']; 
+    const EUserIdPhone = spec['Fl32_Teq_User_Store_RDb_Schema_Id_Phone#'];
     /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Profile} */
-    const EUserProfile = spec['Fl32_Teq_User_Store_RDb_Schema_Profile#']; 
+    const EUserProfile = spec['Fl32_Teq_User_Store_RDb_Schema_Profile#'];
     /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Ref_Link} */
-    const EUserRefLink = spec['Fl32_Teq_User_Store_RDb_Schema_Ref_Link#']; 
+    const EUserRefLink = spec['Fl32_Teq_User_Store_RDb_Schema_Ref_Link#'];
     /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Ref_Tree} */
-    const EUserRefTree = spec['Fl32_Teq_User_Store_RDb_Schema_Ref_Tree#']; 
+    const EUserRefTree = spec['Fl32_Teq_User_Store_RDb_Schema_Ref_Tree#'];
 
     // DEFINE INNER FUNCTIONS
     /**
@@ -379,7 +379,7 @@ function Factory(spec) {
 
     // COMPOSE RESULT
     const res = fCommand.create();
-    res.realm = DEF.BACK_REALM;
+    res.realm = DEF.CLI_PREFIX;
     res.name = 'db-reset';
     res.desc = 'Reset database structures and initialize test data.';
     res.action = action;

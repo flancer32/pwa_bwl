@@ -17,8 +17,8 @@ const NS = 'Fl32_Bwl_Front_Layout_Sign';
  */
 function Factory(spec) {
     // EXTRACT DEPS
-    /** @type {Fl32_Bwl_Shared_Defaults} */
-    const DEF = spec['Fl32_Bwl_Shared_Defaults$'];
+    /** @type {Fl32_Bwl_Front_Defaults} */
+    const DEF = spec['Fl32_Bwl_Front_Defaults$'];
     const {ref} = spec[DEF.MOD_VUE.DI_VUE];
 
     // DEFINE WORKING VARS

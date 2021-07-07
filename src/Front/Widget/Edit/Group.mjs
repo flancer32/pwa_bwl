@@ -75,8 +75,8 @@ class DMember {
  * @memberOf Fl32_Bwl_Front_Widget_Edit_Group
  */
 function Factory(spec) {
-    /** @type {Fl32_Bwl_Shared_Defaults} */
-    const DEF = spec['Fl32_Bwl_Shared_Defaults$'];
+    /** @type {Fl32_Bwl_Front_Defaults} */
+    const DEF = spec['Fl32_Bwl_Front_Defaults$'];
     const i18n = spec[DEF.MOD_I18N.DI_I18N];
     const {formatDate: dateForUi} = spec['Fl32_Bwl_Shared_Util'];
 
