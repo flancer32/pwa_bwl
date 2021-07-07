@@ -10,7 +10,7 @@ export default class Fl32_Bwl_Front_Defaults {
     MOD_I18N;
     /** @type {TeqFw_Ui_Quasar_Front_Defaults} */
     MOD_QUASAR;
-    /** @type {TeqFw_Vue_Defaults} */
+    /** @type {TeqFw_Vue_Front_Defaults} */
     MOD_VUE;
 
     // FRONTEND ROUTES
@@ -35,7 +35,7 @@ export default class Fl32_Bwl_Front_Defaults {
         // EXTRACT DEPS
         this.MOD_I18N = spec['TeqFw_I18n_Front_Defaults$'];
         this.MOD_QUASAR = spec['TeqFw_Ui_Quasar_Front_Defaults$'];
-        this.MOD_VUE = spec['TeqFw_Vue_Defaults$'];
+        this.MOD_VUE = spec['TeqFw_Vue_Front_Defaults$'];
         this.SHARED = spec['Fl32_Bwl_Shared_Defaults$'];
 
         this.REALM_PUB = this.SHARED.REALM_PUB;
