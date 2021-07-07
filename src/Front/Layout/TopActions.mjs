@@ -50,7 +50,7 @@ function Factory(spec) {
     /** @type {Fl32_Bwl_Shared_Defaults} */
     const DEF = spec['Fl32_Bwl_Shared_Defaults$'];
     /** @type {TeqFw_Di_Container} */
-    const container = spec['TeqFw_Di_Container$']; // singleton
+    const container = spec['TeqFw_Di_Container$']; 
 
     /**
      * Class for template to create new instances.

@@ -90,7 +90,7 @@
                 const router = initRouter(self.VueRouter);
                 container.set(DEF.MOD_VUE.DI_ROUTER, router);
                 const i18next = await initI18n(container, result);
-                container.set(DEF.MOD_I18N.DI.I18N, i18next);
+                container.set(DEF.MOD_I18N.DI_I18N, i18next);
                 // init quasar framework
                 result.use(self.Quasar, {config: {}});
                 self.Quasar.iconSet.set(self.Quasar.iconSet.svgMaterialIcons);
@@ -109,7 +109,7 @@
                 const res = await fetch(API_LOAD_CFG);
                 const json = await res.json();
                 /** @type {TeqFw_Web_Front_Api_Dto_Config.Factory} */
-                const fConfig = await container.get('TeqFw_Web_Front_Api_Dto_Config#Factory$'); // singleton
+                const fConfig = await container.get('TeqFw_Web_Front_Api_Dto_Config#Factory$');
                 /** @type {TeqFw_Web_Front_Api_Dto_Config} */
                 const result = fConfig.create(json.data);
                 result.door = DOOR;

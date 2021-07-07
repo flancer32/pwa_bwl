@@ -25,7 +25,7 @@ function Factory(spec) {
     // EXTRACT DEPS
     /** @type {Fl32_Bwl_Shared_Defaults} */
     const DEF = spec['Fl32_Bwl_Shared_Defaults$'];
-    const i18n = spec[DEF.MOD_I18N.DI.I18N];
+    const i18n = spec[DEF.MOD_I18N.DI_I18N];
     /** @type {Fl32_Bwl_Front_Widget_Weight.vueCompTmpl} */
     const weight = spec['Fl32_Bwl_Front_Widget_Weight$'];
     /** @type {TeqFw_Web_Front_Service_Gate} */

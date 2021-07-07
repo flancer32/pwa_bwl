@@ -25,9 +25,9 @@ try {
 
     // Bootstrap configuration object for 'TeqFw_Core_Back_App'
     /** @type {typeof TeqFw_Core_Back_App.Bootstrap} */
-    const Bootstrap = await container.get('TeqFw_Core_Back_App#Bootstrap'); // class
+    const Bootstrap = await container.get('TeqFw_Core_Back_App#Bootstrap'); 
     const bootstrap = new Bootstrap({version, root});
-    container.set('TeqFw_Core_Back_App#Bootstrap$', bootstrap); // instance singleton
+    container.set('TeqFw_Core_Back_App#Bootstrap$', bootstrap); 
 
     /** Request Container to construct App then run it */
     /** @type {TeqFw_Core_Back_App} */

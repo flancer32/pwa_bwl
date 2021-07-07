@@ -18,13 +18,13 @@ const NS = 'Fl32_Bwl_Front_Area_Pub_Route_Dev_Login';
 function Factory(spec) {
     // EXTRACT DEPS
     /** @type {Fl32_Teq_User_Front_Model_Session} */
-    const session = spec['Fl32_Teq_User_Front_Model_Session$']; // singleton
+    const session = spec['Fl32_Teq_User_Front_Model_Session$']; 
     /** @type {TeqFw_Core_Front_Widget_Layout_Centered} */
     const layoutCentered = spec['TeqFw_Core_Front_Widget_Layout_Centered$'];    // vue comp tmpl
     /** @type {Fl32_Teq_User_Front_Widget_SignIn} */
     const userSignIn = spec['Fl32_Teq_User_Front_Widget_SignIn$'];  // vue comp tmpl
     /** @type {typeof Fl32_Teq_User_Front_Widget_SignIn_Props} */
-    const SignInProps = spec['Fl32_Teq_User_Front_Widget_SignIn#Props'];  // class
+    const SignInProps = spec['Fl32_Teq_User_Front_Widget_SignIn#Props'];  
 
     // DEFINE WORKING VARS
     const template = `

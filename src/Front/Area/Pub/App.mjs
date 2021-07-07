@@ -15,11 +15,11 @@ const NS = 'Fl32_Bwl_Front_Area_Pub_App';
  */
 function Factory(spec) {
     /** @type {Fl32_Bwl_Shared_Defaults} */
-    const DEF = spec['Fl32_Bwl_Shared_Defaults$'];    // singleton
+    const DEF = spec['Fl32_Bwl_Shared_Defaults$'];    
     /** @type {TeqFw_Di_Container} */
-    const container = spec['TeqFw_Di_Container$']; // singleton
-    const router = spec[DEF.MOD_VUE.DI_ROUTER];  // singleton
-    const app = spec[DEF.MOD_VUE.DI_APP];  // singleton
+    const container = spec['TeqFw_Di_Container$']; 
+    const router = spec[DEF.MOD_VUE.DI_ROUTER];  
+    const app = spec[DEF.MOD_VUE.DI_APP];  
     /** @type {TeqFw_Core_Front_Widget_Layout_Centered} */
     const layoutCentered = spec['TeqFw_Core_Front_Widget_Layout_Centered$'];    // vue comp tmpl
     /** @type {Fl32_Bwl_Front_Layout_Pub} */

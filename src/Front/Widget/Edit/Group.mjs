@@ -76,9 +76,9 @@ class DMember {
  */
 function Factory(spec) {
     /** @type {Fl32_Bwl_Shared_Defaults} */
-    const DEF = spec['Fl32_Bwl_Shared_Defaults$']; // singleton
-    const i18n = spec[DEF.MOD_I18N.DI.I18N]; // singleton
-    const {formatDate: dateForUi} = spec['Fl32_Bwl_Shared_Util']; // ES6 module destructing
+    const DEF = spec['Fl32_Bwl_Shared_Defaults$'];
+    const i18n = spec[DEF.MOD_I18N.DI_I18N];
+    const {formatDate: dateForUi} = spec['Fl32_Bwl_Shared_Util'];
 
     /**
      * Template to create new instances using Vue.

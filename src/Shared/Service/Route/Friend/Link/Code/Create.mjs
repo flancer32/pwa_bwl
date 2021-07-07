@@ -31,9 +31,9 @@ class Factory {
         /** @type {Fl32_Bwl_Shared_Defaults} */
         const DEF = spec['Fl32_Bwl_Shared_Defaults$'];
         /** @type {typeof Fl32_Bwl_Shared_Service_Dto_Friend_Link} */
-        const DLink = spec['Fl32_Bwl_Shared_Service_Dto_Friend_Link#']; // class
+        const DLink = spec['Fl32_Bwl_Shared_Service_Dto_Friend_Link#']; 
         /** @type {Fl32_Bwl_Shared_Service_Dto_Friend_Link.Factory} */
-        const fLink = spec['Fl32_Bwl_Shared_Service_Dto_Friend_Link#Factory$']; // singleton
+        const fLink = spec['Fl32_Bwl_Shared_Service_Dto_Friend_Link#Factory$']; 
 
         // DEFINE INSTANCE METHODS
         this.getRoute = () => `/${DEF.NAME}${DEF.SRV.FRIEND.LINK.CODE.CREATE}`;

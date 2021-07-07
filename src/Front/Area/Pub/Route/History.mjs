@@ -50,7 +50,7 @@ const template = `
 function Factory(spec) {
     /** @type {Fl32_Bwl_Shared_Defaults} */
     const DEF = spec['Fl32_Bwl_Shared_Defaults$'];
-    const i18n = spec[DEF.MOD_I18N.DI.I18N];
+    const i18n = spec[DEF.MOD_I18N.DI_I18N];
     const {ref} = spec[DEF.MOD_VUE.DI_VUE];
     /** @type {Fl32_Teq_User_Front_Model_Session} */
     const session = spec['Fl32_Teq_User_Front_Model_Session$'];

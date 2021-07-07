@@ -15,7 +15,7 @@ export default class Fl32_Bwl_Shared_Defaults {
 
     /** @type {TeqFw_Http2_Back_Defaults} */
     MOD_HTTP2;
-    /** @type {TeqFw_I18n_Defaults} */
+    /** @type {TeqFw_I18n_Back_Defaults} */
     MOD_I18N;
     /** @type {TeqFw_Ui_Quasar_Defaults} */
     MOD_QUASAR;
@@ -76,11 +76,11 @@ export default class Fl32_Bwl_Shared_Defaults {
     SERV_WEIGHT_STAT_SAVE = '/weight/stat/save';
 
     constructor(spec) {
-        this.MOD_HTTP2 = spec['TeqFw_Http2_Back_Defaults$']; // singleton
-        this.MOD_I18N = spec['TeqFw_I18n_Defaults$']; // singleton
-        this.MOD_QUASAR = spec['TeqFw_Ui_Quasar_Defaults$']; // singleton
-        this.MOD_USER = spec['Fl32_Teq_User_Back_Defaults$']; // singleton
-        this.MOD_VUE = spec['TeqFw_Vue_Defaults$']; // singleton
+        this.MOD_HTTP2 = spec['TeqFw_Http2_Back_Defaults$']; 
+        this.MOD_I18N = spec['TeqFw_I18n_Back_Defaults$']; 
+        this.MOD_QUASAR = spec['TeqFw_Ui_Quasar_Defaults$']; 
+        this.MOD_USER = spec['Fl32_Teq_User_Back_Defaults$']; 
+        this.MOD_VUE = spec['TeqFw_Vue_Defaults$']; 
         Object.freeze(this);
     }
 }

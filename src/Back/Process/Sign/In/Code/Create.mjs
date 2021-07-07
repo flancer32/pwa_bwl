@@ -21,9 +21,9 @@ const LIFETIME_MIN = 5;
  */
 function Factory(spec) {
     /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Sign_In} */
-    const ESignIn = spec['Fl32_Bwl_Back_Store_RDb_Schema_Sign_In#']; // class
+    const ESignIn = spec['Fl32_Bwl_Back_Store_RDb_Schema_Sign_In#']; 
     /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Id_Email} */
-    const EIdEmail = spec['Fl32_Teq_User_Store_RDb_Schema_Id_Email#']; // class
+    const EIdEmail = spec['Fl32_Teq_User_Store_RDb_Schema_Id_Email#']; 
 
     /**
      * Create one-time sign in code with limited lifetime.

@@ -26,7 +26,7 @@ const template = `
  * @returns {Fl32_Bwl_Front_Widget_Dialog_Date.vueCompTmpl}
  */
 function Factory(spec) {
-    const {formatDate} = spec['TeqFw_Core_Shared_Util']; // ES6 module destructing
+    const {formatDate} = spec['TeqFw_Core_Shared_Util']; 
 
 
     /**

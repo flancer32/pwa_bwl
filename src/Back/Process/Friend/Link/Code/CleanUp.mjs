@@ -19,7 +19,7 @@ const NS = 'Fl32_Bwl_Back_Process_Friend_Link_Code_CleanUp';
 function Factory(spec) {
     // EXTRACT DEPS
     /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Friend_Link} */
-    const ELink = spec['Fl32_Bwl_Back_Store_RDb_Schema_Friend_Link#']; // class constructor
+    const ELink = spec['Fl32_Bwl_Back_Store_RDb_Schema_Friend_Link#']; 
 
     // DEFINE INNER FUNCTIONS
     /**

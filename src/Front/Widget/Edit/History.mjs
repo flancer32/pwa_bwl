@@ -55,14 +55,14 @@ const template = `
  */
 function Factory(spec) {
     /** @type {Fl32_Bwl_Shared_Defaults} */
-    const DEF = spec['Fl32_Bwl_Shared_Defaults$']; // singleton
-    const i18n = spec[DEF.MOD_I18N.DI.I18N]; // singleton
+    const DEF = spec['Fl32_Bwl_Shared_Defaults$'];
+    const i18n = spec[DEF.MOD_I18N.DI_I18N];
     /** @type {Fl32_Bwl_Front_Widget_Dialog_Date} */
     const dialogDate = spec['Fl32_Bwl_Front_Widget_Dialog_Date$']; // vue comp tmpl
     /** @type {Fl32_Bwl_Front_Widget_Weight.vueCompTmpl} */
     const weight = spec['Fl32_Bwl_Front_Widget_Weight$']; // vue comp tmpl
-    const {formatDate: dateForUi} = spec['Fl32_Bwl_Shared_Util']; // ES6 module destructing
-    const {formatDate: dateAsStr} = spec['TeqFw_Core_Shared_Util']; // ES6 module destructing
+    const {formatDate: dateForUi} = spec['Fl32_Bwl_Shared_Util'];
+    const {formatDate: dateAsStr} = spec['TeqFw_Core_Shared_Util'];
     /**
      * Template to create new instances using Vue.
      *

@@ -16,7 +16,7 @@ const NS = 'Fl32_Bwl_Back_Process_Profile_Save';
  */
 function Factory(spec) {
     /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Profile} */
-    const EProfile = spec['Fl32_Bwl_Back_Store_RDb_Schema_Profile#']; // class
+    const EProfile = spec['Fl32_Bwl_Back_Store_RDb_Schema_Profile#']; 
 
     /**
      /**

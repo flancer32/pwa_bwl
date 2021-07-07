@@ -3,17 +3,17 @@ export default class Fl32_Bwl_Plugin_Store_RDb_Setup {
         /** @function {@type TeqFw_Core_Back_Util_RDb.nameFK} */
         const nameFK = spec['TeqFw_Core_Back_Util_RDb#nameFK'];
         /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Friend} */
-        const EFriend = spec['Fl32_Bwl_Back_Store_RDb_Schema_Friend#']; // class
+        const EFriend = spec['Fl32_Bwl_Back_Store_RDb_Schema_Friend#']; 
         /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Friend_Link} */
-        const EFriendLink = spec['Fl32_Bwl_Back_Store_RDb_Schema_Friend_Link#']; // class
+        const EFriendLink = spec['Fl32_Bwl_Back_Store_RDb_Schema_Friend_Link#']; 
         /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Profile} */
-        const EProfile = spec['Fl32_Bwl_Back_Store_RDb_Schema_Profile#']; // class
+        const EProfile = spec['Fl32_Bwl_Back_Store_RDb_Schema_Profile#']; 
         /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Sign_In} */
-        const ESignIn = spec['Fl32_Bwl_Back_Store_RDb_Schema_Sign_In#']; // class
+        const ESignIn = spec['Fl32_Bwl_Back_Store_RDb_Schema_Sign_In#']; 
         /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_User} */
-        const EUser = spec['Fl32_Teq_User_Store_RDb_Schema_User#']; // class
+        const EUser = spec['Fl32_Teq_User_Store_RDb_Schema_User#']; 
         /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat} */
-        const EWeightStat = spec['Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat#']; // class
+        const EWeightStat = spec['Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat#']; 
         /**
          * TODO: tables drop should be ordered according to relations between tables (DEM).
          * For the moment I use levels for drop: N, ..., 2, 1, 0.

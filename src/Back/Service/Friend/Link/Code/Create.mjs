@@ -17,15 +17,15 @@ export default class Fl32_Bwl_Back_Service_Friend_Link_Code_Create {
     constructor(spec) {
         // EXTRACT DEPS
         /** @type {Fl32_Bwl_Back_Defaults} */
-        const DEF = spec['Fl32_Bwl_Back_Defaults$']; // singleton
+        const DEF = spec['Fl32_Bwl_Back_Defaults$']; 
         /** @type {TeqFw_Core_Back_RDb_Connector} */
-        const rdb = spec['TeqFw_Core_Back_RDb_Connector$'];  // singleton
+        const rdb = spec['TeqFw_Core_Back_RDb_Connector$'];  
         /** @type {typeof Fl32_Bwl_Shared_Service_Dto_Friend_Link} */
-        const DLink = spec['Fl32_Bwl_Shared_Service_Dto_Friend_Link#']; // class
+        const DLink = spec['Fl32_Bwl_Shared_Service_Dto_Friend_Link#']; 
         /** @function {@type Fl32_Bwl_Back_Process_Friend_Link_Code_CleanUp.process} */
-        const procCleanUp = spec['Fl32_Bwl_Back_Process_Friend_Link_Code_CleanUp$']; // singleton
+        const procCleanUp = spec['Fl32_Bwl_Back_Process_Friend_Link_Code_CleanUp$']; 
         /** @function {@type Fl32_Bwl_Back_Process_Friend_Link_Code_Create.process} */
-        const procCreate = spec['Fl32_Bwl_Back_Process_Friend_Link_Code_Create$']; // singleton
+        const procCreate = spec['Fl32_Bwl_Back_Process_Friend_Link_Code_Create$']; 
         /** @type {Fl32_Bwl_Shared_Service_Route_Friend_Link_Code_Create.Factory} */
         const route = spec['Fl32_Bwl_Shared_Service_Route_Friend_Link_Code_Create#Factory$'];
 

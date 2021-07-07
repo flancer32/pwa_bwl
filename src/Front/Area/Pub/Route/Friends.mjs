@@ -22,7 +22,6 @@ function Factory(spec) {
     const config = spec['TeqFw_Web_Front_Api_Dto_Config$'];
     /** @type {Fl32_Teq_User_Front_Model_Session} */
     const session = spec['Fl32_Teq_User_Front_Model_Session$'];
-    const i18n = spec[DEF.MOD_I18N.DI.I18N];
     /** @function {typeof TeqFw_Core_Shared_Util.formatDate} */
     const formatDate = spec['TeqFw_Core_Shared_Util#formatDate'];
     /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.IComponent} */
@@ -82,6 +81,7 @@ function Factory(spec) {
         data() {
             return {
                 dialogAddDisplay: false,
+                columns: [],
                 loading: false,
                 rows: [],
                 selectedItem: null,
@@ -97,6 +97,7 @@ function Factory(spec) {
                 this.dialogAddDisplay = true;
             },
             async onAddDialogSubmit(isFriend) {
+                const me = this;
                 // DEFINE INNER FUNCTIONS
 
                 /**
@@ -118,7 +119,7 @@ function Factory(spec) {
                         // smartphone mode
                         const data = {
                             title: 'Bruderschaft Weight Loss',
-                            text: i18n.t('route.friends.share.welcome'),
+                            text: me.$t('route.friends.share.welcome'),
                             url,
                         };
                         await self.navigator.share(data);
@@ -148,7 +149,7 @@ function Factory(spec) {
                         // smartphone mode
                         const data = {
                             title: 'Bruderschaft Weight Loss',
-                            text: i18n.t('route.friends.share.welcome'),
+                            text: me.$t('route.friends.share.welcome'),
                             url,
                         };
                         await self.navigator.share(data);
@@ -217,24 +218,24 @@ function Factory(spec) {
 
             // MAIN FUNCTIONALITY
             if (await session.checkUserAuthenticated(this.$router)) {
+                // setup columns
+                const NAME = DItem.FRIEND_NAME;
+                const STARTED = DItem.DATE_STARTED;
+                this.columns = [
+                    {name: NAME, label: this.$t('route.friends.name'), field: NAME, align: 'left'},
+                    {
+                        align: 'right',
+                        field: STARTED,
+                        format: (val) => formatDate(val),
+                        label: this.$t('route.friends.created'),
+                        name: STARTED,
+                    },
+                ];
+
+                // load data
                 resetTopActions();
                 this.rows = await loadItems();
             }
-        },
-        setup() {
-            const NAME = DItem.FRIEND_NAME;
-            const STARTED = DItem.DATE_STARTED;
-            const columns = [
-                {name: NAME, label: i18n.t('route.friends.name'), field: NAME, align: 'left'},
-                {
-                    align: 'right',
-                    field: STARTED,
-                    format: (val) => formatDate(val),
-                    label: i18n.t('route.friends.created'),
-                    name: STARTED,
-                },
-            ];
-            return {columns};
         },
     };
 }

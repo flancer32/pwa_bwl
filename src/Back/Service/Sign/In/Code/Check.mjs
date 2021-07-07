@@ -17,19 +17,19 @@ export default class Fl32_Bwl_Back_Service_Sign_In_Code_Check {
     constructor(spec) {
         // EXTRACT DEPS
         /** @type {Fl32_Bwl_Back_Defaults} */
-        const DEF = spec['Fl32_Bwl_Back_Defaults$']; // singleton
+        const DEF = spec['Fl32_Bwl_Back_Defaults$']; 
         /** @type {TeqFw_Core_Back_RDb_Connector} */
-        const rdb = spec['TeqFw_Core_Back_RDb_Connector$'];  // singleton
+        const rdb = spec['TeqFw_Core_Back_RDb_Connector$'];  
         /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Sign_In} */
-        const ESignIn = spec['Fl32_Bwl_Back_Store_RDb_Schema_Sign_In#']; // class
+        const ESignIn = spec['Fl32_Bwl_Back_Store_RDb_Schema_Sign_In#']; 
         /** @function {@type TeqFw_Web_Back_Util.cookieCreate} */
-        const cookieCreate = spec['TeqFw_Web_Back_Util#cookieCreate']; // singleton
+        const cookieCreate = spec['TeqFw_Web_Back_Util#cookieCreate']; 
         /** @function {@type Fl32_Bwl_Back_Process_Sign_In_Code_CleanUp.process} */
-        const procCodeCleanUp = spec['Fl32_Bwl_Back_Process_Sign_In_Code_CleanUp$']; // singleton
+        const procCodeCleanUp = spec['Fl32_Bwl_Back_Process_Sign_In_Code_CleanUp$']; 
         /** @function {@type Fl32_Bwl_Back_Process_Sign_In_Code_Remove.process} */
-        const procCodeRemove = spec['Fl32_Bwl_Back_Process_Sign_In_Code_Remove$']; // singleton
+        const procCodeRemove = spec['Fl32_Bwl_Back_Process_Sign_In_Code_Remove$']; 
         /** @type {Fl32_Teq_User_Back_Process_Session_Open} */
-        const procSessionOpen = spec['Fl32_Teq_User_Back_Process_Session_Open$']; // singleton
+        const procSessionOpen = spec['Fl32_Teq_User_Back_Process_Session_Open$']; 
         /** @type {Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Check.Factory} */
         const route = spec['Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Check#Factory$'];
 

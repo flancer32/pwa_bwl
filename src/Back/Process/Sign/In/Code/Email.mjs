@@ -16,11 +16,11 @@ const NS = 'Fl32_Bwl_Back_Process_Sign_In_Code_Email';
  */
 function Factory(spec) {
     /** @type {Fl32_Bwl_Shared_Defaults} */
-    const DEF = spec['Fl32_Bwl_Shared_Defaults$'];    // singleton
+    const DEF = spec['Fl32_Bwl_Shared_Defaults$'];    
     /** @type {TeqFw_Core_Back_Config} */
-    const config = spec['TeqFw_Core_Back_Config$']; // singleton
+    const config = spec['TeqFw_Core_Back_Config$']; 
     /** @type {Function|TeqFw_Email_Back_Process_Email.process} */
-    const procEmail = spec['TeqFw_Email_Back_Process_Email$']; // singleton
+    const procEmail = spec['TeqFw_Email_Back_Process_Email$']; 
 
     /**
      * Email sign in code to user.
