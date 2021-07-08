@@ -1,7 +1,7 @@
 /**
  * Aggregated state for 'sign' realm.
  *
- * @param {TeqFw_Di_SpecProxy} spec
+ * @param {TeqFw_Di_Shared_SpecProxy} spec
  * @return {Object}
  */
 function Fl32_Bwl_Front_Area_Sign_State(spec) {

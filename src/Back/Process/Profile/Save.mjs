@@ -10,7 +10,7 @@ const NS = 'Fl32_Bwl_Back_Process_Profile_Save';
 /**
  * Factory to setup execution context and to create the processor.
  *
- * @param {TeqFw_Di_SpecProxy} spec
+ * @param {TeqFw_Di_Shared_SpecProxy} spec
  * @constructs Fl32_Bwl_Back_Process_Profile_Save.process
  * @memberOf Fl32_Bwl_Back_Process_Profile_Save
  */

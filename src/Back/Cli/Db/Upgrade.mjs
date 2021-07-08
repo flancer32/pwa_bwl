@@ -10,7 +10,7 @@ const NS = 'Fl32_Bwl_Back_Cli_Db_Upgrade';
 /**
  * Factory to create CLI command.
  *
- * @param {TeqFw_Di_SpecProxy} spec
+ * @param {TeqFw_Di_Shared_SpecProxy} spec
  * @returns {TeqFw_Core_Back_Api_Dto_Command}
  * @constructor
  * @memberOf Fl32_Bwl_Back_Cli_Db_Upgrade

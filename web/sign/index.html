@@ -17,7 +17,7 @@
             // DEFINE INNER FUNCTIONS
 
             /**
-             * @param {TeqFw_Di_Container} container
+             * @param {TeqFw_Di_Shared_Container} container
              * @param {Fl32_Bwl_Front_Defaults} DEF
              * @return Object
              */
@@ -29,7 +29,7 @@
                  * Initialize 'i18next' library to use internationalization and add translate function '$t' to Vue app's
                  * global properties.
                  *
-                 * @param {TeqFw_Di_Container} container
+                 * @param {TeqFw_Di_Shared_Container} container
                  * @param {Object} app Vue application
                  * @returns {Promise<Object>}
                  */
@@ -100,7 +100,7 @@
             /**
              * Load frontend configuration from API using simple 'fetch' and place it into DI container.
              *
-             * @param {TeqFw_Di_Container} container
+             * @param {TeqFw_Di_Shared_Container} container
              * @param {Fl32_Bwl_Front_Defaults} DEF
              */
             async function initConfig(container, DEF) {
@@ -119,7 +119,7 @@
              * Import code, create and setup Dependency Injection container for frontend,
              * place old-style loaded JS object inside.
              *
-             * @returns {Promise<{container: TeqFw_Di_Container, DEF: Fl32_Bwl_Front_Defaults}>}
+             * @returns {Promise<{container: TeqFw_Di_Shared_Container, DEF: Fl32_Bwl_Front_Defaults}>}
              */
             async function initDiContainer() {
 
@@ -137,8 +137,8 @@
                 // MAIN FUNCTIONALITY
                 const baseUrl = `${location.origin}/${DOOR}`;
                 // create and setup DI Container
-                const modContainer = await import('./src/@teqfw/di/Container.mjs');
-                /** @type {TeqFw_Di_Container} */
+                const modContainer = await import('./src/@teqfw/di/Shared/Container.mjs');
+                /** @type {TeqFw_Di_Shared_Container} */
                 const container = new modContainer.default();
                 const response = await loadNamespaces();
                 if (response && response.items) {
@@ -162,7 +162,7 @@
             }
 
             /**
-             * @param {TeqFw_Di_Container} container
+             * @param {TeqFw_Di_Shared_Container} container
              * @param {Fl32_Bwl_Front_Defaults} DEF
              */
             async function initSession(container, DEF) {

@@ -19,7 +19,7 @@ const srcTeqFwUiQuasar = $path.join(pathNode, '@teqfw/ui-quasar/src');
 const srcTeqFwVue = $path.join(pathNode, '@teqfw/vue/src');
 /* Create and setup DI container (once per all imports) */
 
-/** @type {TeqFw_Di_Container} */
+/** @type {TeqFw_Di_Shared_Container} */
 const container = new Container();
 // add backend sources to map
 container.addSourceMapping('Fl32_Bwl', srcApp, true, 'mjs');
@@ -33,7 +33,7 @@ container.addSourceMapping('TeqFw_Vue', srcTeqFwVue, true, 'mjs');
 /**
  * Setup development environment (if not set before) and return DI container.
  *
- * @returns {Promise<TeqFw_Di_Container>}
+ * @returns {Promise<TeqFw_Di_Shared_Container>}
  */
 export default async function init() {
     // DEFINE INNER FUNCTIONS

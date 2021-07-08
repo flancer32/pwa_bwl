@@ -1,7 +1,9 @@
 {
-  "autoload": {
-    "ns": "Fl32_Bwl",
-    "path": "./src"
+  "di": {
+    "autoload": {
+      "ns": "Fl32_Bwl",
+      "path": "./src"
+    }
   },
   "commands": [
     "Fl32_Bwl_Back_Cli_Db_Reset",

@@ -49,8 +49,8 @@ const IComponent = {
 function Factory(spec) {
     /** @type {Fl32_Bwl_Front_Defaults} */
     const DEF = spec['Fl32_Bwl_Front_Defaults$'];
-    /** @type {TeqFw_Di_Container} */
-    const container = spec['TeqFw_Di_Container$']; 
+    /** @type {TeqFw_Di_Shared_Container} */
+    const container = spec['TeqFw_Di_Shared_Container$']; 
 
     /**
      * Class for template to create new instances.

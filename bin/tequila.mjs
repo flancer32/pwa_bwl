@@ -16,7 +16,7 @@ const bin = $path.dirname(script);
 const root = $path.join(bin, '..');
 try {
     /* Create and setup DI container */
-    /** @type {TeqFw_Di_Container} */
+    /** @type {TeqFw_Di_Shared_Container} */
     const container = new Container();
     const srcCore = $path.join(root, 'node_modules/@teqfw/core/src');
     const srcDi = $path.join(root, 'node_modules/@teqfw/di/src');
