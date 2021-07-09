@@ -125,7 +125,7 @@
 
                 // DEFINE INNER FUNCTIONS
                 /**
-                 * @returns {Promise<TeqFw_Core_Shared_Service_Route_Load_Namespaces_Response>}
+                 * @returns {Promise<TeqFw_Web_Shared_Service_Route_Load_Namespaces.Response>}
                  */
                 async function loadNamespaces() {
                     // load frontend configuration and user profile
@@ -141,17 +141,15 @@
                 /** @type {TeqFw_Di_Shared_Container} */
                 const container = new modContainer.default();
                 const response = await loadNamespaces();
-                if (response && response.items) {
-                    for (const key of Object.keys(response.items)) {
-                        const item = response.items[key];
+                // setup namespaces mapping
+                if (response && Array.isArray(response.items))
+                    for (const item of response.items)
                         container.addSourceMapping(item.ns, baseUrl + item.path, true, item.ext);
-                    }
-                }
-                // TODO: TMP setup implementations for interfaces
-                const theAjaxLed = await container.get('TeqFw_Web_Front_Model_AjaxLed$');
-                container.set('TeqFw_Web_Front_Api_Gate_IAjaxLed$', theAjaxLed);
-                const theErrHandler = await container.get('TeqFw_Web_Front_Model_Gate_ErrorHandler$');
-                container.set('TeqFw_Web_Front_Api_Gate_IErrorHandler$', theErrHandler);
+
+                // setup replaces
+                if (response && Array.isArray(response.replaces))
+                    for (const item of response.replaces)
+                        container.addModuleReplacement(item.orig, item.alter);
 
                 // get hardcoded config for the application
                 /** @type {Fl32_Bwl_Front_Defaults} */
