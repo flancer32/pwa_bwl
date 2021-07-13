@@ -5,10 +5,12 @@
       "path": "./src"
     }
   },
-  "commands": [
-    "Fl32_Bwl_Back_Cli_Db_Reset",
-    "Fl32_Bwl_Back_Cli_Db_Upgrade"
-  ],
+  "core": {
+    "commands": [
+      "Fl32_Bwl_Back_Cli_Db_Reset",
+      "Fl32_Bwl_Back_Cli_Db_Upgrade"
+    ]
+  },
   "http2": {
     "areas": [
       "pub",
