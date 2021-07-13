@@ -56,11 +56,9 @@ export default async function init() {
     }
 
     async function initLogger(container) {
-        /** @type {TeqFw_Core_Logger} */
-        const logger = await container.get('TeqFw_Core_Logger$');
-        /** @type {TeqFw_Core_Logger_Transport_Console} */
-        const logTransport = await container.get('TeqFw_Core_Logger_Transport_Console$');
-        logger.addTransport(logTransport);
+        /** @type {TeqFw_Core_Shared_Logger} */
+        const logger = await container.get('TeqFw_Core_Shared_Logger$');
+        logger.pause(false);
     }
 
     // MAIN FUNCTIONALITY

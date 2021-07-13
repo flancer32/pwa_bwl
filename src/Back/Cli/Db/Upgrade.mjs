@@ -23,8 +23,8 @@ function Factory(spec) {
     const fCommand = spec['TeqFw_Core_Back_Api_Dto_Command#Factory$'];
     /** @type {TeqFw_Core_Back_RDb_Connector} */
     const connector = spec['TeqFw_Core_Back_RDb_Connector$'];
-    /** @type {TeqFw_Core_Logger} */
-    const logger = spec['TeqFw_Core_Logger$'];
+    /** @type {TeqFw_Core_Shared_Logger} */
+    const logger = spec['TeqFw_Core_Shared_Logger$'];
     /** @type {Function|Fl32_Bwl_Back_Cli_Db_Z_Restruct.action} */
     const actRestruct = spec['Fl32_Bwl_Back_Cli_Db_Z_Restruct$'];
     /** @type {Function|Fl32_Bwl_Back_Cli_Db_Upgrade_A_Dump.action} */

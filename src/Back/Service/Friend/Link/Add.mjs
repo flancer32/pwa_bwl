@@ -20,8 +20,8 @@ export default class Fl32_Bwl_Back_Service_Friend_Link_Add {
         const DEF = spec['Fl32_Bwl_Back_Defaults$'];
         /** @type {TeqFw_Core_Back_RDb_Connector} */
         const rdb = spec['TeqFw_Core_Back_RDb_Connector$'];
-        /** @type {TeqFw_Core_Logger} */
-        const logger = spec['TeqFw_Core_Logger$'];
+        /** @type {TeqFw_Core_Shared_Logger} */
+        const logger = spec['TeqFw_Core_Shared_Logger$'];
         /** @type {Fl32_Bwl_Shared_Service_Route_Friend_Link_Add.Factory} */
         const route = spec['Fl32_Bwl_Shared_Service_Route_Friend_Link_Add#Factory$'];
         /** @function {@type Fl32_Bwl_Back_Process_Friend_Link_Code_CleanUp.process} */

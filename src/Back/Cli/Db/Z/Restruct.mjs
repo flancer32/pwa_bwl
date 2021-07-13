@@ -20,8 +20,8 @@ function Factory(spec) {
     // PARSE INPUT & DEFINE WORKING VARS
     /** @type {TeqFw_Core_Back_RDb_Connector} */
     const connector = spec['TeqFw_Core_Back_RDb_Connector$']; 
-    /** @type {TeqFw_Core_Logger} */
-    const logger = spec['TeqFw_Core_Logger$'];  
+    /** @type {TeqFw_Core_Shared_Logger} */
+    const logger = spec['TeqFw_Core_Shared_Logger$'];  
     /** @type {Fl32_Teq_User_Plugin_Store_RDb_Setup} */
     const setupTeqUser = spec['Fl32_Teq_User_Plugin_Store_RDb_Setup$']; 
     /** @type {Fl32_Bwl_Plugin_Store_RDb_Setup} */

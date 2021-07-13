@@ -20,8 +20,8 @@ function Factory(spec) {
     // PARSE INPUT & DEFINE WORKING VARS
     /** @type {TeqFw_Core_Back_RDb_Connector} */
     const connector = spec['TeqFw_Core_Back_RDb_Connector$']; 
-    /** @type {TeqFw_Core_Logger} */
-    const logger = spec['TeqFw_Core_Logger$'];  
+    /** @type {TeqFw_Core_Shared_Logger} */
+    const logger = spec['TeqFw_Core_Shared_Logger$'];  
     /** @type {Function|TeqFw_Core_Back_Util_RDb.serialsGet} */
     const serialsGet = spec['TeqFw_Core_Back_Util_RDb#serialsGet']; // function
     /** @type {Function|TeqFw_Core_Back_Util_RDb.getTables} */
