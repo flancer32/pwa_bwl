@@ -19,7 +19,7 @@ function Factory(spec) {
     // PARSE INPUT & DEFINE WORKING VARS
     /** @type {Fl32_Bwl_Back_Defaults} */
     const DEF = spec['Fl32_Bwl_Back_Defaults$'];
-    /** @type {Function|TeqFw_Core_Back_Api_Dto_Command.Factory} */
+    /** @type {TeqFw_Core_Back_Api_Dto_Command.Factory} */
     const fCommand = spec['TeqFw_Core_Back_Api_Dto_Command#Factory$'];
     /** @type {TeqFw_Core_Back_RDb_Connector} */
     const connector = spec['TeqFw_Core_Back_RDb_Connector$'];
