@@ -35,44 +35,21 @@
                  * @returns {Promise<Object>}
                  */
                 async function initI18n(container, app) {
-                    // PARSE INPUT & DEFINE WORKING VARS
-                    // const defaultNS = '@flancer32/pwa_bwl';
                     const supportedLngs = ['ru'];
                     const fallbackLng = 'ru';
-
-                    // MAIN FUNCTIONALITY
-                    // self.i18next - see "./src/i18next/i18next.min.js"
-                    // see "./src/i18next-detect/i18nextBrowserLanguageDetector.js"
-                    self.i18next.use(self.i18nextBrowserLanguageDetector);
-                    await self.i18next.init({ supportedLngs, fallbackLng});
-                    const lng = self.i18next.language;
-                    // load i18n resources for current language
-                    /** @type {TeqFw_Web_Front_Service_Gate} */
-                    const gate = await container.get('TeqFw_Web_Front_Service_Gate$');
-                    /** @type {TeqFw_I18n_Shared_Service_Route_Load.Factory} */
-                    const route = await container.get('TeqFw_I18n_Shared_Service_Route_Load#Factory$');
-                    /** @type {TeqFw_I18n_Shared_Service_Route_Load.Request} */
-                    const req = route.createReq();
-                    req.lang = lng;
-                    const res = await gate.send(req, route);
-                    for (const ns of Object.keys(res))
-                        self.i18next.addResourceBundle(lng, ns, res[ns], true, true);
-                    // load resources for fallback language
-                    if (lng !== fallbackLng) {
-                        req.lang = fallbackLng;
-                        const res = await gate.send(req, route);
-                        for (const ns of Object.keys(res))
-                            self.i18next.addResourceBundle(fallbackLng, ns, res[ns], true, true);
-                    }
+                    /** @type {TeqFw_I18n_Front_Model} */
+                    const model = await container.get('TeqFw_I18n_Front_Model$');
+                    await model.init(supportedLngs, fallbackLng);
                     // config options after 'init'
                     // add '$t' translation function to Vue app
                     const appProps = app.config.globalProperties;
+                    const i18n = model.getI18n();
                     appProps.$t = function (key, options) {
+                        // add package name if namespace is omitted in the key
                         const ns = this.$options.teq?.package;
                         if (ns && key.indexOf(':') <= 0) key = `${ns}:${key}`;
-                        return self.i18next.t(key, options);
+                        return i18n.t(key, options);
                     }
-                    return self.i18next;
                 }
 
                 /**
@@ -94,8 +71,7 @@
                 container.set(DEF.MOD_VUE.DI_APP, result);
                 const router = initRouter(self.VueRouter);
                 container.set(DEF.MOD_VUE.DI_ROUTER, router);
-                const i18next = await initI18n(container, result);
-                container.set(DEF.MOD_I18N.DI_I18N, i18next);
+                await initI18n(container, result);
                 // init quasar framework
                 result.use(self.Quasar, {config: {}});
                 self.Quasar.iconSet.set(self.Quasar.iconSet.svgMaterialIcons);
