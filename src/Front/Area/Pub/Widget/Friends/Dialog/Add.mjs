@@ -19,6 +19,8 @@ const TYPE_FRIEND = 'friend';
  */
 function Factory(spec) {
     // EXTRACT DEPS
+    /** @type {Fl32_Bwl_Front_Defaults} */
+    const DEF = spec['Fl32_Bwl_Front_Defaults$'];
 
     // DEFINE WORKING VARS
     const template = `
@@ -57,6 +59,7 @@ function Factory(spec) {
      */
     return {
         /* Misc: https://v3.vuejs.org/api/options-misc.html */
+        teq: {package: DEF.SHARED.NAME},
         name: NS,
         template,
         data() {

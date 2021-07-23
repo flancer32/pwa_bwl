@@ -16,6 +16,8 @@ const TIMEOUT = 3000;
  */
 function Factory(spec) {
     // EXTRACT DEPS
+    /** @type {Fl32_Bwl_Front_Defaults} */
+    const DEF = spec['Fl32_Bwl_Front_Defaults$'];
     /** @type {Fl32_Teq_User_Front_Model_Session} */
     const session = spec['Fl32_Teq_User_Front_Model_Session$'];
     /** @type {TeqFw_Core_Front_Widget_Layout_Centered} */
@@ -64,6 +66,7 @@ function Factory(spec) {
      * @memberOf Fl32_Bwl_Front_Area_Pub_Route_SignIn_Code_Get
      */
     return {
+        teq: {package: DEF.SHARED.NAME},
         name: NS,
         template,
         components: {layoutCentered},

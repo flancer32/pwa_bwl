@@ -146,6 +146,7 @@ function Factory(spec) {
      * @memberOf Fl32_Bwl_Front_Area_Sign_Widget_RegForm
      */
     return {
+        teq: {package: DEF.SHARED.NAME},
         name: NS,
         template,
         data: function () {

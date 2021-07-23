@@ -15,6 +15,8 @@ const NS = 'Fl32_Bwl_Front_Area_Pub_Route_Friends_Add';
  */
 function Factory(spec) {
     // EXTRACT DEPS
+    /** @type {Fl32_Bwl_Front_Defaults} */
+    const DEF = spec['Fl32_Bwl_Front_Defaults$'];
     /** @type {Fl32_Teq_User_Front_Model_Session} */
     const session = spec['Fl32_Teq_User_Front_Model_Session$'];
     /** @type {TeqFw_Web_Front_Service_Gate} */
@@ -43,6 +45,7 @@ function Factory(spec) {
      * @memberOf Fl32_Bwl_Front_Area_Pub_Route_Friends_Add
      */
     return {
+        teq: {package: DEF.SHARED.NAME},
         name: NS,
         template,
         data() {

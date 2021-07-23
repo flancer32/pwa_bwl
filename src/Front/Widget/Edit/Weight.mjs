@@ -85,6 +85,7 @@ function Factory(spec) {
      * @memberOf Fl32_Bwl_Front_Widget_Edit_Weight
      */
     return {
+        teq: {package: DEF.SHARED.NAME},
         name: NS,
         template,
         components: {weight},

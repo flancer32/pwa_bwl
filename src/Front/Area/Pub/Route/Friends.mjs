@@ -75,6 +75,7 @@ function Factory(spec) {
      * @memberOf Fl32_Bwl_Front_Area_Pub_Route_Friends
      */
     return {
+        teq: {package: DEF.SHARED.NAME},
         name: NS,
         template,
         components: {editGroup, dialogAdd},

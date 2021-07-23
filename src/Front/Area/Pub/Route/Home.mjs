@@ -105,6 +105,7 @@ function Factory(spec) {
      * @memberOf Fl32_Bwl_Front_Area_Pub_Route_Home
      */
     return {
+        teq: {package: DEF.SHARED.NAME},
         name: NS,
         template,
         components: {chart, editWeight},

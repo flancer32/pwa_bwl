@@ -15,6 +15,8 @@ const NS = 'Fl32_Bwl_Front_Area_Sign_Route_Up';
  */
 function Factory(spec) {
     // EXTRACT DEPS
+    /** @type {Fl32_Bwl_Front_Defaults} */
+    const DEF = spec['Fl32_Bwl_Front_Defaults$'];
     const {formatUtcTime, isEmpty} = spec['TeqFw_Core_Shared_Util'];
     /** @type {Fl32_Bwl_Front_Area_Sign_Widget_RegForm} */
     const regForm = spec['Fl32_Bwl_Front_Area_Sign_Widget_RegForm$'];
@@ -62,6 +64,7 @@ function Factory(spec) {
      * @memberOf Fl32_Bwl_Front_Area_Sign_Route_Up
      */
     return {
+        teq: {package: DEF.SHARED.NAME},
         name: NS,
         template,
         components: {regForm},

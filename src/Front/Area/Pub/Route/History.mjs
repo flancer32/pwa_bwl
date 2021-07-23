@@ -82,11 +82,13 @@ function Factory(spec) {
      * @memberOf Fl32_Bwl_Front_Area_Pub_Route_History
      */
     return {
+        teq: {package: DEF.SHARED.NAME},
         name: NS,
         template,
         components: {editHistory},
         data() {
             return {
+                columns: [],
                 dateCurrent: new Date(),
                 dialogDisplay: false,
                 weightCurrent: 0,
@@ -171,6 +173,12 @@ function Factory(spec) {
 
             // MAIN FUNCTIONALITY
             if (await session.checkUserAuthenticated(this.$router)) {
+                this.columns = [
+                    {name: DATE, label: this.$t('route.history.date'), field: DATE, align: 'center'},
+                    {name: WEIGHT, label: this.$t('route.history.weight'), field: WEIGHT, align: 'right'},
+                    {name: DELTA, label: this.$t('route.history.delta'), field: DELTA, align: 'right',},
+                    {name: PERCENT, label: this.$t('route.history.percent'), field: PERCENT, align: 'right',},
+                ];
                 addTopActions();
                 await dsWeights.loadFromServer(true);
                 this.weightCurrent = dsWeights.getCurrent();
@@ -178,16 +186,9 @@ function Factory(spec) {
             }
         },
         setup() {
-            const columns = [
-                {name: DATE, label: i18n.t('route.history.date'), field: DATE, align: 'center'},
-                {name: WEIGHT, label: i18n.t('route.history.weight'), field: WEIGHT, align: 'right'},
-                {name: DELTA, label: i18n.t('route.history.delta'), field: DELTA, align: 'right',},
-                {name: PERCENT, label: i18n.t('route.history.percent'), field: PERCENT, align: 'right',},
-            ];
             const loading = ref(false);
             const rows = ref([]);
             return {
-                columns,
                 loading,
                 rows,
                 colorDelta: function (val, props) {

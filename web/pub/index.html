@@ -36,7 +36,7 @@
                  */
                 async function initI18n(container, app) {
                     // PARSE INPUT & DEFINE WORKING VARS
-                    const defaultNS = 'pub';
+                    // const defaultNS = '@flancer32/pwa_bwl';
                     const supportedLngs = ['ru'];
                     const fallbackLng = 'ru';
 
@@ -44,7 +44,7 @@
                     // self.i18next - see "./src/i18next/i18next.min.js"
                     // see "./src/i18next-detect/i18nextBrowserLanguageDetector.js"
                     self.i18next.use(self.i18nextBrowserLanguageDetector);
-                    await self.i18next.init({defaultNS, supportedLngs, fallbackLng});
+                    await self.i18next.init({ supportedLngs, fallbackLng});
                     const lng = self.i18next.language;
                     // load i18n resources for current language
                     /** @type {TeqFw_Web_Front_Service_Gate} */
@@ -54,19 +54,24 @@
                     /** @type {TeqFw_I18n_Shared_Service_Route_Load.Request} */
                     const req = route.createReq();
                     req.lang = lng;
-                    req.namespace = defaultNS;
                     const res = await gate.send(req, route);
-                    self.i18next.addResourceBundle(lng, defaultNS, res, true, true);
+                    for (const ns of Object.keys(res))
+                        self.i18next.addResourceBundle(lng, ns, res[ns], true, true);
                     // load resources for fallback language
                     if (lng !== fallbackLng) {
                         req.lang = fallbackLng;
                         const res = await gate.send(req, route);
-                        self.i18next.addResourceBundle(fallbackLng, defaultNS, res, true, true);
+                        for (const ns of Object.keys(res))
+                            self.i18next.addResourceBundle(fallbackLng, ns, res[ns], true, true);
                     }
                     // config options after 'init'
                     // add '$t' translation function to Vue app
                     const appProps = app.config.globalProperties;
-                    appProps.$t = (key, options) => self.i18next.t(key, options);
+                    appProps.$t = function (key, options) {
+                        const ns = this.$options.teq?.package;
+                        if (ns && key.indexOf(':') <= 0) key = `${ns}:${key}`;
+                        return self.i18next.t(key, options);
+                    }
                     return self.i18next;
                 }
 
@@ -233,8 +238,8 @@
 <!-- These scripts are not ESM ready for loading with ES6 'import'. Use old style loading.  -->
 <script type="application/javascript" src="./src/vue/vue.global.js"></script>
 <script type="application/javascript" src="./src/vue-router/vue-router.global.js"></script>
-<script type="application/javascript" src="./src/i18next/i18next.min.js"></script>
-<script type="application/javascript" src="./src/i18next-detect/i18nextBrowserLanguageDetector.js"></script>
+<script type="application/javascript" src="./src/i18n/i18next.min.js"></script>
+<script type="application/javascript" src="./src/i18n-bld/i18nextBrowserLanguageDetector.js"></script>
 <script type="application/javascript" src="./src/quasar/quasar.umd.prod.js"></script>
 <script type="application/javascript" src="./src/quasar/icon-set/svg-material-icons.umd.prod.js"></script>
 

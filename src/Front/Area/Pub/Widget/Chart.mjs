@@ -48,6 +48,7 @@ function Factory(spec) {
      * @memberOf Fl32_Bwl_Front_Area_Pub_Widget_Chart
      */
     return {
+        teq: {package: DEF.SHARED.NAME},
         name: NS,
         template,
         props: {

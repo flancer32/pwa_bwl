@@ -35,7 +35,7 @@
                  */
                 async function initI18n(container, app) {
                     // PARSE INPUT & DEFINE WORKING VARS
-                    const defaultNS = 'sign';
+                    const defaultNS = '@flancer32/pwa_bwl';
                     const supportedLngs = ['ru'];
                     const fallbackLng = 'ru';
 
@@ -45,7 +45,7 @@
                     self.i18next.use(self.i18nextBrowserLanguageDetector);
                     await self.i18next.init({defaultNS, supportedLngs, fallbackLng});
                     const lng = self.i18next.language;
-                    // load i18n resources for current language
+                    // load i18n resources for current language (all namespaces)
                     /** @type {TeqFw_Web_Front_Service_Gate} */
                     const gate = await container.get('TeqFw_Web_Front_Service_Gate$');
                     /** @type {TeqFw_I18n_Shared_Service_Route_Load.Factory} */
@@ -201,8 +201,8 @@
 <!-- These scripts are not ESM ready for loading with ES6 'import'. Use old style loading.  -->
 <script type="application/javascript" src="./src/vue/vue.global.js"></script>
 <script type="application/javascript" src="./src/vue-router/vue-router.global.js"></script>
-<script type="application/javascript" src="./src/i18next/i18next.min.js"></script>
-<script type="application/javascript" src="./src/i18next-detect/i18nextBrowserLanguageDetector.js"></script>
+<script type="application/javascript" src="./src/i18n/i18next.min.js"></script>
+<script type="application/javascript" src="./src/i18n-bld/i18nextBrowserLanguageDetector.js"></script>
 <script type="application/javascript" src="./src/quasar/quasar.umd.prod.js"></script>
 <script type="application/javascript" src="./src/quasar/icon-set/svg-material-icons.umd.prod.js"></script>
 
