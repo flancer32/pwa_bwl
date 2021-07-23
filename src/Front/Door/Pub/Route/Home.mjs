@@ -1,10 +1,10 @@
 /**
  * Home route.
  *
- * @namespace Fl32_Bwl_Front_Area_Pub_Route_Home
+ * @namespace Fl32_Bwl_Front_Door_Pub_Route_Home
  */
 // MODULE'S VARS
-const NS = 'Fl32_Bwl_Front_Area_Pub_Route_Home';
+const NS = 'Fl32_Bwl_Front_Door_Pub_Route_Home';
 const PERIOD_ALL = 'all';
 const PERIOD_MONTH_1 = 'm1';
 const PERIOD_MONTH_2 = 'm2';
@@ -16,8 +16,8 @@ const PERIOD_WEEK_2 = 'w2';
 /**
  * Factory to create template for new Vue component instances.
  *
- * @memberOf Fl32_Bwl_Front_Area_Pub_Route_Home
- * @returns {Fl32_Bwl_Front_Area_Pub_Route_Home.vueCompTmpl}
+ * @memberOf Fl32_Bwl_Front_Door_Pub_Route_Home
+ * @returns {Fl32_Bwl_Front_Door_Pub_Route_Home.vueCompTmpl}
  */
 function Factory(spec) {
     // EXTRACT DEPS
@@ -25,10 +25,10 @@ function Factory(spec) {
     const DEF = spec['Fl32_Bwl_Front_Defaults$'];
     /** @type {Fl32_Teq_User_Front_Model_Session} */
     const session = spec['Fl32_Teq_User_Front_Model_Session$'];
-    /** @type {Fl32_Bwl_Front_Area_Pub_Widget_Chart} */
-    const chart = spec['Fl32_Bwl_Front_Area_Pub_Widget_Chart$'];
-    /** @type {typeof Fl32_Bwl_Front_Area_Pub_Widget_Chart.ChartData} */
-    const ChartData = spec['Fl32_Bwl_Front_Area_Pub_Widget_Chart#ChartData'];
+    /** @type {Fl32_Bwl_Front_Door_Pub_Widget_Chart} */
+    const chart = spec['Fl32_Bwl_Front_Door_Pub_Widget_Chart$'];
+    /** @type {typeof Fl32_Bwl_Front_Door_Pub_Widget_Chart.ChartData} */
+    const ChartData = spec['Fl32_Bwl_Front_Door_Pub_Widget_Chart#ChartData'];
     /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.IComponent} */
     const topActions = spec[DEF.DI_TOP_ACTIONS];
     /** @type {TeqFw_Web_Front_Service_Gate} */
@@ -102,7 +102,7 @@ function Factory(spec) {
      * Template to create new component instances using Vue.
      *
      * @const {Object} vueCompTmpl
-     * @memberOf Fl32_Bwl_Front_Area_Pub_Route_Home
+     * @memberOf Fl32_Bwl_Front_Door_Pub_Route_Home
      */
     return {
         teq: {package: DEF.SHARED.NAME},

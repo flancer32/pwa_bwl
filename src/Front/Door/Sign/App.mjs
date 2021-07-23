@@ -1,17 +1,17 @@
 /**
  * Frontend application for 'sign' realm.
  *
- * @namespace Fl32_Bwl_Front_Area_Sign_App
+ * @namespace Fl32_Bwl_Front_Door_Sign_App
  */
 // MODULE'S VARS
-const NS = 'Fl32_Bwl_Front_Area_Sign_App';
+const NS = 'Fl32_Bwl_Front_Door_Sign_App';
 
 // MODULE'S FUNCTIONS
 /**
  * Factory to create template for new Vue component instances.
  *
- * @memberOf Fl32_Bwl_Front_Area_Sign_App
- * @returns {Fl32_Bwl_Front_Area_Sign_App.vueCompTmpl}
+ * @memberOf Fl32_Bwl_Front_Door_Sign_App
+ * @returns {Fl32_Bwl_Front_Door_Sign_App.vueCompTmpl}
  */
 function Factory(spec) {
     // EXTRACT DEPS
@@ -38,12 +38,12 @@ function Factory(spec) {
     // setup application routes
     router.addRoute({
         path: DEF.DOOR_SIGN_ROUTE_HOME,
-        component: () => container.get('Fl32_Bwl_Front_Area_Sign_Route_Home$')
+        component: () => container.get('Fl32_Bwl_Front_Door_Sign_Route_Home$')
     });
     router.addRoute({
         path: DEF.DOOR_SIGN_ROUTE_UP,
         props: true,
-        component: () => container.get('Fl32_Bwl_Front_Area_Sign_Route_Up$')
+        component: () => container.get('Fl32_Bwl_Front_Door_Sign_Route_Up$')
     });
 
     app.use(router);
@@ -53,7 +53,7 @@ function Factory(spec) {
      * Template to create new component instances using Vue.
      *
      * @const {Object} vueCompTmpl
-     * @memberOf Fl32_Bwl_Front_Area_Sign_App
+     * @memberOf Fl32_Bwl_Front_Door_Sign_App
      */
     return {
         name: NS,

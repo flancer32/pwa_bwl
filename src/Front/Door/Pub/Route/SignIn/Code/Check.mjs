@@ -1,17 +1,17 @@
 /**
  * Route widget for user's sign in with one-time code.
  *
- * @namespace Fl32_Bwl_Front_Area_Pub_Route_SignIn_Code_Check
+ * @namespace Fl32_Bwl_Front_Door_Pub_Route_SignIn_Code_Check
  */
 // MODULE'S VARS
-const NS = 'Fl32_Bwl_Front_Area_Pub_Route_SignIn_Code_Check';
+const NS = 'Fl32_Bwl_Front_Door_Pub_Route_SignIn_Code_Check';
 
 // MODULE'S FUNCTIONS
 /**
  * Factory to create template for new Vue component instances.
  *
- * @memberOf Fl32_Bwl_Front_Area_Pub_Route_SignIn_Code_Check
- * @returns {Fl32_Bwl_Front_Area_Pub_Route_SignIn_Code_Check.vueCompTmpl}
+ * @memberOf Fl32_Bwl_Front_Door_Pub_Route_SignIn_Code_Check
+ * @returns {Fl32_Bwl_Front_Door_Pub_Route_SignIn_Code_Check.vueCompTmpl}
  */
 function Factory(spec) {
     // EXTRACT DEPS
@@ -41,7 +41,7 @@ function Factory(spec) {
      * Template to create new component instances using Vue.
      *
      * @const {Object} vueCompTmpl
-     * @memberOf Fl32_Bwl_Front_Area_Pub_Route_SignIn_Code_Check
+     * @memberOf Fl32_Bwl_Front_Door_Pub_Route_SignIn_Code_Check
      */
     return {
         teq: {package: DEF.SHARED.NAME},

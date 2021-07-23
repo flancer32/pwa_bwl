@@ -1,25 +1,25 @@
 /**
  * Registration route (/up) for 'sign' realm.
  *
- * @namespace Fl32_Bwl_Front_Area_Sign_Route_Up
+ * @namespace Fl32_Bwl_Front_Door_Sign_Route_Up
  */
 // MODULE'S VARS
-const NS = 'Fl32_Bwl_Front_Area_Sign_Route_Up';
+const NS = 'Fl32_Bwl_Front_Door_Sign_Route_Up';
 
 // MODULE'S FUNCTIONS
 /**
  * Factory to create template for new Vue component instances.
  *
- * @memberOf Fl32_Bwl_Front_Area_Sign_Route_Up
- * @returns {Fl32_Bwl_Front_Area_Sign_Route_Up.vueCompTmpl}
+ * @memberOf Fl32_Bwl_Front_Door_Sign_Route_Up
+ * @returns {Fl32_Bwl_Front_Door_Sign_Route_Up.vueCompTmpl}
  */
 function Factory(spec) {
     // EXTRACT DEPS
     /** @type {Fl32_Bwl_Front_Defaults} */
     const DEF = spec['Fl32_Bwl_Front_Defaults$'];
     const {formatUtcTime, isEmpty} = spec['TeqFw_Core_Shared_Util'];
-    /** @type {Fl32_Bwl_Front_Area_Sign_Widget_RegForm} */
-    const regForm = spec['Fl32_Bwl_Front_Area_Sign_Widget_RegForm$'];
+    /** @type {Fl32_Bwl_Front_Door_Sign_Widget_RegForm} */
+    const regForm = spec['Fl32_Bwl_Front_Door_Sign_Widget_RegForm$'];
     /** @type {TeqFw_Web_Front_Service_Gate} */
     const gate = spec['TeqFw_Web_Front_Service_Gate$'];
     /** @type {Fl32_Teq_User_Shared_Service_Route_RefLink_Get.Factory} */
@@ -61,7 +61,7 @@ function Factory(spec) {
      * Template to create new component instances using Vue.
      *
      * @const {Object} vueCompTmpl
-     * @memberOf Fl32_Bwl_Front_Area_Sign_Route_Up
+     * @memberOf Fl32_Bwl_Front_Door_Sign_Route_Up
      */
     return {
         teq: {package: DEF.SHARED.NAME},

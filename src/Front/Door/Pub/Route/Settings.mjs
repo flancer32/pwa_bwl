@@ -2,7 +2,7 @@ const template = `
 <p>Settings</p>
 `;
 
-export default function Fl32_Bwl_Front_Area_Pub_Route_Settings(spec) {
+export default function Fl32_Bwl_Front_Door_Pub_Route_Settings(spec) {
     /** @type {Fl32_Bwl_Front_Defaults} */
     const DEF = spec['Fl32_Bwl_Front_Defaults$'];    
     /** @type {Fl32_Teq_User_Front_Model_Session} */

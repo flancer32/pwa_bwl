@@ -1,10 +1,10 @@
 /**
  * Route widget for developer's sign in.
  *
- * @namespace Fl32_Bwl_Front_Area_Pub_Route_Dev_Login
+ * @namespace Fl32_Bwl_Front_Door_Pub_Route_Dev_Login
  */
 // MODULE'S VARS
-const NS = 'Fl32_Bwl_Front_Area_Pub_Route_Dev_Login';
+const NS = 'Fl32_Bwl_Front_Door_Pub_Route_Dev_Login';
 
 // MODULE'S CLASSES
 
@@ -12,8 +12,8 @@ const NS = 'Fl32_Bwl_Front_Area_Pub_Route_Dev_Login';
 /**
  * Factory to create template for new Vue component instances.
  *
- * @memberOf Fl32_Bwl_Front_Area_Pub_Route_Dev_Login
- * @returns {Fl32_Bwl_Front_Area_Pub_Route_Dev_Login.vueCompTmpl}
+ * @memberOf Fl32_Bwl_Front_Door_Pub_Route_Dev_Login
+ * @returns {Fl32_Bwl_Front_Door_Pub_Route_Dev_Login.vueCompTmpl}
  */
 function Factory(spec) {
     // EXTRACT DEPS
@@ -53,7 +53,7 @@ function Factory(spec) {
      * Template to create new component instances using Vue.
      *
      * @const {Object} vueCompTmpl
-     * @memberOf Fl32_Bwl_Front_Area_Pub_Route_Dev_Login
+     * @memberOf Fl32_Bwl_Front_Door_Pub_Route_Dev_Login
      */
     return {
         name: NS,
