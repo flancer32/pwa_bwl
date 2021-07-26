@@ -56,7 +56,8 @@ const template = `
 function Factory(spec) {
     /** @type {Fl32_Bwl_Front_Defaults} */
     const DEF = spec['Fl32_Bwl_Front_Defaults$'];
-    const i18n = spec[DEF.MOD_I18N.DI_I18N];
+    /** @type {TeqFw_I18n_Front_Model} */
+    const i18n = spec['TeqFw_I18n_Front_Model$'];
     /** @type {Fl32_Bwl_Front_Widget_Dialog_Date} */
     const dialogDate = spec['Fl32_Bwl_Front_Widget_Dialog_Date$']; // vue comp tmpl
     /** @type {Fl32_Bwl_Front_Widget_Weight.vueCompTmpl} */
@@ -88,7 +89,7 @@ function Factory(spec) {
         },
         computed: {
             dateFormatted() {
-                return dateForUi(i18n.language, this.selectedDate);
+                return dateForUi(i18n.getLang(), this.selectedDate);
             },
             disableDelete() {
                 const selected = dateAsStr(this.selectedDate);

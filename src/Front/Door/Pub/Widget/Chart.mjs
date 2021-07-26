@@ -32,7 +32,8 @@ function Factory(spec) {
     // EXTRACT DEPS
     /** @type {Fl32_Bwl_Front_Defaults} */
     const DEF = spec['Fl32_Bwl_Front_Defaults$'];
-    const i18n = spec[DEF.MOD_I18N.DI_I18N];
+    /** @type {TeqFw_I18n_Front_Model} */
+    const i18n = spec['TeqFw_I18n_Front_Model$'];
     const Chart = spec[DEF.DI_CHART];
 
     // DEFINE WORKING VARS
@@ -71,7 +72,7 @@ function Factory(spec) {
                         borderWidth: 2,
                         data: series.data,
                         fill: false,
-                        label: i18n.t('wg.chart.current'),
+                        label: i18n.getI18n().t('wg.chart.current'),
                         pointRadius: 2,
                     };
                     datasets.push(mainSet);
@@ -83,7 +84,7 @@ function Factory(spec) {
                             borderWidth: 1,
                             data: targetDataset,
                             fill: false,
-                            label: i18n.t('wg.chart.target'),
+                            label: i18n.getI18n().t('wg.chart.target'),
                             pointRadius: 0,
                         });
                     }

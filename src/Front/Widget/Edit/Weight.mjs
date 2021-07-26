@@ -25,7 +25,8 @@ function Factory(spec) {
     // EXTRACT DEPS
     /** @type {Fl32_Bwl_Front_Defaults} */
     const DEF = spec['Fl32_Bwl_Front_Defaults$'];
-    const i18n = spec[DEF.MOD_I18N.DI_I18N];
+    /** @type {TeqFw_I18n_Front_Model} */
+    const i18n = spec['TeqFw_I18n_Front_Model$'];
     /** @type {Fl32_Bwl_Front_Widget_Weight.vueCompTmpl} */
     const weight = spec['Fl32_Bwl_Front_Widget_Weight$'];
     /** @type {TeqFw_Web_Front_Service_Gate} */
@@ -105,7 +106,7 @@ function Factory(spec) {
                 return new Date();
             },
             dateFormatted() {
-                return formatDate(i18n.language, this.date);
+                return formatDate(i18n.getLang(), this.date);
             },
             title() {
                 return this.$t(`wg.editWeight.title.${this.type}`);

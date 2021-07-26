@@ -20,8 +20,8 @@ function Factory(spec) {
     const DEF = spec['Fl32_Bwl_Front_Defaults$'];
     /** @type {Fl32_Teq_User_Front_Model_Session} */
     const session = spec['Fl32_Teq_User_Front_Model_Session$'];
-    /** @type {TeqFw_Core_Front_Widget_Layout_Centered} */
-    const layoutCentered = spec['TeqFw_Core_Front_Widget_Layout_Centered$'];
+    /** @type {Fl32_Bwl_Front_Layout_Centered} */
+    const layoutCentered = spec['Fl32_Bwl_Front_Layout_Centered$'];
      /** @type {TeqFw_Web_Front_Service_Gate} */
     const gate = spec['TeqFw_Web_Front_Service_Gate$'];
     /** @type {Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Send.Factory} */

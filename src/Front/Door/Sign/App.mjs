@@ -21,8 +21,8 @@ function Factory(spec) {
     const container = spec['TeqFw_Di_Shared_Container$'];
     const router = spec[DEF.MOD_VUE.DI_ROUTER];
     const app = spec[DEF.MOD_VUE.DI_APP];
-    /** @type {TeqFw_Core_Front_Widget_Layout_Centered} */
-    const layoutCentered = spec['TeqFw_Core_Front_Widget_Layout_Centered$'];    // vue comp tmpl
+    /** @type {Fl32_Bwl_Front_Layout_Centered} */
+    const layoutCentered = spec['Fl32_Bwl_Front_Layout_Centered$'];    // vue comp tmpl
     /** @type {Fl32_Bwl_Front_Layout_Sign} */
     const layoutMain = spec['Fl32_Bwl_Front_Layout_Sign$']; // vue comp tmpl
 

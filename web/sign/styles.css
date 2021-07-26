@@ -1,7 +1,3 @@
-@import "./web/@teqfw/vue/styles.css";
+@import "../css/vue/styles.css";
 @import "./web/@flancer32/teq_user/styles.css";
-/*@import "css/vars.css";*/
-/*@import "css/quasar.css";*/
-/*@import "css/layout.css";*/
-/*@import "css/widgets.css";*/
 @import "css/theme.css";

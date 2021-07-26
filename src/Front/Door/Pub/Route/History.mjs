@@ -50,7 +50,8 @@ const template = `
 function Factory(spec) {
     /** @type {Fl32_Bwl_Front_Defaults} */
     const DEF = spec['Fl32_Bwl_Front_Defaults$'];
-    const i18n = spec[DEF.MOD_I18N.DI_I18N];
+    /** @type {TeqFw_I18n_Front_Model} */
+    const i18n = spec['TeqFw_I18n_Front_Model$'];
     const {ref} = spec[DEF.MOD_VUE.DI_VUE];
     /** @type {Fl32_Teq_User_Front_Model_Session} */
     const session = spec['Fl32_Teq_User_Front_Model_Session$'];
@@ -107,7 +108,7 @@ function Factory(spec) {
                     items.sort((a, b) => (a.date < b.date) ? -1 : 1);
                     let prev = null;
                     for (const item of items) {
-                        const dateStr = formatDate(i18n.language, item.date);
+                        const dateStr = formatDate(i18n.getLang(), item.date);
                         const one = {
                             [ID]: item.date,
                             [DATE]: dateStr,

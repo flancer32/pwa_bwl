@@ -34,8 +34,8 @@ const template = `
  * @returns {Fl32_Bwl_Front_Widget_Weight.vueCompTmpl}
  */
 function Factory(spec) {
-    /** @type {TeqFw_Vue_Front_Widget_Scroller_Vertical} */
-    const vScroll = spec['TeqFw_Vue_Front_Widget_Scroller_Vertical$']; // vue comp tmpl
+    /** @type {Fl32_Bwl_Front_Widget_Scroller_Vertical} */
+    const vScroll = spec['Fl32_Bwl_Front_Widget_Scroller_Vertical$']; // vue comp tmpl
 
     /**
      * Template to create new component instances using Vue.

@@ -77,7 +77,8 @@ class DMember {
 function Factory(spec) {
     /** @type {Fl32_Bwl_Front_Defaults} */
     const DEF = spec['Fl32_Bwl_Front_Defaults$'];
-    const i18n = spec[DEF.MOD_I18N.DI_I18N];
+    /** @type {TeqFw_I18n_Front_Model} */
+    const i18n = spec['TeqFw_I18n_Front_Model$'];
     const {formatDate: dateForUi} = spec['Fl32_Bwl_Shared_Util'];
 
     /**
@@ -108,7 +109,7 @@ function Factory(spec) {
         },
         computed: {
             dateFormatted() {
-                return dateForUi(i18n.language, this.dateCreated);
+                return dateForUi(i18n.getLang(), this.dateCreated);
             },
         },
         methods: {
