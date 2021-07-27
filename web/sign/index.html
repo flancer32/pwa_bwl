@@ -9,162 +9,40 @@
 
     <script>
         async function bootstrap() {
-            const DOOR = 'sign';
-            const API = './api';
-            const API_LOAD_CFG = `${API}/@teqfw/web/load/config`;
-            const API_LOAD_NS = `${API}/@teqfw/web/load/namespaces`;
-
             // DEFINE INNER FUNCTIONS
 
             /**
-             * @param {TeqFw_Di_Shared_Container} container
-             * @param {Fl32_Bwl_Front_Defaults} DEF
-             * @return Object
-             */
-            async function initApp(container, DEF) {
-
-                // DEFINE INNER FUNCTIONS
-
-                /**
-                 * Initialize 'i18next' library to use internationalization and add translate function '$t' to Vue app's
-                 * global properties.
-                 *
-                 * @param {TeqFw_Di_Shared_Container} container
-                 * @param {Object} app Vue application
-                 * @returns {Promise<Object>}
-                 */
-                async function initI18n(container, app) {
-                    const supportedLngs = ['ru'];
-                    const fallbackLng = 'ru';
-                    /** @type {TeqFw_I18n_Front_Model} */
-                    const model = await container.get('TeqFw_I18n_Front_Model$');
-                    await model.init(supportedLngs, fallbackLng);
-                    // config options after 'init'
-                    // add '$t' translation function to Vue app
-                    const appProps = app.config.globalProperties;
-                    const i18n = model.getI18n();
-                    appProps.$t = function (key, options) {
-                        // add package name if namespace is omitted in the key
-                        const ns = this.$options.teq?.package;
-                        if (ns && key.indexOf(':') <= 0) key = `${ns}:${key}`;
-                        return i18n.t(key, options);
-                    }
-                }
-
-                /**
-                 * Create and initialize Vue3 router.
-                 *
-                 * @returns {*}
-                 */
-                function initRouter(VueRouter) {
-                    return VueRouter.createRouter({
-                        history: VueRouter.createWebHashHistory(),
-                        routes: []
-                    });
-                }
-
-                // MAIN FUNCTIONALITY
-
-                // create vue application, init router, i18n, ...
-                const result = self.Vue.createApp({});
-                container.set(DEF.MOD_VUE.DI_APP, result);
-                const router = initRouter(self.VueRouter);
-                container.set(DEF.MOD_VUE.DI_ROUTER, router);
-                await initI18n(container, result);
-                // init quasar framework
-                result.use(self.Quasar, {config: {}});
-                self.Quasar.iconSet.set(self.Quasar.iconSet.svgMaterialIcons);
-                container.set(DEF.MOD_QUASAR.DI_QUASAR, self.Quasar);
-                return result;
-            }
-
-            /**
-             * Load frontend configuration from API using simple 'fetch' and place it into DI container.
+             * Import code, create and setup Dependency Injection container for frontend.
              *
-             * @param {TeqFw_Di_Shared_Container} container
-             * @param {Fl32_Bwl_Front_Defaults} DEF
-             */
-            async function initConfig(container, DEF) {
-                // load frontend configuration and user profile
-                const res = await fetch(API_LOAD_CFG);
-                const json = await res.json();
-                /** @type {TeqFw_Web_Front_Api_Dto_Config.Factory} */
-                const fConfig = await container.get('TeqFw_Web_Front_Api_Dto_Config#Factory$');
-                /** @type {TeqFw_Web_Front_Api_Dto_Config} */
-                const result = fConfig.create(json.data);
-                result.door = DOOR;
-                container.set('TeqFw_Web_Front_Api_Dto_Config$', result);
-            }
-
-            /**
-             * Import code, create and setup Dependency Injection container for frontend,
-             * place old-style loaded JS object inside.
-             *
-             * @returns {Promise<{container: TeqFw_Di_Shared_Container, DEF: Fl32_Bwl_Front_Defaults}>}
+             * @returns {Promise<TeqFw_Di_Shared_Container>}
              */
             async function initDiContainer() {
-
-                // DEFINE INNER FUNCTIONS
-                /**
-                 * @returns {Promise<TeqFw_Web_Shared_Service_Route_Load_Namespaces.Response>}
-                 */
-                async function loadNamespaces() {
-                    // load frontend configuration and user profile
-                    const res = await fetch(API_LOAD_NS);
-                    const json = await res.json();
-                    return json.data;
-                }
-
-                // MAIN FUNCTIONALITY
-                const baseUrl = `${location.origin}/${DOOR}`;
+                const baseUrl = `${location.origin}/${location.pathname}`;
                 // create and setup DI Container
                 const modContainer = await import('./src/@teqfw/di/Shared/Container.mjs');
                 /** @type {TeqFw_Di_Shared_Container} */
                 const container = new modContainer.default();
-                const response = await loadNamespaces();
+                const res = await fetch('./api/@teqfw/web/load/namespaces');
+                const json = await res.json();
                 // setup namespaces mapping
-                if (response && Array.isArray(response.items))
-                    for (const item of response.items)
+                if (json?.data?.items && Array.isArray(json.data.items))
+                    for (const item of json.data.items)
                         container.addSourceMapping(item.ns, baseUrl + item.path, true, item.ext);
-
                 // setup replaces
-                if (response && Array.isArray(response.replaces))
-                    for (const item of response.replaces)
+                if (json?.data?.replaces && Array.isArray(json.data.replaces))
+                    for (const item of json.data.replaces)
                         container.addModuleReplacement(item.orig, item.alter);
-
-                // get hardcoded config for the application
-                /** @type {Fl32_Bwl_Front_Defaults} */
-                const DEF = await container.get('Fl32_Bwl_Front_Defaults$');
-                // save old-style loaded JS objects into DI container (see <script src="..."> at the end of HTML)
-                container.set(DEF.MOD_VUE.DI_VUE, self.Vue);
-                return {container, DEF};
-            }
-
-            /**
-             * @param {TeqFw_Di_Shared_Container} container
-             * @param {Fl32_Bwl_Front_Defaults} DEF
-             */
-            async function initSession(container, DEF) {
-                /** @type {Fl32_Teq_User_Front_Model_Session} */
-                const session = await container.get('Fl32_Teq_User_Front_Model_Session$');
-                session.setRouteToSignIn(DEF.DOOR_PUB_ROUTE_SIGN_IN_CODE_GET);
-                await session.init();
+                return container;
             }
 
             // MAIN FUNCTIONALITY
             try {
                 // initialize objects loader (Dependency Injection container)
-                const {container, DEF} = await initDiContainer();
-                // load configuration from server and place it into DI container
-                await initConfig(container, DEF);
-                await initSession(container, DEF);
-                // place application specific libs to container
-                container.set(DEF.DI_CHART, self.Chart); // https://www.chartjs.org/
-                // create Vue app, load root component and mount application to DOM
-                const app = await initApp(container, DEF);
-                const appRoot = await container.get('Fl32_Bwl_Front_Door_Sign_App$'); // vue comp tmpl
-                app.component('appRoot', appRoot);
-                // mount Vue application to the page
+                const container = await initDiContainer();
+                // create Vue application and mount it to the page
+                /** @type {Fl32_Bwl_Front_Door_Sign_App} */
+                const app = await container.get('Fl32_Bwl_Front_Door_Sign_App$');
+                await app.init();
                 app.mount('BODY > DIV');
             } catch (e) {
                 console.error("Error in bootstrap: " + e + "\n" + e.stack);

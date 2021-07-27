@@ -17,9 +17,11 @@ function Factory(spec) {
     // EXTRACT DEPS
     /** @type {Fl32_Bwl_Front_Defaults} */
     const DEF = spec['Fl32_Bwl_Front_Defaults$'];
-    const {ref} = spec[DEF.MOD_VUE.DI_VUE];
     /** @type {Fl32_Bwl_Front_Layout_TopActions} */
     const topActions = spec['Fl32_Bwl_Front_Layout_TopActions$']; // vue comp tmpl
+    /** @type {TeqFw_Vue_Front_Lib} */
+    const VueLib = spec['TeqFw_Vue_Front_Lib$'];
+    const {ref} = VueLib.getVue();
 
     // DEFINE WORKING VARS
     const template = `

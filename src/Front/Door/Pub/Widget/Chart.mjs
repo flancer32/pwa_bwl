@@ -32,11 +32,13 @@ function Factory(spec) {
     // EXTRACT DEPS
     /** @type {Fl32_Bwl_Front_Defaults} */
     const DEF = spec['Fl32_Bwl_Front_Defaults$'];
-    /** @type {TeqFw_I18n_Front_Model} */
-    const i18n = spec['TeqFw_I18n_Front_Model$'];
-    const Chart = spec[DEF.DI_CHART];
+    /** @type {TeqFw_I18n_Front_Lib} */
+    const i18n = spec['TeqFw_I18n_Front_Lib$'];
+    /** @type {Fl32_Bwl_Front_Lib_Chart} */
+    const ChartLib = spec['Fl32_Bwl_Front_Lib_Chart$'];
 
     // DEFINE WORKING VARS
+    const Chart = ChartLib.getCart();
     const template = `
 <canvas id="${DOM_ID_CHART}"></canvas>
 `;

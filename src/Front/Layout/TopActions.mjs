@@ -50,7 +50,7 @@ function Factory(spec) {
     /** @type {Fl32_Bwl_Front_Defaults} */
     const DEF = spec['Fl32_Bwl_Front_Defaults$'];
     /** @type {TeqFw_Di_Shared_Container} */
-    const container = spec['TeqFw_Di_Shared_Container$']; 
+    const container = spec['TeqFw_Di_Shared_Container$'];
 
     /**
      * Class for template to create new instances.
@@ -75,7 +75,7 @@ function Factory(spec) {
 
         created() {
             // place this instance to DI container
-            container.set(DEF.DI_TOP_ACTIONS, this);
+            container.set(`${NS}$`, this);
         }
     }
 
@@ -83,7 +83,7 @@ function Factory(spec) {
 }
 
 // MODULE'S FUNCTIONALITY
-Object.defineProperty(Factory, 'name', {value: `${NS}.${Factory.constructor.name}`});
+Object.defineProperty(Factory, 'name', {value: `${NS}.${Factory.name}`});
 
 // MODULE'S EXPORT
 export {

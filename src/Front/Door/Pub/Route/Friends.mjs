@@ -25,7 +25,7 @@ function Factory(spec) {
     /** @function {typeof TeqFw_Core_Shared_Util.formatDate} */
     const formatDate = spec['TeqFw_Core_Shared_Util#formatDate'];
     /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.IComponent} */
-    const topActions = spec[DEF.DI_TOP_ACTIONS];
+    const topActions = spec['Fl32_Bwl_Front_Layout_TopActions$'];
     /** @type {Fl32_Bwl_Front_Door_Pub_Widget_Friends_Dialog_Add} */
     const dialogAdd = spec['Fl32_Bwl_Front_Door_Pub_Widget_Friends_Dialog_Add$'];
     /** @type {Fl32_Bwl_Front_Widget_Edit_Group} */

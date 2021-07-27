@@ -1,17 +1,17 @@
 /**
  * Layout widget to center content.
  *
- * @namespace Fl32_Bwl_Front_Door_Shared_Widget_Layout_Centered
+ * @namespace Fl32_Bwl_Front_Layout_Centered
  */
 // MODULE'S VARS
-const NS = 'Fl32_Bwl_Front_Door_Shared_Widget_Layout_Centered';
+const NS = 'Fl32_Bwl_Front_Layout_Centered';
 
 // MODULE'S FUNCTIONS
 /**
  * Factory to create template for new Vue component instances.
  *
- * @memberOf Fl32_Bwl_Front_Door_Shared_Widget_Layout_Centered
- * @returns {Fl32_Bwl_Front_Door_Shared_Widget_Layout_Centered.vueCompTmpl}
+ * @memberOf Fl32_Bwl_Front_Layout_Centered
+ * @returns {Fl32_Bwl_Front_Layout_Centered.vueCompTmpl}
  */
 export default function Factory() {
     // DEFINE WORKING VARS
@@ -27,7 +27,7 @@ export default function Factory() {
      * Template to create new component instances using Vue.
      *
      * @const {Object} vueCompTmpl
-     * @memberOf Fl32_Bwl_Front_Door_Shared_Widget_Layout_Centered
+     * @memberOf Fl32_Bwl_Front_Layout_Centered
      */
     return {
         name: NS,

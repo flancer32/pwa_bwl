@@ -50,13 +50,12 @@ const template = `
 function Factory(spec) {
     /** @type {Fl32_Bwl_Front_Defaults} */
     const DEF = spec['Fl32_Bwl_Front_Defaults$'];
-    /** @type {TeqFw_I18n_Front_Model} */
-    const i18n = spec['TeqFw_I18n_Front_Model$'];
-    const {ref} = spec[DEF.MOD_VUE.DI_VUE];
+    /** @type {TeqFw_I18n_Front_Lib} */
+    const i18n = spec['TeqFw_I18n_Front_Lib$'];
     /** @type {Fl32_Teq_User_Front_Model_Session} */
     const session = spec['Fl32_Teq_User_Front_Model_Session$'];
     /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.IComponent} */
-    const topActions = spec[DEF.DI_TOP_ACTIONS];
+    const topActions = spec['Fl32_Bwl_Front_Layout_TopActions$'];
     /** @type {Fl32_Bwl_Front_Widget_Edit_History} */
     const editHistory = spec['Fl32_Bwl_Front_Widget_Edit_History$'];
     /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.Item} */
@@ -75,7 +74,10 @@ function Factory(spec) {
     const routeRemove = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_Remove#Factory$'];
     /** @type {Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save.Factory} */
     const routeSave = spec['Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save#Factory$'];
+    /** @type {TeqFw_Vue_Front_Lib} */
+    const VueLib = spec['TeqFw_Vue_Front_Lib$'];
 
+    const {ref} = VueLib.getVue();
     /**
      * Template to create new component instances using Vue.
      *

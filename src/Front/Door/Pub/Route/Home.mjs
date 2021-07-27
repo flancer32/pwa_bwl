@@ -30,7 +30,7 @@ function Factory(spec) {
     /** @type {typeof Fl32_Bwl_Front_Door_Pub_Widget_Chart.ChartData} */
     const ChartData = spec['Fl32_Bwl_Front_Door_Pub_Widget_Chart#ChartData'];
     /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.IComponent} */
-    const topActions = spec[DEF.DI_TOP_ACTIONS];
+    const topActions = spec['Fl32_Bwl_Front_Layout_TopActions$'];
     /** @type {TeqFw_Web_Front_Service_Gate} */
     const gate = spec['TeqFw_Web_Front_Service_Gate$'];
     /** @type {Fl32_Teq_User_Shared_Service_Route_Sign_Out.Factory} */

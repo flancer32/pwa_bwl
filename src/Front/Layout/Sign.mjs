@@ -17,11 +17,11 @@ const NS = 'Fl32_Bwl_Front_Layout_Sign';
  */
 function Factory(spec) {
     // EXTRACT DEPS
-    /** @type {Fl32_Bwl_Front_Defaults} */
-    const DEF = spec['Fl32_Bwl_Front_Defaults$'];
-    const {ref} = spec[DEF.MOD_VUE.DI_VUE];
+    /** @type {TeqFw_Vue_Front_Lib} */
+    const VueLib = spec['TeqFw_Vue_Front_Lib$'];
 
     // DEFINE WORKING VARS
+    const {ref} = VueLib.getVue();
     const template = `
 <q-layout view="hHh lpr fFf">
     <q-header reveal elevated glossy class="bg-primary text-white">
