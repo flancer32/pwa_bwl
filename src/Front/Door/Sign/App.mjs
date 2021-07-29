@@ -13,8 +13,8 @@ export default class Fl32_Bwl_Front_Door_Sign_App {
         const VueLib = spec['TeqFw_Vue_Front_Lib$'];
         /** @type {TeqFw_I18n_Front_Lib} */
         const I18nLib = spec['TeqFw_I18n_Front_Lib$'];
-        /** @type {TeqFw_Quasar_Front_Lib} */
-        const QuasarLib = spec['TeqFw_Quasar_Front_Lib$'];
+        /** @type {TeqFw_Ui_Quasar_Front_Lib} */
+        const QuasarLib = spec['TeqFw_Ui_Quasar_Front_Lib$'];
         /** @type {TeqFw_Di_Shared_Container} */
         const container = spec['TeqFw_Di_Shared_Container$'];
         /** @type {Fl32_Bwl_Front_Layout_Centered} */
