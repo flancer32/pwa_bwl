@@ -3,7 +3,14 @@
     "autoload": {
       "ns": "Fl32_Bwl",
       "path": "./src"
-    }
+    },
+    "replace": [
+      {
+        "orig": "TeqFw_Web_Front_Api_Gate_IAjaxLed",
+        "alter": "Fl32_Bwl_Front_Model_Gate_AjaxLed",
+        "area": "front"
+      }
+    ]
   },
   "core": {
     "commands": [

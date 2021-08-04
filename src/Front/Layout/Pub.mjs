@@ -18,7 +18,10 @@ function Factory(spec) {
     /** @type {Fl32_Bwl_Front_Defaults} */
     const DEF = spec['Fl32_Bwl_Front_Defaults$'];
     /** @type {Fl32_Bwl_Front_Layout_TopActions} */
-    const topActions = spec['Fl32_Bwl_Front_Layout_TopActions$']; // vue comp tmpl
+    const topActions = spec['Fl32_Bwl_Front_Layout_TopActions$'];
+    /** @type {Fl32_Bwl_Front_Layout_AjaxLed.vueCompTmpl} */
+    const ajaxLed = spec['Fl32_Bwl_Front_Layout_AjaxLed$'];
+
     /** @type {TeqFw_Vue_Front_Lib} */
     const VueLib = spec['TeqFw_Vue_Front_Lib$'];
     const {ref} = VueLib.getVue();
@@ -28,7 +31,7 @@ function Factory(spec) {
 <q-layout view="hHh lpr fFf">
     <q-header reveal elevated glossy class="bg-primary text-white">
         <q-bar>
-          <q-btn dense flat round icon="lens" size="8.5px" color="grey" />
+          <ajax-led/>
           <q-space></q-space>
           <div class="overflow-hidden" style="height: 20px">BWL</div>
           <q-space></q-space>
@@ -61,7 +64,7 @@ function Factory(spec) {
     return {
         name: NS,
         template,
-        components: {topActions},
+        components: {topActions, ajaxLed},
         setup() {
             const leftDrawerOpen = ref(false);
             const rightDrawerOpen = ref(false);
