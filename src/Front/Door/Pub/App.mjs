@@ -50,7 +50,7 @@ export default class Fl32_Bwl_Front_Door_Pub_App {
             // DEFINE INNER FUNCTIONS
 
             async function initI18n(app) {
-                await I18nLib.init(['ru'], 'ru');
+                await I18nLib.init(['en', 'ru'], 'ru');
                 const appProps = app.config.globalProperties;
                 const i18n = I18nLib.getI18n();
                 appProps.$t = function (key, options) {

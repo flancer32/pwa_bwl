@@ -3,6 +3,8 @@
  */
 export default class Fl32_Bwl_Front_Defaults {
 
+    DEF_DATA_SET_ID = 0;
+
     // FRONTEND ROUTES
     DOOR_PUB_ROUTE_DEV_LOGIN = '/dev/login';
     DOOR_PUB_ROUTE_FRIENDS = '/friends';

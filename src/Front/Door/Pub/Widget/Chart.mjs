@@ -65,7 +65,7 @@ function Factory(spec) {
              */
             chartData(current, old) {
                 // DEFINE INNER FUNCTIONS
-                function draw(series, targetWeight) {
+                function draw(vueComp, series, targetWeight) {
                     const datasets = [];
                     const labels = series.labels;
                     // add main data set to chart
@@ -74,7 +74,7 @@ function Factory(spec) {
                         borderWidth: 2,
                         data: series.data,
                         fill: false,
-                        label: i18n.getI18n().t('wg.chart.current'),
+                        label: vueComp.$t('wg.chart.current'),
                         pointRadius: 2,
                     };
                     datasets.push(mainSet);
@@ -86,7 +86,7 @@ function Factory(spec) {
                             borderWidth: 1,
                             data: targetDataset,
                             fill: false,
-                            label: i18n.getI18n().t('wg.chart.target'),
+                            label: vueComp.$t('wg.chart.target'),
                             pointRadius: 0,
                         });
                     }
@@ -126,7 +126,7 @@ function Factory(spec) {
 
                 // MAIN FUNCTIONALITY
                 if (current === old) debugger;
-                draw(current.series, current.target);
+                draw(this, current.series, current.target);
             }
         },
         async mounted() {},

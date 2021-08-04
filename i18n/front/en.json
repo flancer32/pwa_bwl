@@ -5,6 +5,16 @@
     "ok": "ОК",
     "submit": "Submit"
   },
+  "opts": {
+    "period": {
+      "all": "All",
+      "m1": "1 month",
+      "m2": "2 months",
+      "m6": "6 months",
+      "w1": "1 week",
+      "w2": "2 weeks"
+    }
+  },
   "route": {
     "friends": {
       "active": "Active",

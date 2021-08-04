@@ -11,6 +11,7 @@ const PERIOD_MONTH_2 = 'm2';
 const PERIOD_MONTH_6 = 'm6';
 const PERIOD_WEEK_1 = 'w1';
 const PERIOD_WEEK_2 = 'w2';
+const I18N_PERIOD = 'opts.period';
 
 // MODULE'S FUNCTIONS
 /**
@@ -45,6 +46,10 @@ function Factory(spec) {
     const editWeight = spec['Fl32_Bwl_Front_Widget_Edit_Weight$'];
     /** @type {Fl32_Bwl_Front_DataSource_Weight} */
     const dsWeights = spec['Fl32_Bwl_Front_DataSource_Weight$'];
+    /** @type {Fl32_Bwl_Front_Model_Profile_Home} */
+    const modProfileHome = spec['Fl32_Bwl_Front_Model_Profile_Home$'];
+    /** @type {Fl32_Bwl_Front_Struct_Options_Period} */
+    const optionsPeriod = spec['Fl32_Bwl_Front_Struct_Options_Period$'];
 
     // DEFINE WORKING VARS
     /** @type {Fl32_Bwl_Front_Widget_Edit_Weight.vueCompTmpl.TYPES} */
@@ -113,7 +118,7 @@ function Factory(spec) {
             return {
                 chartData: null, // data set to visualize with Chart widget
                 current: null,
-                dataSet: {label: this.$t('route.home.dataSet.personal'), value: 0},
+                dataSet: null,
                 dateFrom: new Date(),
                 dateTo: new Date(),
                 dialogDisplay: false,
@@ -126,14 +131,7 @@ function Factory(spec) {
         },
         computed: {
             optsPeriod() {
-                return [
-                    {label: '1 week', value: PERIOD_WEEK_1},
-                    {label: '2 weeks', value: PERIOD_WEEK_2},
-                    {label: '1 month', value: PERIOD_MONTH_1},
-                    {label: '2 months', value: PERIOD_MONTH_2},
-                    {label: '6 months', value: PERIOD_MONTH_6},
-                    {label: 'All', value: PERIOD_ALL},
-                ];
+                return optionsPeriod.getItems(this, I18N_PERIOD);
             },
         },
         methods: {
@@ -173,7 +171,7 @@ function Factory(spec) {
                 }
             },
             async loadOptsDataSet() {
-                const result = [{label: this.$t('route.home.dataSet.personal'), value: 0}];
+                const result = [{label: this.$t('route.home.dataSet.personal'), value: DEF.DEF_DATA_SET_ID}];
                 const req = routeFriends.createReq();
                 // noinspection JSValidateTypes
                 /** @type {Fl32_Bwl_Shared_Service_Route_Friend_List.Response} */
@@ -217,12 +215,14 @@ function Factory(spec) {
             dataSet(current, old) {
                 if (current !== old) {
                     this.loadChartData();
+                    modProfileHome.dataSetId = current.value;
                 }
             },
             period(current, old) {
                 this.setPeriods();
                 if (current !== old) {
                     this.loadChartData();
+                    modProfileHome.periodId = current.value;
                 }
             }
         },
@@ -245,12 +245,17 @@ function Factory(spec) {
             // MAIN FUNCTIONALITY
             if (await session.checkUserAuthenticated(this.$router)) {
                 addTopActions();
+                this.period.value = modProfileHome.periodId;
+                this.period.label = this.$t(`${I18N_PERIOD}.${modProfileHome.periodId}`);
                 this.setPeriods();
                 await Promise.all([
                     this.setWeights(),
                     this.loadOptsDataSet(),
                     this.loadChartData(),
                 ]);
+                for (const one of this.optsDataSet)
+                    if (one.value === modProfileHome.dataSetId) this.dataSet = one;
+
             }
         },
     };
