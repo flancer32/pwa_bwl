@@ -126,6 +126,13 @@
         "start": "Set start weight (kg)",
         "target": "Set target weight (kg)"
       }
+    },
+    "settings": {
+      "lang": {
+        "en": "English",
+        "ru": "Русский",
+        "title": "Пожалуйста, выберите язык"
+      }
     }
   }
 }

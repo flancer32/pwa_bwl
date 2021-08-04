@@ -21,6 +21,8 @@ function Factory(spec) {
     const topActions = spec['Fl32_Bwl_Front_Layout_TopActions$'];
     /** @type {Fl32_Bwl_Front_Layout_AjaxLed.vueCompTmpl} */
     const ajaxLed = spec['Fl32_Bwl_Front_Layout_AjaxLed$'];
+    /** @type {Fl32_Bwl_Front_Model_Lang} */
+    const modLang = spec['Fl32_Bwl_Front_Model_Lang$'];
 
     /** @type {TeqFw_Vue_Front_Lib} */
     const VueLib = spec['TeqFw_Vue_Front_Lib$'];
@@ -28,7 +30,7 @@ function Factory(spec) {
 
     // DEFINE WORKING VARS
     const template = `
-<q-layout view="hHh lpr fFf">
+<q-layout view="hHh lpr fFf" :key="langSwitcher">
     <q-header reveal elevated glossy class="bg-primary text-white">
         <q-bar>
           <ajax-led/>
@@ -65,6 +67,11 @@ function Factory(spec) {
         name: NS,
         template,
         components: {topActions, ajaxLed},
+        computed: {
+            langSwitcher() {
+                return modLang.getData().value;
+            }
+        },
         setup() {
             const leftDrawerOpen = ref(false);
             const rightDrawerOpen = ref(false);
