@@ -19,7 +19,7 @@ export default class Fl32_Bwl_Shared_Defaults {
     WEB_WEIGHT_HISTORY_REMOVE = '/weight/history/remove';
     WEB_WEIGHT_STAT_SAVE = '/weight/stat/save';
 
-    constructor(spec) {
+    constructor() {
         Object.freeze(this);
     }
 }

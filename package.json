@@ -17,7 +17,6 @@
   "scripts": {
     "db-reset": "node ./bin/tequila.mjs app-db-reset",
     "db-upgrade": "node ./bin/tequila.mjs app-db-upgrade",
-    "docs": "./node_modules/jsdoc/jsdoc.js --debug -p -c ./jsdoc.conf.json",
     "help": "node ./bin/tequila.mjs",
     "http1-start": "node ./bin/tequila.mjs web-server-start",
     "http1-stop": "node ./bin/tequila.mjs web-server-stop",
@@ -40,14 +39,13 @@
     "pg": "*"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.3",
-    "@babel/eslint-parser": "^7.12.1",
-    "@babel/eslint-plugin": "^7.12.1",
-    "@babel/plugin-proposal-class-properties": "^7.12.1",
-    "@babel/preset-env": "^7.12.1",
-    "eslint": "^7.13.0",
-    "esm": "^3.2.25",
-    "jest": "*",
-    "jsdoc": "*"
+    "@babel/core": "^7",
+    "@babel/eslint-parser": "^7",
+    "@babel/eslint-plugin": "^7",
+    "@babel/plugin-proposal-class-properties": "^7",
+    "@babel/preset-env": "^7",
+    "eslint": "^7",
+    "esm": "^3",
+    "jest": "*"
   }
 }
