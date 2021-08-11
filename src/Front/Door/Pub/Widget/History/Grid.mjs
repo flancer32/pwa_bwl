@@ -1,18 +1,48 @@
 /**
- * Root widget for 'History' route.
+ * Grid with historical data.
  *
- * @namespace Fl32_Bwl_Front_Door_Pub_Route_History
+ * @namespace Fl32_Bwl_Front_Door_Pub_Widget_History_Grid
  */
 // MODULE'S VARS
-const NS = 'Fl32_Bwl_Front_Door_Pub_Route_History';
+const NS = 'Fl32_Bwl_Front_Door_Pub_Widget_History_Grid';
 const DATE = 'date';
 const DELTA = 'delta';
 const ID = 'id';
 const PERCENT = 'percent';
 const WEIGHT = 'weight';
 
-const template = `
-<div>
+// MODULE'S CLASSES
+
+// MODULE'S FUNCTIONS
+/**
+ * Factory to create template for new Vue component instances.
+ *
+ * @memberOf Fl32_Bwl_Front_Door_Pub_Widget_History_Grid
+ * @returns {Fl32_Bwl_Front_Door_Pub_Widget_History_Grid.vueCompTmpl}
+ */
+export default function Factory(spec) {
+    // EXTRACT DEPS
+    /** @type {Fl32_Bwl_Front_Defaults} */
+    const DEF = spec['Fl32_Bwl_Front_Defaults$'];
+    /** @type {TeqFw_I18n_Front_Lib} */
+    const i18n = spec['TeqFw_I18n_Front_Lib$'];
+    /** @type {Fl32_Teq_User_Front_Model_Session} */
+    const session = spec['Fl32_Teq_User_Front_Model_Session$'];
+    /** @type {TeqFw_Vue_Front_Lib} */
+    const VueLib = spec['TeqFw_Vue_Front_Lib$'];
+    /** @type {Function|Fl32_Bwl_Shared_Util.formatDate} */
+    const formatDate = spec['Fl32_Bwl_Shared_Util#formatDate'];
+    /** @type {Fl32_Bwl_Front_DataSource_Weight} */
+    const dsWeights = spec['Fl32_Bwl_Front_DataSource_Weight$'];
+    /** @type {TeqFw_Web_Front_Service_Gate} */
+    const gate = spec['TeqFw_Web_Front_Service_Gate$'];
+    /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_List.Factory} */
+    const routeList = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_List#Factory$'];
+    /** @type {Fl32_Bwl_Front_Model_Profile_History} */
+    const modProfile = spec['Fl32_Bwl_Front_Model_Profile_History$'];
+
+    // DEFINE WORKING VARS
+    const template = `
     <q-table
             :columns="columns"
             :rows-per-page-options="[0]"
@@ -29,72 +59,26 @@ const template = `
             <q-td :props="props" :style="colorDelta(props.value, props)">{{props.value}}</q-td>
         </template>
     </q-table>
-    <edit-history
-        :date="dateCurrent"
-        :display="dialogDisplay"
-        :weight="weightCurrent"
-        @onDelete="onEditHistoryRemove"
-        @onHide="dialogDisplay=false"
-        @onSubmit="onEditHistorySubmit"
-    ></edit-history>
-</div>
 `;
 
-// MODULE'S FUNCTIONS
-/**
- * Factory to create template for new Vue component instances.
- *
- * @memberOf Fl32_Bwl_Front_Door_Pub_Route_History
- * @returns {Fl32_Bwl_Front_Door_Pub_Route_History.vueCompTmpl}
- */
-function Factory(spec) {
-    /** @type {Fl32_Bwl_Front_Defaults} */
-    const DEF = spec['Fl32_Bwl_Front_Defaults$'];
-    /** @type {TeqFw_I18n_Front_Lib} */
-    const i18n = spec['TeqFw_I18n_Front_Lib$'];
-    /** @type {Fl32_Teq_User_Front_Model_Session} */
-    const session = spec['Fl32_Teq_User_Front_Model_Session$'];
-    /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.IComponent} */
-    const topActions = spec['Fl32_Bwl_Front_Layout_TopActions$'];
-    /** @type {Fl32_Bwl_Front_Widget_Edit_History} */
-    const editHistory = spec['Fl32_Bwl_Front_Widget_Edit_History$'];
-    /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.Item} */
-    const Action = spec['Fl32_Bwl_Front_Layout_TopActions#Item'];
-    /** @type {Fl32_Bwl_Front_DataSource_Weight} */
-    const dsWeights = spec['Fl32_Bwl_Front_DataSource_Weight$'];
-    /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save.Types} */
-    const TYPES = spec['Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save#Types'];
-    /** @type {Function|Fl32_Bwl_Shared_Util.formatDate} */
-    const formatDate = spec['Fl32_Bwl_Shared_Util#formatDate'];
-    /** @type {TeqFw_Web_Front_Service_Gate} */
-    const gate = spec['TeqFw_Web_Front_Service_Gate$'];
-    /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_List.Factory} */
-    const routeList = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_List#Factory$'];
-    /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_Remove.Factory} */
-    const routeRemove = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_Remove#Factory$'];
-    /** @type {Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save.Factory} */
-    const routeSave = spec['Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save#Factory$'];
-    /** @type {TeqFw_Vue_Front_Lib} */
-    const VueLib = spec['TeqFw_Vue_Front_Lib$'];
+    // DEFINE INNER FUNCTIONS
 
-    const {ref} = VueLib.getVue();
+    // MAIN FUNCTIONALITY
+
+    // COMPOSE RESULT
     /**
      * Template to create new component instances using Vue.
      *
      * @const {Object} vueCompTmpl
-     * @memberOf Fl32_Bwl_Front_Door_Pub_Route_History
+     * @memberOf Fl32_Bwl_Front_Door_Pub_Widget_History_Grid
      */
     return {
         teq: {package: DEF.SHARED.NAME},
         name: NS,
         template,
-        components: {editHistory},
         data() {
             return {
                 columns: [],
-                dateCurrent: new Date(),
-                dialogDisplay: false,
-                weightCurrent: 0,
             };
         },
         methods: {
@@ -133,22 +117,6 @@ function Factory(spec) {
                     this.rows = prepareItems(res.items);
                 }
             },
-            async onEditHistoryRemove(date) {
-                const req = routeRemove.createReq();
-                req.date = date;
-                const res = await gate.send(req, routeRemove);
-                if (res) await this.loadHistory();
-            },
-            async onEditHistorySubmit(date, weight) {
-                this.dateCurrent = date;
-                this.weightCurrent = weight;
-                const req = routeSave.createReq();
-                req.type = TYPES.CURRENT;
-                req.date = date;
-                req.weight = weight;
-                const res = await gate.send(req, routeSave);
-                if (res) await this.loadHistory();
-            },
             onRowClick(evt, row) {
                 const dateStr = row[ID];
                 this.dateCurrent = new Date(`${dateStr}Z`); // add 'Z' to use as UTC
@@ -157,38 +125,28 @@ function Factory(spec) {
             }
         },
         async mounted() {
-            // PARSE INPUT & DEFINE WORKING VARS
-            const me = this;
-
-            // DEFINE INNER FUNCTIONS
-            /**
-             * Reset Top Actions on component re-mount.
-             */
-            function addTopActions() {
-                const actAdd = new Action();
-                actAdd.icon = 'add';
-                actAdd.action = function () {
-                    me.dialogDisplay = true;
-                };
-                topActions.setActions([actAdd]);
-            }
-
-
-            // MAIN FUNCTIONALITY
             if (await session.checkUserAuthenticated(this.$router)) {
+                // setup columns
                 this.columns = [
                     {name: DATE, label: this.$t('route.history.date'), field: DATE, align: 'center'},
                     {name: WEIGHT, label: this.$t('route.history.weight'), field: WEIGHT, align: 'right'},
                     {name: DELTA, label: this.$t('route.history.delta'), field: DELTA, align: 'right',},
                     {name: PERCENT, label: this.$t('route.history.percent'), field: PERCENT, align: 'right',},
                 ];
-                addTopActions();
+                // setup profile usage
+                const watch = VueLib.getVue().watch;
+                watch(modProfile.getWeightType(), (current, old) => {
+                    this.loadHistory();
+                });
+                //
                 await dsWeights.loadFromServer(true);
                 this.weightCurrent = dsWeights.getCurrent();
                 await this.loadHistory();
             }
         },
         setup() {
+            // setup grid related vars
+            const ref = VueLib.getVue().ref;
             const loading = ref(false);
             const rows = ref([]);
             return {
@@ -209,8 +167,6 @@ function Factory(spec) {
     };
 }
 
-// MODULE'S FUNCTIONALITY
-Object.defineProperty(Factory, 'name', {value: `${NS}.${Factory.constructor.name}`});
+// finalize code components for this es6-module
+Object.defineProperty(Factory, 'name', {value: `${NS}.${Factory.name}`});
 
-// MODULE'S EXPORT
-export default Factory;

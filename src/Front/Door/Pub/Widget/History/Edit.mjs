@@ -1,10 +1,10 @@
 /**
  * Widget to edit date and weight in History route.
  *
- * @namespace Fl32_Bwl_Front_Widget_Edit_History
+ * @namespace Fl32_Bwl_Front_Door_Pub_Widget_History_Edit
  */
 // MODULE'S VARS
-const NS = 'Fl32_Bwl_Front_Widget_Edit_History';
+const NS = 'Fl32_Bwl_Front_Door_Pub_Widget_History_Edit';
 const EVT_DELETE = 'onDelete';
 const EVT_HIDE = 'onHide';
 const EVT_SUBMIT = 'onSubmit';
@@ -51,7 +51,7 @@ const template = `
 
 // DEFINE MODULE'S FUNCTIONS
 /**
- * @memberOf Fl32_Bwl_Front_Widget_Edit_History
+ * @memberOf Fl32_Bwl_Front_Door_Pub_Widget_History_Edit
  */
 function Factory(spec) {
     /** @type {Fl32_Bwl_Front_Defaults} */
@@ -68,7 +68,7 @@ function Factory(spec) {
      * Template to create new instances using Vue.
      *
      * @const {Object} vueCompTmpl
-     * @memberOf Fl32_Bwl_Front_Widget_Edit_History
+     * @memberOf Fl32_Bwl_Front_Door_Pub_Widget_History_Edit
      */
     return {
         teq: {package: DEF.SHARED.NAME},

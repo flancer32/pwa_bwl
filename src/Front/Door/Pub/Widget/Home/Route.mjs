@@ -1,10 +1,10 @@
 /**
- * Home route.
+ * 'Home' route.
  *
- * @namespace Fl32_Bwl_Front_Door_Pub_Route_Home
+ * @namespace Fl32_Bwl_Front_Door_Pub_Widget_Home_Route
  */
 // MODULE'S VARS
-const NS = 'Fl32_Bwl_Front_Door_Pub_Route_Home';
+const NS = 'Fl32_Bwl_Front_Door_Pub_Widget_Home_Route';
 const PERIOD_ALL = 'all';
 const PERIOD_MONTH_1 = 'm1';
 const PERIOD_MONTH_2 = 'm2';
@@ -17,8 +17,8 @@ const I18N_PERIOD = 'opts.period';
 /**
  * Factory to create template for new Vue component instances.
  *
- * @memberOf Fl32_Bwl_Front_Door_Pub_Route_Home
- * @returns {Fl32_Bwl_Front_Door_Pub_Route_Home.vueCompTmpl}
+ * @memberOf Fl32_Bwl_Front_Door_Pub_Widget_Home_Route
+ * @returns {Fl32_Bwl_Front_Door_Pub_Widget_Home_Route.vueCompTmpl}
  */
 function Factory(spec) {
     // EXTRACT DEPS
@@ -50,12 +50,14 @@ function Factory(spec) {
     const modProfileHome = spec['Fl32_Bwl_Front_Model_Profile_Home$'];
     /** @type {Fl32_Bwl_Front_Struct_Options_Period} */
     const optionsPeriod = spec['Fl32_Bwl_Front_Struct_Options_Period$'];
+    /** @type {typeof Fl32_Bwl_Shared_Enum_Weight_Type} */
+    const EnumWeightType = spec['Fl32_Bwl_Shared_Enum_Weight_Type$'];
 
     // DEFINE WORKING VARS
-    /** @type {Fl32_Bwl_Front_Widget_Edit_Weight.vueCompTmpl.TYPES} */
+    /** @type {typeof Fl32_Bwl_Front_Widget_Edit_Weight.vueCompTmpl.TYPES} */
     const TYPES = editWeight.TYPES;
     const template = `
-<div class="t-grid app-home">
+<q-page class="t-grid app-home">
     <div class="t-grid cols gutter-xs">
         <q-input
                 :label="$t('route.home.current')"
@@ -99,7 +101,7 @@ function Factory(spec) {
         @onHide="dialogDisplay=false"
         @onSubmit="editWeightSubmit"
     ></edit-weight>
-</div>
+</q-page>
 `;
 
     // COMPOSE RESULT
@@ -107,7 +109,7 @@ function Factory(spec) {
      * Template to create new component instances using Vue.
      *
      * @const {Object} vueCompTmpl
-     * @memberOf Fl32_Bwl_Front_Door_Pub_Route_Home
+     * @memberOf Fl32_Bwl_Front_Door_Pub_Widget_Home_Route
      */
     return {
         teq: {package: DEF.SHARED.NAME},
@@ -149,11 +151,12 @@ function Factory(spec) {
                 this.weightType = TYPES.TARGET;
                 this.weightEdit = this.target;
             },
-            async loadChartData() {
+            async loadChartData(type) {
                 const req = routeHistory.createReq();
                 req.dateFrom = this.dateFrom;
                 req.dateTo = this.dateTo;
                 req.friendId = this.dataSet?.value;
+                req.type = type;
                 // noinspection JSValidateTypes
                 /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_List.Response} */
                 const res = await gate.send(req, routeHistory);

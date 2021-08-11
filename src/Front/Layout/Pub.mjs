@@ -24,14 +24,10 @@ function Factory(spec) {
     /** @type {Fl32_Bwl_Front_Model_Lang} */
     const modLang = spec['Fl32_Bwl_Front_Model_Lang$'];
 
-    /** @type {TeqFw_Vue_Front_Lib} */
-    const VueLib = spec['TeqFw_Vue_Front_Lib$'];
-    const {ref} = VueLib.getVue();
-
     // DEFINE WORKING VARS
     const template = `
 <q-layout view="hHh lpr fFf" :key="langSwitcher">
-    <q-header reveal elevated glossy class="bg-primary text-white">
+    <q-header elevated glossy class="bg-primary text-white">
         <q-bar>
           <ajax-led/>
           <q-space></q-space>
@@ -71,25 +67,6 @@ function Factory(spec) {
             langSwitcher() {
                 return modLang.getData().value;
             }
-        },
-        setup() {
-            const leftDrawerOpen = ref(false);
-            const rightDrawerOpen = ref(false);
-
-            return {
-                leftDrawerOpen,
-                toggleLeftDrawer() {
-                    leftDrawerOpen.value = !leftDrawerOpen.value;
-                },
-
-                rightDrawerOpen,
-                toggleRightDrawer() {
-                    rightDrawerOpen.value = !rightDrawerOpen.value;
-                },
-                onTopRightClick() {
-                    console.log('clicked!');
-                },
-            };
         }
     };
 }

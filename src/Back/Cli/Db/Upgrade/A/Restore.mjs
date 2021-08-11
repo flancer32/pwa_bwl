@@ -19,9 +19,9 @@ const NS = 'Fl32_Bwl_Back_Cli_Db_Upgrade_A_Restore';
 function Factory(spec) {
     // PARSE INPUT & DEFINE WORKING VARS
     /** @type {TeqFw_Core_Back_RDb_Connector} */
-    const connector = spec['TeqFw_Core_Back_RDb_Connector$']; 
+    const connector = spec['TeqFw_Core_Back_RDb_Connector$'];
     /** @type {TeqFw_Core_Shared_Logger} */
-    const logger = spec['TeqFw_Core_Shared_Logger$'];  
+    const logger = spec['TeqFw_Core_Shared_Logger$'];
     /** @type {Function|TeqFw_Core_Back_Util_RDb.serialsSet} */
     const serialsSet = spec['TeqFw_Core_Back_Util_RDb#serialsSet']; // function
     /** @type {Function|TeqFw_Core_Back_Util_RDb.isPostgres} */
@@ -29,31 +29,31 @@ function Factory(spec) {
     /** @type {Function|TeqFw_Core_Back_Util_RDb.itemsInsert} */
     const itemsInsert = spec['TeqFw_Core_Back_Util_RDb#itemsInsert']; // function
     /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Friend} */
-    const EAppFriend = spec['Fl32_Bwl_Back_Store_RDb_Schema_Friend#']; 
+    const EAppFriend = spec['Fl32_Bwl_Back_Store_RDb_Schema_Friend#'];
     /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Friend_Link} */
-    const EAppFriendLink = spec['Fl32_Bwl_Back_Store_RDb_Schema_Friend_Link#']; 
+    const EAppFriendLink = spec['Fl32_Bwl_Back_Store_RDb_Schema_Friend_Link#'];
     /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Profile} */
-    const EAppProfile = spec['Fl32_Bwl_Back_Store_RDb_Schema_Profile#']; 
+    const EAppProfile = spec['Fl32_Bwl_Back_Store_RDb_Schema_Profile#'];
     /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Sign_In} */
-    const EAppSignIn = spec['Fl32_Bwl_Back_Store_RDb_Schema_Sign_In#']; 
+    const EAppSignIn = spec['Fl32_Bwl_Back_Store_RDb_Schema_Sign_In#'];
     /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat} */
-    const EAppWeightStat = spec['Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat#']; 
+    const EAppWeightStat = spec['Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat#'];
     /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_User} */
-    const EUser = spec['Fl32_Teq_User_Store_RDb_Schema_User#']; 
+    const EUser = spec['Fl32_Teq_User_Store_RDb_Schema_User#'];
     /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Auth_Password} */
-    const EUserAuthPass = spec['Fl32_Teq_User_Store_RDb_Schema_Auth_Password#']; 
+    const EUserAuthPass = spec['Fl32_Teq_User_Store_RDb_Schema_Auth_Password#'];
     /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Auth_Session} */
-    const EUserAuthSess = spec['Fl32_Teq_User_Store_RDb_Schema_Auth_Session#']; 
+    const EUserAuthSess = spec['Fl32_Teq_User_Store_RDb_Schema_Auth_Session#'];
     /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Id_Email} */
-    const EUserIdEmail = spec['Fl32_Teq_User_Store_RDb_Schema_Id_Email#']; 
+    const EUserIdEmail = spec['Fl32_Teq_User_Store_RDb_Schema_Id_Email#'];
     /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Id_Phone} */
-    const EUserIdPhone = spec['Fl32_Teq_User_Store_RDb_Schema_Id_Phone#']; 
+    const EUserIdPhone = spec['Fl32_Teq_User_Store_RDb_Schema_Id_Phone#'];
     /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Profile} */
-    const EUserProfile = spec['Fl32_Teq_User_Store_RDb_Schema_Profile#']; 
+    const EUserProfile = spec['Fl32_Teq_User_Store_RDb_Schema_Profile#'];
     /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Ref_Link} */
-    const EUserRefLink = spec['Fl32_Teq_User_Store_RDb_Schema_Ref_Link#']; 
+    const EUserRefLink = spec['Fl32_Teq_User_Store_RDb_Schema_Ref_Link#'];
     /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Ref_Tree} */
-    const EUserRefTree = spec['Fl32_Teq_User_Store_RDb_Schema_Ref_Tree#']; 
+    const EUserRefTree = spec['Fl32_Teq_User_Store_RDb_Schema_Ref_Tree#'];
 
 
     // DEFINE INNER FUNCTIONS
@@ -64,6 +64,52 @@ function Factory(spec) {
      * @memberOf Fl32_Bwl_Back_Cli_Db_Upgrade_A_Restore
      */
     async function action(dump) {
+        // DEFINE INNER FUNCTIONS
+        /**
+         * Insert values except target weight.
+         *
+         * @param trx
+         * @param dump
+         * @return {Promise<void>}
+         */
+        async function itemsInsertProfile(trx, dump) {
+            const entity = EAppProfile.ENTITY;
+            if (Array.isArray(dump[entity]) && dump[entity].length > 0) {
+                const updated = JSON.parse(JSON.stringify(dump[entity]));
+                for (const one of updated)
+                    delete one[EAppProfile.A_WEIGHT_TARGET];
+                await trx(entity).insert(dump[entity]);
+            }
+        }
+
+        /**
+         * Insert current weight stats then insert target weight stats.
+         *
+         * @param trx
+         * @param dump
+         * @return {Promise<void>}
+         */
+        async function itemsInsertWeightStat(trx, dump) {
+            const entity = EAppWeightStat.ENTITY;
+            if (Array.isArray(dump[entity]) && dump[entity].length > 0) {
+                await trx(entity).insert(dump[entity]);
+            }
+            /** @type {Fl32_Bwl_Back_Store_RDb_Schema_Profile[]} */
+            const items = dump[EAppProfile.ENTITY];
+            const updates = [];
+            for (const one of items) {
+                const rec = new EAppWeightStat();
+                rec.date = one.date_updated;
+                rec.type = EAppWeightStat.DATA_TYPE_TARGET;
+                rec.value = one.weight_target;
+                rec.user_ref = one.user_ref;
+                updates.push(rec);
+            }
+            if (updates.length > 0)
+                await trx(EAppWeightStat.ENTITY).insert(updates);
+        }
+
+        // MAIN FUNCTIONALITY
         const trx = await connector.startTransaction();
         try {
             // user
@@ -78,9 +124,11 @@ function Factory(spec) {
             // app
             await itemsInsert(trx, dump, EAppFriend.ENTITY);
             await itemsInsert(trx, dump, EAppFriendLink.ENTITY);
-            await itemsInsert(trx, dump, EAppProfile.ENTITY);
+            // await itemsInsert(trx, dump, EAppProfile.ENTITY);
+            await itemsInsertProfile(trx, dump);
             await itemsInsert(trx, dump, EAppSignIn.ENTITY);
-            await itemsInsert(trx, dump, EAppWeightStat.ENTITY);
+            // await itemsInsert(trx, dump, EAppWeightStat.ENTITY);
+            await itemsInsertWeightStat(trx, dump);
             // serials for Postgres
             const isPg = isPostgres(trx.client);
             if (isPg && dump.serials) {

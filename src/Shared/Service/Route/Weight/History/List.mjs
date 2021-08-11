@@ -19,6 +19,8 @@ class Request {
     friendId;
     /** @type {string} 'asc' or 'desc'*/
     order;
+    /** @type {Fl32_Bwl_Shared_Enum_Weight_Type} */
+    type;
 }
 
 /**

@@ -37,7 +37,7 @@ export default class Fl32_Bwl_Back_Service_Profile_Get {
         this.getService = function () {
             // DEFINE INNER FUNCTIONS
             /**
-             * @param {TeqFw_Web_Back_Api_Service_IContext} context
+             * @param {TeqFw_Web_Back_Api_Service_Context} context
              * @return Promise<void>
              */
             async function service(context) {
@@ -57,7 +57,6 @@ export default class Fl32_Bwl_Back_Service_Profile_Get {
                         [DProfile.HEIGHT]: EProfile.A_HEIGHT,
                         [DProfile.IS_FEMALE]: EProfile.A_IS_FEMALE,
                         [DProfile.USER_ID]: EProfile.A_USER_REF,
-                        [DProfile.WEIGHT_TARGET]: EProfile.A_WEIGHT_TARGET,
                     });
                     query.where(EProfile.A_USER_REF, userId);
                     /** @type {Array} */
@@ -69,11 +68,19 @@ export default class Fl32_Bwl_Back_Service_Profile_Get {
                     return result;
                 }
 
-                async function selectCurrentWeight(trx, userId) {
+                /**
+                 * Get the last current/target weight from stats.
+                 * @param trx
+                 * @param userId
+                 * @param type
+                 * @return {Promise<number>}
+                 */
+                async function selectCurrentWeight(trx, userId, type) {
                     let result = 0;
                     const query = trx.from(EWeightStat.ENTITY);
                     query.select();
                     query.where(EWeightStat.A_USER_REF, userId);
+                    query.where(EWeightStat.A_TYPE, type);
                     query.orderBy(EWeightStat.A_DATE, 'desc');
                     query.limit(1);
                     /** @type {Array} */
@@ -98,7 +105,8 @@ export default class Fl32_Bwl_Back_Service_Profile_Get {
                     const user = shared[DEF.MOD_USER.HTTP_SHARE_CTX_USER];
                     if (user) {
                         res.profile = await selectProfile(trx, user.id);
-                        res.profile.weightCurrent = await selectCurrentWeight(trx, user.id);
+                        res.profile.weightCurrent = await selectCurrentWeight(trx, user.id, EWeightStat.DATA_TYPE_CURRENT);
+                        res.profile.weightTarget = await selectCurrentWeight(trx, user.id, EWeightStat.DATA_TYPE_TARGET);
                     } else {
                         context.setOutHeader(DEF.MOD_WEB.HTTP_HEADER_STATUS, H2.HTTP_STATUS_UNAUTHORIZED);
                     }

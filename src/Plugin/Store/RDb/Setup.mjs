@@ -3,17 +3,17 @@ export default class Fl32_Bwl_Plugin_Store_RDb_Setup {
         /** @function {@type TeqFw_Core_Back_Util_RDb.nameFK} */
         const nameFK = spec['TeqFw_Core_Back_Util_RDb#nameFK'];
         /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Friend} */
-        const EFriend = spec['Fl32_Bwl_Back_Store_RDb_Schema_Friend#']; 
+        const EFriend = spec['Fl32_Bwl_Back_Store_RDb_Schema_Friend#'];
         /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Friend_Link} */
-        const EFriendLink = spec['Fl32_Bwl_Back_Store_RDb_Schema_Friend_Link#']; 
+        const EFriendLink = spec['Fl32_Bwl_Back_Store_RDb_Schema_Friend_Link#'];
         /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Profile} */
-        const EProfile = spec['Fl32_Bwl_Back_Store_RDb_Schema_Profile#']; 
+        const EProfile = spec['Fl32_Bwl_Back_Store_RDb_Schema_Profile#'];
         /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Sign_In} */
-        const ESignIn = spec['Fl32_Bwl_Back_Store_RDb_Schema_Sign_In#']; 
+        const ESignIn = spec['Fl32_Bwl_Back_Store_RDb_Schema_Sign_In#'];
         /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_User} */
-        const EUser = spec['Fl32_Teq_User_Store_RDb_Schema_User#']; 
+        const EUser = spec['Fl32_Teq_User_Store_RDb_Schema_User#'];
         /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat} */
-        const EWeightStat = spec['Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat#']; 
+        const EWeightStat = spec['Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat#'];
         /**
          * TODO: tables drop should be ordered according to relations between tables (DEM).
          * For the moment I use levels for drop: N, ..., 2, 1, 0.
@@ -96,8 +96,6 @@ export default class Fl32_Bwl_Plugin_Store_RDb_Setup {
                         .comment('true - for women (XX).');
                     table.integer(EProfile.A_HEIGHT).unsigned().notNullable()
                         .comment('Height in cm.');
-                    table.decimal(EProfile.A_WEIGHT_TARGET, 4, 1)
-                        .comment('Target weight.');
                     table.foreign(EProfile.A_USER_REF).references(EUser.A_ID).inTable(EUser.ENTITY)
                         .onDelete('CASCADE').onUpdate('CASCADE')
                         .withKeyName(nameFK(EProfile.ENTITY, EProfile.A_USER_REF, EUser.ENTITY, EUser.A_ID));
@@ -132,9 +130,14 @@ export default class Fl32_Bwl_Plugin_Store_RDb_Setup {
                     table.integer(EWeightStat.A_USER_REF).unsigned().notNullable();
                     table.date(EWeightStat.A_DATE).notNullable().defaultTo(knex.fn.now())
                         .comment('Date-time for the value.');
+                    table.enum(EWeightStat.A_TYPE, [
+                        EWeightStat.DATA_TYPE_CURRENT,
+                        EWeightStat.DATA_TYPE_TARGET]
+                    ).notNullable().defaultTo(EWeightStat.DATA_TYPE_CURRENT)
+                        .comment('Weight type: current or target');
                     table.decimal(EWeightStat.A_VALUE, 4, 1).notNullable()
                         .comment('Statistical value for the weight in kg: 75.4.');
-                    table.primary([EWeightStat.A_USER_REF, EWeightStat.A_DATE]);
+                    table.primary([EWeightStat.A_USER_REF, EWeightStat.A_DATE, EWeightStat.A_TYPE]);
                     table.foreign(EWeightStat.A_USER_REF).references(EUser.A_ID).inTable(EUser.ENTITY)
                         .onDelete('CASCADE').onUpdate('CASCADE')
                         .withKeyName(nameFK(EWeightStat.ENTITY, EWeightStat.A_USER_REF, EUser.ENTITY, EUser.A_ID));

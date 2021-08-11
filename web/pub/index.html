@@ -18,7 +18,8 @@
              * @returns {Promise<TeqFw_Di_Shared_Container>}
              */
             async function initDiContainer() {
-                const baseUrl = `${location.origin}/${location.pathname}`;
+                const urlWithPath = `${location.origin}${location.pathname}`;
+                const baseUrl = urlWithPath.endsWith('/') ? urlWithPath.slice(0, -1) : urlWithPath;
                 // create and setup DI Container
                 const modContainer = await import('./src/@teqfw/di/Shared/Container.mjs');
                 /** @type {TeqFw_Di_Shared_Container} */

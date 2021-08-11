@@ -1,7 +1,7 @@
 /**
  *  Friendships registry.
  */
-class Fl32_Bwl_Back_Store_RDb_Schema_Friend {
+export default class Fl32_Bwl_Back_Store_RDb_Schema_Friend {
     /** @type {Date} */
     date_started;
     /**
@@ -24,6 +24,3 @@ Fl32_Bwl_Back_Store_RDb_Schema_Friend.ENTITY = 'app_friend';
 
 // freeze class to deny attributes changes
 Object.freeze(Fl32_Bwl_Back_Store_RDb_Schema_Friend);
-
-// MODULE'S EXPORT
-export default Fl32_Bwl_Back_Store_RDb_Schema_Friend;

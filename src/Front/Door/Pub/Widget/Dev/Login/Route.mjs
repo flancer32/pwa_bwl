@@ -1,59 +1,48 @@
 /**
  * Route widget for developer's sign in.
  *
- * @namespace Fl32_Bwl_Front_Door_Pub_Route_Dev_Login
+ * @namespace Fl32_Bwl_Front_Door_Pub_Widget_Dev_Login_Route
  */
 // MODULE'S VARS
-const NS = 'Fl32_Bwl_Front_Door_Pub_Route_Dev_Login';
-
-// MODULE'S CLASSES
+const NS = 'Fl32_Bwl_Front_Door_Pub_Widget_Dev_Login_Route';
 
 // MODULE'S FUNCTIONS
 /**
  * Factory to create template for new Vue component instances.
  *
- * @memberOf Fl32_Bwl_Front_Door_Pub_Route_Dev_Login
- * @returns {Fl32_Bwl_Front_Door_Pub_Route_Dev_Login.vueCompTmpl}
+ * @memberOf Fl32_Bwl_Front_Door_Pub_Widget_Dev_Login_Route
+ * @returns {Fl32_Bwl_Front_Door_Pub_Widget_Dev_Login_Route.vueCompTmpl}
  */
-function Factory(spec) {
+export default function Factory(spec) {
     // EXTRACT DEPS
     /** @type {Fl32_Teq_User_Front_Model_Session} */
-    const session = spec['Fl32_Teq_User_Front_Model_Session$']; 
+    const session = spec['Fl32_Teq_User_Front_Model_Session$'];
     /** @type {Fl32_Bwl_Front_Layout_Centered} */
-    const layoutCentered = spec['Fl32_Bwl_Front_Layout_Centered$'];    // vue comp tmpl
+    const layoutCentered = spec['Fl32_Bwl_Front_Layout_Centered$'];
     /** @type {Fl32_Teq_User_Front_Widget_SignIn} */
-    const userSignIn = spec['Fl32_Teq_User_Front_Widget_SignIn$'];  // vue comp tmpl
+    const userSignIn = spec['Fl32_Teq_User_Front_Widget_SignIn$'];
     /** @type {typeof Fl32_Teq_User_Front_Widget_SignIn_Props} */
-    const SignInProps = spec['Fl32_Teq_User_Front_Widget_SignIn#Props'];  
+    const SignInProps = spec['Fl32_Teq_User_Front_Widget_SignIn#Props'];
 
     // DEFINE WORKING VARS
     const template = `
 <layout-centered>
-    <div style="display: grid; gap: calc(var(--grid-gap)*5); justify-items: center;">
+    <div class="t-grid gutter-lg text-center">
         <div>Authentication</div>
         <user-sign-in
                 :data="signIn"
                 @onSuccess="onSuccess($event)"
                 @onFailure="onFailure($event)"
         ></user-sign-in>
-<!--        <div style="display: grid; gap: var(&#45;&#45;grid-gap); grid-auto-flow: column;" >-->
-<!--            <q-btn to="/password/restore" label="Restore Password" size="xs" />-->
-<!--            <q-btn to="/sign/up" label="Sign Up" size="xs" />        -->
-<!--        </div>    -->
     </div>
 </layout-centered>
 `;
-
-    // DEFINE INNER FUNCTIONS
-
-    // MAIN FUNCTIONALITY
-
     // COMPOSE RESULT
     /**
      * Template to create new component instances using Vue.
      *
      * @const {Object} vueCompTmpl
-     * @memberOf Fl32_Bwl_Front_Door_Pub_Route_Dev_Login
+     * @memberOf Fl32_Bwl_Front_Door_Pub_Widget_Dev_Login_Route
      */
     return {
         name: NS,
@@ -75,6 +64,5 @@ function Factory(spec) {
     };
 }
 
-// MODULE'S EXPORT
-Object.defineProperty(Factory, 'name', {value: `${NS}.${Factory.constructor.name}`});
-export default Factory;
+// finalize code components for this es6-module
+Object.defineProperty(Factory, 'name', {value: `${NS}.${Factory.name}`});

@@ -1,7 +1,7 @@
 /**
  *  'app_sign_in' entity: registry for one-time sign in codes with limited life time.
  */
-class Fl32_Bwl_Back_Store_RDb_Schema_Sign_In {
+export default class Fl32_Bwl_Back_Store_RDb_Schema_Sign_In {
     code;
     date_expired;
     user_ref;
@@ -15,6 +15,3 @@ Fl32_Bwl_Back_Store_RDb_Schema_Sign_In.ENTITY = 'app_sign_in';
 
 // freeze class to deny attributes changes
 Object.freeze(Fl32_Bwl_Back_Store_RDb_Schema_Sign_In);
-
-// MODULE'S EXPORT
-export default Fl32_Bwl_Back_Store_RDb_Schema_Sign_In;

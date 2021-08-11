@@ -73,13 +73,11 @@ function Factory(spec) {
                     [EAppProfile.A_AGE]: 48,
                     [EAppProfile.A_HEIGHT]: 175,
                     [EAppProfile.A_IS_FEMALE]: false,
-                    [EAppProfile.A_WEIGHT_TARGET]: 90,
                 }, {
                     [EAppProfile.A_USER_REF]: DEF.DATA_USER_ID_CUST,
                     [EAppProfile.A_AGE]: 47,
                     [EAppProfile.A_HEIGHT]: 165,
                     [EAppProfile.A_IS_FEMALE]: true,
-                    [EAppProfile.A_WEIGHT_TARGET]: 58,
                 }]);
             }
 
@@ -152,214 +150,271 @@ function Factory(spec) {
                 await trx(EAppWeightStat.ENTITY).insert([{
                     [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
                     [EAppWeightStat.A_DATE]: '2020-07-01',
+                    [EAppWeightStat.A_TYPE]: EAppWeightStat.DATA_TYPE_CURRENT,
                     [EAppWeightStat.A_VALUE]: 92.3,
                 }, {
                     [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
                     [EAppWeightStat.A_DATE]: '2020-07-02',
+                    [EAppWeightStat.A_TYPE]: EAppWeightStat.DATA_TYPE_CURRENT,
                     [EAppWeightStat.A_VALUE]: 91.5,
                 }, {
                     [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
                     [EAppWeightStat.A_DATE]: '2020-07-03',
+                    [EAppWeightStat.A_TYPE]: EAppWeightStat.DATA_TYPE_CURRENT,
                     [EAppWeightStat.A_VALUE]: 92.2,
                 }, {
                     [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
                     [EAppWeightStat.A_DATE]: '2020-07-04',
+                    [EAppWeightStat.A_TYPE]: EAppWeightStat.DATA_TYPE_CURRENT,
                     [EAppWeightStat.A_VALUE]: 92.0,
                 }, {
                     [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
                     [EAppWeightStat.A_DATE]: '2020-07-06',
+                    [EAppWeightStat.A_TYPE]: EAppWeightStat.DATA_TYPE_CURRENT,
                     [EAppWeightStat.A_VALUE]: 92.3,
                 }, {
                     [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
                     [EAppWeightStat.A_DATE]: '2020-07-07',
+                    [EAppWeightStat.A_TYPE]: EAppWeightStat.DATA_TYPE_CURRENT,
                     [EAppWeightStat.A_VALUE]: 91.8,
                 }, {
                     [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
                     [EAppWeightStat.A_DATE]: '2020-07-09',
+                    [EAppWeightStat.A_TYPE]: EAppWeightStat.DATA_TYPE_CURRENT,
                     [EAppWeightStat.A_VALUE]: 90.9,
                 }, {
                     [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
                     [EAppWeightStat.A_DATE]: '2020-07-12',
+                    [EAppWeightStat.A_TYPE]: EAppWeightStat.DATA_TYPE_CURRENT,
                     [EAppWeightStat.A_VALUE]: 92.0,
                 }, {
                     [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
                     [EAppWeightStat.A_DATE]: '2020-07-13',
+                    [EAppWeightStat.A_TYPE]: EAppWeightStat.DATA_TYPE_CURRENT,
                     [EAppWeightStat.A_VALUE]: 91.4,
                 }, {
                     [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
                     [EAppWeightStat.A_DATE]: '2020-07-14',
+                    [EAppWeightStat.A_TYPE]: EAppWeightStat.DATA_TYPE_CURRENT,
                     [EAppWeightStat.A_VALUE]: 91.7,
                 }, {
                     [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
                     [EAppWeightStat.A_DATE]: '2020-07-15',
+                    [EAppWeightStat.A_TYPE]: EAppWeightStat.DATA_TYPE_CURRENT,
                     [EAppWeightStat.A_VALUE]: 91.4,
                 }, {
                     [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
                     [EAppWeightStat.A_DATE]: '2020-07-23',
+                    [EAppWeightStat.A_TYPE]: EAppWeightStat.DATA_TYPE_CURRENT,
                     [EAppWeightStat.A_VALUE]: 91.5,
                 }, {
                     [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
                     [EAppWeightStat.A_DATE]: '2020-07-28',
+                    [EAppWeightStat.A_TYPE]: EAppWeightStat.DATA_TYPE_CURRENT,
                     [EAppWeightStat.A_VALUE]: 91.1,
                 }, {
                     [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
                     [EAppWeightStat.A_DATE]: '2020-08-03',
+                    [EAppWeightStat.A_TYPE]: EAppWeightStat.DATA_TYPE_CURRENT,
                     [EAppWeightStat.A_VALUE]: 91.3,
                 }, {
                     [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
                     [EAppWeightStat.A_DATE]: '2020-08-05',
+                    [EAppWeightStat.A_TYPE]: EAppWeightStat.DATA_TYPE_CURRENT,
                     [EAppWeightStat.A_VALUE]: 92.1,
                 }, {
                     [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
                     [EAppWeightStat.A_DATE]: '2020-08-06',
+                    [EAppWeightStat.A_TYPE]: EAppWeightStat.DATA_TYPE_CURRENT,
                     [EAppWeightStat.A_VALUE]: 92.1,
                 }, {
                     [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
                     [EAppWeightStat.A_DATE]: '2020-08-10',
+                    [EAppWeightStat.A_TYPE]: EAppWeightStat.DATA_TYPE_CURRENT,
                     [EAppWeightStat.A_VALUE]: 92.1,
                 }, {
                     [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
                     [EAppWeightStat.A_DATE]: '2020-08-11',
+                    [EAppWeightStat.A_TYPE]: EAppWeightStat.DATA_TYPE_CURRENT,
                     [EAppWeightStat.A_VALUE]: 91.8,
                 }, {
                     [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
                     [EAppWeightStat.A_DATE]: '2020-08-12',
+                    [EAppWeightStat.A_TYPE]: EAppWeightStat.DATA_TYPE_CURRENT,
                     [EAppWeightStat.A_VALUE]: 92.6,
                 }, {
                     [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
                     [EAppWeightStat.A_DATE]: '2020-08-18',
+                    [EAppWeightStat.A_TYPE]: EAppWeightStat.DATA_TYPE_CURRENT,
                     [EAppWeightStat.A_VALUE]: 93.2,
                 }, {
                     [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
                     [EAppWeightStat.A_DATE]: '2020-08-22',
+                    [EAppWeightStat.A_TYPE]: EAppWeightStat.DATA_TYPE_CURRENT,
                     [EAppWeightStat.A_VALUE]: 91.7,
                 }, {
                     [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
                     [EAppWeightStat.A_DATE]: '2020-08-26',
+                    [EAppWeightStat.A_TYPE]: EAppWeightStat.DATA_TYPE_CURRENT,
                     [EAppWeightStat.A_VALUE]: 91.5,
                 }, {
                     [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
                     [EAppWeightStat.A_DATE]: '2020-08-27',
+                    [EAppWeightStat.A_TYPE]: EAppWeightStat.DATA_TYPE_CURRENT,
                     [EAppWeightStat.A_VALUE]: 91.3,
                 }, {
                     [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
                     [EAppWeightStat.A_DATE]: '2020-09-2',
+                    [EAppWeightStat.A_TYPE]: EAppWeightStat.DATA_TYPE_CURRENT,
                     [EAppWeightStat.A_VALUE]: 90.9,
                 }, {
                     [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
                     [EAppWeightStat.A_DATE]: '2020-09-09',
+                    [EAppWeightStat.A_TYPE]: EAppWeightStat.DATA_TYPE_CURRENT,
                     [EAppWeightStat.A_VALUE]: 90.9,
                 }, {
                     [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
                     [EAppWeightStat.A_DATE]: '2020-09-16',
+                    [EAppWeightStat.A_TYPE]: EAppWeightStat.DATA_TYPE_CURRENT,
                     [EAppWeightStat.A_VALUE]: 90.3,
                 }, {
                     [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
                     [EAppWeightStat.A_DATE]: '2020-09-23',
+                    [EAppWeightStat.A_TYPE]: EAppWeightStat.DATA_TYPE_CURRENT,
                     [EAppWeightStat.A_VALUE]: 89.8,
                 }, {
                     [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
                     [EAppWeightStat.A_DATE]: '2020-09-30',
+                    [EAppWeightStat.A_TYPE]: EAppWeightStat.DATA_TYPE_CURRENT,
                     [EAppWeightStat.A_VALUE]: 89.7,
                 }, {
                     [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
                     [EAppWeightStat.A_DATE]: '2020-10-07',
+                    [EAppWeightStat.A_TYPE]: EAppWeightStat.DATA_TYPE_CURRENT,
                     [EAppWeightStat.A_VALUE]: 89.6,
                 }, {
                     [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
                     [EAppWeightStat.A_DATE]: '2020-10-14',
+                    [EAppWeightStat.A_TYPE]: EAppWeightStat.DATA_TYPE_CURRENT,
                     [EAppWeightStat.A_VALUE]: 90.1,
                 }, {
                     [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
                     [EAppWeightStat.A_DATE]: '2020-10-21',
+                    [EAppWeightStat.A_TYPE]: EAppWeightStat.DATA_TYPE_CURRENT,
                     [EAppWeightStat.A_VALUE]: 91.0,
                 }, {
                     [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
                     [EAppWeightStat.A_DATE]: '2020-10-28',
+                    [EAppWeightStat.A_TYPE]: EAppWeightStat.DATA_TYPE_CURRENT,
                     [EAppWeightStat.A_VALUE]: 90.5,
                 }, {
                     [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
                     [EAppWeightStat.A_DATE]: '2020-11-04',
+                    [EAppWeightStat.A_TYPE]: EAppWeightStat.DATA_TYPE_CURRENT,
                     [EAppWeightStat.A_VALUE]: 90.5,
                 }, {
                     [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
                     [EAppWeightStat.A_DATE]: '2021-01-26',
+                    [EAppWeightStat.A_TYPE]: EAppWeightStat.DATA_TYPE_CURRENT,
                     [EAppWeightStat.A_VALUE]: 96.0,
                 }, {
                     [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
                     [EAppWeightStat.A_DATE]: '2021-01-30',
+                    [EAppWeightStat.A_TYPE]: EAppWeightStat.DATA_TYPE_CURRENT,
                     [EAppWeightStat.A_VALUE]: 94.4,
                 }, {
                     [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
                     [EAppWeightStat.A_DATE]: '2021-02-01',
+                    [EAppWeightStat.A_TYPE]: EAppWeightStat.DATA_TYPE_CURRENT,
                     [EAppWeightStat.A_VALUE]: 94.8,
                 }, {
                     [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
                     [EAppWeightStat.A_DATE]: '2021-02-10',
+                    [EAppWeightStat.A_TYPE]: EAppWeightStat.DATA_TYPE_CURRENT,
                     [EAppWeightStat.A_VALUE]: 94.5,
                 }, {
                     [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
                     [EAppWeightStat.A_DATE]: '2021-02-17',
+                    [EAppWeightStat.A_TYPE]: EAppWeightStat.DATA_TYPE_CURRENT,
                     [EAppWeightStat.A_VALUE]: 94.8,
                 }, {
                     [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
                     [EAppWeightStat.A_DATE]: '2021-02-21',
+                    [EAppWeightStat.A_TYPE]: EAppWeightStat.DATA_TYPE_CURRENT,
                     [EAppWeightStat.A_VALUE]: 95.6,
                 }, {
                     [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
                     [EAppWeightStat.A_DATE]: '2021-02-22',
+                    [EAppWeightStat.A_TYPE]: EAppWeightStat.DATA_TYPE_CURRENT,
                     [EAppWeightStat.A_VALUE]: 95.3,
                 }, {
                     [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
                     [EAppWeightStat.A_DATE]: '2021-02-23',
+                    [EAppWeightStat.A_TYPE]: EAppWeightStat.DATA_TYPE_CURRENT,
                     [EAppWeightStat.A_VALUE]: 95.1,
                 }, {
                     [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
                     [EAppWeightStat.A_DATE]: '2021-02-25',
+                    [EAppWeightStat.A_TYPE]: EAppWeightStat.DATA_TYPE_CURRENT,
                     [EAppWeightStat.A_VALUE]: 94.4,
                 }, {
                     [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
                     [EAppWeightStat.A_DATE]: '2021-03-02',
+                    [EAppWeightStat.A_TYPE]: EAppWeightStat.DATA_TYPE_CURRENT,
                     [EAppWeightStat.A_VALUE]: 94.6,
                 }, {
                     [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
                     [EAppWeightStat.A_DATE]: '2021-03-03',
+                    [EAppWeightStat.A_TYPE]: EAppWeightStat.DATA_TYPE_CURRENT,
                     [EAppWeightStat.A_VALUE]: 95,
+                }, {
+                    [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                    [EAppWeightStat.A_DATE]: '2020-07-01',
+                    [EAppWeightStat.A_TYPE]: EAppWeightStat.DATA_TYPE_TARGET,
+                    [EAppWeightStat.A_VALUE]: 90,
                 }]);
                 await trx(EAppWeightStat.ENTITY).insert([{
                     [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_CUST,
                     [EAppWeightStat.A_DATE]: '2021-02-03',
+                    [EAppWeightStat.A_TYPE]: EAppWeightStat.DATA_TYPE_CURRENT,
                     [EAppWeightStat.A_VALUE]: 61.7,
                 }, {
                     [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_CUST,
                     [EAppWeightStat.A_DATE]: '2021-02-10',
+                    [EAppWeightStat.A_TYPE]: EAppWeightStat.DATA_TYPE_CURRENT,
                     [EAppWeightStat.A_VALUE]: 61.4,
                 }, {
                     [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_CUST,
                     [EAppWeightStat.A_DATE]: '2021-02-17',
+                    [EAppWeightStat.A_TYPE]: EAppWeightStat.DATA_TYPE_CURRENT,
                     [EAppWeightStat.A_VALUE]: 61.7,
                 }, {
                     [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_CUST,
                     [EAppWeightStat.A_DATE]: '2021-02-24',
+                    [EAppWeightStat.A_TYPE]: EAppWeightStat.DATA_TYPE_CURRENT,
                     [EAppWeightStat.A_VALUE]: 62.5,
                 }, {
                     [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_CUST,
                     [EAppWeightStat.A_DATE]: '2021-03-03',
+                    [EAppWeightStat.A_TYPE]: EAppWeightStat.DATA_TYPE_CURRENT,
                     [EAppWeightStat.A_VALUE]: 61.3,
+                }, {
+                    [EAppWeightStat.A_USER_REF]: DEF.DATA_USER_ID_CUST,
+                    [EAppWeightStat.A_DATE]: '2021-02-03',
+                    [EAppWeightStat.A_TYPE]: EAppWeightStat.DATA_TYPE_TARGET,
+                    [EAppWeightStat.A_VALUE]: 58,
                 }]);
             }
 
             // MAIN FUNCTIONALITY
             await insertUsers(trx);
             await insertSessions(trx);
-            // await insertGroups(trx);
-            // await insertGroupUsers(trx);
             await insertProfiles(trx);
-            // await insertProfileGroupUsers(trx);
             await insertWeightStats(trx);
         }
 
         // MAIN FUNCTIONALITY
+        logger.pause(false);
         const trx = await connector.startTransaction();
         try {
             // recreate DB structure

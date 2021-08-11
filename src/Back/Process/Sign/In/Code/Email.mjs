@@ -31,7 +31,7 @@ function Factory(spec) {
      * @memberOf Fl32_Bwl_Back_Process_Sign_In_Code_Email
      */
     async function process({to, code}) {
-        const urlBase = config.get()?.local.web.urlBase;
+        const urlBase = config.getLocal()?.web.urlBase;
         const realm = DEF.SHARED.DOOR_PUB;
         const route = DEF.SHARED.DOOR_PUB_ROUTE_SIGN_IN_CODE_CHECK.replace(':code', code);
         const url = `https://${urlBase}/${realm}/#${route}`;

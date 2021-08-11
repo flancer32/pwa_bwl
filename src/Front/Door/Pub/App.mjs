@@ -77,7 +77,7 @@ export default class Fl32_Bwl_Front_Door_Pub_App {
                 // setup application routes
                 router.addRoute({
                     path: DEF.DOOR_PUB_ROUTE_DEV_LOGIN,
-                    component: () => container.get('Fl32_Bwl_Front_Door_Pub_Route_Dev_Login$')
+                    component: () => container.get('Fl32_Bwl_Front_Door_Pub_Widget_Dev_Login_Route$')
                 });
                 router.addRoute({
                     path: DEF.DOOR_PUB_ROUTE_FRIENDS,
@@ -90,11 +90,11 @@ export default class Fl32_Bwl_Front_Door_Pub_App {
                 });
                 router.addRoute({
                     path: DEF.DOOR_PUB_ROUTE_HISTORY,
-                    component: () => container.get('Fl32_Bwl_Front_Door_Pub_Route_History$')
+                    component: () => container.get('Fl32_Bwl_Front_Door_Pub_Widget_History_Route$')
                 });
                 router.addRoute({
                     path: DEF.DOOR_PUB_ROUTE_HOME,
-                    component: () => container.get('Fl32_Bwl_Front_Door_Pub_Route_Home$')
+                    component: () => container.get('Fl32_Bwl_Front_Door_Pub_Widget_Home_Route$')
                 });
                 router.addRoute({
                     path: DEF.DOOR_PUB_ROUTE_SETTINGS,

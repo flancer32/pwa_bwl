@@ -39,6 +39,7 @@ function Factory(spec) {
      * @memberOf Fl32_Bwl_Back_Cli_Db_Upgrade
      */
     const action = async function () {
+        logger.pause(false);
         // dump data
         const dump = await actDump();
         if (dump) {

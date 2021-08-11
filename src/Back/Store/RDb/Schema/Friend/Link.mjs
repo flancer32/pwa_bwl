@@ -1,7 +1,7 @@
 /**
  *  One-time links to setup friendship relations between users..
  */
-class Fl32_Bwl_Back_Store_RDb_Schema_Friend_Link {
+export default class Fl32_Bwl_Back_Store_RDb_Schema_Friend_Link {
     /** @type {String} */
     code;
     /** @type {Date} */
@@ -21,6 +21,3 @@ Fl32_Bwl_Back_Store_RDb_Schema_Friend_Link.ENTITY = 'app_friend_link';
 
 // freeze class to deny attributes changes
 Object.freeze(Fl32_Bwl_Back_Store_RDb_Schema_Friend_Link);
-
-// MODULE'S EXPORT
-export default Fl32_Bwl_Back_Store_RDb_Schema_Friend_Link;

@@ -20,7 +20,7 @@ export default class Fl32_Bwl_Back_Service_Sign_Up {
         const DEF = spec['Fl32_Bwl_Back_Defaults$'];
         /** @type {TeqFw_Core_Back_RDb_Connector} */
         const rdb = spec['TeqFw_Core_Back_RDb_Connector$'];
-        /** @type {TeqFw_Core_Shared_Util.formatUtcDateTime} */
+        /** @type {Function|TeqFw_Core_Shared_Util.formatUtcDateTime} */
         const formatUtcDateTime = spec['TeqFw_Core_Shared_Util#formatUtcDateTime'];
         /** @type {Function|TeqFw_Web_Back_Util.cookieCreate} */
         const cookieCreate = spec['TeqFw_Web_Back_Util#cookieCreate'];
@@ -55,19 +55,24 @@ export default class Fl32_Bwl_Back_Service_Sign_Up {
         this.getService = function () {
             // DEFINE INNER FUNCTIONS
             /**
-             * @param {TeqFw_Web_Back_Api_Service_IContext} context
+             * @param {TeqFw_Web_Back_Api_Service_Context} context
              * @return Promise<void>
              */
             async function service(context) {
                 // DEFINE INNER FUNCTIONS
 
+                /**
+                 * @param trx
+                 * @param {Fl32_Bwl_Shared_Service_Route_Sign_Up.Request} req
+                 * @param {number} userId
+                 * @return {Promise<void>}
+                 */
                 async function addProfile(trx, req, userId) {
                     const entity = new EProfile();
                     entity[EProfile.A_AGE] = req.age;
                     entity[EProfile.A_HEIGHT] = req.height;
                     entity[EProfile.A_IS_FEMALE] = req.isFemale;
                     entity[EProfile.A_USER_REF] = userId;
-                    entity[EProfile.A_WEIGHT_TARGET] = req.weight;
                     await procAppProfileSave({trx, input: entity});
                 }
 
@@ -86,8 +91,9 @@ export default class Fl32_Bwl_Back_Service_Sign_Up {
                     return await procCreate({trx, user});
                 }
 
-                async function addCurrentWeight(trx, userId, weight) {
+                async function addWeight(trx, userId, weight, type) {
                     const payload = new EWeightStat();
+                    payload[EWeightStat.A_TYPE] = type;
                     payload[EWeightStat.A_DATE] = formatUtcDateTime();
                     payload[EWeightStat.A_USER_REF] = userId;
                     payload[EWeightStat.A_VALUE] = weight;
@@ -133,7 +139,8 @@ export default class Fl32_Bwl_Back_Service_Sign_Up {
                         const parentId = linkData.user_ref;
                         const userId = await addUser(trx, req, parentId);
                         await addProfile(trx, req, userId);
-                        await addCurrentWeight(trx, userId, req.weight);
+                        await addWeight(trx, userId, req.weight, EWeightStat.DATA_TYPE_CURRENT);
+                        await addWeight(trx, userId, req.weight, EWeightStat.DATA_TYPE_TARGET);
                         await procRefRemove({trx, code});
                         const {sessionId, cookie} = await initSession(trx, userId);
                         context.setOutHeader(H2.HTTP2_HEADER_SET_COOKIE, cookie);

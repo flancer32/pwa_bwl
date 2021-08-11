@@ -28,6 +28,8 @@ export default class Fl32_Bwl_Back_Service_Weight_History_List {
         const qHistoryGetItems = spec['Fl32_Bwl_Back_Store_RDb_Query_Friend_GetItems$'];
         /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_List.Factory} */
         const route = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_List#Factory$'];
+        /** @type {typeof Fl32_Bwl_Shared_Enum_Weight_Type} */
+        const EnumWeightType = spec['Fl32_Bwl_Shared_Enum_Weight_Type$'];
 
         // DEFINE INSTANCE METHODS
         this.getRouteFactory = () => route;
@@ -35,7 +37,7 @@ export default class Fl32_Bwl_Back_Service_Weight_History_List {
         this.getService = function () {
             // DEFINE INNER FUNCTIONS
             /**
-             * @param {TeqFw_Web_Back_Api_Service_IContext} context
+             * @param {TeqFw_Web_Back_Api_Service_Context} context
              * @return Promise<void>
              */
             async function service(context) {
@@ -88,6 +90,12 @@ export default class Fl32_Bwl_Back_Service_Weight_History_List {
                         query.where(EWeightStat.A_USER_REF, userId);
                         if (apiReq.dateFrom) query.where(EWeightStat.A_DATE, '>=', formatDate(apiReq.dateFrom));
                         if (apiReq.dateTo) query.where(EWeightStat.A_DATE, '<=', formatDate(apiReq.dateTo));
+                        if (apiReq.type) {
+                            if (apiReq.type === EnumWeightType.CURRENT)
+                                query.where(EWeightStat.A_TYPE, EWeightStat.DATA_TYPE_CURRENT);
+                            if (apiReq.type === EnumWeightType.TARGET)
+                                query.where(EWeightStat.A_TYPE, EWeightStat.DATA_TYPE_TARGET);
+                        }
                         if (apiReq.order === 'asc') query.orderBy(EWeightStat.A_DATE, 'asc');
                         if (apiReq.order === 'desc') query.orderBy(EWeightStat.A_DATE, 'desc');
                         /** @type {Array} */

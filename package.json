@@ -34,6 +34,7 @@
     "@teqfw/email": "github:teqfw/email",
     "@teqfw/i18n": "github:teqfw/i18n",
     "@teqfw/web": "github:teqfw/web",
+    "chart.js": "*",
     "knex": "*",
     "mysql2": "*",
     "pg": "*"

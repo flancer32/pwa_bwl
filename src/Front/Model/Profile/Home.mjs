@@ -1,5 +1,5 @@
 /**
- * Encapsulate profile data for home page and save/restore it in front storage.
+ * Encapsulate profile data for home route and save/restore it to/from local storage.
  */
 // MODULE'S VARS
 const NS = 'Fl32_Bwl_Front_Model_Profile_Home';

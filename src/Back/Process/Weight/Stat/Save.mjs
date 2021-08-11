@@ -16,7 +16,7 @@ const NS = 'Fl32_Bwl_Back_Process_Weight_Stat_Save';
  */
 function Factory(spec) {
     /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat} */
-    const EWeightStat = spec['Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat#']; 
+    const EWeightStat = spec['Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat#'];
     /** @function {@type TeqFw_Core_Shared_Util.formatUtcDate} */
     const formatUtcDate = spec['TeqFw_Core_Shared_Util#formatUtcDate']; // function instance
 
@@ -40,8 +40,9 @@ function Factory(spec) {
             const query = trx.from(EWeightStat.ENTITY);
             query.select([EWeightStat.A_USER_REF, EWeightStat.A_DATE]);
             query.where({
+                [EWeightStat.A_DATE]: item.date,
+                [EWeightStat.A_TYPE]: item.type,
                 [EWeightStat.A_USER_REF]: item.user_ref,
-                [EWeightStat.A_DATE]: item.date
             });
             /** @type {Array} */
             const rs = await query;
@@ -56,6 +57,7 @@ function Factory(spec) {
                 .update(payload)
                 .where({
                     [EWeightStat.A_USER_REF]: payload[EWeightStat.A_USER_REF],
+                    [EWeightStat.A_TYPE]: payload[EWeightStat.A_TYPE],
                     [EWeightStat.A_DATE]: payload[EWeightStat.A_DATE],
                 });
         } else {

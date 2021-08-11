@@ -13,6 +13,12 @@
       "m6": "6 months",
       "w1": "1 week",
       "w2": "2 weeks"
+    },
+    "weight": {
+      "type": {
+        "current": "Weight",
+        "target": "Target"
+      }
     }
   },
   "route": {

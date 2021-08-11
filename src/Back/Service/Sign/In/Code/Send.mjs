@@ -30,7 +30,7 @@ export default class Fl32_Bwl_Back_Service_Sign_In_Code_Send {
         this.getService = function () {
             // DEFINE INNER FUNCTIONS
             /**
-             * @param {TeqFw_Web_Back_Api_Service_IContext} context
+             * @param {TeqFw_Web_Back_Api_Service_Context} context
              * @return Promise<void>
              */
             async function service(context) {

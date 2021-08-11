@@ -1,7 +1,7 @@
 /**
  *  'app_profile' entity.
  */
-class Fl32_Bwl_Back_Store_RDb_Schema_Profile {
+export default class Fl32_Bwl_Back_Store_RDb_Schema_Profile {
     age;
     date_updated;
     height;
@@ -21,6 +21,3 @@ Fl32_Bwl_Back_Store_RDb_Schema_Profile.ENTITY = 'app_profile';
 
 // freeze class to deny attributes changes
 Object.freeze(Fl32_Bwl_Back_Store_RDb_Schema_Profile);
-
-// MODULE'S EXPORT
-export default Fl32_Bwl_Back_Store_RDb_Schema_Profile;
