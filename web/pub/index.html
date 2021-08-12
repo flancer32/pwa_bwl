@@ -91,15 +91,16 @@
     </app-root>
 </div>
 <!-- These scripts are not ESM ready for loading with ES6 'import'. Use old style loading.  -->
+<!-- ORDER IS IMPORTANT! -->
 <script type="application/javascript" src="./src/vue/vue.global.js"></script>
 <script type="application/javascript" src="./src/vue-router/vue-router.global.js"></script>
 <script type="application/javascript" src="./src/i18n/i18next.min.js"></script>
 <script type="application/javascript" src="./src/i18n-bld/i18nextBrowserLanguageDetector.js"></script>
 <script type="application/javascript" src="./src/quasar/quasar.umd.prod.js"></script>
 <script type="application/javascript" src="./src/quasar/icon-set/svg-material-icons.umd.prod.js"></script>
-
-<!-- This app libs -->
-<script type="application/javascript" src="js/Chart.bundle.min.js">/* https://www.chartjs.org/ */</script>
+<script type="application/javascript" src="./src/chart/chart.min.js"></script>
+<script type="application/javascript" src="./src/luxon/luxon.min.js"></script>
+<script type="application/javascript" src="./src/luxon-adp/chartjs-adapter-luxon.js"></script>
 
 <!-- These styles are loaded after landing page is displayed -->
 <link rel="stylesheet" href="./web/@teqfw/ui-quasar/styles.css">

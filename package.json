@@ -35,7 +35,9 @@
     "@teqfw/i18n": "github:teqfw/i18n",
     "@teqfw/web": "github:teqfw/web",
     "chart.js": "*",
+    "chartjs-adapter-luxon": "*",
     "knex": "*",
+    "luxon": "*",
     "mysql2": "*",
     "pg": "*"
   },

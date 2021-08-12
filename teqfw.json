@@ -37,6 +37,11 @@
       "Fl32_Bwl_Back_Service_Weight_History_Remove",
       "Fl32_Bwl_Back_Service_Weight_Stat_Save"
     ],
+    "statics": {
+      "/chart/": "/chart.js/dist/",
+      "/luxon/": "/luxon/build/global/",
+      "/luxon-adp/": "/chartjs-adapter-luxon/dist/"
+    },
     "doors": ["pub", "sign"],
     "spaces": ["api", "src", "web"]
   }

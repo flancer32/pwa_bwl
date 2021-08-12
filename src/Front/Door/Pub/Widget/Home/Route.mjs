@@ -26,10 +26,8 @@ function Factory(spec) {
     const DEF = spec['Fl32_Bwl_Front_Defaults$'];
     /** @type {Fl32_Teq_User_Front_Model_Session} */
     const session = spec['Fl32_Teq_User_Front_Model_Session$'];
-    /** @type {Fl32_Bwl_Front_Door_Pub_Widget_Chart} */
-    const chart = spec['Fl32_Bwl_Front_Door_Pub_Widget_Chart$'];
-    /** @type {typeof Fl32_Bwl_Front_Door_Pub_Widget_Chart.ChartData} */
-    const ChartData = spec['Fl32_Bwl_Front_Door_Pub_Widget_Chart#ChartData'];
+    /** @type {Fl32_Bwl_Front_Door_Pub_Widget_Home_Chart} */
+    const chart = spec['Fl32_Bwl_Front_Door_Pub_Widget_Home_Chart$'];
     /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.IComponent} */
     const topActions = spec['Fl32_Bwl_Front_Layout_TopActions$'];
     /** @type {TeqFw_Web_Front_Service_Gate} */
@@ -38,8 +36,6 @@ function Factory(spec) {
     const routeSignOut = spec['Fl32_Teq_User_Shared_Service_Route_Sign_Out#Factory$'];
     /** @type {Fl32_Bwl_Shared_Service_Route_Friend_List.Factory} */
     const routeFriends = spec['Fl32_Bwl_Shared_Service_Route_Friend_List#Factory$'];
-    /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_List.Factory} */
-    const routeHistory = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_List#Factory$'];
     /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.Item} */
     const Action = spec['Fl32_Bwl_Front_Layout_TopActions#Item'];
     /** @type {Fl32_Bwl_Front_Widget_Edit_Weight.vueCompTmpl} */
@@ -50,8 +46,8 @@ function Factory(spec) {
     const modProfileHome = spec['Fl32_Bwl_Front_Model_Profile_Home$'];
     /** @type {Fl32_Bwl_Front_Struct_Options_Period} */
     const optionsPeriod = spec['Fl32_Bwl_Front_Struct_Options_Period$'];
-    /** @type {typeof Fl32_Bwl_Shared_Enum_Weight_Type} */
-    const EnumWeightType = spec['Fl32_Bwl_Shared_Enum_Weight_Type$'];
+    /** @type {Fl32_Bwl_Front_Door_Pub_Widget_Home_Route_SeriesLoader} */
+    const loader = spec['Fl32_Bwl_Front_Door_Pub_Widget_Home_Route_SeriesLoader$'];
 
     // DEFINE WORKING VARS
     /** @type {typeof Fl32_Bwl_Front_Widget_Edit_Weight.vueCompTmpl.TYPES} */
@@ -151,27 +147,17 @@ function Factory(spec) {
                 this.weightType = TYPES.TARGET;
                 this.weightEdit = this.target;
             },
-            async loadChartData(type) {
-                const req = routeHistory.createReq();
-                req.dateFrom = this.dateFrom;
-                req.dateTo = this.dateTo;
-                req.friendId = this.dataSet?.value;
-                req.type = type;
-                // noinspection JSValidateTypes
-                /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_List.Response} */
-                const res = await gate.send(req, routeHistory);
-                if (res) {
-                    const dataSet = {labels: [], data: []};
-                    for (const one of res.items) {
-                        dataSet.labels.push(new Date(one.date));
-                        dataSet.data.push(one.weight);
-                    }
-                    const data = new ChartData();
-                    data.series = dataSet;
-                    // friendId = 0 for personal data; don't draw the target for friends
-                    data.target = (req.friendId) ? null : this.target;
-                    this.chartData = data;
-                }
+            async loadChartData() {
+                const friendId = this.dataSet?.value;
+                const data = await loader.load(
+                    friendId,
+                    this.dateFrom,
+                    this.dateTo,
+                    this.target
+                );
+                data.namePrimary = this.$t('wg.chart.current');
+                data.nameSecondary = (friendId) ? this.dataSet.label : this.$t('wg.chart.target');
+                this.chartData = data;
             },
             async loadOptsDataSet() {
                 const result = [{label: this.$t('route.home.dataSet.personal'), value: DEF.DEF_DATA_SET_ID}];
@@ -191,22 +177,28 @@ function Factory(spec) {
              * Reset period begin/end on 'Period' selector changes.
              */
             setPeriods() {
-                this.dateFrom = new Date(0);
-                this.dateTo = new Date();
+                let unixTime = 0;
+                const to = new Date();
+                to.setHours(0, 0, 0, 0);
                 const now = new Date();
+                now.setHours(0, 0, 0, 0);
                 if (this.period.value === PERIOD_ALL) {
                     // leave as is
                 } else if (this.period.value === PERIOD_WEEK_1) {
-                    this.dateFrom = (new Date()).setDate(now.getDate() - 7);
+                    unixTime = (new Date()).setDate(now.getDate() - 7);
                 } else if (this.period.value === PERIOD_WEEK_2) {
-                    this.dateFrom = (new Date()).setDate(now.getDate() - 14);
+                    unixTime = (new Date()).setDate(now.getDate() - 14);
                 } else if (this.period.value === PERIOD_MONTH_1) {
-                    this.dateFrom = (new Date()).setMonth(now.getMonth() - 1);
+                    unixTime = (new Date()).setMonth(now.getMonth() - 1);
                 } else if (this.period.value === PERIOD_MONTH_2) {
-                    this.dateFrom = (new Date()).setMonth(now.getMonth() - 2);
+                    unixTime = (new Date()).setMonth(now.getMonth() - 2);
                 } else if (this.period.value === PERIOD_MONTH_6) {
-                    this.dateFrom = (new Date()).setMonth(now.getMonth() - 6);
+                    unixTime = (new Date()).setMonth(now.getMonth() - 6);
                 }
+                const from = new Date(unixTime);
+                from.setHours(0, 0, 0, 0);
+                this.dateFrom = from;
+                this.dateTo = to;
             },
             async setWeights() {
                 await dsWeights.loadFromServer(true);
@@ -254,7 +246,6 @@ function Factory(spec) {
                 await Promise.all([
                     this.setWeights(),
                     this.loadOptsDataSet(),
-                    this.loadChartData(),
                 ]);
                 for (const one of this.optsDataSet)
                     if (one.value === modProfileHome.dataSetId) this.dataSet = one;

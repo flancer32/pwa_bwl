@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 ##
-#   Backup database.
+#   Backup MySQL database.
 ##
 # root directory (relative to the current shell script, not to the execution point)
 DIR_ROOT=${DIR_ROOT:-$(cd "$(dirname "$0")/../../../" && pwd)}

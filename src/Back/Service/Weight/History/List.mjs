@@ -91,13 +91,19 @@ export default class Fl32_Bwl_Back_Service_Weight_History_List {
                         if (apiReq.dateFrom) query.where(EWeightStat.A_DATE, '>=', formatDate(apiReq.dateFrom));
                         if (apiReq.dateTo) query.where(EWeightStat.A_DATE, '<=', formatDate(apiReq.dateTo));
                         if (apiReq.type) {
-                            if (apiReq.type === EnumWeightType.CURRENT)
+                            if (apiReq.type === EnumWeightType.CURRENT) {
                                 query.where(EWeightStat.A_TYPE, EWeightStat.DATA_TYPE_CURRENT);
-                            if (apiReq.type === EnumWeightType.TARGET)
+                            } else {
                                 query.where(EWeightStat.A_TYPE, EWeightStat.DATA_TYPE_TARGET);
+                            }
+                        } else {
+                            query.where(EWeightStat.A_TYPE, EWeightStat.DATA_TYPE_CURRENT);
                         }
-                        if (apiReq.order === 'asc') query.orderBy(EWeightStat.A_DATE, 'asc');
-                        if (apiReq.order === 'desc') query.orderBy(EWeightStat.A_DATE, 'desc');
+                        if (apiReq.order === 'desc') {
+                            query.orderBy(EWeightStat.A_DATE, 'desc');
+                        } else {
+                            query.orderBy(EWeightStat.A_DATE, 'asc');
+                        }
                         /** @type {Array} */
                         const rs = await query;
                         for (const one of rs) {

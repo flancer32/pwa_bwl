@@ -63,6 +63,7 @@ class Factory {
                 : null;
             res.friendId = data?.friendId;
             res.order = data?.order;
+            res.type = data?.type;
             return res;
         }
 
