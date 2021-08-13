@@ -30,7 +30,7 @@ function Factory(spec) {
     const template = `
 <layout-centered>
     <div class="t-grid rows gutter-md" style="padding: var(--padding-grid);">
-        <div style="text-align: center">{{$t('pub:route.signIn.code.check.title')}}</div>
+        <div style="text-align: center">{{$t('route.signIn.code.check.title')}}</div>
         <div style="text-align: center" v-show="error">{{error}}</div>
     </div>
 </layout-centered>
