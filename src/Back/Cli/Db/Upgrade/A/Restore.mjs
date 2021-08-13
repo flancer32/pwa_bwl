@@ -28,8 +28,6 @@ function Factory(spec) {
     const isPostgres = spec['TeqFw_Core_Back_Util_RDb#isPostgres'];
     /** @type {Function|TeqFw_Core_Back_Util_RDb.itemsInsert} */
     const itemsInsert = spec['TeqFw_Core_Back_Util_RDb#itemsInsert'];
-    /** @type {Function|TeqFw_Core_Back_Util_RDb.formatAsDateTime} */
-    const formatAsDateTime = spec['TeqFw_Core_Back_Util_RDb#formatAsDateTime'];
     /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Friend} */
     const EAppFriend = spec['Fl32_Bwl_Back_Store_RDb_Schema_Friend#'];
     /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Friend_Link} */
@@ -67,51 +65,6 @@ function Factory(spec) {
      */
     async function action(dump) {
         // DEFINE INNER FUNCTIONS
-        /**
-         * Insert values except target weight.
-         *
-         * @param trx
-         * @param dump
-         * @return {Promise<void>}
-         */
-        async function itemsInsertProfile(trx, dump) {
-            const entity = EAppProfile.ENTITY;
-            if (Array.isArray(dump[entity]) && dump[entity].length > 0) {
-                const updated = JSON.parse(JSON.stringify(dump[entity]));
-                for (const one of updated) {
-                    one[EAppProfile.A_DATE_UPDATED]=formatAsDateTime(one[EAppProfile.A_DATE_UPDATED]);
-                    delete one[EAppProfile.A_WEIGHT_TARGET];
-                }
-                await trx(entity).insert(updated);
-            }
-        }
-
-        /**
-         * Insert current weight stats then insert target weight stats.
-         *
-         * @param trx
-         * @param dump
-         * @return {Promise<void>}
-         */
-        async function itemsInsertWeightStat(trx, dump) {
-            const entity = EAppWeightStat.ENTITY;
-            if (Array.isArray(dump[entity]) && dump[entity].length > 0) {
-                await trx(entity).insert(dump[entity]);
-            }
-            /** @type {Fl32_Bwl_Back_Store_RDb_Schema_Profile[]} */
-            const items = dump[EAppProfile.ENTITY];
-            const updates = [];
-            for (const one of items) {
-                const rec = new EAppWeightStat();
-                rec.date = one.date_updated;
-                rec.type = EAppWeightStat.DATA_TYPE_TARGET;
-                rec.value = one.weight_target;
-                rec.user_ref = one.user_ref;
-                updates.push(rec);
-            }
-            if (updates.length > 0)
-                await trx(EAppWeightStat.ENTITY).insert(updates);
-        }
 
         // MAIN FUNCTIONALITY
         const trx = await connector.startTransaction();
@@ -128,11 +81,9 @@ function Factory(spec) {
             // app
             await itemsInsert(trx, dump, EAppFriend.ENTITY);
             await itemsInsert(trx, dump, EAppFriendLink.ENTITY);
-            // await itemsInsert(trx, dump, EAppProfile.ENTITY);
-            await itemsInsertProfile(trx, dump);
+            await itemsInsert(trx, dump, EAppProfile.ENTITY);
             await itemsInsert(trx, dump, EAppSignIn.ENTITY);
-            // await itemsInsert(trx, dump, EAppWeightStat.ENTITY);
-            await itemsInsertWeightStat(trx, dump);
+            await itemsInsert(trx, dump, EAppWeightStat.ENTITY);
             // serials for Postgres
             const isPg = isPostgres(trx.client);
             if (isPg && dump.serials) {
