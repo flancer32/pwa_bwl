@@ -5,12 +5,6 @@
  */
 // MODULE'S VARS
 const NS = 'Fl32_Bwl_Front_Door_Pub_Widget_Home_Route';
-const PERIOD_ALL = 'all';
-const PERIOD_MONTH_1 = 'm1';
-const PERIOD_MONTH_2 = 'm2';
-const PERIOD_MONTH_6 = 'm6';
-const PERIOD_WEEK_1 = 'w1';
-const PERIOD_WEEK_2 = 'w2';
 const I18N_PERIOD = 'opts.period';
 
 // MODULE'S FUNCTIONS
@@ -42,8 +36,10 @@ function Factory(spec) {
     const editWeight = spec['Fl32_Bwl_Front_Widget_Edit_Weight$'];
     /** @type {Fl32_Bwl_Front_DataSource_Weight} */
     const dsWeights = spec['Fl32_Bwl_Front_DataSource_Weight$'];
-    /** @type {Fl32_Bwl_Front_Model_Profile_Home} */
-    const modProfileHome = spec['Fl32_Bwl_Front_Model_Profile_Home$'];
+    /** @type {Fl32_Bwl_Front_Door_Pub_Model_Profile_Home} */
+    const modProfileHome = spec['Fl32_Bwl_Front_Door_Pub_Model_Profile_Home$'];
+    /** @type {typeof Fl32_Bwl_Front_Struct_Options_Period} */
+    const OptPeriod = spec['Fl32_Bwl_Front_Struct_Options_Period#'];
     /** @type {Fl32_Bwl_Front_Struct_Options_Period} */
     const optionsPeriod = spec['Fl32_Bwl_Front_Struct_Options_Period$'];
     /** @type {Fl32_Bwl_Front_Door_Pub_Widget_Home_Route_SeriesLoader} */
@@ -121,7 +117,7 @@ function Factory(spec) {
                 dateTo: new Date(),
                 dialogDisplay: false,
                 optsDataSet: [],
-                period: {label: 'All', value: PERIOD_ALL},
+                period: {label: 'All', value: OptPeriod.ALL},
                 target: null,
                 weightEdit: null,
                 weightType: TYPES.CURRENT,
@@ -182,17 +178,17 @@ function Factory(spec) {
                 to.setHours(0, 0, 0, 0);
                 const now = new Date();
                 now.setHours(0, 0, 0, 0);
-                if (this.period.value === PERIOD_ALL) {
+                if (this.period.value === OptPeriod.ALL) {
                     // leave as is
-                } else if (this.period.value === PERIOD_WEEK_1) {
+                } else if (this.period.value === OptPeriod.WEEK_1) {
                     unixTime = (new Date()).setDate(now.getDate() - 7);
-                } else if (this.period.value === PERIOD_WEEK_2) {
+                } else if (this.period.value === OptPeriod.WEEK_2) {
                     unixTime = (new Date()).setDate(now.getDate() - 14);
-                } else if (this.period.value === PERIOD_MONTH_1) {
+                } else if (this.period.value === OptPeriod.MONTH_1) {
                     unixTime = (new Date()).setMonth(now.getMonth() - 1);
-                } else if (this.period.value === PERIOD_MONTH_2) {
+                } else if (this.period.value === OptPeriod.MONTH_2) {
                     unixTime = (new Date()).setMonth(now.getMonth() - 2);
-                } else if (this.period.value === PERIOD_MONTH_6) {
+                } else if (this.period.value === OptPeriod.MONTH_6) {
                     unixTime = (new Date()).setMonth(now.getMonth() - 6);
                 }
                 const from = new Date(unixTime);
@@ -204,6 +200,7 @@ function Factory(spec) {
                 await dsWeights.loadFromServer(true);
                 this.current = dsWeights.getCurrent();
                 this.target = dsWeights.getTarget();
+
             },
         },
         watch: {

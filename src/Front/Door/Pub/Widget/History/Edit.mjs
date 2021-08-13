@@ -59,9 +59,9 @@ function Factory(spec) {
     /** @type {TeqFw_I18n_Front_Lib} */
     const i18n = spec['TeqFw_I18n_Front_Lib$'];
     /** @type {Fl32_Bwl_Front_Widget_Dialog_Date} */
-    const dialogDate = spec['Fl32_Bwl_Front_Widget_Dialog_Date$']; // vue comp tmpl
+    const dialogDate = spec['Fl32_Bwl_Front_Widget_Dialog_Date$'];
     /** @type {Fl32_Bwl_Front_Widget_Weight.vueCompTmpl} */
-    const weight = spec['Fl32_Bwl_Front_Widget_Weight$']; // vue comp tmpl
+    const weight = spec['Fl32_Bwl_Front_Widget_Weight$'];
     const {formatDate: dateForUi} = spec['Fl32_Bwl_Shared_Util'];
     const {formatDate: dateAsStr} = spec['TeqFw_Core_Shared_Util'];
     /**

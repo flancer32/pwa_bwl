@@ -13,6 +13,8 @@ const NS = 'Fl32_Bwl_Shared_Service_Route_Weight_History_Remove';
 class Request {
     /** @type {Date} */
     date;
+    /** @type {Fl32_Bwl_Shared_Enum_Weight_Type} */
+    type;
 }
 
 /**
@@ -49,6 +51,7 @@ class Factory {
             res.date = data?.date
                 ? (data.date instanceof Date) ? data.date : new Date(data.date)
                 : null;
+            res.type = data?.type;
             return res;
         }
 

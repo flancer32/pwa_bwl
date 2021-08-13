@@ -10,6 +10,7 @@ const DELTA = 'delta';
 const ID = 'id';
 const PERCENT = 'percent';
 const WEIGHT = 'weight';
+const EVT_ROW_CLICK = 'onRowClick';
 
 // MODULE'S CLASSES
 
@@ -38,8 +39,8 @@ export default function Factory(spec) {
     const gate = spec['TeqFw_Web_Front_Service_Gate$'];
     /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_List.Factory} */
     const routeList = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_List#Factory$'];
-    /** @type {Fl32_Bwl_Front_Model_Profile_History} */
-    const modProfile = spec['Fl32_Bwl_Front_Model_Profile_History$'];
+    /** @type {Fl32_Bwl_Front_Door_Pub_Model_Profile_History} */
+    const modProfile = spec['Fl32_Bwl_Front_Door_Pub_Model_Profile_History$'];
 
     // DEFINE WORKING VARS
     const template = `
@@ -60,10 +61,6 @@ export default function Factory(spec) {
         </template>
     </q-table>
 `;
-
-    // DEFINE INNER FUNCTIONS
-
-    // MAIN FUNCTIONALITY
 
     // COMPOSE RESULT
     /**
@@ -110,20 +107,23 @@ export default function Factory(spec) {
                 }
 
                 // MAIN FUNCTIONALITY
+                const req = routeList.createReq();
+                req.type = modProfile.weightType;
                 // noinspection JSValidateTypes
                 /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_List.Response} */
-                const res = await gate.send(routeList.createReq(), routeList);
+                const res = await gate.send(req, routeList);
                 if (res) {
                     this.rows = prepareItems(res.items);
                 }
             },
             onRowClick(evt, row) {
                 const dateStr = row[ID];
-                this.dateCurrent = new Date(`${dateStr}Z`); // add 'Z' to use as UTC
-                this.weightCurrent = Number.parseFloat(row[WEIGHT]);
-                this.dialogDisplay = true;
+                const date = new Date(`${dateStr}Z`); // add 'Z' to use as UTC
+                const weight = Number.parseFloat(row[WEIGHT]);
+                this.$emit(EVT_ROW_CLICK, date, weight);
             }
         },
+        emits: [EVT_ROW_CLICK],
         async mounted() {
             if (await session.checkUserAuthenticated(this.$router)) {
                 // setup columns

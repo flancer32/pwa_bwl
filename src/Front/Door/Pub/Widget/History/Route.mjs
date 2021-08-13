@@ -5,6 +5,7 @@
  */
 // MODULE'S VARS
 const NS = 'Fl32_Bwl_Front_Door_Pub_Widget_History_Route';
+const GRID = 'grid';
 
 // MODULE'S FUNCTIONS
 /**
@@ -24,8 +25,6 @@ export default function Factory(spec) {
     const editHistory = spec['Fl32_Bwl_Front_Door_Pub_Widget_History_Edit$'];
     /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.Item} */
     const Action = spec['Fl32_Bwl_Front_Layout_TopActions#Item'];
-    /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save.Types} */
-    const TYPES = spec['Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save#Types'];
     /** @type {TeqFw_Web_Front_Service_Gate} */
     const gate = spec['TeqFw_Web_Front_Service_Gate$'];
     /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_Remove.Factory} */
@@ -36,12 +35,20 @@ export default function Factory(spec) {
     const grid = spec['Fl32_Bwl_Front_Door_Pub_Widget_History_Grid$'];
     /** @type {Fl32_Bwl_Front_Door_Pub_Widget_History_ModeCfg.vueCompTmpl} */
     const modeCfg = spec['Fl32_Bwl_Front_Door_Pub_Widget_History_ModeCfg$'];
+    /** @type {Fl32_Bwl_Front_Door_Pub_Model_Profile_History} */
+    const modProfile = spec['Fl32_Bwl_Front_Door_Pub_Model_Profile_History$'];
+    /** @type {Fl32_Bwl_Front_DataSource_Weight} */
+    const dsWeights = spec['Fl32_Bwl_Front_DataSource_Weight$'];
+    /** @type {typeof Fl32_Bwl_Front_Struct_Options_WeightType} */
+    const OptWeightType = spec['Fl32_Bwl_Front_Struct_Options_WeightType#'];
 
     // DEFINE WORKING VARS
     const template = `
 <q-page class="q-pa-xs q-gutter-xs">
     <mode-cfg @onAdd="onAdd"/>
-    <grid/>
+    <grid ref="${GRID}"
+        @onRowClick="onRowClick"
+    />
     <edit-history
         :date="dateCurrent"
         :display="dialogDisplay"
@@ -71,23 +78,31 @@ export default function Factory(spec) {
             };
         },
         methods: {
+            onAdd(data) {
+                this.weightCurrent = (data === OptWeightType.CURRENT)
+                    ? dsWeights.getCurrent() : dsWeights.getTarget();
+                this.dialogDisplay = true;
+            },
             async onEditHistoryRemove(date) {
                 const req = routeRemove.createReq();
                 req.date = date;
+                req.type = modProfile.weightType;
                 const res = await gate.send(req, routeRemove);
-                if (res) await this.loadHistory();
+                if (res) await this.$refs[GRID].loadHistory();
             },
             async onEditHistorySubmit(date, weight) {
                 this.dateCurrent = date;
                 this.weightCurrent = weight;
                 const req = routeSave.createReq();
-                req.type = TYPES.CURRENT;
+                req.type = modProfile.weightType;
                 req.date = date;
                 req.weight = weight;
                 const res = await gate.send(req, routeSave);
-                if (res) await this.loadHistory();
+                if (res) await this.$refs[GRID].loadHistory();
             },
-            onAdd(data) {
+            async onRowClick(date, weight) {
+                this.dateCurrent = date;
+                this.weightCurrent = weight;
                 this.dialogDisplay = true;
             },
         },

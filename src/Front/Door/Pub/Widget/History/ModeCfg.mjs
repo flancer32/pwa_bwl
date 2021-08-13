@@ -19,8 +19,8 @@ export default function Factory(spec) {
     // EXTRACT DEPS
     /** @type {Fl32_Bwl_Front_Defaults} */
     const DEF = spec['Fl32_Bwl_Front_Defaults$'];
-    /** @type {Fl32_Bwl_Front_Model_Profile_History} */
-    const modProfile = spec['Fl32_Bwl_Front_Model_Profile_History$'];
+    /** @type {Fl32_Bwl_Front_Door_Pub_Model_Profile_History} */
+    const modProfile = spec['Fl32_Bwl_Front_Door_Pub_Model_Profile_History$'];
     /** @type {Fl32_Bwl_Front_Struct_Options_WeightType} */
     const optionsType = spec['Fl32_Bwl_Front_Struct_Options_WeightType$'];
 
@@ -34,7 +34,7 @@ export default function Factory(spec) {
         ></q-btn-toggle>
     </div>
     <div class="col">
-        <q-btn v-on:click="$emit('${EVT_ADD}', dataType);">Add</q-btn>
+        <q-btn v-on:click="$emit('${EVT_ADD}', dataType);">{{$t('btn.add')}}</q-btn>
     </div>
 </q-card>
 `;

@@ -2,13 +2,13 @@
  * Encapsulate profile data for home route and save/restore it to/from local storage.
  */
 // MODULE'S VARS
-const NS = 'Fl32_Bwl_Front_Model_Profile_Home';
+const NS = 'Fl32_Bwl_Front_Door_Pub_Model_Profile_Home';
 
 const DATA_SET_ID = 'dataSetId';
 const PERIOD_ID = 'periodId';
 
 // MODULE'S CLASSES
-export default class Fl32_Bwl_Front_Model_Profile_Home {
+export default class Fl32_Bwl_Front_Door_Pub_Model_Profile_Home {
     #periodId;
     #dataSetId;
     /** @type {typeof Fl32_Bwl_Front_Struct_Options_Period} */

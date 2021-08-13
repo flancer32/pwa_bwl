@@ -3,12 +3,12 @@
  * Profile elements are reactive.
  */
 // MODULE'S VARS
-const NS = 'Fl32_Bwl_Front_Model_Profile_History';
+const NS = 'Fl32_Bwl_Front_Door_Pub_Model_Profile_History';
 
 const WEIGHT_TYPE = 'weightType';
 
 // MODULE'S CLASSES
-export default class Fl32_Bwl_Front_Model_Profile_History {
+export default class Fl32_Bwl_Front_Door_Pub_Model_Profile_History {
     #weightType;
     /** @type {Function} */
     #unref;
