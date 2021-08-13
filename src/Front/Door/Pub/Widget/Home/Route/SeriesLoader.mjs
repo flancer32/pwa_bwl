@@ -19,6 +19,13 @@ export default class Fl32_Bwl_Front_Door_Pub_Widget_Home_Route_SeriesLoader {
         this.#routeHistory = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_List#Factory$'];
     }
 
+    /**
+     * @param {number|null} friendId
+     * @param {Date} periodBegin
+     * @param {Date} periodEnd
+     * @param {string} profileTarget
+     * @return {Promise<Fl32_Bwl_Front_Door_Pub_Widget_Home_Chart.ChartData>}
+     */
     async load(friendId, periodBegin, periodEnd, profileTarget) {
         // PARSE INPUT & DEFINE WORKING VARS
         const gate = this.#gate;
@@ -35,7 +42,7 @@ export default class Fl32_Bwl_Front_Door_Pub_Widget_Home_Route_SeriesLoader {
          * @param {number|null} userId if 'null' then load own data else - load friend data
          * @return {Promise<(*[]|Date)[]>}
          */
-        async function load(from, to, type, userId = null) {
+        async function getFromServer(from, to, type, userId = null) {
             const points = [];
             let dateFirst;
             const req = routeHistory.createReq();
@@ -61,24 +68,32 @@ export default class Fl32_Bwl_Front_Door_Pub_Widget_Home_Route_SeriesLoader {
         // MAIN FUNCTIONALITY
         const res = new this.#ChartData();
         let secPoints, secDateFirst;
+        const dbDateFrom = new Date(periodBegin);
+        const dbDateTo = new Date(periodEnd);
+        dbDateFrom.setUTCHours(0, 0, 0, 0);
+        dbDateTo.setDate(periodEnd.getDate() + 1);
+        dbDateTo.setUTCHours(0, 0, 0, 0);
 
         // get current weights
-        const [primPoints, primDateFirst] = await load(periodBegin, periodEnd, WeightType.CURRENT);
+        const [primPoints, primDateFirst] = await getFromServer(dbDateFrom, dbDateTo, WeightType.CURRENT);
         // get friend weights or own target weights
         if (friendId) {
-            const [points, dateFirst] = await load(periodBegin, periodEnd, WeightType.CURRENT, friendId);
+            const [points, dateFirst] = await getFromServer(dbDateFrom, dbDateTo, WeightType.CURRENT, friendId);
             secPoints = points;
             secDateFirst = dateFirst;
         } else {
-            const [points, dateFirst] = await load(periodBegin, periodEnd, WeightType.TARGET);
+            const [points, dateFirst] = await getFromServer(dbDateFrom, dbDateTo, WeightType.TARGET);
             secPoints = points;
             secDateFirst = dateFirst;
         }
+        debugger
         // get start and end of the labels interval
-        const dateFrom = (periodBegin.getTime() <= 0)
+        const dateFrom = (dbDateFrom.getTime() <= 0)
             ? (primDateFirst < secDateFirst) ? primDateFirst : secDateFirst
-            : periodBegin;
-        const dateTo = periodEnd;
+            : dbDateFrom;
+        const dateTo = dbDateTo;
+        dateFrom.setHours(0, 0, 0, 0);
+        dateTo.setHours(0, 0, 0, 0);
 
         if (!friendId) {
             // there are no target points in the interval
