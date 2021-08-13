@@ -86,7 +86,6 @@ export default class Fl32_Bwl_Front_Door_Pub_Widget_Home_Route_SeriesLoader {
             secPoints = points;
             secDateFirst = dateFirst;
         }
-        debugger
         // get start and end of the labels interval
         const dateFrom = (dbDateFrom.getTime() <= 0)
             ? (primDateFirst < secDateFirst) ? primDateFirst : secDateFirst
