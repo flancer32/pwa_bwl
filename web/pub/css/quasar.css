@@ -5,8 +5,8 @@
 
 /* Overwrite Quasar UI styles */
 :root {
-    --q-dark: #2E3409;
-    --q-primary: #8C9E15;
+    --q-dark: var(--color-darkest);
+    --q-primary: var(--color-base);
     /*--q-accent: #9C27B0;*/
     /*--q-info: #31CCEC;*/
     /*--q-negative: #C10015;*/

@@ -1,7 +1,7 @@
 /* These styles are used on landing page and should be as small as possible */
 BODY {
-    background-color: #F7FBDF;
-    color: #2E3409;
+    background-color: var(--color-lightest);
+    color: var(--color-darkest);
 }
 
 .launchpad {
