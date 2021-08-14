@@ -18,8 +18,8 @@ export default class Fl32_Bwl_Back_Service_Friend_List {
         // EXTRACT DEPS
         /** @type {Fl32_Bwl_Back_Defaults} */
         const DEF = spec['Fl32_Bwl_Back_Defaults$'];
-        /** @type {TeqFw_Core_Back_RDb_Connector} */
-        const rdb = spec['TeqFw_Core_Back_RDb_Connector$'];
+        /** @type {TeqFw_Db_Back_RDb_Connect} */
+        const rdb = spec['TeqFw_Db_Back_RDb_Connect$'];
         /** @type {Fl32_Bwl_Shared_Service_Route_Friend_List.Factory} */
         const route = spec['Fl32_Bwl_Shared_Service_Route_Friend_List#Factory$'];
         /** @type {typeof Fl32_Bwl_Shared_Service_Dto_Friend_List_Item} */

@@ -18,8 +18,8 @@ export default class Fl32_Bwl_Back_Service_Friend_Link_Code_Create {
         // EXTRACT DEPS
         /** @type {Fl32_Bwl_Back_Defaults} */
         const DEF = spec['Fl32_Bwl_Back_Defaults$'];
-        /** @type {TeqFw_Core_Back_RDb_Connector} */
-        const rdb = spec['TeqFw_Core_Back_RDb_Connector$'];
+        /** @type {TeqFw_Db_Back_RDb_Connect} */
+        const rdb = spec['TeqFw_Db_Back_RDb_Connect$'];
         /** @type {typeof Fl32_Bwl_Shared_Service_Dto_Friend_Link} */
         const DLink = spec['Fl32_Bwl_Shared_Service_Dto_Friend_Link#'];
         /** @function {@type Fl32_Bwl_Back_Process_Friend_Link_Code_CleanUp.process} */

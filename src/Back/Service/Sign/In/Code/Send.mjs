@@ -15,8 +15,8 @@ export default class Fl32_Bwl_Back_Service_Sign_In_Code_Send {
         // EXTRACT DEPS
         /** @type {Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Send.Factory} */
         const route = spec['Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Send#Factory$'];
-        /** @type {TeqFw_Core_Back_RDb_Connector} */
-        const rdb = spec['TeqFw_Core_Back_RDb_Connector$'];
+        /** @type {TeqFw_Db_Back_RDb_Connect} */
+        const rdb = spec['TeqFw_Db_Back_RDb_Connect$'];
         /** @function {@type Fl32_Bwl_Back_Process_Sign_In_Code_Create.process} */
         const procCreate = spec['Fl32_Bwl_Back_Process_Sign_In_Code_Create$'];
         /** @function {@type Fl32_Bwl_Back_Process_Sign_In_Code_CleanUp.process} */

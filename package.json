@@ -32,6 +32,7 @@
   "dependencies": {
     "@flancer32/teq_user": "github:flancer32/teq_user",
     "@teqfw/core": "github:teqfw/core",
+    "@teqfw/db": "github:teqfw/db",
     "@teqfw/email": "github:teqfw/email",
     "@teqfw/i18n": "github:teqfw/i18n",
     "@teqfw/web": "github:teqfw/web",

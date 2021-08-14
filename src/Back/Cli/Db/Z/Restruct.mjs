@@ -18,8 +18,8 @@ const NS = 'Fl32_Bwl_Back_Cli_Db_Z_Restruct';
  */
 function Factory(spec) {
     // PARSE INPUT & DEFINE WORKING VARS
-    /** @type {TeqFw_Core_Back_RDb_Connector} */
-    const connector = spec['TeqFw_Core_Back_RDb_Connector$']; 
+    /** @type {TeqFw_Db_Back_RDb_Connect} */
+    const connector = spec['TeqFw_Db_Back_RDb_Connect$']; 
     /** @type {TeqFw_Core_Shared_Logger} */
     const logger = spec['TeqFw_Core_Shared_Logger$'];  
     /** @type {Fl32_Teq_User_Plugin_Store_RDb_Setup} */
