@@ -18,8 +18,8 @@ export default class Fl32_Bwl_Back_Service_Profile_Get {
         // EXTRACT DEPS
         /** @type {Fl32_Bwl_Back_Defaults} */
         const DEF = spec['Fl32_Bwl_Back_Defaults$'];
-        /** @type {TeqFw_Db_Back_RDb_Connect} */
-        const rdb = spec['TeqFw_Db_Back_RDb_Connect$'];
+        /** @type {TeqFw_Db_Back_Api_IConnect} */
+        const rdb = spec['TeqFw_Db_Back_Api_IConnect$'];
         /** @type {Fl32_Bwl_Shared_Service_Route_Profile_Get.Factory} */
         const route = spec['Fl32_Bwl_Shared_Service_Route_Profile_Get#Factory$'];
         /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Profile} */
@@ -94,7 +94,7 @@ export default class Fl32_Bwl_Back_Service_Profile_Get {
 
                 // MAIN FUNCTIONALITY
                 /** @type {Fl32_Bwl_Shared_Service_Route_Profile_Get.Request} */
-                const req = context.getInData();
+                // const req = context.getInData();
                 /** @type {Fl32_Bwl_Shared_Service_Route_Profile_Get.Response} */
                 const res = context.getOutData();
                 const shared = context.getHandlersShare();

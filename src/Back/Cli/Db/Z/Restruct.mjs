@@ -18,14 +18,14 @@ const NS = 'Fl32_Bwl_Back_Cli_Db_Z_Restruct';
  */
 function Factory(spec) {
     // PARSE INPUT & DEFINE WORKING VARS
-    /** @type {TeqFw_Db_Back_RDb_Connect} */
-    const connector = spec['TeqFw_Db_Back_RDb_Connect$']; 
+    /** @type {TeqFw_Db_Back_Api_IConnect} */
+    const conn = spec['TeqFw_Db_Back_Api_IConnect$'];
     /** @type {TeqFw_Core_Shared_Logger} */
-    const logger = spec['TeqFw_Core_Shared_Logger$'];  
+    const logger = spec['TeqFw_Core_Shared_Logger$'];
     /** @type {Fl32_Teq_User_Plugin_Store_RDb_Setup} */
-    const setupTeqUser = spec['Fl32_Teq_User_Plugin_Store_RDb_Setup$']; 
+    const setupTeqUser = spec['Fl32_Teq_User_Plugin_Store_RDb_Setup$'];
     /** @type {Fl32_Bwl_Plugin_Store_RDb_Setup} */
-    const setupApp = spec['Fl32_Bwl_Plugin_Store_RDb_Setup$']; 
+    const setupApp = spec['Fl32_Bwl_Plugin_Store_RDb_Setup$'];
 
     // DEFINE INNER FUNCTIONS
     /**
@@ -34,10 +34,10 @@ function Factory(spec) {
      * @memberOf Fl32_Bwl_Back_Cli_Db_Z_Restruct
      */
     async function action() {
-        const knex = await connector.getKnex();
+        const knex = await conn.getKnex();
         // compose queries to recreate DB structure
         /** @type {SchemaBuilder} */
-        const builder = connector.getSchema();
+        const builder = conn.getSchemaBuilder();
 
         // drop tables considering relations (1) then drop base registries (0)
         // (1)

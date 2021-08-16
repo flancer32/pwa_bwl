@@ -18,8 +18,8 @@ const NS = 'Fl32_Bwl_Back_Cli_Db_Upgrade_A_Dump';
  */
 function Factory(spec) {
     // PARSE INPUT & DEFINE WORKING VARS
-    /** @type {TeqFw_Db_Back_RDb_Connect} */
-    const connector = spec['TeqFw_Db_Back_RDb_Connect$'];
+    /** @type {TeqFw_Db_Back_Api_IConnect} */
+    const connector = spec['TeqFw_Db_Back_Api_IConnect$'];
     /** @type {TeqFw_Core_Shared_Logger} */
     const logger = spec['TeqFw_Core_Shared_Logger$'];
     /** @type {Function|TeqFw_Db_Back_Util.serialsGet} */

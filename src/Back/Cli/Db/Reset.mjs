@@ -24,8 +24,8 @@ function Factory(spec) {
     const DEF = spec['Fl32_Bwl_Back_Defaults$'];
     /** @type {TeqFw_Core_Back_Api_Dto_Command.Factory} */
     const fCommand = spec['TeqFw_Core_Back_Api_Dto_Command#Factory$'];
-    /** @type {TeqFw_Db_Back_RDb_Connect} */
-    const connector = spec['TeqFw_Db_Back_RDb_Connect$'];
+    /** @type {TeqFw_Db_Back_Api_IConnect} */
+    const connector = spec['TeqFw_Db_Back_Api_IConnect$'];
     /** @type {TeqFw_Core_Shared_Logger} */
     const logger = spec['TeqFw_Core_Shared_Logger$'];
     const {isPostgres} = spec['TeqFw_Db_Back_Util']; // ES6 destruct
