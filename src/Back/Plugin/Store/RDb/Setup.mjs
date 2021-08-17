@@ -1,4 +1,4 @@
-export default class Fl32_Bwl_Plugin_Store_RDb_Setup {
+export default class Fl32_Bwl_Back_Plugin_Store_RDb_Setup {
     constructor(spec) {
         /** @function {@type TeqFw_Db_Back_Util.nameFK} */
         const nameFK = spec['TeqFw_Db_Back_Util#nameFK'];

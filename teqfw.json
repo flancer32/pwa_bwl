@@ -13,17 +13,13 @@
     ]
   },
   "core": {
-    "onInit": "Fl32_Bwl_Back_Plugin_Init",
-    "onStop": "Fl32_Bwl_Back_Plugin_Stop",
+    "plugin": {
+      "onInit": "Fl32_Bwl_Back_Plugin_Init",
+      "onStop": "Fl32_Bwl_Back_Plugin_Stop"
+    },
     "commands": [
       "Fl32_Bwl_Back_Cli_Db_Reset",
       "Fl32_Bwl_Back_Cli_Db_Upgrade"
-    ]
-  },
-  "http2": {
-    "areas": [
-      "pub",
-      "sign"
     ]
   },
   "web": {
@@ -44,7 +40,6 @@
       "/luxon/": "/luxon/build/global/",
       "/luxon-adp/": "/chartjs-adapter-luxon/dist/"
     },
-    "doors": ["pub", "sign"],
-    "spaces": ["api", "src", "web"]
+    "doors": ["pub", "sign"]
   }
 }

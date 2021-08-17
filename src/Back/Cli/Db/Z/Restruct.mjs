@@ -24,8 +24,8 @@ function Factory(spec) {
     const logger = spec['TeqFw_Core_Shared_Logger$'];
     /** @type {Fl32_Teq_User_Plugin_Store_RDb_Setup} */
     const setupTeqUser = spec['Fl32_Teq_User_Plugin_Store_RDb_Setup$'];
-    /** @type {Fl32_Bwl_Plugin_Store_RDb_Setup} */
-    const setupApp = spec['Fl32_Bwl_Plugin_Store_RDb_Setup$'];
+    /** @type {Fl32_Bwl_Back_Plugin_Store_RDb_Setup} */
+    const setupApp = spec['Fl32_Bwl_Back_Plugin_Store_RDb_Setup$'];
 
     // DEFINE INNER FUNCTIONS
     /**
