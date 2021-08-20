@@ -1,0 +1,198 @@
+{
+  "package": {
+    "app": {
+      "entity": {
+        "profile": {
+          "comment": "Application level profile (gender, height, ...).",
+          "attribute": {
+            "user_ref": {
+              "type": "ref"
+            },
+            "date_updated": {
+              "type": "datetime",
+              "comment": "Date-time for the last update.",
+              "default": "current"
+            },
+            "age": {
+              "comment": "Full ages for the update moment.",
+              "type": {
+                "integer": {
+                  "unsigned": true
+                }
+              }
+            },
+            "is_female": {
+              "comment": "true - for women (XX).",
+              "type": "boolean",
+              "default": true
+            },
+            "height": {
+              "comment": "Height in cm.",
+              "type": {
+                "integer": {
+                  "unsigned": true
+                }
+              }
+            }
+          },
+          "index": {
+            "PK": {"type": "primary", "attrs": ["user_ref"]}
+          },
+          "relation": {
+            "user": {
+              "attrs": ["user_ref"],
+              "ref": {"path": "/user", "attrs": ["id"]}
+            }
+          }
+        }
+      },
+      "package": {
+        "friend": {
+          "entity": {
+            ".": {
+              "comment": "Friendship relations between users.",
+              "attr": {
+                "leader_ref": {
+                  "comment": "Reference to user who has started relation.",
+                  "type": "ref"
+                },
+                "wingman_ref": {
+                  "comment": "Reference to user who has accepted relation.",
+                  "type": "ref"
+                },
+                "date_started": {
+                  "comment": "Date-time for registration of the user.",
+                  "type": "datetime",
+                  "default": "current"
+                }
+              },
+              "index": {
+                "PK": {"type": "primary", "attrs": ["leader_ref", "wingman_ref"]}
+              },
+              "relation": {
+                "leader": {
+                  "attrs": ["leader_ref"],
+                  "ref": {
+                    "path": "/user",
+                    "attrs": ["id"]
+                  }
+                },
+                "wingman": {
+                  "attrs": ["wingman_ref"],
+                  "ref": {
+                    "path": "/user",
+                    "attrs": ["id"]
+                  }
+                }
+              }
+            },
+            "link": {
+              "comment": "One-time friendship relations codes with limited lifetime.",
+              "attr": {
+                "code": {
+                  "comment": "Code for link to establish friendship relations.",
+                  "type": "string"
+                },
+                "leader_ref": {
+                  "comment": "Reference to user who has started relation.",
+                  "type": "ref"
+                },
+                "date_expired": {
+                  "comment": "Date-time for referral code expiration.",
+                  "type": "datetime"
+                }
+              },
+              "index": {
+                "PK": {"type": "primary", "attrs": ["code"]}
+              },
+              "relation": {
+                "leader": {
+                  "attrs": ["leader_ref"],
+                  "ref": {
+                    "path": "/user",
+                    "attrs": ["id"]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "sign": {
+          "entity": {
+            "in": {
+              "comment": "One-time sign in codes with limited lifetime.",
+              "attr": {
+                "code": {
+                  "comment": "Sign-in code.",
+                  "type": "string"
+                },
+                "user_ref": {
+                  "type": "ref"
+                },
+                "date_expired": {
+                  "comment": "Date-time for sign-in code expiration.",
+                  "type": "datetime"
+                }
+              },
+              "index": {
+                "PK": {"type": "primary", "attrs": ["code"]}
+              },
+              "relation": {
+                "user": {
+                  "attrs": ["user_ref"],
+                  "ref": {"path": "/user", "attrs": ["id"]}
+                }
+              }
+            }
+          }
+        },
+        "weight": {
+          "entity": {
+            "stat": {
+              "comment": "Weight values by date (kg).",
+              "attr": {
+                "user_ref": {
+                  "type": "ref"
+                },
+                "date": {
+                  "type": {
+                    "datetime": {"dateOnly": true},
+                    "default": "current"
+                  }
+                },
+                "type": {
+                  "comment": "Weight type: current or target.",
+                  "type": {
+                    "enum": ["c", "t"]
+                  },
+                  "default": "c"
+                },
+                "value": {
+                  "comment": "Statistical value for the weight in kg: 75.4.",
+                  "type": {
+                    "numeric": {
+                      "precision": 4,
+                      "scale": 1
+                    }
+                  }
+                }
+              },
+              "index": {
+                "PK": {"type": "primary", "attrs": ["user_ref","date","type"]}
+              },
+              "relation": {
+                "user": {
+                  "attrs": ["user_ref"],
+                  "ref": {"path": "/user", "attrs": ["id"]}
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "refs": {
+    "/user": {"attrs": ["id"]}
+  }
+}
