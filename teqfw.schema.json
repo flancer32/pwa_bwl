@@ -26,15 +26,15 @@
             "leader": {
               "attrs": ["leader_ref"],
               "ref": {
-                "path": "/user",
-                "attrs": ["id"]
+                "path": "/person",
+                "attrs": ["identity"]
               }
             },
             "wingman": {
               "attrs": ["wingman_ref"],
               "ref": {
-                "path": "/user",
-                "attrs": ["id"]
+                "path": "/person",
+                "attrs": ["identity"]
               }
             }
           }
@@ -76,7 +76,7 @@
           "relation": {
             "user": {
               "attrs": ["user_ref"],
-              "ref": {"path": "/user", "attrs": ["id"]}
+              "ref": {"path": "/person", "attrs": ["identity"]}
             }
           }
         }
@@ -107,8 +107,8 @@
                 "leader": {
                   "attrs": ["leader_ref"],
                   "ref": {
-                    "path": "/user",
-                    "attrs": ["id"]
+                    "path": "/person",
+                    "attrs": ["identity"]
                   }
                 }
               }
@@ -138,7 +138,7 @@
               "relation": {
                 "user": {
                   "attrs": ["user_ref"],
-                  "ref": {"path": "/user", "attrs": ["id"]}
+                  "ref": {"path": "/person", "attrs": ["identity"]}
                 }
               }
             }
@@ -181,7 +181,7 @@
               "relation": {
                 "user": {
                   "attrs": ["user_ref"],
-                  "ref": {"path": "/user", "attrs": ["id"]}
+                  "ref": {"path": "/person", "attrs": ["identity"]}
                 }
               }
             }
@@ -191,6 +191,6 @@
     }
   },
   "map": {
-    "/user": {"attrs": ["id"]}
+    "/person": {"path": "/user", "attrs": {"identity": "id"}}
   }
 }
