@@ -2,9 +2,46 @@
   "package": {
     "app": {
       "entity": {
+        "friend": {
+          "comment": "Friendship relations between users.",
+          "attr": {
+            "leader_ref": {
+              "comment": "Reference to user who has started relation.",
+              "type": "ref"
+            },
+            "wingman_ref": {
+              "comment": "Reference to user who has accepted relation.",
+              "type": "ref"
+            },
+            "date_started": {
+              "comment": "Date-time for registration of the user.",
+              "type": "datetime",
+              "default": "current"
+            }
+          },
+          "index": {
+            "PK": {"type": "primary", "attrs": ["leader_ref", "wingman_ref"]}
+          },
+          "relation": {
+            "leader": {
+              "attrs": ["leader_ref"],
+              "ref": {
+                "path": "/user",
+                "attrs": ["id"]
+              }
+            },
+            "wingman": {
+              "attrs": ["wingman_ref"],
+              "ref": {
+                "path": "/user",
+                "attrs": ["id"]
+              }
+            }
+          }
+        },
         "profile": {
           "comment": "Application level profile (gender, height, ...).",
-          "attribute": {
+          "attr": {
             "user_ref": {
               "type": "ref"
             },
@@ -15,10 +52,9 @@
             },
             "age": {
               "comment": "Full ages for the update moment.",
-              "type": {
-                "integer": {
-                  "unsigned": true
-                }
+              "type": "integer",
+              "options": {
+                "unsigned": true
               }
             },
             "is_female": {
@@ -28,10 +64,9 @@
             },
             "height": {
               "comment": "Height in cm.",
-              "type": {
-                "integer": {
-                  "unsigned": true
-                }
+              "type": "integer",
+              "options": {
+                "unsigned": true
               }
             }
           },
@@ -49,43 +84,6 @@
       "package": {
         "friend": {
           "entity": {
-            ".": {
-              "comment": "Friendship relations between users.",
-              "attr": {
-                "leader_ref": {
-                  "comment": "Reference to user who has started relation.",
-                  "type": "ref"
-                },
-                "wingman_ref": {
-                  "comment": "Reference to user who has accepted relation.",
-                  "type": "ref"
-                },
-                "date_started": {
-                  "comment": "Date-time for registration of the user.",
-                  "type": "datetime",
-                  "default": "current"
-                }
-              },
-              "index": {
-                "PK": {"type": "primary", "attrs": ["leader_ref", "wingman_ref"]}
-              },
-              "relation": {
-                "leader": {
-                  "attrs": ["leader_ref"],
-                  "ref": {
-                    "path": "/user",
-                    "attrs": ["id"]
-                  }
-                },
-                "wingman": {
-                  "attrs": ["wingman_ref"],
-                  "ref": {
-                    "path": "/user",
-                    "attrs": ["id"]
-                  }
-                }
-              }
-            },
             "link": {
               "comment": "One-time friendship relations codes with limited lifetime.",
               "attr": {
@@ -192,7 +190,7 @@
       }
     }
   },
-  "refs": {
+  "map": {
     "/user": {"attrs": ["id"]}
   }
 }
