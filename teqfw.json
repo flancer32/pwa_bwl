@@ -10,7 +10,10 @@
         "alter": "Fl32_Bwl_Front_Model_Gate_AjaxLed",
         "area": "front"
       }
-    ]
+    ],
+    "replaceNew": {
+      "TeqFw_Web_Front_Api_Gate_IAjaxLed": {"ns": "Fl32_Bwl_Front_Model_Gate_AjaxLed", "area": "front"}
+    }
   },
   "@teqfw/core": {
     "plugin": {
