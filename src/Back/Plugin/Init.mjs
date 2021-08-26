@@ -20,7 +20,7 @@ export default function Factory(spec) {
         // DEFINE INNER FUNCTIONS
         /**
          * Get local configuration and initialize DB connection.
-         * Place connection object as 'TeqFw_Db_Back_Api_IConnect' singleton to DI-container.
+         * Place connection object as 'TeqFw_Db_Back_Api_RDb_IConnect' singleton to DI-container.
          *
          * @return {Promise<void>}
          */
@@ -28,7 +28,7 @@ export default function Factory(spec) {
             /** @type {TeqFw_Bwl_Back_Api_Dto_Config_Local} */
             const cfg = config.getLocal(DEF.DESC_NODE);
             await connect.init(cfg.db);
-            container.set('TeqFw_Db_Back_Api_IConnect$', connect); // set as interface
+            container.set('TeqFw_Db_Back_Api_RDb_IConnect$', connect); // set as interface
         }
 
         // MAIN FUNCTIONALITY

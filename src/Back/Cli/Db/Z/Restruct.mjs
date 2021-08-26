@@ -18,14 +18,14 @@ const NS = 'Fl32_Bwl_Back_Cli_Db_Z_Restruct';
  */
 function Factory(spec) {
     // PARSE INPUT & DEFINE WORKING VARS
-    /** @type {TeqFw_Db_Back_Api_IConnect} */
-    const conn = spec['TeqFw_Db_Back_Api_IConnect$'];
+    /** @type {TeqFw_Db_Back_Api_RDb_IConnect} */
+    const conn = spec['TeqFw_Db_Back_Api_RDb_IConnect$'];
     /** @type {TeqFw_Core_Shared_Logger} */
     const logger = spec['TeqFw_Core_Shared_Logger$'];
-    /** @type {Fl32_Teq_User_Plugin_Store_RDb_Setup} */
-    const setupTeqUser = spec['Fl32_Teq_User_Plugin_Store_RDb_Setup$'];
-    /** @type {Fl32_Bwl_Back_Plugin_Store_RDb_Setup} */
-    const setupApp = spec['Fl32_Bwl_Back_Plugin_Store_RDb_Setup$'];
+    /** @type {TeqFw_Core_Back_Config} */
+    const config = spec['TeqFw_Core_Back_Config$'];
+    /** @type {TeqFw_Db_Back_Api_RDb_ISchema} */
+    const dbSchema = spec['TeqFw_Db_Back_Api_RDb_ISchema$'];
 
     // DEFINE INNER FUNCTIONS
     /**
@@ -34,23 +34,11 @@ function Factory(spec) {
      * @memberOf Fl32_Bwl_Back_Cli_Db_Z_Restruct
      */
     async function action() {
-        const knex = await conn.getKnex();
-        // compose queries to recreate DB structure
-        /** @type {SchemaBuilder} */
-        const builder = conn.getSchemaBuilder();
-
-        // drop tables considering relations (1) then drop base registries (0)
-        // (1)
-        setupApp.dropTables1(builder);
-        setupTeqUser.dropTables1(builder);
-        // (0)
-        setupApp.dropTables0(builder);
-        setupTeqUser.dropTables0(builder);
-        // create tables
-        setupTeqUser.createStructure(knex, builder);
-        setupApp.createStructure(knex, builder);
-        // perform queries to recreate DB structure
-        await builder;
+        // load DEMs then drop/create all tables
+        const path = config.getBoot().projectRoot;
+        await dbSchema.loadDem({path});
+        await dbSchema.dropAllTables({conn});
+        await dbSchema.createAllTables({conn});
         logger.info('Database structure is recreated.');
     }
 

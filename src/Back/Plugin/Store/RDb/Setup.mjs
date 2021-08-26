@@ -1,7 +1,10 @@
+/**
+ * @deprecated use DEM instead of.
+ */
 export default class Fl32_Bwl_Back_Plugin_Store_RDb_Setup {
     constructor(spec) {
-        /** @function {@type TeqFw_Db_Back_Util.nameFK} */
-        const nameFK = spec['TeqFw_Db_Back_Util#nameFK'];
+        /** @function {@type TeqFw_Db_Back_Api_Util.nameFK} */
+        const nameFK = spec['TeqFw_Db_Back_Api_Util#nameFK'];
         /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Friend} */
         const EFriend = spec['Fl32_Bwl_Back_Store_RDb_Schema_Friend#'];
         /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Friend_Link} */

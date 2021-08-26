@@ -6,8 +6,8 @@ const NS = 'Fl32_Bwl_Back_Plugin_Stop';
 
 export default function Factory(spec) {
     // EXTRACT DEPS
-    /** @type {TeqFw_Db_Back_Api_IConnect} */
-    const connect = spec['TeqFw_Db_Back_Api_IConnect$'];
+    /** @type {TeqFw_Db_Back_Api_RDb_IConnect} */
+    const connect = spec['TeqFw_Db_Back_Api_RDb_IConnect$'];
 
     // COMPOSE RESULT
     async function exec() {

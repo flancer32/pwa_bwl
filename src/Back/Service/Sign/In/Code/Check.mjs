@@ -18,8 +18,8 @@ export default class Fl32_Bwl_Back_Service_Sign_In_Code_Check {
         // EXTRACT DEPS
         /** @type {Fl32_Bwl_Back_Defaults} */
         const DEF = spec['Fl32_Bwl_Back_Defaults$'];
-        /** @type {TeqFw_Db_Back_Api_IConnect} */
-        const rdb = spec['TeqFw_Db_Back_Api_IConnect$'];
+        /** @type {TeqFw_Db_Back_Api_RDb_IConnect} */
+        const rdb = spec['TeqFw_Db_Back_Api_RDb_IConnect$'];
         /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Sign_In} */
         const ESignIn = spec['Fl32_Bwl_Back_Store_RDb_Schema_Sign_In#'];
         /** @function {@type TeqFw_Web_Back_Util.cookieCreate} */

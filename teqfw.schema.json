@@ -153,30 +153,28 @@
                   "type": "ref"
                 },
                 "date": {
-                  "type": {
-                    "datetime": {"dateOnly": true},
-                    "default": "current"
-                  }
+                  "type": "date",
+                  "default": "current"
                 },
                 "type": {
                   "comment": "Weight type: current or target.",
-                  "type": {
-                    "enum": ["c", "t"]
+                  "type": "enum",
+                  "options": {
+                    "values": ["c", "t"]
                   },
                   "default": "c"
                 },
                 "value": {
                   "comment": "Statistical value for the weight in kg: 75.4.",
-                  "type": {
-                    "numeric": {
-                      "precision": 4,
-                      "scale": 1
-                    }
+                  "type": "numeric",
+                  "options": {
+                    "precision": 4,
+                    "scale": 1
                   }
                 }
               },
               "index": {
-                "PK": {"type": "primary", "attrs": ["user_ref","date","type"]}
+                "PK": {"type": "primary", "attrs": ["user_ref", "date", "type"]}
               },
               "relation": {
                 "user": {
