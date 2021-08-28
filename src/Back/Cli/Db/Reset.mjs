@@ -29,7 +29,7 @@ function Factory(spec) {
     /** @type {TeqFw_Core_Shared_Logger} */
     const logger = spec['TeqFw_Core_Shared_Logger$'];
     const {isPostgres} = spec['TeqFw_Db_Back_Api_Util']; // ES6 destruct
-    /** @function {@type Fl32_Bwl_Back_Cli_Db_Z_Restruct.action} */
+    /** @type {Function|Fl32_Bwl_Back_Cli_Db_Z_Restruct.action} */
     const actRestruct = spec['Fl32_Bwl_Back_Cli_Db_Z_Restruct$'];
     /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Profile} */
     const EAppProfile = spec['Fl32_Bwl_Back_Store_RDb_Schema_Profile#'];

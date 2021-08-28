@@ -1,0 +1,18 @@
+{
+  "@flancer32/teq_user": {
+    "/person": {
+      "path": "/user",
+      "attrs": {
+        "identity": "id"
+      }
+    }
+  },
+  "@flancer32/pwa_bwl": {
+    "/person": {
+      "path": "/user",
+      "attrs": {
+        "identity": "id"
+      }
+    }
+  }
+}

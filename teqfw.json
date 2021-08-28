@@ -21,7 +21,6 @@
       "onStop": "Fl32_Bwl_Back_Plugin_Stop"
     },
     "commands": [
-      "Fl32_Bwl_Back_Cli_Db_Drop",
       "Fl32_Bwl_Back_Cli_Db_Reset",
       "Fl32_Bwl_Back_Cli_Db_Upgrade"
     ]
