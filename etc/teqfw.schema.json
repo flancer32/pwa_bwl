@@ -52,7 +52,7 @@
             },
             "age": {
               "comment": "Full ages for the update moment.",
-              "type": "integer",
+              "type": "number",
               "options": {
                 "unsigned": true
               }
@@ -64,7 +64,7 @@
             },
             "height": {
               "comment": "Height in cm.",
-              "type": "integer",
+              "type": "number",
               "options": {
                 "unsigned": true
               }
