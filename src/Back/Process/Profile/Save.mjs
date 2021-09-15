@@ -16,7 +16,7 @@ const NS = 'Fl32_Bwl_Back_Process_Profile_Save';
  */
 function Factory(spec) {
     /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Profile} */
-    const EProfile = spec['Fl32_Bwl_Back_Store_RDb_Schema_Profile#']; 
+    const EProfile = spec['Fl32_Bwl_Back_Store_RDb_Schema_Profile#'];
 
     /**
      /**
@@ -58,5 +58,5 @@ function Factory(spec) {
 }
 
 // MODULE'S EXPORT
-Object.defineProperty(Factory, 'name', {value: `${NS}.${Factory.constructor.name}`});
+Object.defineProperty(Factory, 'name', {value: `${NS}.${Factory.name}`});
 export default Factory;

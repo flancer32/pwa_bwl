@@ -19,7 +19,7 @@ const NS = 'Fl32_Bwl_Back_Process_Friend_Link_Add';
 function Factory(spec) {
     // EXTRACT DEPS
     /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Friend} */
-    const EFriend = spec['Fl32_Bwl_Back_Store_RDb_Schema_Friend#']; 
+    const EFriend = spec['Fl32_Bwl_Back_Store_RDb_Schema_Friend#'];
 
     // DEFINE INNER FUNCTIONS
 
@@ -46,5 +46,5 @@ function Factory(spec) {
 }
 
 // MODULE'S EXPORT
-Object.defineProperty(Factory, 'name', {value: `${NS}.${Factory.constructor.name}`});
+Object.defineProperty(Factory, 'name', {value: `${NS}.${Factory.name}`});
 export default Factory;

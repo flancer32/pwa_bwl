@@ -288,7 +288,7 @@ function Factory(spec) {
 }
 
 // MODULE'S FUNCTIONALITY
-Object.defineProperty(Factory, 'name', {value: `${NS}.${Factory.constructor.name}`});
+Object.defineProperty(Factory, 'name', {value: `${NS}.${Factory.name}`});
 
 // MODULE'S EXPORT
 export default Factory;

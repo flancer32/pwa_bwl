@@ -26,7 +26,7 @@ const template = `
  * @returns {Fl32_Bwl_Front_Widget_Dialog_Date.vueCompTmpl}
  */
 function Factory(spec) {
-    const {formatDate} = spec['TeqFw_Core_Shared_Util']; 
+    const {formatDate} = spec['TeqFw_Core_Shared_Util'];
 
 
     /**
@@ -77,7 +77,7 @@ function Factory(spec) {
 }
 
 // MODULE'S FUNCTIONALITY
-Object.defineProperty(Factory, 'name', {value: `${NS}.${Factory.constructor.name}`});
+Object.defineProperty(Factory, 'name', {value: `${NS}.${Factory.name}`});
 
 // MODULE'S EXPORT
 export default Factory;
