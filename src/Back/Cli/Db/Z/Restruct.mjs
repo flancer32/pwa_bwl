@@ -42,10 +42,8 @@ function Factory(spec) {
         logger.info('Database structure is recreated.');
     }
 
-    // MAIN FUNCTIONALITY
-    Object.defineProperty(action, 'name', {value: `${NS}.${action.name}`});
-
     // COMPOSE RESULT
+    Object.defineProperty(action, 'name', {value: `${NS}.${action.name}`});
     return action;
 }
 
