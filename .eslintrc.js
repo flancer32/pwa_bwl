@@ -17,6 +17,7 @@ module.exports = {
                 '@babel/plugin-proposal-private-methods'
             ],
         },
+        'requireConfigFile': false,
     },
     'plugins': [
         '@babel'
