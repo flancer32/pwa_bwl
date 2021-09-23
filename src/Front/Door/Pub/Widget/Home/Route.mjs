@@ -152,7 +152,9 @@ function Factory(spec) {
                     this.target
                 );
                 data.namePrimary = this.$t('wg.chart.current');
-                data.nameSecondary = (friendId) ? this.dataSet.label : this.$t('wg.chart.target');
+                data.nameSecondary = (friendId !== DEF.DEF_DATA_SET_ID)
+                    ? this.dataSet.label : this.$t('wg.chart.target');
+                data.normalize = (friendId !== DEF.DEF_DATA_SET_ID);
                 this.chartData = data;
             },
             async loadOptsDataSet() {

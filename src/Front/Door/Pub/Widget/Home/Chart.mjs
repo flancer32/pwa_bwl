@@ -19,6 +19,8 @@ class ChartData {
     namePrimary;
     /** @type {string} */
     nameSecondary;
+    /** @type {boolean} */
+    normalize;
     /** @type {Point[]} */
     primary;
     /** @type {Point[]} */
@@ -90,14 +92,48 @@ function Factory(spec) {
                     /**
                      * Convert input series 'data' into series with length less then 'maxPoints'.
                      * @param {Point[]} data
+                     * @param {boolean} normalize normalize series if 'true'
                      * @param {number} xStart
                      * @param {number} xEnd
                      * @param {number} maxPoints
                      * @return {*[]}
                      */
-                    function prepareSeries(data, xStart, xEnd, maxPoints) {
-                        const res = [];
+                    function prepareSeries(data, normalize, xStart, xEnd, maxPoints) {
+                        // PARSE INPUT & DEFINE WORKING VARS
                         const VAL = 'val', COUNT = 'count', X = 'x';
+
+                        // DEFINE INNER FUNCTIONS
+                        /**
+                         * @param {Array} data
+                         * @param {number} delta
+                         * @param {boolean} norm
+                         * @return {Point[]}
+                         */
+                        function makeArray(data, delta, norm) {
+                            const res = [];
+                            let maxVal = Number.MIN_SAFE_INTEGER;
+                            for (const i in data) {
+                                const one = data[i];
+                                const point = new Point();
+                                if (one[COUNT] === 1) {
+                                    point.x = one[X];
+                                    point.y = one[VAL];
+                                } else {
+                                    point.x = xStart + (delta * i);
+                                    point.y = (one[VAL] / one[COUNT]).toFixed(1);
+                                }
+                                res.push(point);
+                                maxVal = Math.max(maxVal, point.y);
+                            }
+                            if (norm && (maxVal > 1)) {
+                                for (const one of res) {
+                                    one.y = ((one.y / maxVal) * 100).toFixed(2);
+                                }
+                            }
+                            return res;
+                        }
+
+                        // MAIN FUNCTIONALITY
                         const space = []; // array of objects {val, count}
                         const delta = Math.floor((xEnd - xStart) / maxPoints);
                         for (const one of data) {
@@ -109,32 +145,18 @@ function Factory(spec) {
                                 space[i][COUNT] += 1;
                             }
                         }
-                        for (const i in space) {
-                            const one = space[i];
-                            const point = new Point();
-                            if (one[COUNT] === 1) {
-                                point.x = one[X];
-                                point.y = one[VAL];
-                            } else {
-                                point.x = xStart + (delta * i);
-                                point.y = (one[VAL] / one[COUNT]).toFixed(1);
-                            }
-                            res.push(point);
-                        }
-                        return res;
+                        return makeArray(space, delta, normalize);
                     }
 
-                    // PARSE INPUT & DEFINE WORKING VARS
+                    // MAIN FUNCTIONALITY
                     const labels = chartData.labels;
                     const parent = document.getElementById(DOM_ID_CHART).parentElement;
                     const width = parent.offsetWidth;
                     const maxPoints = Math.floor(width / 15);
                     const xStart = chartData.labels[0].getTime();
                     const xEnd = chartData.labels[chartData.labels.length - 1].getTime();
-                    const primary = prepareSeries(chartData.primary, xStart, xEnd, maxPoints);
-                    const secondary = prepareSeries(chartData.secondary, xStart, xEnd, maxPoints);
-
-                    // MAIN FUNCTIONALITY
+                    const primary = prepareSeries(chartData.primary, chartData.normalize, xStart, xEnd, maxPoints);
+                    const secondary = prepareSeries(chartData.secondary, chartData.normalize, xStart, xEnd, maxPoints);
                     const datasets = [];
                     // add primary data set to chart
                     datasets.push({
