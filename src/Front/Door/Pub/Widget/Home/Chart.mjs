@@ -19,9 +19,9 @@ class ChartData {
     namePrimary;
     /** @type {string} */
     nameSecondary;
-    /** @type {number[]} */
+    /** @type {Point[]} */
     primary;
-    /** @type {number[]} */
+    /** @type {Point[]} */
     secondary;
 }
 
@@ -31,7 +31,7 @@ Object.defineProperty(ChartData, 'name', {value: `${NS}.${ChartData.name}`});
  * Chart point (https://www.chartjs.org/docs/latest/general/data-structures.html#object)
  * @memberOf Fl32_Bwl_Front_Door_Pub_Widget_Home_Chart
  */
-export class Point {
+class Point {
     x;
     y;
 }
@@ -82,9 +82,57 @@ function Factory(spec) {
              */
             chartData(current, old) {
                 // DEFINE INNER FUNCTIONS
-                function draw(charData) {
+                /**
+                 * @param {ChartData} chartData
+                 */
+                function draw(chartData) {
+                    // DEFINE INNER FUNCTIONS
+                    /**
+                     * Convert input series 'data' into series with length less then 'maxPoints'.
+                     * @param {Point[]} data
+                     * @param {number} xStart
+                     * @param {number} xEnd
+                     * @param {number} maxPoints
+                     * @return {*[]}
+                     */
+                    function prepareSeries(data, xStart, xEnd, maxPoints) {
+                        const res = [];
+                        const VAL = 'val', COUNT = 'count', X = 'x';
+                        const space = []; // array of objects {val, count}
+                        const delta = Math.floor((xEnd - xStart) / maxPoints);
+                        for (const one of data) {
+                            const i = Math.floor((one.x - xStart) / delta);
+                            if (space[i] === undefined) {
+                                space[i] = {[VAL]: Number.parseFloat(one.y), [COUNT]: 1, [X]: one.x};
+                            } else {
+                                space[i][VAL] += Number.parseFloat(one.y);
+                                space[i][COUNT] += 1;
+                            }
+                        }
+                        for (const i in space) {
+                            const one = space[i];
+                            const point = new Point();
+                            if (one[COUNT] === 1) {
+                                point.x = one[X];
+                                point.y = one[VAL];
+                            } else {
+                                point.x = xStart + (delta * i);
+                                point.y = (one[VAL] / one[COUNT]).toFixed(1);
+                            }
+                            res.push(point);
+                        }
+                        return res;
+                    }
+
                     // PARSE INPUT & DEFINE WORKING VARS
-                    const labels = charData.labels;
+                    const labels = chartData.labels;
+                    const parent = document.getElementById(DOM_ID_CHART).parentElement;
+                    const width = parent.offsetWidth;
+                    const maxPoints = Math.floor(width / 15);
+                    const xStart = chartData.labels[0].getTime();
+                    const xEnd = chartData.labels[chartData.labels.length - 1].getTime();
+                    const primary = prepareSeries(chartData.primary, xStart, xEnd, maxPoints);
+                    const secondary = prepareSeries(chartData.secondary, xStart, xEnd, maxPoints);
 
                     // MAIN FUNCTIONALITY
                     const datasets = [];
@@ -92,18 +140,18 @@ function Factory(spec) {
                     datasets.push({
                         borderColor: 'rgba(250, 12, 128, 0.8)',
                         borderWidth: 2,
-                        data: charData.primary,
+                        data: primary,
                         fill: false,
-                        label: charData.namePrimary,
+                        label: chartData.namePrimary,
                         pointRadius: 2,
                     });
                     // add secondary data set to chart
                     datasets.push({
                         borderColor: 'rgba(0, 12, 128, 0.8)',
                         borderWidth: 2,
-                        data: charData.secondary,
+                        data: secondary,
                         fill: false,
-                        label: charData.nameSecondary,
+                        label: chartData.nameSecondary,
                         pointRadius: 2,
                     });
                     const options = {
@@ -159,4 +207,5 @@ Object.defineProperty(Factory, 'name', {value: `${NS}.${Factory.name}`});
 export {
     ChartData,
     Factory as default,
+    Point,
 };
