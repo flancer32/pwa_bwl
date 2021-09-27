@@ -36,6 +36,6 @@
       "/luxon/": "/luxon/build/global/",
       "/luxon-adp/": "/chartjs-adapter-luxon/dist/"
     },
-    "doors": ["pub", "sign"]
+    "doors": ["pub", "sign", "sw"]
   }
 }
