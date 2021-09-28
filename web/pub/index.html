@@ -59,7 +59,7 @@
                 if (container.controller === null) {
                     // ... to load "sw.js" script and register service worker in navigator
                     try {
-                        const reg = await container.register("sw.js");
+                        const reg = await container.register("sw.js", {type: "module"});
                         if (reg.active) {
                             console.log("SW is registered and is active.", reg);
                             await bootstrap();
