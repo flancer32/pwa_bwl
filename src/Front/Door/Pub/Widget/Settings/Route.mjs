@@ -29,7 +29,9 @@ export default function Factory(spec) {
     const template = `
 <div>
     <lang/>
-      <q-btn :label="$t('btn.ok')" v-on:click="sendMessage"></q-btn>
+      <q-btn :label="$t('btn.ok')" v-on:click="getStatus"></q-btn>
+      <q-btn :label="$t('btn.disable')" v-on:click="cacheDisable"></q-btn>
+      <q-btn :label="$t('btn.enable')" v-on:click="cacheEnable"></q-btn>
 </div>
 `;
 
@@ -46,9 +48,15 @@ export default function Factory(spec) {
         template,
         components: {lang},
         methods: {
-            async sendMessage() {
-                const res = await swControl.send('payload from settings');
-                console.log(`${res}`);
+            async getStatus() {
+                const res = await swControl.getCacheStatus();
+                console.log(`cache status: ${res}`);
+            },
+            async cacheDisable() {
+                const res = await swControl.setCacheStatus(false);
+            },
+            async cacheEnable() {
+                const res = await swControl.setCacheStatus(true);
             }
         },
         async mounted() {
