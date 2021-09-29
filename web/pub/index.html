@@ -55,18 +55,18 @@
             // ... then add event handler to run script after window will be loaded
             // (https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event)
             self.addEventListener("load", async () => {
-                const container = navigator.serviceWorker;
-                if (container.controller === null) {
+                const worker = navigator.serviceWorker;
+                if (worker.controller === null) {
                     // ... to load "sw.js" script and register service worker in navigator
                     try {
-                        const reg = await container.register("sw.js", {type: "module"});
+                        const reg = await worker.register("sw.js", {type: "module"});
                         if (reg.active) {
                             console.log("SW is registered and is active.", reg);
                             await bootstrap();
                         } else {
                             console.log("SW is registered but is not activated yet.", reg);
                             // wait for `controllerchange` (see `clients.claim()` in SW code on `activate` event)
-                            container.addEventListener("controllerchange", async () => {
+                            worker.addEventListener("controllerchange", async () => {
                                 // SW just installed (page's first load).
                                 await bootstrap();
                             });

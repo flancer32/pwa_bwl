@@ -1,17 +1,17 @@
 /**
  * Route widget to change app settings.
  *
- * @namespace Fl32_Bwl_Front_Door_Pub_Route_Settings
+ * @namespace Fl32_Bwl_Front_Door_Pub_Widget_Settings_Route
  */
 // MODULE'S VARS
-const NS = 'Fl32_Bwl_Front_Door_Pub_Route_Settings';
+const NS = 'Fl32_Bwl_Front_Door_Pub_Widget_Settings_Route';
 
 // MODULE'S FUNCTIONS
 /**
  * Factory to create template for new Vue component instances.
  *
- * @memberOf Fl32_Bwl_Front_Door_Pub_Route_Settings
- * @returns {Fl32_Bwl_Front_Door_Pub_Route_Settings.vueCompTmpl}
+ * @memberOf Fl32_Bwl_Front_Door_Pub_Widget_Settings_Route
+ * @returns {Fl32_Bwl_Front_Door_Pub_Widget_Settings_Route.vueCompTmpl}
  */
 export default function Factory(spec) {
     // EXTRACT DEPS
@@ -21,13 +21,15 @@ export default function Factory(spec) {
     const session = spec['Fl32_Teq_User_Front_Model_Session$'];
     /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.IComponent} */
     const topActions = spec['Fl32_Bwl_Front_Layout_TopActions$'];
-    /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.Item} */
     /** @type {Fl32_Bwl_Front_Door_Pub_Widget_Settings_Lang.vueCompTmpl} */
     const lang = spec['Fl32_Bwl_Front_Door_Pub_Widget_Settings_Lang$'];
+    /** @type {TeqFw_Web_Front_Model_Sw_Control} */
+    const swControl = spec['TeqFw_Web_Front_Model_Sw_Control$'];
 
     const template = `
 <div>
     <lang/>
+      <q-btn :label="$t('btn.ok')" v-on:click="sendMessage"></q-btn>
 </div>
 `;
 
@@ -36,13 +38,19 @@ export default function Factory(spec) {
      * Template to create new component instances using Vue.
      *
      * @const {Object} vueCompTmpl
-     * @memberOf Fl32_Bwl_Front_Door_Pub_Route_Settings
+     * @memberOf Fl32_Bwl_Front_Door_Pub_Widget_Settings_Route
      */
     return {
         teq: {package: DEF.SHARED.NAME},
         name: NS,
         template,
         components: {lang},
+        methods: {
+            async sendMessage() {
+                const res = await swControl.send('payload from settings');
+                console.log(`${res}`);
+            }
+        },
         async mounted() {
             // MAIN FUNCTIONALITY
             if (await session.checkUserAuthenticated(this.$router)) {

@@ -98,7 +98,7 @@ export default class Fl32_Bwl_Front_Door_Pub_App {
                 });
                 router.addRoute({
                     path: DEF.DOOR_PUB_ROUTE_SETTINGS,
-                    component: () => container.get('Fl32_Bwl_Front_Door_Pub_Route_Settings$')
+                    component: () => container.get('Fl32_Bwl_Front_Door_Pub_Widget_Settings_Route$')
                 });
                 router.addRoute({
                     path: DEF.DOOR_PUB_ROUTE_SIGN_IN_CODE_CHECK,
