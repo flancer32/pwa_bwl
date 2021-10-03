@@ -7,6 +7,23 @@ DIR_ROOT=${DIR_ROOT:-$(cd "$(dirname "$0")/../../" && pwd)}
 DIR_NODE="${DIR_ROOT}/node_modules"
 DIR_OWN="${DIR_ROOT}/own_modules"
 
+##
+# Internal function to clone & link one GitHub repo
+##
+processRepo() {
+  NAME="@${1}"
+  REPO="git@github.com:${1}.git"
+  if test ! -d "${DIR_OWN}/${NAME}"; then
+    echo "Clone repo '${NAME}' to '${DIR_OWN}'."
+    git clone "${REPO}" "${DIR_OWN}/${NAME}"
+  fi
+  echo "Link sources from '${NAME}' to '${DIR_NODE}'."
+  rm -fr "${DIR_NODE}/${NAME}" && ln -s "${DIR_OWN}/${NAME}" "${DIR_NODE}/${NAME}"
+}
+
+##
+# MAIN FUNCTIONALITY
+##
 echo "Remove installed dependencies and lock file."
 rm -fr "${DIR_NODE}" "${DIR_ROOT}/package-lock.json"
 
@@ -21,27 +38,18 @@ echo "Remove cloned dependencies (sources)."
 echo "Clone dependencies from github to inner folders."
 mkdir -p "${DIR_OWN}/@teqfw/"
 mkdir -p "${DIR_OWN}/@flancer32/"
-git clone git@github.com:flancer32/teq_user.git "${DIR_OWN}/@flancer32/teq_user"
-git clone git@github.com:teqfw/core.git "${DIR_OWN}/@teqfw/core"
-git clone git@github.com:teqfw/db.git "${DIR_OWN}/@teqfw/db"
-git clone git@github.com:teqfw/di.git "${DIR_OWN}/@teqfw/di"
-git clone git@github.com:teqfw/email.git "${DIR_OWN}/@teqfw/email"
-git clone git@github.com:teqfw/http2.git "${DIR_OWN}/@teqfw/http2"
-git clone git@github.com:teqfw/i18n.git "${DIR_OWN}/@teqfw/i18n"
-git clone git@github.com:teqfw/ui-quasar.git "${DIR_OWN}/@teqfw/ui-quasar"
-git clone git@github.com:teqfw/vue.git "${DIR_OWN}/@teqfw/vue"
-git clone git@github.com:teqfw/web.git "${DIR_OWN}/@teqfw/web"
 
-echo "Remove node modules and link cloned sources."
-rm -fr "${DIR_NODE}/@flancer32/teq_user" && ln -s "${DIR_OWN}/@flancer32/teq_user" "${DIR_NODE}/@flancer32/teq_user"
-rm -fr "${DIR_NODE}/@teqfw/core" && ln -s "${DIR_OWN}/@teqfw/core" "${DIR_NODE}/@teqfw/core"
-rm -fr "${DIR_NODE}/@teqfw/db" && ln -s "${DIR_OWN}/@teqfw/db" "${DIR_NODE}/@teqfw/db"
-rm -fr "${DIR_NODE}/@teqfw/di" && ln -s "${DIR_OWN}/@teqfw/di" "${DIR_NODE}/@teqfw/di"
-rm -fr "${DIR_NODE}/@teqfw/email" && ln -s "${DIR_OWN}/@teqfw/email" "${DIR_NODE}/@teqfw/email"
-rm -fr "${DIR_NODE}/@teqfw/http2" && ln -s "${DIR_OWN}/@teqfw/http2" "${DIR_NODE}/@teqfw/http2"
-rm -fr "${DIR_NODE}/@teqfw/i18n" && ln -s "${DIR_OWN}/@teqfw/i18n" "${DIR_NODE}/@teqfw/i18n"
-rm -fr "${DIR_NODE}/@teqfw/ui-quasar" && ln -s "${DIR_OWN}/@teqfw/ui-quasar" "${DIR_NODE}/@teqfw/ui-quasar"
-rm -fr "${DIR_NODE}/@teqfw/vue" && ln -s "${DIR_OWN}/@teqfw/vue" "${DIR_NODE}/@teqfw/vue"
-rm -fr "${DIR_NODE}/@teqfw/web" && ln -s "${DIR_OWN}/@teqfw/web" "${DIR_NODE}/@teqfw/web"
+processRepo "flancer32/teq_user"
+processRepo "teqfw/core"
+processRepo "teqfw/db"
+processRepo "teqfw/di"
+processRepo "teqfw/email"
+processRepo "teqfw/http2"
+processRepo "teqfw/i18n"
+processRepo "teqfw/ui-quasar"
+processRepo "teqfw/vue"
+processRepo "teqfw/web"
+processRepo "teqfw/web-push"
 
-echo "Done."
+echo ""
+echo "App deployment in 'dev' mode is done."

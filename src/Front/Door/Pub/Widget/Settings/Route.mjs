@@ -23,15 +23,18 @@ export default function Factory(spec) {
     const topActions = spec['Fl32_Bwl_Front_Layout_TopActions$'];
     /** @type {Fl32_Bwl_Front_Door_Pub_Widget_Settings_Lang.vueCompTmpl} */
     const lang = spec['Fl32_Bwl_Front_Door_Pub_Widget_Settings_Lang$'];
+    /** @type {Fl32_Bwl_Front_Door_Pub_Widget_Settings_Push.vueCompTmpl} */
+    const push = spec['Fl32_Bwl_Front_Door_Pub_Widget_Settings_Push$'];
     /** @type {TeqFw_Web_Front_Model_Sw_Control} */
     const swControl = spec['TeqFw_Web_Front_Model_Sw_Control$'];
 
     const template = `
 <div>
     <lang/>
-      <q-btn :label="$t('btn.ok')" v-on:click="getStatus"></q-btn>
-      <q-btn :label="$t('btn.disable')" v-on:click="cacheDisable"></q-btn>
-      <q-btn :label="$t('btn.enable')" v-on:click="cacheEnable"></q-btn>
+    <push/>
+    <q-btn :label="$t('btn.ok')" v-on:click="getStatus"></q-btn>
+    <q-btn :label="$t('btn.disable')" v-on:click="cacheDisable"></q-btn>
+    <q-btn :label="$t('btn.enable')" v-on:click="cacheEnable"></q-btn>
 </div>
 `;
 
@@ -46,7 +49,7 @@ export default function Factory(spec) {
         teq: {package: DEF.SHARED.NAME},
         name: NS,
         template,
-        components: {lang},
+        components: {lang, push},
         methods: {
             async getStatus() {
                 const res = await swControl.getCacheStatus();

@@ -3,6 +3,8 @@
     "add": "Add",
     "cancel": "Cancel",
     "delete": "Delete",
+    "disable": "Disable",
+    "enable": "Enable",
     "ok": "ОК",
     "submit": "Submit"
   },
@@ -139,6 +141,9 @@
         "en": "English",
         "ru": "Русский",
         "title": "Please, select your language"
+      },
+      "push": {
+        "title": "Web Push configuration"
       }
     }
   }
