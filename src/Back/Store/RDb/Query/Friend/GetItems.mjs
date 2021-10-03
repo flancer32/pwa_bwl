@@ -16,8 +16,8 @@ function Factory(spec) {
     // EXTRACT DEPS
     /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Friend} */
     const EFriend = spec['Fl32_Bwl_Back_Store_RDb_Schema_Friend#'];
-    /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_Profile} */
-    const EUserProfile = spec['Fl32_Teq_User_Store_RDb_Schema_Profile#'];
+    /** @type {typeof Fl32_Teq_User_Back_Store_RDb_Schema_Profile} */
+    const EUserProfile = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Profile#'];
 
     // DEFINE INNER FUNCTIONS
     /**

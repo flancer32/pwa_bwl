@@ -13,8 +13,8 @@ export default class Fl32_Bwl_Back_Plugin_Store_RDb_Setup {
         const EProfile = spec['Fl32_Bwl_Back_Store_RDb_Schema_Profile#'];
         /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Sign_In} */
         const ESignIn = spec['Fl32_Bwl_Back_Store_RDb_Schema_Sign_In#'];
-        /** @type {typeof Fl32_Teq_User_Store_RDb_Schema_User} */
-        const EUser = spec['Fl32_Teq_User_Store_RDb_Schema_User#'];
+        /** @type {typeof Fl32_Teq_User_Back_Store_RDb_Schema_User} */
+        const EUser = spec['Fl32_Teq_User_Back_Store_RDb_Schema_User#'];
         /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat} */
         const EWeightStat = spec['Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat#'];
         /**

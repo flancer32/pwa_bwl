@@ -133,7 +133,7 @@ export default class Fl32_Bwl_Back_Service_Sign_Up {
                     await procRefCleanUp({trx});
                     // load link data by code
                     const code = req.refCode;
-                    /** @type {Fl32_Teq_User_Store_RDb_Schema_Ref_Link} */
+                    /** @type {Fl32_Teq_User_Back_Store_RDb_Schema_Ref_Link} */
                     const linkData = await procRefGet({trx, code});
                     if (linkData) {
                         const parentId = linkData.user_ref;
