@@ -22,14 +22,14 @@ function Factory(spec) {
     const connector = spec['TeqFw_Db_Back_Api_RDb_IConnect$'];
     /** @type {TeqFw_Core_Shared_Logger} */
     const logger = spec['TeqFw_Core_Shared_Logger$'];
-    /** @type {Function|TeqFw_Db_Back_Api_Util.serialsGet} */
-    const serialsGet = spec['TeqFw_Db_Back_Api_Util#serialsGet']; // function
-    /** @type {Function|TeqFw_Db_Back_Api_Util.getTables} */
-    const getTables = spec['TeqFw_Db_Back_Api_Util#getTables']; // function
-    /** @type {Function|TeqFw_Db_Back_Api_Util.isPostgres} */
-    const isPostgres = spec['TeqFw_Db_Back_Api_Util#isPostgres']; // function
-    /** @type {Function|TeqFw_Db_Back_Api_Util.itemsSelect} */
-    const itemsSelect = spec['TeqFw_Db_Back_Api_Util#itemsSelect']; // ESM destruct
+    /** @type {TeqFw_Db_Back_Api_Util.serialsGetOne|Function} */
+    const serialsGetOne = spec['TeqFw_Db_Back_Api_Util#serialsGetOne'];
+    /** @type {TeqFw_Db_Back_Api_Util.getTables|Function} */
+    const getTables = spec['TeqFw_Db_Back_Api_Util#getTables'];
+    /** @type {TeqFw_Db_Back_Api_Util.isPostgres|Function} */
+    const isPostgres = spec['TeqFw_Db_Back_Api_Util#isPostgres'];
+    /** @type {TeqFw_Db_Back_Api_Util.itemsSelect|Function} */
+    const itemsSelect = spec['TeqFw_Db_Back_Api_Util#itemsSelect'];
     /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Friend} */
     const EAppFriend = spec['Fl32_Bwl_Back_Store_RDb_Schema_Friend#'];
     /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Friend_Link} */
@@ -56,6 +56,8 @@ function Factory(spec) {
     const EUserRefLink = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Ref_Link#'];
     /** @type {typeof Fl32_Teq_User_Back_Store_RDb_Schema_Ref_Tree} */
     const EUserRefTree = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Ref_Tree#'];
+    /** @type {typeof TeqFw_Web_Push_Back_Store_RDb_Schema_Subscript} */
+    const EWebPushSubscript = spec['TeqFw_Web_Push_Back_Store_RDb_Schema_Subscript#'];
 
 
     // DEFINE INNER FUNCTIONS
@@ -84,15 +86,23 @@ function Factory(spec) {
             result[EUserProfile.ENTITY] = await itemsSelect(trx, tables, EUserProfile.ENTITY);
             result[EUserRefLink.ENTITY] = await itemsSelect(trx, tables, EUserRefLink.ENTITY);
             result[EUserRefTree.ENTITY] = await itemsSelect(trx, tables, EUserRefTree.ENTITY);
+            // web-push
+            result[EWebPushSubscript.ENTITY] = await itemsSelect(trx, tables, EWebPushSubscript.ENTITY);
             // serials for Postgres
             const isPg = isPostgres(trx.client);
             if (isPg) {
                 const knex = await connector.getKnex();
                 const schema = knex.schema;
-                const serials = [
-                    `${EUser.ENTITY}_id_seq`,
-                ];
-                result.serials = await serialsGet(schema, serials);
+                // const serials = [
+                //     `${EUser.ENTITY}_id_seq`,
+                //     `${EWebPushSubscript.ENTITY}_id_seq`,
+                // ];
+                // result.serials = await serialsGet(schema, serials);
+                result.series = {};
+                let name = `${EUser.ENTITY}_id_seq`;
+                result.series[name] = await serialsGetOne(schema, name);
+                name = `${EWebPushSubscript.ENTITY}_id_seq`;
+                result.series[name] = await serialsGetOne(schema, name);
             }
             // perform queries to insert data and commit changes
             trx.commit();

@@ -20,7 +20,9 @@ export default function Factory(spec) {
     /** @type {TeqFw_Web_Front_Service_Gate} */
     const gate = spec['TeqFw_Web_Front_Service_Gate$'];
     /** @type {TeqFw_Web_Push_Shared_Service_Route_Load_ServerKey.Factory} */
-    const route = spec['TeqFw_Web_Push_Shared_Service_Route_Load_ServerKey#Factory$'];
+    const routeKey = spec['TeqFw_Web_Push_Shared_Service_Route_Load_ServerKey#Factory$'];
+    /** @type {TeqFw_Web_Push_Shared_Service_Route_Subscript_Save.Factory} */
+    const routeSave = spec['TeqFw_Web_Push_Shared_Service_Route_Subscript_Save#Factory$'];
 
     // DEFINE WORKING VARS
     const template = `
@@ -50,20 +52,28 @@ export default function Factory(spec) {
         methods: {
             async subscribe() {
                 try {
-                    const req = route.createReq();
+                    // get server key from backend
+                    const reqKey = routeKey.createReq();
                     // noinspection JSValidateTypes
                     /** @type {TeqFw_Web_Push_Shared_Service_Route_Load_ServerKey.Response} */
-                    const res = await gate.send(req, route);
-                    if (res) {
-                        console.log(`server key: ${res.key}`);
+                    const resKey = await gate.send(reqKey, routeKey);
+                    if (resKey) {
+                        // subscribe to push events
                         const opts = {
                             userVisibleOnly: true,
-                            applicationServerKey: res.key
+                            applicationServerKey: resKey.key
                         };
                         const sw = await navigator.serviceWorker.ready;
                         const subscription = await sw.pushManager.subscribe(opts);
-                        console.log(JSON.stringify(subscription));
-
+                        // save subscription data to backend
+                        const json = subscription.toJSON();
+                        const reqSave = routeSave.createReq();
+                        reqSave.endpoint = json.endpoint;
+                        reqSave.auth = json.keys.auth;
+                        reqSave.p256dh = json.keys.p256dh;
+                        /** @type {TeqFw_Web_Push_Shared_Service_Route_Subscript_Save.Response} */
+                        const resSave = await gate.send(reqSave, routeSave);
+                        console.log(`Push subscription is saved: ${resSave.subscriptId}`);
                     }
                 } catch (e) {
                     console.log(e);

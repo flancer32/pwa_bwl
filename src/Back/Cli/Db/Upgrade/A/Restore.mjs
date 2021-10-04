@@ -22,11 +22,11 @@ function Factory(spec) {
     const connector = spec['TeqFw_Db_Back_Api_RDb_IConnect$'];
     /** @type {TeqFw_Core_Shared_Logger} */
     const logger = spec['TeqFw_Core_Shared_Logger$'];
-    /** @type {Function|TeqFw_Db_Back_Api_Util.serialsSet} */
+    /** @type {TeqFw_Db_Back_Api_Util.serialsSet|Function} */
     const serialsSet = spec['TeqFw_Db_Back_Api_Util#serialsSet'];
-    /** @type {Function|TeqFw_Db_Back_Api_Util.isPostgres} */
+    /** @type {TeqFw_Db_Back_Api_Util.isPostgres|Function} */
     const isPostgres = spec['TeqFw_Db_Back_Api_Util#isPostgres'];
-    /** @type {Function|TeqFw_Db_Back_Api_Util.itemsInsert} */
+    /** @type {TeqFw_Db_Back_Api_Util.itemsInsert|Function} */
     const itemsInsert = spec['TeqFw_Db_Back_Api_Util#itemsInsert'];
     /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Friend} */
     const EAppFriend = spec['Fl32_Bwl_Back_Store_RDb_Schema_Friend#'];
@@ -54,6 +54,8 @@ function Factory(spec) {
     const EUserRefLink = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Ref_Link#'];
     /** @type {typeof Fl32_Teq_User_Back_Store_RDb_Schema_Ref_Tree} */
     const EUserRefTree = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Ref_Tree#'];
+    /** @type {typeof TeqFw_Web_Push_Back_Store_RDb_Schema_Subscript} */
+    const EWebPushSubscript = spec['TeqFw_Web_Push_Back_Store_RDb_Schema_Subscript#'];
 
 
     // DEFINE INNER FUNCTIONS
@@ -84,6 +86,8 @@ function Factory(spec) {
             await itemsInsert(trx, dump, EAppProfile.ENTITY);
             await itemsInsert(trx, dump, EAppSignIn.ENTITY);
             await itemsInsert(trx, dump, EAppWeightStat.ENTITY);
+            // web-push
+            await itemsInsert(trx, dump, EWebPushSubscript.ENTITY);
             // serials for Postgres
             const isPg = isPostgres(trx.client);
             if (isPg && dump.serials) {
