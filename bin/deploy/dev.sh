@@ -18,7 +18,7 @@ processRepo() {
     git clone "${REPO}" "${DIR_OWN}/${NAME}"
   fi
   echo "Link sources from '${NAME}' to '${DIR_NODE}'."
-  rm -fr "${DIR_NODE}/${NAME}" && ln -s "${DIR_OWN}/${NAME}" "${DIR_NODE}/${NAME}"
+  rm -fr "${DIR_NODE:?}/${NAME}" && ln -s "${DIR_OWN}/${NAME}" "${DIR_NODE}/${NAME}"
 }
 
 ##
