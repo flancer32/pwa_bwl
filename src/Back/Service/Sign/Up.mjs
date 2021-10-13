@@ -18,8 +18,8 @@ export default class Fl32_Bwl_Back_Service_Sign_Up {
         // EXTRACT DEPS
         /** @type {Fl32_Bwl_Back_Defaults} */
         const DEF = spec['Fl32_Bwl_Back_Defaults$'];
-        /** @type {TeqFw_Db_Back_Api_RDb_IConnect} */
-        const rdb = spec['TeqFw_Db_Back_Api_RDb_IConnect$'];
+        /** @type {TeqFw_Db_Back_RDb_IConnect} */
+        const rdb = spec['TeqFw_Db_Back_RDb_IConnect$'];
         /** @type {Function|TeqFw_Core_Shared_Util.formatUtcDateTime} */
         const formatUtcDateTime = spec['TeqFw_Core_Shared_Util#formatUtcDateTime'];
         /** @type {Function|TeqFw_Web_Back_Util.cookieCreate} */

@@ -7,7 +7,7 @@ const NS = 'TeqFw_Bwl_Back_Api_Dto_Config_Local';
 
 // MODULE'S CLASSES
 export default class TeqFw_Bwl_Back_Api_Dto_Config_Local {
-    /** @type {TeqFw_Db_Back_Api_Dto_Config_Local} */
+    /** @type {TeqFw_Db_Back_Dto_Config_Local} */
     db;
 }
 
@@ -17,10 +17,10 @@ export default class TeqFw_Bwl_Back_Api_Dto_Config_Local {
  */
 export class Factory {
     constructor(spec) {
-        /** @type {typeof TeqFw_Db_Back_Api_Dto_Config_Local} */
-        const DDb = spec['TeqFw_Db_Back_Api_Dto_Config_Local#'];
-        /** @type {TeqFw_Db_Back_Api_Dto_Config_Local.Factory} */
-        const fDb = spec['TeqFw_Db_Back_Api_Dto_Config_Local#Factory$'];
+        /** @type {typeof TeqFw_Db_Back_Dto_Config_Local} */
+        const DDb = spec['TeqFw_Db_Back_Dto_Config_Local#'];
+        /** @type {TeqFw_Db_Back_Dto_Config_Local.Factory} */
+        const fDb = spec['TeqFw_Db_Back_Dto_Config_Local#Factory$'];
 
         /**
          * @param {TeqFw_Bwl_Back_Api_Dto_Config_Local|null} data

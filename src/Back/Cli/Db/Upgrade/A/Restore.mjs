@@ -18,16 +18,16 @@ const NS = 'Fl32_Bwl_Back_Cli_Db_Upgrade_A_Restore';
  */
 function Factory(spec) {
     // PARSE INPUT & DEFINE WORKING VARS
-    /** @type {TeqFw_Db_Back_Api_RDb_IConnect} */
-    const connector = spec['TeqFw_Db_Back_Api_RDb_IConnect$'];
+    /** @type {TeqFw_Db_Back_RDb_IConnect} */
+    const connector = spec['TeqFw_Db_Back_RDb_IConnect$'];
     /** @type {TeqFw_Core_Shared_Logger} */
     const logger = spec['TeqFw_Core_Shared_Logger$'];
-    /** @type {TeqFw_Db_Back_Api_Util.serialsSet|Function} */
-    const serialsSet = spec['TeqFw_Db_Back_Api_Util#serialsSet'];
-    /** @type {TeqFw_Db_Back_Api_Util.isPostgres|Function} */
-    const isPostgres = spec['TeqFw_Db_Back_Api_Util#isPostgres'];
-    /** @type {TeqFw_Db_Back_Api_Util.itemsInsert|Function} */
-    const itemsInsert = spec['TeqFw_Db_Back_Api_Util#itemsInsert'];
+    /** @type {TeqFw_Db_Back_Util.serialsSet|Function} */
+    const serialsSet = spec['TeqFw_Db_Back_Util#serialsSet'];
+    /** @type {TeqFw_Db_Back_Util.isPostgres|Function} */
+    const isPostgres = spec['TeqFw_Db_Back_Util#isPostgres'];
+    /** @type {TeqFw_Db_Back_Util.itemsInsert|Function} */
+    const itemsInsert = spec['TeqFw_Db_Back_Util#itemsInsert'];
     /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Friend} */
     const EAppFriend = spec['Fl32_Bwl_Back_Store_RDb_Schema_Friend#'];
     /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Friend_Link} */

@@ -18,18 +18,18 @@ const NS = 'Fl32_Bwl_Back_Cli_Db_Upgrade_A_Dump';
  */
 function Factory(spec) {
     // PARSE INPUT & DEFINE WORKING VARS
-    /** @type {TeqFw_Db_Back_Api_RDb_IConnect} */
-    const connector = spec['TeqFw_Db_Back_Api_RDb_IConnect$'];
+    /** @type {TeqFw_Db_Back_RDb_IConnect} */
+    const connector = spec['TeqFw_Db_Back_RDb_IConnect$'];
     /** @type {TeqFw_Core_Shared_Logger} */
     const logger = spec['TeqFw_Core_Shared_Logger$'];
-    /** @type {TeqFw_Db_Back_Api_Util.serialsGetOne|Function} */
-    const serialsGetOne = spec['TeqFw_Db_Back_Api_Util#serialsGetOne'];
-    /** @type {TeqFw_Db_Back_Api_Util.getTables|Function} */
-    const getTables = spec['TeqFw_Db_Back_Api_Util#getTables'];
-    /** @type {TeqFw_Db_Back_Api_Util.isPostgres|Function} */
-    const isPostgres = spec['TeqFw_Db_Back_Api_Util#isPostgres'];
-    /** @type {TeqFw_Db_Back_Api_Util.itemsSelect|Function} */
-    const itemsSelect = spec['TeqFw_Db_Back_Api_Util#itemsSelect'];
+    /** @type {TeqFw_Db_Back_Util.serialsGetOne|Function} */
+    const serialsGetOne = spec['TeqFw_Db_Back_Util#serialsGetOne'];
+    /** @type {TeqFw_Db_Back_Util.getTables|Function} */
+    const getTables = spec['TeqFw_Db_Back_Util#getTables'];
+    /** @type {TeqFw_Db_Back_Util.isPostgres|Function} */
+    const isPostgres = spec['TeqFw_Db_Back_Util#isPostgres'];
+    /** @type {TeqFw_Db_Back_Util.itemsSelect|Function} */
+    const itemsSelect = spec['TeqFw_Db_Back_Util#itemsSelect'];
     /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Friend} */
     const EAppFriend = spec['Fl32_Bwl_Back_Store_RDb_Schema_Friend#'];
     /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Friend_Link} */
