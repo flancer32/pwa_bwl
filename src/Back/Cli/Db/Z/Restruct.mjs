@@ -26,6 +26,8 @@ function Factory(spec) {
     const config = spec['TeqFw_Core_Back_Config$'];
     /** @type {TeqFw_Db_Back_RDb_ISchema} */
     const dbSchema = spec['TeqFw_Db_Back_RDb_ISchema$'];
+    /** @type {TeqFw_Db_Back_Dem_Load} */
+    const demLoad = spec['TeqFw_Db_Back_Dem_Load$'];
 
     // DEFINE INNER FUNCTIONS
     /**
@@ -36,7 +38,9 @@ function Factory(spec) {
     async function action() {
         // load DEMs then drop/create all tables
         const path = config.getBoot().projectRoot;
-        await dbSchema.loadDem({path});
+        const {dem, cfg} = await demLoad.exec({path});
+        await dbSchema.setDem({dem});
+        await dbSchema.setCfg({cfg});
         await dbSchema.dropAllTables({conn});
         await dbSchema.createAllTables({conn});
         logger.info('Database structure is recreated.');
