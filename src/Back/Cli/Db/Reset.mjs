@@ -28,15 +28,16 @@ function Factory(spec) {
     const connector = spec['TeqFw_Db_Back_RDb_IConnect$'];
     /** @type {TeqFw_Core_Shared_Logger} */
     const logger = spec['TeqFw_Core_Shared_Logger$'];
-    const {isPostgres} = spec['TeqFw_Db_Back_Util']; // ES6 destruct
+    /** @type {TeqFw_Db_Back_Api_RDb_ICrudEngine} */
+    const crud = spec['TeqFw_Db_Back_Api_RDb_ICrudEngine$'];
     /** @type {Function|Fl32_Bwl_Back_Cli_Db_Z_Restruct.action} */
     const actRestruct = spec['Fl32_Bwl_Back_Cli_Db_Z_Restruct$'];
     /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Profile} */
     const EAppProfile = spec['Fl32_Bwl_Back_Store_RDb_Schema_Profile#'];
     /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat} */
     const EAppWeightStat = spec['Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat#'];
-    /** @type {typeof Fl32_Teq_User_Back_Store_RDb_Schema_User} */
-    const EUser = spec['Fl32_Teq_User_Back_Store_RDb_Schema_User#'];
+    /** @type {TeqFw_User_Back_Store_RDb_Schema_User} */
+    const metaUser = spec['TeqFw_User_Back_Store_RDb_Schema_User$'];
     /** @type {typeof Fl32_Teq_User_Back_Store_RDb_Schema_Auth_Password} */
     const EUserAuthPass = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Auth_Password#'];
     /** @type {typeof Fl32_Teq_User_Back_Store_RDb_Schema_Auth_Session} */
@@ -62,7 +63,7 @@ function Factory(spec) {
         // DEFINE INNER FUNCTIONS
         /**
          * Compose queries to insert data into the tables.
-         * @param trx
+         * @param {TeqFw_Db_Back_RDb_ITrans} trx
          */
         async function populateWithData(trx) {
             // DEFINE INNER FUNCTIONS
@@ -91,20 +92,28 @@ function Factory(spec) {
                 }]);
             }
 
+            /**
+             * @param {TeqFw_Db_Back_RDb_ITrans} trx
+             * @return {Promise<void>}
+             */
             async function insertUsers(trx) {
-                const isPg = isPostgres(trx.client);
+                const isPg = trx.isPostgres();
+                const dtoUserAdmin = metaUser.createDto();
+                const dtoUserCust = metaUser.createDto();
+                if (isPg) {
+                    dtoUserAdmin.id = DEF.DATA_USER_ID_ADMIN;
+                    dtoUserCust.id = DEF.DATA_USER_ID_CUST;
+                }
+                await crud.create(trx, metaUser, dtoUserAdmin);
+                await crud.create(trx, metaUser, dtoUserCust);
 
-                await trx(EUser.ENTITY).insert([
-                    {[EUser.A_ID]: isPg ? undefined : DEF.DATA_USER_ID_ADMIN},
-                    {[EUser.A_ID]: isPg ? undefined : DEF.DATA_USER_ID_CUST},
-                ]);
-                await trx(EUserProfile.ENTITY).insert([
+                await trx.getQuery(EUserProfile.ENTITY).insert([
                     {[EUserProfile.A_USER_REF]: DEF.DATA_USER_ID_ADMIN, [EUserProfile.A_NAME]: 'Admin'},
                     {[EUserProfile.A_USER_REF]: DEF.DATA_USER_ID_CUST, [EUserProfile.A_NAME]: 'Customer'},
                 ]);
                 const hash1 = await $bcrypt.hash('test', DEF.MOD_USER.BCRYPT_HASH_ROUNDS);
                 const hash2 = await $bcrypt.hash('test', DEF.MOD_USER.BCRYPT_HASH_ROUNDS);
-                await trx(EUserAuthPass.ENTITY).insert([
+                await trx.getQuery(EUserAuthPass.ENTITY).insert([
                     {
                         [EUserAuthPass.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
                         [EUserAuthPass.A_LOGIN]: 'admin',
@@ -115,17 +124,17 @@ function Factory(spec) {
                         [EUserAuthPass.A_PASSWORD_HASH]: hash2,
                     },
                 ]);
-                await trx(EUserIdEmail.ENTITY).insert({
+                await trx.getQuery(EUserIdEmail.ENTITY).insert({
                     [EUserIdEmail.A_EMAIL]: 'flancer64@gmail.com',
                     [EUserIdEmail.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
                 });
-                await trx(EUserIdPhone.ENTITY).insert({
+                await trx.getQuery(EUserIdPhone.ENTITY).insert({
                     [EUserIdPhone.A_PHONE]: '(371)29181801',
                     [EUserIdPhone.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
                 });
                 const expiredAt = new Date();
                 expiredAt.setUTCDate(expiredAt.getUTCDate() + 1);
-                await trx(EUserRefLink.ENTITY).insert([{
+                await trx.getQuery(EUserRefLink.ENTITY).insert([{
                     [EUserRefLink.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
                     [EUserRefLink.A_CODE]: DEF.DATA_REF_CODE_ROOT,
                     [EUserRefLink.A_DATE_EXPIRED]: expiredAt,
@@ -135,7 +144,7 @@ function Factory(spec) {
                     [EUserRefLink.A_DATE_EXPIRED]: expiredAt,
                 }]);
                 // users tree
-                await trx(EUserRefTree.ENTITY).insert([
+                await trx.getQuery(EUserRefTree.ENTITY).insert([
                     {
                         [EUserRefTree.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
                         [EUserRefTree.A_PARENT_REF]: DEF.DATA_USER_ID_ADMIN,
@@ -408,9 +417,9 @@ function Factory(spec) {
 
             // MAIN FUNCTIONALITY
             await insertUsers(trx);
-            await insertSessions(trx);
-            await insertProfiles(trx);
-            await insertWeightStats(trx);
+            await insertSessions(trx.getTrx());
+            await insertProfiles(trx.getTrx());
+            await insertWeightStats(trx.getTrx());
         }
 
         // MAIN FUNCTIONALITY
@@ -423,7 +432,7 @@ function Factory(spec) {
             // perform queries to insert data into created tables
             await populateWithData(trx);
             // perform queries to insert data and commit changes
-            trx.commit();
+            await trx.commit();
         } catch (e) {
             trx.rollback();
             logger.error(`${e.toString()}`);

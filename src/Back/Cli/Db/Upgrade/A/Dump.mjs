@@ -56,8 +56,8 @@ function Factory(spec) {
     const EUserRefLink = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Ref_Link#'];
     /** @type {typeof Fl32_Teq_User_Back_Store_RDb_Schema_Ref_Tree} */
     const EUserRefTree = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Ref_Tree#'];
-    /** @type {typeof TeqFw_Web_Push_Back_Store_RDb_Schema_Subscript} */
-    const EWebPushSubscript = spec['TeqFw_Web_Push_Back_Store_RDb_Schema_Subscript#'];
+    /** @type {TeqFw_Web_Push_Back_Store_RDb_Schema_Subscript} */
+    const EWebPushSubscript = spec['TeqFw_Web_Push_Back_Store_RDb_Schema_Subscript$'];
 
 
     // DEFINE INNER FUNCTIONS
