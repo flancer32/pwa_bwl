@@ -26,8 +26,6 @@ function Factory(spec) {
     const serialsGetOne = spec['TeqFw_Db_Back_Util#serialsGetOne'];
     /** @type {TeqFw_Db_Back_Util.getTables|Function} */
     const getTables = spec['TeqFw_Db_Back_Util#getTables'];
-    /** @type {TeqFw_Db_Back_Util.isPostgres|Function} */
-    const isPostgres = spec['TeqFw_Db_Back_Util#isPostgres'];
     /** @type {TeqFw_Db_Back_Util.itemsSelect|Function} */
     const itemsSelect = spec['TeqFw_Db_Back_Util#itemsSelect'];
     /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Friend} */
@@ -40,8 +38,6 @@ function Factory(spec) {
     const EAppSignIn = spec['Fl32_Bwl_Back_Store_RDb_Schema_Sign_In#'];
     /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat} */
     const EAppWeightStat = spec['Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat#'];
-    /** @type {typeof Fl32_Teq_User_Back_Store_RDb_Schema_User} */
-    const EUser = spec['Fl32_Teq_User_Back_Store_RDb_Schema_User#'];
     /** @type {typeof Fl32_Teq_User_Back_Store_RDb_Schema_Auth_Password} */
     const EUserAuthPass = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Auth_Password#'];
     /** @type {typeof Fl32_Teq_User_Back_Store_RDb_Schema_Auth_Session} */
@@ -57,8 +53,13 @@ function Factory(spec) {
     /** @type {typeof Fl32_Teq_User_Back_Store_RDb_Schema_Ref_Tree} */
     const EUserRefTree = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Ref_Tree#'];
     /** @type {TeqFw_Web_Push_Back_Store_RDb_Schema_Subscript} */
-    const EWebPushSubscript = spec['TeqFw_Web_Push_Back_Store_RDb_Schema_Subscript$'];
+    const metaWebPushSubscript = spec['TeqFw_Web_Push_Back_Store_RDb_Schema_Subscript$'];
+    /** @type {TeqFw_User_Back_Store_RDb_Schema_User} */
+    const metaUser = spec['TeqFw_User_Back_Store_RDb_Schema_User$'];
 
+    // DEFINE WORKING VARS / PROPS
+    /** @type {typeof TeqFw_User_Back_Store_RDb_Schema_User.ATTR} */
+    const A_USER = metaUser.getAttributes();
 
     // DEFINE INNER FUNCTIONS
     /**
@@ -68,6 +69,9 @@ function Factory(spec) {
      */
     async function action() {
         const trx = await connector.startTransaction();
+        const T_USER = trx.getTableName(metaUser);
+        const T_WEB_PUSH_SUBSCRIPT = trx.getTableName(metaWebPushSubscript);
+
         try {
             const result = {};
             const tables = await getTables(trx);
@@ -78,7 +82,7 @@ function Factory(spec) {
             result[EAppSignIn.ENTITY] = await itemsSelect(trx, tables, EAppSignIn.ENTITY);
             result[EAppWeightStat.ENTITY] = await itemsSelect(trx, tables, EAppWeightStat.ENTITY);
             // users data
-            result[EUser.ENTITY] = await itemsSelect(trx, tables, EUser.ENTITY);
+            result[T_USER] = await itemsSelect(trx, tables, T_USER);
             result[EUserAuthPass.ENTITY] = await itemsSelect(trx, tables, EUserAuthPass.ENTITY);
             result[EUserAuthSess.ENTITY] = await itemsSelect(trx, tables, EUserAuthSess.ENTITY);
             result[EUserIdEmail.ENTITY] = await itemsSelect(trx, tables, EUserIdEmail.ENTITY);
@@ -87,29 +91,24 @@ function Factory(spec) {
             result[EUserRefLink.ENTITY] = await itemsSelect(trx, tables, EUserRefLink.ENTITY);
             result[EUserRefTree.ENTITY] = await itemsSelect(trx, tables, EUserRefTree.ENTITY);
             // web-push
-            result[EWebPushSubscript.ENTITY] = await itemsSelect(trx, tables, EWebPushSubscript.ENTITY);
+            result[T_WEB_PUSH_SUBSCRIPT] = await itemsSelect(trx, tables, T_WEB_PUSH_SUBSCRIPT);
             // serials for Postgres
-            const isPg = isPostgres(trx.client);
+            const isPg = trx.isPostgres();
             if (isPg) {
                 const knex = await connector.getKnex();
                 const schema = knex.schema;
-                // const serials = [
-                //     `${EUser.ENTITY}_id_seq`,
-                //     `${EWebPushSubscript.ENTITY}_id_seq`,
-                // ];
-                // result.serials = await serialsGet(schema, serials);
                 result.series = {};
-                let name = `${EUser.ENTITY}_id_seq`;
+                let name = `${T_USER}_id_seq`;
                 result.series[name] = await serialsGetOne(schema, name);
-                name = `${EWebPushSubscript.ENTITY}_id_seq`;
+                name = `${T_WEB_PUSH_SUBSCRIPT}_id_seq`;
                 result.series[name] = await serialsGetOne(schema, name);
             }
             // perform queries to insert data and commit changes
-            trx.commit();
+            await trx.commit();
             logger.info('All data is dumped.');
             return result;
         } catch (e) {
-            trx.rollback();
+            await trx.rollback();
             logger.error(`${e.toString()}`);
             return null;
         }

@@ -77,7 +77,7 @@ export default class Fl32_Bwl_Back_Service_Sign_Up {
                 }
 
                 /**
-                 * @param trx
+                 * @param {TeqFw_Db_Back_RDb_ITrans} trx
                  * @param {Fl32_Bwl_Shared_Service_Route_Sign_Up.Request} req
                  * @param {Number} parentId
                  * @returns {Promise<number>}
@@ -130,19 +130,19 @@ export default class Fl32_Bwl_Back_Service_Sign_Up {
                 /** @type {Fl32_Bwl_Shared_Service_Route_Sign_Up.Request} */
                 try {
                     // clean up expired links
-                    await procRefCleanUp({trx});
+                    await procRefCleanUp({trx: trx.getTrx()});
                     // load link data by code
                     const code = req.refCode;
                     /** @type {Fl32_Teq_User_Back_Store_RDb_Schema_Ref_Link} */
-                    const linkData = await procRefGet({trx, code});
+                    const linkData = await procRefGet({trx: trx.getTrx(), code});
                     if (linkData) {
                         const parentId = linkData.user_ref;
                         const userId = await addUser(trx, req, parentId);
-                        await addProfile(trx, req, userId);
-                        await addWeight(trx, userId, req.weight, EWeightStat.DATA_TYPE_CURRENT);
-                        await addWeight(trx, userId, req.weight, EWeightStat.DATA_TYPE_TARGET);
-                        await procRefRemove({trx, code});
-                        const {sessionId, cookie} = await initSession(trx, userId);
+                        await addProfile(trx.getTrx(), req, userId);
+                        await addWeight(trx.getTrx(), userId, req.weight, EWeightStat.DATA_TYPE_CURRENT);
+                        await addWeight(trx.getTrx(), userId, req.weight, EWeightStat.DATA_TYPE_TARGET);
+                        await procRefRemove({trx: trx.getTrx(), code});
+                        const {sessionId, cookie} = await initSession(trx.getTrx(), userId);
                         context.setOutHeader(H2.HTTP2_HEADER_SET_COOKIE, cookie);
                         res.sessionId = sessionId;
                     }

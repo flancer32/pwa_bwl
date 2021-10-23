@@ -24,8 +24,6 @@ function Factory(spec) {
     const logger = spec['TeqFw_Core_Shared_Logger$'];
     /** @type {TeqFw_Db_Back_Util.serialsSet|Function} */
     const serialsSet = spec['TeqFw_Db_Back_Util#serialsSet'];
-    /** @type {TeqFw_Db_Back_Util.isPostgres|Function} */
-    const isPostgres = spec['TeqFw_Db_Back_Util#isPostgres'];
     /** @type {TeqFw_Db_Back_Util.itemsInsert|Function} */
     const itemsInsert = spec['TeqFw_Db_Back_Util#itemsInsert'];
     /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Friend} */
@@ -38,8 +36,6 @@ function Factory(spec) {
     const EAppSignIn = spec['Fl32_Bwl_Back_Store_RDb_Schema_Sign_In#'];
     /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat} */
     const EAppWeightStat = spec['Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat#'];
-    /** @type {typeof Fl32_Teq_User_Back_Store_RDb_Schema_User} */
-    const EUser = spec['Fl32_Teq_User_Back_Store_RDb_Schema_User#'];
     /** @type {typeof Fl32_Teq_User_Back_Store_RDb_Schema_Auth_Password} */
     const EUserAuthPass = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Auth_Password#'];
     /** @type {typeof Fl32_Teq_User_Back_Store_RDb_Schema_Auth_Session} */
@@ -55,8 +51,13 @@ function Factory(spec) {
     /** @type {typeof Fl32_Teq_User_Back_Store_RDb_Schema_Ref_Tree} */
     const EUserRefTree = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Ref_Tree#'];
     /** @type {TeqFw_Web_Push_Back_Store_RDb_Schema_Subscript} */
-    const EWebPushSubscript = spec['TeqFw_Web_Push_Back_Store_RDb_Schema_Subscript$'];
+    const metaWebPushSubscript = spec['TeqFw_Web_Push_Back_Store_RDb_Schema_Subscript$'];
+    /** @type {TeqFw_User_Back_Store_RDb_Schema_User} */
+    const metaUser = spec['TeqFw_User_Back_Store_RDb_Schema_User$'];
 
+    // DEFINE WORKING VARS / PROPS
+    /** @type {typeof TeqFw_User_Back_Store_RDb_Schema_User.ATTR} */
+    const A_USER = metaUser.getAttributes();
 
     // DEFINE INNER FUNCTIONS
     /**
@@ -70,9 +71,12 @@ function Factory(spec) {
 
         // MAIN FUNCTIONALITY
         const trx = await connector.startTransaction();
+        const T_USER = trx.getTableName(metaUser);
+        const T_WEB_PUSH_SUBSCRIPT = trx.getTableName(metaWebPushSubscript);
+
         try {
             // user
-            await itemsInsert(trx, dump, EUser.ENTITY);
+            await itemsInsert(trx, dump, T_USER);
             await itemsInsert(trx, dump, EUserAuthPass.ENTITY);
             await itemsInsert(trx, dump, EUserAuthSess.ENTITY);
             await itemsInsert(trx, dump, EUserIdEmail.ENTITY);
@@ -87,18 +91,18 @@ function Factory(spec) {
             await itemsInsert(trx, dump, EAppSignIn.ENTITY);
             await itemsInsert(trx, dump, EAppWeightStat.ENTITY);
             // web-push
-            await itemsInsert(trx, dump, EWebPushSubscript.ENTITY);
+            await itemsInsert(trx, dump, T_WEB_PUSH_SUBSCRIPT);
             // serials for Postgres
-            const isPg = isPostgres(trx.client);
+            const isPg = trx.isPostgres();
             if (isPg && dump.serials) {
                 const knex = await connector.getKnex();
                 const schema = knex.schema;
                 await serialsSet(schema, dump.serials);
             }
-            trx.commit();
+            await trx.commit();
             logger.info('Data is restored from the dump.');
         } catch (e) {
-            trx.rollback();
+            await trx.rollback();
             logger.error(`${e.toString()}`);
         }
     }
