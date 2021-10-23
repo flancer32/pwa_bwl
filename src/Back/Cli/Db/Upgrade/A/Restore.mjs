@@ -36,16 +36,12 @@ function Factory(spec) {
     const EAppSignIn = spec['Fl32_Bwl_Back_Store_RDb_Schema_Sign_In#'];
     /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat} */
     const EAppWeightStat = spec['Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat#'];
-    /** @type {typeof Fl32_Teq_User_Back_Store_RDb_Schema_Auth_Password} */
-    const EUserAuthPass = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Auth_Password#'];
     /** @type {typeof Fl32_Teq_User_Back_Store_RDb_Schema_Auth_Session} */
     const EUserAuthSess = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Auth_Session#'];
     /** @type {typeof Fl32_Teq_User_Back_Store_RDb_Schema_Id_Email} */
     const EUserIdEmail = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Id_Email#'];
     /** @type {typeof Fl32_Teq_User_Back_Store_RDb_Schema_Id_Phone} */
     const EUserIdPhone = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Id_Phone#'];
-    /** @type {typeof Fl32_Teq_User_Back_Store_RDb_Schema_Profile} */
-    const EUserProfile = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Profile#'];
     /** @type {typeof Fl32_Teq_User_Back_Store_RDb_Schema_Ref_Link} */
     const EUserRefLink = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Ref_Link#'];
     /** @type {typeof Fl32_Teq_User_Back_Store_RDb_Schema_Ref_Tree} */
@@ -54,10 +50,10 @@ function Factory(spec) {
     const metaWebPushSubscript = spec['TeqFw_Web_Push_Back_Store_RDb_Schema_Subscript$'];
     /** @type {TeqFw_User_Back_Store_RDb_Schema_User} */
     const metaUser = spec['TeqFw_User_Back_Store_RDb_Schema_User$'];
-
-    // DEFINE WORKING VARS / PROPS
-    /** @type {typeof TeqFw_User_Back_Store_RDb_Schema_User.ATTR} */
-    const A_USER = metaUser.getAttributes();
+    /** @type {Fl32_Teq_User_Back_Store_RDb_Schema_Profile} */
+    const metaProfile = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Profile$'];
+    /** @type {Fl32_Teq_User_Back_Store_RDb_Schema_Auth_Password} */
+    const metaAuthPass = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Auth_Password$'];
 
     // DEFINE INNER FUNCTIONS
     /**
@@ -67,21 +63,22 @@ function Factory(spec) {
      * @memberOf Fl32_Bwl_Back_Cli_Db_Upgrade_A_Restore
      */
     async function action(dump) {
-        // DEFINE INNER FUNCTIONS
 
         // MAIN FUNCTIONALITY
         const trx = await connector.startTransaction();
+        const T_AUTH_PASS = trx.getTableName(metaAuthPass);
+        const T_PROFILE = trx.getTableName(metaProfile);
         const T_USER = trx.getTableName(metaUser);
         const T_WEB_PUSH_SUBSCRIPT = trx.getTableName(metaWebPushSubscript);
 
         try {
             // user
             await itemsInsert(trx, dump, T_USER);
-            await itemsInsert(trx, dump, EUserAuthPass.ENTITY);
+            await itemsInsert(trx, dump, T_AUTH_PASS);
             await itemsInsert(trx, dump, EUserAuthSess.ENTITY);
             await itemsInsert(trx, dump, EUserIdEmail.ENTITY);
             await itemsInsert(trx, dump, EUserIdPhone.ENTITY);
-            await itemsInsert(trx, dump, EUserProfile.ENTITY);
+            await itemsInsert(trx, dump, T_PROFILE);
             await itemsInsert(trx, dump, EUserRefLink.ENTITY);
             await itemsInsert(trx, dump, EUserRefTree.ENTITY);
             // app

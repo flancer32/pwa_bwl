@@ -42,7 +42,7 @@ export default class Fl32_Bwl_Back_Service_Friend_List {
 
                 /**
                  * Get data from DB and compose array with Service Data.
-                 * @param trx
+                 * @param {TeqFw_Db_Back_RDb_ITrans} trx
                  * @param {number} userId
                  * @return {Promise<*[]>}
                  */

@@ -42,8 +42,8 @@ export default class Fl32_Bwl_Back_Service_Sign_In_Code_Send {
                 const trx = await rdb.startTransaction();
                 try {
                     const email = req.email;
-                    await procCleanUp({trx});
-                    const code = await procCreate({trx, email});
+                    await procCleanUp({trx: trx.getTrx()});
+                    const code = await procCreate({trx: trx.getTrx(), email});
                     if (code !== null) res.isSent = await procEmail({to: email, code});
                     await trx.commit();
                 } catch (error) {

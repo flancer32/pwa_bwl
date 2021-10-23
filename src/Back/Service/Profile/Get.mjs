@@ -104,9 +104,9 @@ export default class Fl32_Bwl_Back_Service_Profile_Get {
                     /** @type {Fl32_Teq_User_Shared_Service_Dto_User} */
                     const user = shared[DEF.MOD_USER.HTTP_SHARE_CTX_USER];
                     if (user) {
-                        res.profile = await selectProfile(trx, user.id);
-                        res.profile.weightCurrent = await selectCurrentWeight(trx, user.id, EWeightStat.DATA_TYPE_CURRENT);
-                        res.profile.weightTarget = await selectCurrentWeight(trx, user.id, EWeightStat.DATA_TYPE_TARGET);
+                        res.profile = await selectProfile(trx.getTrx(), user.id);
+                        res.profile.weightCurrent = await selectCurrentWeight(trx.getTrx(), user.id, EWeightStat.DATA_TYPE_CURRENT);
+                        res.profile.weightTarget = await selectCurrentWeight(trx.getTrx(), user.id, EWeightStat.DATA_TYPE_TARGET);
                     } else {
                         context.setOutHeader(DEF.MOD_WEB.HTTP_HEADER_STATUS, H2.HTTP_STATUS_UNAUTHORIZED);
                     }

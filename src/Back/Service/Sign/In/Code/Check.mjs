@@ -93,11 +93,11 @@ export default class Fl32_Bwl_Back_Service_Sign_In_Code_Check {
                 const trx = await rdb.startTransaction();
                 try {
                     const code = req.code;
-                    await procCodeCleanUp({trx});
-                    const userId = await getUserIdByCode(trx, code);
+                    await procCodeCleanUp({trx:trx.getTrx()});
+                    const userId = await getUserIdByCode(trx.getTrx(), code);
                     if (userId !== null) {
-                        await procCodeRemove({trx, code});
-                        const {sessionId, cookie} = await initSession(trx, userId);
+                        await procCodeRemove({trx:trx.getTrx(), code});
+                        const {sessionId, cookie} = await initSession(trx.getTrx(), userId);
                         context.setOutHeader(H2.HTTP2_HEADER_SET_COOKIE, cookie);
                         res.sessionId = sessionId;
                     }

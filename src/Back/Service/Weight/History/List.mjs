@@ -44,7 +44,7 @@ export default class Fl32_Bwl_Back_Service_Weight_History_List {
                 // DEFINE INNER FUNCTIONS
 
                 /**
-                 * @param trx
+                 * @param {TeqFw_Db_Back_RDb_ITrans} trx
                  * @param {Fl32_Teq_User_Shared_Service_Dto_User} user
                  * @param {Fl32_Bwl_Shared_Service_Route_Weight_History_List.Request} apiReq
                  * @return {Promise<*[]>}
@@ -53,7 +53,7 @@ export default class Fl32_Bwl_Back_Service_Weight_History_List {
                     // DEFINE INNER FUNCTIONS
 
                     /**
-                     * @param trx
+                     * @param {TeqFw_Db_Back_RDb_ITrans} trx
                      * @param {number} userId
                      * @param {number} friendId
                      * @return {Promise<boolean>}
@@ -85,7 +85,7 @@ export default class Fl32_Bwl_Back_Service_Weight_History_List {
                         }
                     }
                     if (userId) {
-                        const query = trx.from(EWeightStat.ENTITY);
+                        const query = trx.getQuery(EWeightStat.ENTITY);
                         query.select();
                         query.where(EWeightStat.A_USER_REF, userId);
                         if (apiReq.dateFrom) query.where(EWeightStat.A_DATE, '>=', formatDate(apiReq.dateFrom));

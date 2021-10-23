@@ -36,22 +36,28 @@ function Factory(spec) {
     const EAppProfile = spec['Fl32_Bwl_Back_Store_RDb_Schema_Profile#'];
     /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat} */
     const EAppWeightStat = spec['Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat#'];
-    /** @type {TeqFw_User_Back_Store_RDb_Schema_User} */
-    const metaUser = spec['TeqFw_User_Back_Store_RDb_Schema_User$'];
-    /** @type {typeof Fl32_Teq_User_Back_Store_RDb_Schema_Auth_Password} */
-    const EUserAuthPass = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Auth_Password#'];
     /** @type {typeof Fl32_Teq_User_Back_Store_RDb_Schema_Auth_Session} */
     const EUserAuthSess = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Auth_Session#'];
     /** @type {typeof Fl32_Teq_User_Back_Store_RDb_Schema_Id_Email} */
     const EUserIdEmail = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Id_Email#'];
     /** @type {typeof Fl32_Teq_User_Back_Store_RDb_Schema_Id_Phone} */
     const EUserIdPhone = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Id_Phone#'];
-    /** @type {typeof Fl32_Teq_User_Back_Store_RDb_Schema_Profile} */
-    const EUserProfile = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Profile#'];
     /** @type {typeof Fl32_Teq_User_Back_Store_RDb_Schema_Ref_Link} */
     const EUserRefLink = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Ref_Link#'];
     /** @type {typeof Fl32_Teq_User_Back_Store_RDb_Schema_Ref_Tree} */
     const EUserRefTree = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Ref_Tree#'];
+    /** @type {TeqFw_User_Back_Store_RDb_Schema_User} */
+    const metaUser = spec['TeqFw_User_Back_Store_RDb_Schema_User$'];
+    /** @type {Fl32_Teq_User_Back_Store_RDb_Schema_Profile} */
+    const metaProfile = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Profile$'];
+    /** @type {Fl32_Teq_User_Back_Store_RDb_Schema_Auth_Password} */
+    const metaAuthPass = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Auth_Password$'];
+
+    // DEFINE WORKING VARS / PROPS
+    /** @type {typeof Fl32_Teq_User_Back_Store_RDb_Schema_Profile.ATTR} */
+    const A_PROFILE = metaProfile.getAttributes();
+    /** @type {typeof Fl32_Teq_User_Back_Store_RDb_Schema_Auth_Password.ATTR} */
+    const A_AUTH_PASS = metaAuthPass.getAttributes();
 
     // DEFINE INNER FUNCTIONS
     /**
@@ -69,6 +75,12 @@ function Factory(spec) {
             // DEFINE INNER FUNCTIONS
 
             async function insertProfiles(trx) {
+                await crud.create(trx, metaUser, {
+                    [EAppProfile.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                    [EAppProfile.A_AGE]: 48,
+                    [EAppProfile.A_HEIGHT]: 175,
+                    [EAppProfile.A_IS_FEMALE]: false,
+                });
                 await trx(EAppProfile.ENTITY).insert([{
                     [EAppProfile.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
                     [EAppProfile.A_AGE]: 48,
@@ -98,6 +110,7 @@ function Factory(spec) {
              */
             async function insertUsers(trx) {
                 const isPg = trx.isPostgres();
+                // users
                 const dtoUserAdmin = metaUser.createDto();
                 const dtoUserCust = metaUser.createDto();
                 if (isPg) {
@@ -106,24 +119,28 @@ function Factory(spec) {
                 }
                 await crud.create(trx, metaUser, dtoUserAdmin);
                 await crud.create(trx, metaUser, dtoUserCust);
-
-                await trx.getQuery(EUserProfile.ENTITY).insert([
-                    {[EUserProfile.A_USER_REF]: DEF.DATA_USER_ID_ADMIN, [EUserProfile.A_NAME]: 'Admin'},
-                    {[EUserProfile.A_USER_REF]: DEF.DATA_USER_ID_CUST, [EUserProfile.A_NAME]: 'Customer'},
-                ]);
+                // user profile
+                await crud.create(trx, metaProfile, {
+                    [A_PROFILE.USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                    [A_PROFILE.NAME]: 'Admin',
+                });
+                await crud.create(trx, metaProfile, {
+                    [A_PROFILE.USER_REF]: DEF.DATA_USER_ID_CUST,
+                    [A_PROFILE.NAME]: 'Customer',
+                });
+                // authentication data
                 const hash1 = await $bcrypt.hash('test', DEF.MOD_USER.BCRYPT_HASH_ROUNDS);
                 const hash2 = await $bcrypt.hash('test', DEF.MOD_USER.BCRYPT_HASH_ROUNDS);
-                await trx.getQuery(EUserAuthPass.ENTITY).insert([
-                    {
-                        [EUserAuthPass.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
-                        [EUserAuthPass.A_LOGIN]: 'admin',
-                        [EUserAuthPass.A_PASSWORD_HASH]: hash1,
-                    }, {
-                        [EUserAuthPass.A_USER_REF]: DEF.DATA_USER_ID_CUST,
-                        [EUserAuthPass.A_LOGIN]: 'cust',
-                        [EUserAuthPass.A_PASSWORD_HASH]: hash2,
-                    },
-                ]);
+                await crud.create(trx, metaAuthPass, {
+                    [A_AUTH_PASS.USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                    [A_AUTH_PASS.LOGIN]: 'admin',
+                    [A_AUTH_PASS.PASSWORD_HASH]: hash1,
+                });
+                await crud.create(trx, metaAuthPass, {
+                    [A_AUTH_PASS.USER_REF]: DEF.DATA_USER_ID_CUST,
+                    [A_AUTH_PASS.LOGIN]: 'cust',
+                    [A_AUTH_PASS.PASSWORD_HASH]: hash2,
+                });
                 await trx.getQuery(EUserIdEmail.ENTITY).insert({
                     [EUserIdEmail.A_EMAIL]: 'flancer64@gmail.com',
                     [EUserIdEmail.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,

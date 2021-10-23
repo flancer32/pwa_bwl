@@ -16,12 +16,16 @@ function Factory(spec) {
     // EXTRACT DEPS
     /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Friend} */
     const EFriend = spec['Fl32_Bwl_Back_Store_RDb_Schema_Friend#'];
-    /** @type {typeof Fl32_Teq_User_Back_Store_RDb_Schema_Profile} */
-    const EUserProfile = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Profile#'];
+    /** @type {Fl32_Teq_User_Back_Store_RDb_Schema_Profile} */
+    const metaProfile = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Profile$'];
+
+    // DEFINE WORKING VARS / PROPS
+    /** @type {typeof Fl32_Teq_User_Back_Store_RDb_Schema_Profile.ATTR} */
+    const A_PROFILE = metaProfile.getAttributes();
 
     // DEFINE INNER FUNCTIONS
     /**
-     * @param trx
+     * @param {TeqFw_Db_Back_RDb_ITrans} trx
      * @param {number} userId
      * @returns {*}
      * @memberOf Fl32_Bwl_Back_Store_RDb_Query_Friend_GetItems
@@ -29,9 +33,10 @@ function Factory(spec) {
     function queryBuilder({trx, userId}) {
         // alias for the function itself
         const me = queryBuilder;
+        const T_PROFILE = trx.getTableName(metaProfile);
 
         // select from main table
-        const query = trx.from({[me.T_F]: EFriend.ENTITY});
+        const query = trx.getQuery({[me.T_F]: EFriend.ENTITY});
         query.select([
             {[me.A_LEADER_ID]: `${me.T_F}.${EFriend.A_LEADER_REF}`},
             {[me.A_WINGMAN_ID]: `${me.T_F}.${EFriend.A_WINGMAN_REF}`},
@@ -39,16 +44,16 @@ function Factory(spec) {
         ]);
         // left join user_profile for leader
         query.leftOuterJoin(
-            {[me.T_UL]: EUserProfile.ENTITY},
-            `${me.T_UL}.${EUserProfile.A_USER_REF}`,
+            {[me.T_UL]: T_PROFILE},
+            `${me.T_UL}.${A_PROFILE.USER_REF}`,
             `${me.T_F}.${EFriend.A_LEADER_REF}`);
-        query.select([{[me.A_LEADER_NAME]: `${me.T_UL}.${EUserProfile.A_NAME}`}]);
+        query.select([{[me.A_LEADER_NAME]: `${me.T_UL}.${A_PROFILE.NAME}`}]);
         // left join user_profile for wingman
         query.leftOuterJoin(
-            {[me.T_UW]: EUserProfile.ENTITY},
-            `${me.T_UW}.${EUserProfile.A_USER_REF}`,
+            {[me.T_UW]: T_PROFILE},
+            `${me.T_UW}.${A_PROFILE.USER_REF}`,
             `${me.T_F}.${EFriend.A_WINGMAN_REF}`);
-        query.select([{[me.A_WINGMAN_NAME]: `${me.T_UW}.${EUserProfile.A_NAME}`}]);
+        query.select([{[me.A_WINGMAN_NAME]: `${me.T_UW}.${A_PROFILE.NAME}`}]);
         // WHERE
         if (userId != null) {
             query.where(`${me.T_F}.${EFriend.A_LEADER_REF}`, userId);
