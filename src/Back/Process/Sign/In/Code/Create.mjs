@@ -20,16 +20,23 @@ const LIFETIME_MIN = 5;
  * @memberOf Fl32_Bwl_Back_Process_Sign_In_Code_Create
  */
 function Factory(spec) {
+    /** @type {TeqFw_Db_Back_Api_RDb_ICrudEngine} */
+    const crud = spec['TeqFw_Db_Back_Api_RDb_ICrudEngine$'];
     /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Sign_In} */
     const ESignIn = spec['Fl32_Bwl_Back_Store_RDb_Schema_Sign_In#'];
-    /** @type {typeof Fl32_Teq_User_Back_Store_RDb_Schema_Id_Email} */
-    const EIdEmail = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Id_Email#'];
+    /** @type {Fl32_Teq_User_Back_Store_RDb_Schema_Id_Email} */
+    const metaIdEmail = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Id_Email$'];
 
+    // DEFINE WORKING VARS / PROPS
+    /** @type {typeof Fl32_Teq_User_Back_Store_RDb_Schema_Id_Email.ATTR} */
+    const A_ID_EMAIL = metaIdEmail.getAttributes();
+
+    // DEFINE INNER FUNCTIONS
     /**
      * Create one-time sign in code with limited lifetime.
-     * @param trx
-     * @param {String} email
-     * @returns {Promise<String>}
+     * @param {TeqFw_Db_Back_RDb_ITrans} trx
+     * @param {string} email
+     * @returns {Promise<string>}
      * @memberOf Fl32_Bwl_Back_Process_Sign_In_Code_Create
      */
     async function process({trx, email}) {
@@ -48,35 +55,16 @@ function Factory(spec) {
             return code;
         }
 
-        /**
-         * @param trx
-         * @param {String} email
-         * @returns {Promise<Number>}
-         */
-        async function getUserId(trx, email) {
-            const query = trx.from(EIdEmail.ENTITY);
-            query.select([EIdEmail.A_USER_REF]);
-            query.where({
-                [EIdEmail.A_EMAIL]: email
-            });
-            /** @type {Array} */
-            const rs = await query;
-            if (rs.length === 1) {
-                const [first] = rs;
-                return first[EIdEmail.A_USER_REF];
-            } else {
-                return null;
-            }
-        }
-
         // MAIN FUNCTIONALITY
         let result = null;
-        const userId = await getUserId(trx, email);
-        if (userId !== null) {
-            result = await generateCode(trx);
+        /** @type {Fl32_Teq_User_Back_Store_RDb_Schema_Id_Email.Dto|null} */
+        const found = await crud.readOne(trx, metaIdEmail, {[A_ID_EMAIL.EMAIL]: email});
+        if (found?.user_ref) {
+            const userId = found.user_ref;
+            result = await generateCode(trx.getTrx());
             const dateExp = new Date();
             dateExp.setUTCMinutes(dateExp.getUTCMinutes() + LIFETIME_MIN);
-            await trx(ESignIn.ENTITY)
+            await trx.getQuery(ESignIn.ENTITY)
                 .insert({
                     [ESignIn.A_USER_REF]: userId,
                     [ESignIn.A_CODE]: result,

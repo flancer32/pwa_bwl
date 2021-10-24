@@ -16,12 +16,12 @@ export default class Fl32_Bwl_Back_Service_Sign_In_Code_Send {
         /** @type {Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Send.Factory} */
         const route = spec['Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Send#Factory$'];
         /** @type {TeqFw_Db_Back_RDb_IConnect} */
-        const rdb = spec['TeqFw_Db_Back_RDb_IConnect$'];
-        /** @function {@type Fl32_Bwl_Back_Process_Sign_In_Code_Create.process} */
+        const conn = spec['TeqFw_Db_Back_RDb_IConnect$'];
+        /** @type {Fl32_Bwl_Back_Process_Sign_In_Code_Create.process|function} */
         const procCreate = spec['Fl32_Bwl_Back_Process_Sign_In_Code_Create$'];
-        /** @function {@type Fl32_Bwl_Back_Process_Sign_In_Code_CleanUp.process} */
+        /** @type {Fl32_Bwl_Back_Process_Sign_In_Code_CleanUp.process|function} */
         const procCleanUp = spec['Fl32_Bwl_Back_Process_Sign_In_Code_CleanUp$'];
-        /** @function {@type Fl32_Bwl_Back_Process_Sign_In_Code_Email.process} */
+        /** @type {Fl32_Bwl_Back_Process_Sign_In_Code_Email.process|function} */
         const procEmail = spec['Fl32_Bwl_Back_Process_Sign_In_Code_Email$'];
 
         // DEFINE INSTANCE METHODS
@@ -39,11 +39,11 @@ export default class Fl32_Bwl_Back_Service_Sign_In_Code_Send {
                 /** @type {Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Send.Response} */
                 const res = context.getOutData();
                 res.isSent = false;
-                const trx = await rdb.startTransaction();
+                const trx = await conn.startTransaction();
                 try {
                     const email = req.email;
                     await procCleanUp({trx: trx.getTrx()});
-                    const code = await procCreate({trx: trx.getTrx(), email});
+                    const code = await procCreate({trx, email});
                     if (code !== null) res.isSent = await procEmail({to: email, code});
                     await trx.commit();
                 } catch (error) {

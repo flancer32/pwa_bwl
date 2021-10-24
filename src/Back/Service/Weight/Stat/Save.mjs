@@ -47,7 +47,7 @@ export default class Fl32_Bwl_Back_Service_Weight_Stat_Save {
                     payload[EWeightStat.A_DATE] = apiReq.date;
                     payload[EWeightStat.A_USER_REF] = userId;
                     payload[EWeightStat.A_VALUE] = apiReq.weight;
-                    await procSave({trx, payload});
+                    await procSave({trx:trx.getTrx(), payload});
                 }
 
                 // MAIN FUNCTIONALITY

@@ -36,28 +36,38 @@ function Factory(spec) {
     const EAppProfile = spec['Fl32_Bwl_Back_Store_RDb_Schema_Profile#'];
     /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat} */
     const EAppWeightStat = spec['Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat#'];
-    /** @type {typeof Fl32_Teq_User_Back_Store_RDb_Schema_Auth_Session} */
-    const EUserAuthSess = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Auth_Session#'];
-    /** @type {typeof Fl32_Teq_User_Back_Store_RDb_Schema_Id_Email} */
-    const EUserIdEmail = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Id_Email#'];
-    /** @type {typeof Fl32_Teq_User_Back_Store_RDb_Schema_Id_Phone} */
-    const EUserIdPhone = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Id_Phone#'];
-    /** @type {typeof Fl32_Teq_User_Back_Store_RDb_Schema_Ref_Link} */
-    const EUserRefLink = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Ref_Link#'];
-    /** @type {typeof Fl32_Teq_User_Back_Store_RDb_Schema_Ref_Tree} */
-    const EUserRefTree = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Ref_Tree#'];
     /** @type {TeqFw_User_Back_Store_RDb_Schema_User} */
     const metaUser = spec['TeqFw_User_Back_Store_RDb_Schema_User$'];
     /** @type {Fl32_Teq_User_Back_Store_RDb_Schema_Profile} */
     const metaProfile = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Profile$'];
     /** @type {Fl32_Teq_User_Back_Store_RDb_Schema_Auth_Password} */
     const metaAuthPass = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Auth_Password$'];
+    /** @type {Fl32_Teq_User_Back_Store_RDb_Schema_Auth_Session} */
+    const metaAuthSess = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Auth_Session$'];
+    /** @type {Fl32_Teq_User_Back_Store_RDb_Schema_Id_Email} */
+    const metaIdEmail = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Id_Email$'];
+    /** @type {Fl32_Teq_User_Back_Store_RDb_Schema_Id_Phone} */
+    const metaIdPhone = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Id_Phone$'];
+    /** @type {Fl32_Teq_User_Back_Store_RDb_Schema_Ref_Link} */
+    const metaRefLink = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Ref_Link$'];
+    /** @type {Fl32_Teq_User_Back_Store_RDb_Schema_Ref_Tree} */
+    const metaRefTree = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Ref_Tree$'];
 
     // DEFINE WORKING VARS / PROPS
     /** @type {typeof Fl32_Teq_User_Back_Store_RDb_Schema_Profile.ATTR} */
     const A_PROFILE = metaProfile.getAttributes();
     /** @type {typeof Fl32_Teq_User_Back_Store_RDb_Schema_Auth_Password.ATTR} */
     const A_AUTH_PASS = metaAuthPass.getAttributes();
+    /** @type {typeof Fl32_Teq_User_Back_Store_RDb_Schema_Auth_Session.ATTR} */
+    const A_AUTH_SESS = metaAuthSess.getAttributes();
+    /** @type {typeof Fl32_Teq_User_Back_Store_RDb_Schema_Id_Email.ATTR} */
+    const A_ID_EMAIL = metaIdEmail.getAttributes();
+    /** @type {typeof Fl32_Teq_User_Back_Store_RDb_Schema_Id_Phone.ATTR} */
+    const A_ID_PHONE = metaIdPhone.getAttributes();
+    /** @type {typeof Fl32_Teq_User_Back_Store_RDb_Schema_Ref_Link.ATTR} */
+    const A_REF_LINK = metaRefLink.getAttributes();
+    /** @type {typeof Fl32_Teq_User_Back_Store_RDb_Schema_Ref_Tree.ATTR} */
+    const A_REF_TREE = metaRefTree.getAttributes();
 
     // DEFINE INNER FUNCTIONS
     /**
@@ -74,6 +84,10 @@ function Factory(spec) {
         async function populateWithData(trx) {
             // DEFINE INNER FUNCTIONS
 
+            /**
+             * @param {TeqFw_Db_Back_RDb_ITrans} trx
+             * @return {Promise<void>}
+             */
             async function insertProfiles(trx) {
                 await crud.create(trx, metaUser, {
                     [EAppProfile.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
@@ -81,7 +95,7 @@ function Factory(spec) {
                     [EAppProfile.A_HEIGHT]: 175,
                     [EAppProfile.A_IS_FEMALE]: false,
                 });
-                await trx(EAppProfile.ENTITY).insert([{
+                await trx.getQuery(EAppProfile.ENTITY).insert([{
                     [EAppProfile.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
                     [EAppProfile.A_AGE]: 48,
                     [EAppProfile.A_HEIGHT]: 175,
@@ -94,14 +108,19 @@ function Factory(spec) {
                 }]);
             }
 
+            /**
+             * @param {TeqFw_Db_Back_RDb_ITrans} trx
+             * @return {Promise<void>}
+             */
             async function insertSessions(trx) {
-                await trx(EUserAuthSess.ENTITY).insert([{
-                    [EUserAuthSess.A_SESSION_ID]: DEF.DATA_SESS_ID_ADMIN,
-                    [EUserAuthSess.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
-                }, {
-                    [EUserAuthSess.A_SESSION_ID]: DEF.DATA_SESS_ID_CUST,
-                    [EUserAuthSess.A_USER_REF]: DEF.DATA_USER_ID_CUST,
-                }]);
+                await crud.create(trx, metaAuthSess, {
+                    [A_AUTH_SESS.SESSION_ID]: DEF.DATA_SESS_ID_ADMIN,
+                    [A_AUTH_SESS.USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                });
+                await crud.create(trx, metaAuthSess, {
+                    [A_AUTH_SESS.SESSION_ID]: DEF.DATA_SESS_ID_CUST,
+                    [A_AUTH_SESS.USER_REF]: DEF.DATA_USER_ID_CUST,
+                });
             }
 
             /**
@@ -141,35 +160,35 @@ function Factory(spec) {
                     [A_AUTH_PASS.LOGIN]: 'cust',
                     [A_AUTH_PASS.PASSWORD_HASH]: hash2,
                 });
-                await trx.getQuery(EUserIdEmail.ENTITY).insert({
-                    [EUserIdEmail.A_EMAIL]: 'flancer64@gmail.com',
-                    [EUserIdEmail.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                await crud.create(trx, metaIdEmail, {
+                    [A_ID_EMAIL.EMAIL]: 'flancer64@gmail.com',
+                    [A_ID_EMAIL.USER_REF]: DEF.DATA_USER_ID_ADMIN,
                 });
-                await trx.getQuery(EUserIdPhone.ENTITY).insert({
-                    [EUserIdPhone.A_PHONE]: '(371)29181801',
-                    [EUserIdPhone.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                await crud.create(trx, metaIdPhone, {
+                    [A_ID_PHONE.PHONE]: '(371)29181801',
+                    [A_ID_PHONE.USER_REF]: DEF.DATA_USER_ID_ADMIN,
                 });
                 const expiredAt = new Date();
                 expiredAt.setUTCDate(expiredAt.getUTCDate() + 1);
-                await trx.getQuery(EUserRefLink.ENTITY).insert([{
-                    [EUserRefLink.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
-                    [EUserRefLink.A_CODE]: DEF.DATA_REF_CODE_ROOT,
-                    [EUserRefLink.A_DATE_EXPIRED]: expiredAt,
-                }, {
-                    [EUserRefLink.A_USER_REF]: DEF.DATA_USER_ID_CUST,
-                    [EUserRefLink.A_CODE]: DEF.DATA_REF_CODE_OTHER,
-                    [EUserRefLink.A_DATE_EXPIRED]: expiredAt,
-                }]);
+                await crud.create(trx, metaRefLink, {
+                    [A_REF_LINK.USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                    [A_REF_LINK.CODE]: DEF.DATA_REF_CODE_ROOT,
+                    [A_REF_LINK.DATE_EXPIRED]: expiredAt,
+                });
+                await crud.create(trx, metaRefLink, {
+                    [A_REF_LINK.USER_REF]: DEF.DATA_USER_ID_CUST,
+                    [A_REF_LINK.CODE]: DEF.DATA_REF_CODE_OTHER,
+                    [A_REF_LINK.DATE_EXPIRED]: expiredAt,
+                });
                 // users tree
-                await trx.getQuery(EUserRefTree.ENTITY).insert([
-                    {
-                        [EUserRefTree.A_USER_REF]: DEF.DATA_USER_ID_ADMIN,
-                        [EUserRefTree.A_PARENT_REF]: DEF.DATA_USER_ID_ADMIN,
-                    }, {
-                        [EUserRefTree.A_USER_REF]: DEF.DATA_USER_ID_CUST,
-                        [EUserRefTree.A_PARENT_REF]: DEF.DATA_USER_ID_ADMIN,
-                    }
-                ]);
+                await crud.create(trx, metaRefTree, {
+                    [A_REF_TREE.USER_REF]: DEF.DATA_USER_ID_ADMIN,
+                    [A_REF_TREE.PARENT_REF]: DEF.DATA_USER_ID_ADMIN,
+                });
+                await crud.create(trx, metaRefTree, {
+                    [A_REF_TREE.USER_REF]: DEF.DATA_USER_ID_CUST,
+                    [A_REF_TREE.PARENT_REF]: DEF.DATA_USER_ID_ADMIN,
+                });
             }
 
             async function insertWeightStats(trx) {
@@ -434,8 +453,8 @@ function Factory(spec) {
 
             // MAIN FUNCTIONALITY
             await insertUsers(trx);
-            await insertSessions(trx.getTrx());
-            await insertProfiles(trx.getTrx());
+            await insertSessions(trx);
+            await insertProfiles(trx);
             await insertWeightStats(trx.getTrx());
         }
 

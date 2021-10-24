@@ -58,19 +58,19 @@ export default class Fl32_Bwl_Back_Service_Friend_Link_Add {
                 if (user) {
                     const trx = await rdb.startTransaction();
                     try {
-                        await procCleanUp({trx});
+                        await procCleanUp({trx:trx.getTrx()});
                         /** @type {Fl32_Bwl_Back_Store_RDb_Schema_Friend_Link} */
-                        const link = await procGet({trx, code: req.code});
+                        const link = await procGet({trx:trx.getTrx(), code: req.code});
                         if (link) {
                             if (link.leader_ref !== user.id) {
-                                await procAdd({trx, leaderId: link.leader_ref, wingmanId: user.id});
+                                await procAdd({trx:trx.getTrx(), leaderId: link.leader_ref, wingmanId: user.id});
                                 res.success = true;
                             } else {
                                 const msg = `Cannot link user for himself. User ID: ${user.id}, code: ${req.code}.`;
                                 logger.error(msg);
                                 res.failureCause = msg;
                             }
-                            await procRemove({trx, code: req.code});
+                            await procRemove({trx:trx.getTrx(), code: req.code});
                         } else {
                             const msg = `Cannot find friendship link with code '${req.code}'.`;
                             logger.error(msg);

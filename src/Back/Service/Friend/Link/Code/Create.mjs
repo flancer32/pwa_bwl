@@ -55,8 +55,8 @@ export default class Fl32_Bwl_Back_Service_Friend_Link_Code_Create {
                     // don't start transaction if not required
                     const trx = await rdb.startTransaction();
                     try {
-                        await procCleanUp({trx});
-                        const {link: code, dateExp} = await procCreate({trx, userId: user.id});
+                        await procCleanUp({trx: trx.getTrx()});
+                        const {link: code, dateExp} = await procCreate({trx: trx.getTrx(), userId: user.id});
                         const link = new DLink();
                         link.code = code;
                         link.dateExpired = dateExp;

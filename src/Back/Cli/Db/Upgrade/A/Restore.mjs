@@ -36,16 +36,6 @@ function Factory(spec) {
     const EAppSignIn = spec['Fl32_Bwl_Back_Store_RDb_Schema_Sign_In#'];
     /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat} */
     const EAppWeightStat = spec['Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat#'];
-    /** @type {typeof Fl32_Teq_User_Back_Store_RDb_Schema_Auth_Session} */
-    const EUserAuthSess = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Auth_Session#'];
-    /** @type {typeof Fl32_Teq_User_Back_Store_RDb_Schema_Id_Email} */
-    const EUserIdEmail = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Id_Email#'];
-    /** @type {typeof Fl32_Teq_User_Back_Store_RDb_Schema_Id_Phone} */
-    const EUserIdPhone = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Id_Phone#'];
-    /** @type {typeof Fl32_Teq_User_Back_Store_RDb_Schema_Ref_Link} */
-    const EUserRefLink = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Ref_Link#'];
-    /** @type {typeof Fl32_Teq_User_Back_Store_RDb_Schema_Ref_Tree} */
-    const EUserRefTree = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Ref_Tree#'];
     /** @type {TeqFw_Web_Push_Back_Store_RDb_Schema_Subscript} */
     const metaWebPushSubscript = spec['TeqFw_Web_Push_Back_Store_RDb_Schema_Subscript$'];
     /** @type {TeqFw_User_Back_Store_RDb_Schema_User} */
@@ -54,6 +44,17 @@ function Factory(spec) {
     const metaProfile = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Profile$'];
     /** @type {Fl32_Teq_User_Back_Store_RDb_Schema_Auth_Password} */
     const metaAuthPass = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Auth_Password$'];
+    /** @type {Fl32_Teq_User_Back_Store_RDb_Schema_Auth_Session} */
+    const metaAuthSess = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Auth_Session$'];
+    /** @type {Fl32_Teq_User_Back_Store_RDb_Schema_Id_Email} */
+    const metaIdEmail = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Id_Email$'];
+    /** @type {Fl32_Teq_User_Back_Store_RDb_Schema_Id_Phone} */
+    const metaIdPhone = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Id_Phone$'];
+    /** @type {Fl32_Teq_User_Back_Store_RDb_Schema_Ref_Link} */
+    const metaRefLink = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Ref_Link$'];
+    /** @type {Fl32_Teq_User_Back_Store_RDb_Schema_Ref_Tree} */
+    const metaRefTree = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Ref_Tree$'];
+
 
     // DEFINE INNER FUNCTIONS
     /**
@@ -67,7 +68,12 @@ function Factory(spec) {
         // MAIN FUNCTIONALITY
         const trx = await connector.startTransaction();
         const T_AUTH_PASS = trx.getTableName(metaAuthPass);
+        const T_AUTH_SESS = trx.getTableName(metaAuthSess);
+        const T_ID_EMAIL = trx.getTableName(metaIdEmail);
+        const T_ID_PHONE = trx.getTableName(metaIdPhone);
         const T_PROFILE = trx.getTableName(metaProfile);
+        const T_REF_LINK = trx.getTableName(metaRefLink);
+        const T_REF_TREE = trx.getTableName(metaRefTree);
         const T_USER = trx.getTableName(metaUser);
         const T_WEB_PUSH_SUBSCRIPT = trx.getTableName(metaWebPushSubscript);
 
@@ -75,12 +81,12 @@ function Factory(spec) {
             // user
             await itemsInsert(trx, dump, T_USER);
             await itemsInsert(trx, dump, T_AUTH_PASS);
-            await itemsInsert(trx, dump, EUserAuthSess.ENTITY);
-            await itemsInsert(trx, dump, EUserIdEmail.ENTITY);
-            await itemsInsert(trx, dump, EUserIdPhone.ENTITY);
+            await itemsInsert(trx, dump, T_AUTH_SESS);
+            await itemsInsert(trx, dump, T_ID_EMAIL);
+            await itemsInsert(trx, dump, T_ID_PHONE);
             await itemsInsert(trx, dump, T_PROFILE);
-            await itemsInsert(trx, dump, EUserRefLink.ENTITY);
-            await itemsInsert(trx, dump, EUserRefTree.ENTITY);
+            await itemsInsert(trx, dump, T_REF_LINK);
+            await itemsInsert(trx, dump, T_REF_TREE);
             // app
             await itemsInsert(trx, dump, EAppFriend.ENTITY);
             await itemsInsert(trx, dump, EAppFriendLink.ENTITY);
