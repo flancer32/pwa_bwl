@@ -19,15 +19,25 @@ export default class Fl32_Bwl_Back_Service_Profile_Get {
         /** @type {Fl32_Bwl_Back_Defaults} */
         const DEF = spec['Fl32_Bwl_Back_Defaults$'];
         /** @type {TeqFw_Db_Back_RDb_IConnect} */
-        const rdb = spec['TeqFw_Db_Back_RDb_IConnect$'];
+        const conn = spec['TeqFw_Db_Back_RDb_IConnect$'];
+        /** @type {TeqFw_Db_Back_Api_RDb_ICrudEngine} */
+        const crud = spec['TeqFw_Db_Back_Api_RDb_ICrudEngine$'];
         /** @type {Fl32_Bwl_Shared_Service_Route_Profile_Get.Factory} */
         const route = spec['Fl32_Bwl_Shared_Service_Route_Profile_Get#Factory$'];
-        /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Profile} */
-        const EProfile = spec['Fl32_Bwl_Back_Store_RDb_Schema_Profile#'];
-        /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat} */
-        const EWeightStat = spec['Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat#'];
         /** @type {typeof Fl32_Bwl_Shared_Service_Dto_Profile} */
         const DProfile = spec['Fl32_Bwl_Shared_Service_Dto_Profile#'];
+        /** @type {Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat} */
+        const metaWeightStat = spec['Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat$'];
+        /** @type {Fl32_Bwl_Back_Store_RDb_Schema_Profile} */
+        const metaAppProfile = spec['Fl32_Bwl_Back_Store_RDb_Schema_Profile$'];
+        /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat.STAT_TYPE} */
+        const TYPE_WEIGHT = spec['Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat#STAT_TYPE$'];
+
+        // DEFINE WORKING VARS / PROPS
+        /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat.ATTR} */
+        const A_WEIGHT_STAT = metaWeightStat.getAttributes();
+        /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Profile.ATTR} */
+        const A_APP_PROFILE = metaAppProfile.getAttributes();
 
         // DEFINE INSTANCE METHODS
 
@@ -44,52 +54,42 @@ export default class Fl32_Bwl_Back_Service_Profile_Get {
                 // DEFINE INNER FUNCTIONS
 
                 /**
-                 * @param trx
-                 * @param {Number} userId
-                 * @returns {Promise<Fl32_Bwl_Shared_Service_Dto_Profile>}
+                 * @param {TeqFw_Db_Back_RDb_ITrans} trx
+                 * @param {number} userId
+                 * @returns {Promise<Fl32_Bwl_Shared_Service_Dto_Profile>} UI compatible DTO
                  */
                 async function selectProfile(trx, userId) {
-                    const result = new DProfile();
-                    const query = trx.from(EProfile.ENTITY);
-                    query.select({
-                        [DProfile.AGE]: EProfile.A_AGE,
-                        [DProfile.DATE_UPDATED]: EProfile.A_DATE_UPDATED,
-                        [DProfile.HEIGHT]: EProfile.A_HEIGHT,
-                        [DProfile.IS_FEMALE]: EProfile.A_IS_FEMALE,
-                        [DProfile.USER_ID]: EProfile.A_USER_REF,
-                    });
-                    query.where(EProfile.A_USER_REF, userId);
-                    /** @type {Array} */
-                    const rs = await query;
-                    if (rs.length === 1) {
-                        const [first] = rs;
-                        Object.assign(result, first);
+                    const res = new DProfile();
+                    /** @type {Fl32_Bwl_Back_Store_RDb_Schema_Profile.Dto} */
+                    const found = await crud.readOne(trx, metaAppProfile, {[A_APP_PROFILE.USER_REF]: userId});
+                    if (found) {
+                        res.age = found.age;
+                        res.dateUpdated = found.date_updated;
+                        res.height = found.height;
+                        res.isFemale = found.is_female;
+                        res.userId = found.user_ref;
                     }
-                    return result;
+                    return res;
                 }
 
                 /**
                  * Get the last current/target weight from stats.
-                 * @param trx
-                 * @param userId
-                 * @param type
+                 * @param {TeqFw_Db_Back_RDb_ITrans} trx
+                 * @param {number} userId
+                 * @param {Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat.STAT_TYPE} type
                  * @return {Promise<number>}
                  */
                 async function selectCurrentWeight(trx, userId, type) {
-                    let result = 0;
-                    const query = trx.from(EWeightStat.ENTITY);
-                    query.select();
-                    query.where(EWeightStat.A_USER_REF, userId);
-                    query.where(EWeightStat.A_TYPE, type);
-                    query.orderBy(EWeightStat.A_DATE, 'desc');
-                    query.limit(1);
-                    /** @type {Array} */
-                    const rs = await query;
-                    if (rs.length === 1) {
-                        const [first] = rs;
-                        result = first[EWeightStat.A_VALUE];
-                    }
-                    return result;
+                    let res = 0;
+                    const where = {
+                        [A_WEIGHT_STAT.USER_REF]: userId,
+                        [A_WEIGHT_STAT.TYPE]: type,
+                    };
+                    const order = {[A_WEIGHT_STAT.DATE]: 'desc'};
+                    /** @type {Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat.Dto[]} */
+                    const found = await crud.readSet(trx, metaWeightStat, where, null, order, 1);
+                    if (found.length === 1) res = found[0].value;
+                    return res;
                 }
 
                 // MAIN FUNCTIONALITY
@@ -99,14 +99,14 @@ export default class Fl32_Bwl_Back_Service_Profile_Get {
                 const res = context.getOutData();
                 const shared = context.getHandlersShare();
                 //
-                const trx = await rdb.startTransaction();
+                const trx = await conn.startTransaction();
                 try {
                     /** @type {Fl32_Teq_User_Shared_Service_Dto_User} */
                     const user = shared[DEF.MOD_USER.HTTP_SHARE_CTX_USER];
                     if (user) {
-                        res.profile = await selectProfile(trx.getTrx(), user.id);
-                        res.profile.weightCurrent = await selectCurrentWeight(trx.getTrx(), user.id, EWeightStat.DATA_TYPE_CURRENT);
-                        res.profile.weightTarget = await selectCurrentWeight(trx.getTrx(), user.id, EWeightStat.DATA_TYPE_TARGET);
+                        res.profile = await selectProfile(trx, user.id);
+                        res.profile.weightCurrent = await selectCurrentWeight(trx, user.id, TYPE_WEIGHT.CURRENT);
+                        res.profile.weightTarget = await selectCurrentWeight(trx, user.id, TYPE_WEIGHT.TARGET);
                     } else {
                         context.setOutHeader(DEF.MOD_WEB.HTTP_HEADER_STATUS, H2.HTTP_STATUS_UNAUTHORIZED);
                     }

@@ -17,20 +17,24 @@ const NS = 'Fl32_Bwl_Back_Process_Friend_Link_Code_CleanUp';
  * @memberOf Fl32_Bwl_Back_Process_Friend_Link_Code_CleanUp
  */
 function Factory(spec) {
-    // EXTRACT DEPS
-    /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Friend_Link} */
-    const ELink = spec['Fl32_Bwl_Back_Store_RDb_Schema_Friend_Link#'];
+    /** @type {TeqFw_Db_Back_Api_RDb_ICrudEngine} */
+    const crud = spec['TeqFw_Db_Back_Api_RDb_ICrudEngine$'];
+    /** @type {Fl32_Bwl_Back_Store_RDb_Schema_Friend_Link} */
+    const metaFriendLink = spec['Fl32_Bwl_Back_Store_RDb_Schema_Friend_Link$'];
+
+    // DEFINE WORKING VARS / PROPS
+    /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Friend_Link.ATTR} */
+    const A_FRIEND_LINK = metaFriendLink.getAttributes();
 
     // DEFINE INNER FUNCTIONS
     /**
-     * @param trx
+     * @param {TeqFw_Db_Back_RDb_ITrans} trx
      * @returns {Promise<Number>}
      * @memberOf Fl32_Bwl_Back_Process_Friend_Link_Code_CleanUp
      */
     async function process({trx}) {
-        return await trx.from(ELink.ENTITY)
-            .where(ELink.A_DATE_EXPIRED, '<', new Date())
-            .del();
+        const where = (build) => build.where(A_FRIEND_LINK.DATE_EXPIRED, '<', new Date());
+        return await crud.deleteSet(trx, metaFriendLink, where);
     }
 
     // COMPOSE RESULT

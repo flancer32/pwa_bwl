@@ -18,15 +18,23 @@ export default class Fl32_Bwl_Back_Service_Weight_History_Remove {
         /** @type {Fl32_Bwl_Back_Defaults} */
         const DEF = spec['Fl32_Bwl_Back_Defaults$'];
         /** @type {TeqFw_Db_Back_RDb_IConnect} */
-        const rdb = spec['TeqFw_Db_Back_RDb_IConnect$'];
+        const conn = spec['TeqFw_Db_Back_RDb_IConnect$'];
+        /** @type {TeqFw_Db_Back_Api_RDb_ICrudEngine} */
+        const crud = spec['TeqFw_Db_Back_Api_RDb_ICrudEngine$'];
         /** @type {Function|TeqFw_Core_Shared_Util.formatDate} */
         const formatDate = spec['TeqFw_Core_Shared_Util#formatDate'];
         /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_Remove.Factory} */
         const route = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_Remove#Factory$'];
-        /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat} */
-        const EWeightStat = spec['Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat#'];
         /** @type {typeof Fl32_Bwl_Shared_Enum_Weight_Type} */
         const EnumWeightType = spec['Fl32_Bwl_Shared_Enum_Weight_Type$'];
+        /** @type {Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat} */
+        const metaWeightStat = spec['Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat$'];
+        /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat.STAT_TYPE} */
+        const TYPE_WEIGHT = spec['Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat#STAT_TYPE$'];
+
+        // DEFINE WORKING VARS / PROPS
+        /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat.ATTR} */
+        const A_WEIGHT_STAT = metaWeightStat.getAttributes();
 
         // DEFINE INSTANCE METHODS
         this.getRouteFactory = () => route;
@@ -38,31 +46,24 @@ export default class Fl32_Bwl_Back_Service_Weight_History_Remove {
              * @return Promise<void>
              */
             async function service(context) {
-                // DEFINE INNER FUNCTIONS
-
-                async function removeItems(trx, userId, date, type) {
-                    const query = trx.from(EWeightStat.ENTITY)
-                        .where(EWeightStat.A_USER_REF, userId)
-                        .where(EWeightStat.A_DATE, formatDate(date))
-                        .where(EWeightStat.A_TYPE, type);
-                    return await query.del();
-                }
-
-                // MAIN FUNCTIONALITY
                 /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_Remove.Request} */
                 const req = context.getInData();
                 /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_Remove.Response} */
                 const res = context.getOutData();
                 const shared = context.getHandlersShare();
                 //
-                const trx = await rdb.startTransaction();
+                const trx = await conn.startTransaction();
                 try {
                     /** @type {Fl32_Teq_User_Shared_Service_Dto_User} */
                     const user = shared[DEF.MOD_USER.HTTP_SHARE_CTX_USER];
                     if (user) {
                         const type = (req.type === EnumWeightType.CURRENT)
-                            ? EWeightStat.DATA_TYPE_CURRENT : EWeightStat.DATA_TYPE_TARGET;
-                        res.removed = await removeItems(trx, user.id, req.date, type);
+                            ? TYPE_WEIGHT.CURRENT : TYPE_WEIGHT.TARGET;
+                        res.removed = await crud.deleteOne(trx, metaWeightStat, {
+                            [A_WEIGHT_STAT.USER_REF]: user.id,
+                            [A_WEIGHT_STAT.DATE]: formatDate(req.date),
+                            [A_WEIGHT_STAT.TYPE]: type,
+                        });
                     } else {
                         context.setOutHeader(DEF.MOD_WEB.HTTP_HEADER_STATUS, H2.HTTP_STATUS_UNAUTHORIZED);
                     }

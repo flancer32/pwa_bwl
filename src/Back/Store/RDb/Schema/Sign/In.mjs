@@ -1,17 +1,55 @@
 /**
- *  'app_sign_in' entity: registry for one-time sign in codes with limited life time.
+ *  Meta data for '/app/sign/in' entity.
+ *  @namespace Fl32_Bwl_Back_Store_RDb_Schema_Sign_In
  */
-export default class Fl32_Bwl_Back_Store_RDb_Schema_Sign_In {
+// MODULE'S VARS
+const NS = 'Fl32_Bwl_Back_Store_RDb_Schema_Sign_In';
+/**
+ * Path to the entity in plugin's DEM.
+ * @type {string}
+ */
+const ENTITY = '/app/sign/in';
+
+/**
+ * @memberOf Fl32_Bwl_Back_Store_RDb_Schema_Sign_In
+ * @type {Object}
+ */
+const ATTR = {
+    CODE: 'code',
+    DATE_EXPIRED: 'date_expired',
+    USER_REF: 'user_ref'
+};
+
+// MODULE'S CLASSES
+/**
+ * @memberOf Fl32_Bwl_Back_Store_RDb_Schema_Sign_In
+ */
+class Dto {
+    static name = `${NS}.Dto`;
     code;
     date_expired;
     user_ref;
 }
 
-// table name and columns names (entity and attributes) to use in queries to RDb
-Fl32_Bwl_Back_Store_RDb_Schema_Sign_In.A_CODE = 'code';
-Fl32_Bwl_Back_Store_RDb_Schema_Sign_In.A_DATE_EXPIRED = 'date_expired';
-Fl32_Bwl_Back_Store_RDb_Schema_Sign_In.A_USER_REF = 'user_ref';
-Fl32_Bwl_Back_Store_RDb_Schema_Sign_In.ENTITY = 'app_sign_in';
+// noinspection JSClosureCompilerSyntax
+/**
+ * @implements TeqFw_Db_Back_RDb_Meta_IEntity
+ */
+export default class Fl32_Bwl_Back_Store_RDb_Schema_Sign_In {
+    constructor(spec) {
+        /** @type {Fl32_Teq_User_Back_Defaults} */
+        const DEF = spec['Fl32_Teq_User_Back_Defaults$'];
+        /** @type {TeqFw_Db_Back_RDb_Schema_EntityBase} */
+        const base = spec['TeqFw_Db_Back_RDb_Schema_EntityBase$'];
 
-// freeze class to deny attributes changes
-Object.freeze(Fl32_Bwl_Back_Store_RDb_Schema_Sign_In);
+        return base.create(this,
+            `${DEF.SHARED.NAME}${ENTITY}`,
+            ATTR,
+            [ATTR.CODE],
+            Dto
+        );
+    }
+}
+
+// finalize code components for this es6-module
+Object.freeze(ATTR);

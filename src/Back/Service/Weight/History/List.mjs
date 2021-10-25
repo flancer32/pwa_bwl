@@ -17,19 +17,27 @@ export default class Fl32_Bwl_Back_Service_Weight_History_List {
         /** @type {Fl32_Bwl_Back_Defaults} */
         const DEF = spec['Fl32_Bwl_Back_Defaults$'];
         /** @type {TeqFw_Db_Back_RDb_IConnect} */
-        const rdb = spec['TeqFw_Db_Back_RDb_IConnect$'];
-        /** @type {Function|TeqFw_Core_Shared_Util.formatDate} */
+        const conn = spec['TeqFw_Db_Back_RDb_IConnect$'];
+        /** @type {TeqFw_Db_Back_Api_RDb_ICrudEngine} */
+        const crud = spec['TeqFw_Db_Back_Api_RDb_ICrudEngine$'];
+        /** @type {TeqFw_Core_Shared_Util.formatDate|function} */
         const formatDate = spec['TeqFw_Core_Shared_Util#formatDate'];
-        /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat} */
-        const EWeightStat = spec['Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat#'];
         /** @type {typeof Fl32_Bwl_Shared_Service_Dto_Weight_History_Item} */
         const DWeightItem = spec['Fl32_Bwl_Shared_Service_Dto_Weight_History_Item#'];
-        /** @type {typeof Fl32_Bwl_Back_Store_RDb_Query_Friend_GetItems.queryBuilder} */
+        /** @type {typeof Fl32_Bwl_Back_Store_RDb_Query_Friend_GetItems.queryBuilder|function} */
         const qHistoryGetItems = spec['Fl32_Bwl_Back_Store_RDb_Query_Friend_GetItems$'];
         /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_List.Factory} */
         const route = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_List#Factory$'];
         /** @type {typeof Fl32_Bwl_Shared_Enum_Weight_Type} */
         const EnumWeightType = spec['Fl32_Bwl_Shared_Enum_Weight_Type$'];
+        /** @type {Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat} */
+        const metaWeightStat = spec['Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat$'];
+        /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat.STAT_TYPE} */
+        const TYPE_WEIGHT = spec['Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat#STAT_TYPE$'];
+
+        // DEFINE WORKING VARS / PROPS
+        /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat.ATTR} */
+        const A_WEIGHT_STAT = metaWeightStat.getAttributes();
 
         // DEFINE INSTANCE METHODS
         this.getRouteFactory = () => route;
@@ -85,31 +93,23 @@ export default class Fl32_Bwl_Back_Service_Weight_History_List {
                         }
                     }
                     if (userId) {
-                        const query = trx.getQuery(EWeightStat.ENTITY);
-                        query.select();
-                        query.where(EWeightStat.A_USER_REF, userId);
-                        if (apiReq.dateFrom) query.where(EWeightStat.A_DATE, '>=', formatDate(apiReq.dateFrom));
-                        if (apiReq.dateTo) query.where(EWeightStat.A_DATE, '<=', formatDate(apiReq.dateTo));
-                        if (apiReq.type) {
-                            if (apiReq.type === EnumWeightType.CURRENT) {
-                                query.where(EWeightStat.A_TYPE, EWeightStat.DATA_TYPE_CURRENT);
-                            } else {
-                                query.where(EWeightStat.A_TYPE, EWeightStat.DATA_TYPE_TARGET);
-                            }
-                        } else {
-                            query.where(EWeightStat.A_TYPE, EWeightStat.DATA_TYPE_CURRENT);
-                        }
-                        if (apiReq.order === 'desc') {
-                            query.orderBy(EWeightStat.A_DATE, 'desc');
-                        } else {
-                            query.orderBy(EWeightStat.A_DATE, 'asc');
-                        }
-                        /** @type {Array} */
-                        const rs = await query;
+                        const where = (build) => {
+                            build.where(A_WEIGHT_STAT.USER_REF, userId);
+                            if (apiReq.dateFrom) build.where(A_WEIGHT_STAT.DATE, '>=', formatDate(apiReq.dateFrom));
+                            if (apiReq.dateTo) build.where(A_WEIGHT_STAT.DATE, '<=', formatDate(apiReq.dateTo));
+                            let type = (apiReq.type) && apiReq.type === EnumWeightType.TARGET
+                                ?TYPE_WEIGHT.TARGET : TYPE_WEIGHT.CURRENT ;
+                            build.where(A_WEIGHT_STAT.TYPE, type);
+                        };
+                        const order = {
+                            [A_WEIGHT_STAT.DATE]: (apiReq.order === 'desc')? 'desc': 'asc'
+                        };
+                        /** @type {Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat.Dto[]} */
+                        const rs = await crud.readSet(trx, metaWeightStat, where, null, order);
                         for (const one of rs) {
                             const item = new DWeightItem();
-                            item.date = formatDate(one[EWeightStat.A_DATE]);
-                            item.weight = one[EWeightStat.A_VALUE];
+                            item.date = formatDate(one.date);
+                            item.weight = one.value;
                             result.push(item);
                         }
                     }
@@ -123,7 +123,7 @@ export default class Fl32_Bwl_Back_Service_Weight_History_List {
                 const res = context.getOutData();
                 const shared = context.getHandlersShare();
                 //
-                const trx = await rdb.startTransaction();
+                const trx = await conn.startTransaction();
                 try {
                     /** @type {Fl32_Teq_User_Shared_Service_Dto_User} */
                     const user = shared[DEF.MOD_USER.HTTP_SHARE_CTX_USER];

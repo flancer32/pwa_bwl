@@ -18,26 +18,30 @@ const NS = 'Fl32_Bwl_Back_Process_Friend_Link_Add';
  */
 function Factory(spec) {
     // EXTRACT DEPS
-    /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Friend} */
-    const EFriend = spec['Fl32_Bwl_Back_Store_RDb_Schema_Friend#'];
+    /** @type {TeqFw_Db_Back_Api_RDb_ICrudEngine} */
+    const crud = spec['TeqFw_Db_Back_Api_RDb_ICrudEngine$'];
+    /** @type {Fl32_Bwl_Back_Store_RDb_Schema_Friend} */
+    const metaFriend = spec['Fl32_Bwl_Back_Store_RDb_Schema_Friend$'];
+
+    // DEFINE WORKING VARS / PROPS
+    /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Friend.ATTR} */
+    const A_FRIEND = metaFriend.getAttributes();
 
     // DEFINE INNER FUNCTIONS
 
     /**
-     * @param trx
+     * @param {TeqFw_Db_Back_RDb_ITrans} trx
      * @param {number} leaderId
      * @param {number} wingmanId
-     * @return {Promise<string>}
+     * @return {Promise<Object>}
      * @memberOf Fl32_Bwl_Back_Process_Friend_Link_Add
      */
     async function process({trx, leaderId, wingmanId}) {
-        const result = await trx(EFriend.ENTITY)
-            .insert({
-                [EFriend.A_LEADER_REF]: leaderId,
-                [EFriend.A_WINGMAN_REF]: wingmanId,
-                [EFriend.A_DATE_STARTED]: new Date(),
-            });
-        return result;
+        return await crud.create(trx, metaFriend, {
+            [A_FRIEND.LEADER_REF]: leaderId,
+            [A_FRIEND.WINGMAN_REF]: wingmanId,
+            [A_FRIEND.DATE_STARTED]: new Date(),
+        });
     }
 
     // COMPOSE RESULT

@@ -17,22 +17,25 @@ const NS = 'Fl32_Bwl_Back_Process_Friend_Link_Code_Remove';
  * @memberOf Fl32_Bwl_Back_Process_Friend_Link_Code_Remove
  */
 function Factory(spec) {
-    // EXTRACT DEPS
-    /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Friend_Link} */
-    const ELink = spec['Fl32_Bwl_Back_Store_RDb_Schema_Friend_Link#'];
+    /** @type {TeqFw_Db_Back_Api_RDb_ICrudEngine} */
+    const crud = spec['TeqFw_Db_Back_Api_RDb_ICrudEngine$'];
+    /** @type {Fl32_Bwl_Back_Store_RDb_Schema_Friend_Link} */
+    const metaFriendLink = spec['Fl32_Bwl_Back_Store_RDb_Schema_Friend_Link$'];
+
+    // DEFINE WORKING VARS / PROPS
+    /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Friend_Link.ATTR} */
+    const A_FRIEND_LINK = metaFriendLink.getAttributes();
 
     // DEFINE INNER FUNCTIONS
     /**
-     * @param trx
+     * @param {TeqFw_Db_Back_RDb_ITrans} trx
      * @param {string} code
      * @returns {Promise<number>}
      * @memberOf Fl32_Bwl_Back_Process_Friend_Link_Code_Remove
      */
     async function process({trx, code}) {
-        const rs = await trx.from(ELink.ENTITY)
-            .where(ELink.A_CODE, code.trim().toLowerCase())
-            .del();
-        return rs;
+        const norm = code.trim().toLowerCase();
+        return await crud.deleteOne(trx, metaFriendLink, {[A_FRIEND_LINK.CODE]: norm})
     }
 
     // COMPOSE RESULT

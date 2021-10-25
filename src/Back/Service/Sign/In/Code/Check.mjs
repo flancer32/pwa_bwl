@@ -19,19 +19,25 @@ export default class Fl32_Bwl_Back_Service_Sign_In_Code_Check {
         /** @type {Fl32_Bwl_Back_Defaults} */
         const DEF = spec['Fl32_Bwl_Back_Defaults$'];
         /** @type {TeqFw_Db_Back_RDb_IConnect} */
-        const rdb = spec['TeqFw_Db_Back_RDb_IConnect$'];
-        /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Sign_In} */
-        const ESignIn = spec['Fl32_Bwl_Back_Store_RDb_Schema_Sign_In#'];
-        /** @function {@type TeqFw_Web_Back_Util.cookieCreate} */
+        const conn = spec['TeqFw_Db_Back_RDb_IConnect$'];
+        /** @type {TeqFw_Db_Back_Api_RDb_ICrudEngine} */
+        const crud = spec['TeqFw_Db_Back_Api_RDb_ICrudEngine$'];
+        /** @type {TeqFw_Web_Back_Util.cookieCreate|function} */
         const cookieCreate = spec['TeqFw_Web_Back_Util#cookieCreate'];
-        /** @function {@type Fl32_Bwl_Back_Process_Sign_In_Code_CleanUp.process} */
+        /** @type {Fl32_Bwl_Back_Process_Sign_In_Code_CleanUp.process|function} */
         const procCodeCleanUp = spec['Fl32_Bwl_Back_Process_Sign_In_Code_CleanUp$'];
-        /** @function {@type Fl32_Bwl_Back_Process_Sign_In_Code_Remove.process} */
+        /** @type {Fl32_Bwl_Back_Process_Sign_In_Code_Remove.process|function} */
         const procCodeRemove = spec['Fl32_Bwl_Back_Process_Sign_In_Code_Remove$'];
         /** @type {Fl32_Teq_User_Back_Process_Session_Open} */
         const procSessionOpen = spec['Fl32_Teq_User_Back_Process_Session_Open$'];
         /** @type {Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Check.Factory} */
         const route = spec['Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Check#Factory$'];
+        /** @type {Fl32_Bwl_Back_Store_RDb_Schema_Sign_In} */
+        const metaSignIn = spec['Fl32_Bwl_Back_Store_RDb_Schema_Sign_In$'];
+
+        // DEFINE WORKING VARS / PROPS
+        /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Sign_In.ATTR} */
+        const A_SIGN_IN = metaSignIn.getAttributes();
 
         // DEFINE INSTANCE METHODS
         this.getRouteFactory = () => route;
@@ -45,24 +51,14 @@ export default class Fl32_Bwl_Back_Service_Sign_In_Code_Check {
             async function service(context) {
                 // DEFINE INNER FUNCTIONS
                 /**
-                 * @param trx
-                 * @param {String} code
-                 * @returns {Promise<null|Number>}
+                 * @param {TeqFw_Db_Back_RDb_ITrans} trx
+                 * @param {string} code
+                 * @returns {Promise<number|null>}
                  */
                 async function getUserIdByCode(trx, code) {
-                    const query = trx.from(ESignIn.ENTITY);
-                    query.select([ESignIn.A_USER_REF]);
-                    query.where({
-                        [ESignIn.A_CODE]: code
-                    });
-                    /** @type {Array} */
-                    const rs = await query;
-                    if (rs.length === 1) {
-                        const [first] = rs;
-                        return first[ESignIn.A_USER_REF];
-                    } else {
-                        return null;
-                    }
+                    /** @type {Fl32_Bwl_Back_Store_RDb_Schema_Sign_In.Dto} */
+                    const found = await crud.readOne(trx, metaSignIn, {[A_SIGN_IN.CODE]: code});
+                    return found?.user_ref ?? null;
                 }
 
                 /**
@@ -90,13 +86,13 @@ export default class Fl32_Bwl_Back_Service_Sign_In_Code_Check {
                 /** @type {Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Check.Response} */
                 const res = context.getOutData();
                 //
-                const trx = await rdb.startTransaction();
+                const trx = await conn.startTransaction();
                 try {
                     const code = req.code;
-                    await procCodeCleanUp({trx:trx.getTrx()});
-                    const userId = await getUserIdByCode(trx.getTrx(), code);
+                    await procCodeCleanUp({trx});
+                    const userId = await getUserIdByCode(trx, code);
                     if (userId !== null) {
-                        await procCodeRemove({trx:trx.getTrx(), code});
+                        await procCodeRemove({trx, code});
                         const {sessionId, cookie} = await initSession(trx, userId);
                         context.setOutHeader(H2.HTTP2_HEADER_SET_COOKIE, cookie);
                         res.sessionId = sessionId;

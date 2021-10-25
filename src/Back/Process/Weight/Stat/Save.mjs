@@ -15,16 +15,23 @@ const NS = 'Fl32_Bwl_Back_Process_Weight_Stat_Save';
  * @memberOf Fl32_Bwl_Back_Process_Weight_Stat_Save
  */
 function Factory(spec) {
-    /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat} */
-    const EWeightStat = spec['Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat#'];
-    /** @function {@type TeqFw_Core_Shared_Util.formatUtcDate} */
-    const formatUtcDate = spec['TeqFw_Core_Shared_Util#formatUtcDate']; // function instance
+    /** @type {TeqFw_Db_Back_Api_RDb_ICrudEngine} */
+    const crud = spec['TeqFw_Db_Back_Api_RDb_ICrudEngine$'];
+    /** @type {TeqFw_Core_Shared_Util.formatUtcDate|function} */
+    const formatUtcDate = spec['TeqFw_Core_Shared_Util#formatUtcDate'];
+    /** @type {Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat} */
+    const metaWeightStat = spec['Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat$'];
 
+    // DEFINE WORKING VARS / PROPS
+    /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat.ATTR} */
+    const A_WEIGHT_STAT = metaWeightStat.getAttributes();
+
+    // DEFINE INNER FUNCTIONS
     /**
      * Save weight stats data for the date.
      *
-     * @param trx
-     * @param {Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat} payload
+     * @param {TeqFw_Db_Back_RDb_ITrans} trx
+     * @param {Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat.Dto} payload
      * @returns {Promise<{output: {}, error: {}}>}
      * @memberOf Fl32_Bwl_Back_Process_Weight_Stat_Save
      */
@@ -32,36 +39,25 @@ function Factory(spec) {
         // DEFINE INNER FUNCTIONS
 
         /**
-         * @param trx
-         * @param {Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat} item
+         * @param {TeqFw_Db_Back_RDb_ITrans} trx
+         * @param {Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat.Dto} item
          * @returns {Promise<boolean>}
          */
         async function itemExists(trx, item) {
-            const query = trx.from(EWeightStat.ENTITY);
-            query.select([EWeightStat.A_USER_REF, EWeightStat.A_DATE]);
-            query.where({
-                [EWeightStat.A_DATE]: item.date,
-                [EWeightStat.A_TYPE]: item.type,
-                [EWeightStat.A_USER_REF]: item.user_ref,
+            const found = await crud.readOne(trx, metaWeightStat, {
+                [A_WEIGHT_STAT.USER_REF]: item.user_ref,
+                [A_WEIGHT_STAT.DATE]: item.date,
+                [A_WEIGHT_STAT.TYPE]: item.type,
             });
-            /** @type {Array} */
-            const rs = await query;
-            return (rs.length === 1);
+            return (found !== null);
         }
 
-
         // MAIN FUNCTIONALITY
-        payload[EWeightStat.A_DATE] = formatUtcDate(payload[EWeightStat.A_DATE]);  // prepare data
+        payload[A_WEIGHT_STAT.DATE] = formatUtcDate(payload[A_WEIGHT_STAT.DATE]);  // prepare data
         if (await itemExists(trx, payload)) {
-            await trx(EWeightStat.ENTITY)
-                .update(payload)
-                .where({
-                    [EWeightStat.A_USER_REF]: payload[EWeightStat.A_USER_REF],
-                    [EWeightStat.A_TYPE]: payload[EWeightStat.A_TYPE],
-                    [EWeightStat.A_DATE]: payload[EWeightStat.A_DATE],
-                });
+            await crud.updateOne(trx, metaWeightStat, payload);
         } else {
-            await trx(EWeightStat.ENTITY).insert(payload);
+            await crud.create(trx, metaWeightStat, payload);
         }
         // I don't know what I should return here
         return {output: {}, error: {}};

@@ -15,21 +15,26 @@ const NS = 'Fl32_Bwl_Back_Process_Sign_In_Code_Remove';
  * @memberOf Fl32_Bwl_Back_Process_Sign_In_Code_Remove
  */
 function Factory(spec) {
-    /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Sign_In} */
-    const ESignIn = spec['Fl32_Bwl_Back_Store_RDb_Schema_Sign_In#'];
+    /** @type {TeqFw_Db_Back_Api_RDb_ICrudEngine} */
+    const crud = spec['TeqFw_Db_Back_Api_RDb_ICrudEngine$'];
+    /** @type {Fl32_Bwl_Back_Store_RDb_Schema_Sign_In} */
+    const metaSignIn = spec['Fl32_Bwl_Back_Store_RDb_Schema_Sign_In$'];
 
+    // DEFINE WORKING VARS / PROPS
+    /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Sign_In.ATTR} */
+    const A_SIGN_IN = metaSignIn.getAttributes();
+
+    // DEFINE INNER FUNCTIONS
     /**
      * Remove one-time sign-in code.
-     * @param trx
-     * @param {String} code
-     * @returns {Promise<Number>}
+     * @param {TeqFw_Db_Back_RDb_ITrans} trx
+     * @param {string} code
+     * @returns {Promise<number>}
      * @memberOf Fl32_Bwl_Back_Process_Sign_In_Code_Remove
      */
     async function process({trx, code}) {
-        const rs = await trx.from(ESignIn.ENTITY)
-            .where(ESignIn.A_CODE, code.trim().toLowerCase())
-            .del();
-        return rs;
+        const norm = code.trim().toLowerCase();
+        return await crud.deleteOne(trx, metaSignIn, {[A_SIGN_IN.CODE]: norm})
     }
 
     Object.defineProperty(process, 'name', {value: `${NS}.${process.name}`});

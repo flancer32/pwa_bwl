@@ -15,20 +15,26 @@ const NS = 'Fl32_Bwl_Back_Process_Sign_In_Code_CleanUp';
  * @memberOf Fl32_Bwl_Back_Process_Sign_In_Code_CleanUp
  */
 function Factory(spec) {
-    /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Sign_In} */
-    const ESignIn = spec['Fl32_Bwl_Back_Store_RDb_Schema_Sign_In#'];
+    /** @type {TeqFw_Db_Back_Api_RDb_ICrudEngine} */
+    const crud = spec['TeqFw_Db_Back_Api_RDb_ICrudEngine$'];
+    /** @type {Fl32_Bwl_Back_Store_RDb_Schema_Sign_In} */
+    const metaSignIn = spec['Fl32_Bwl_Back_Store_RDb_Schema_Sign_In$'];
 
+    // DEFINE WORKING VARS / PROPS
+    /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Sign_In.ATTR} */
+    const A_SIGN_IN = metaSignIn.getAttributes();
+
+    // DEFINE INNER FUNCTIONS
     /**
      * Clean up expired one-time sign in codes.
      *
-     * @param trx
-     * @returns {Promise<void>}
+     * @param {TeqFw_Db_Back_RDb_ITrans} trx
+     * @returns {Promise<number>}
      * @memberOf Fl32_Bwl_Back_Process_Sign_In_Code_CleanUp
      */
     async function process({trx}) {
-        return await trx.from(ESignIn.ENTITY)
-            .where(ESignIn.A_DATE_EXPIRED, '<', new Date())
-            .del();
+        const where = (build) => build.where(A_SIGN_IN.DATE_EXPIRED, '<', new Date());
+        return await crud.deleteSet(trx, metaSignIn, where);
     }
 
     Object.defineProperty(process, 'name', {value: `${NS}.${process.name}`});

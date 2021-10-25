@@ -26,14 +26,21 @@ class Response {}
 
 /**
  * @memberOf Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save
+ * @deprecated use TYPES
  */
 class Types {}
-
 // static properties (compatible with Safari "< 14.1", "iOS < 14.5" form)
 Types.CURRENT = 'current';
 Types.START = 'start';
 Types.TARGET = 'target';
 
+/**
+ * @memberOf Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save
+ */
+const TYPES = {
+    CURRENT: 'current',
+    TARGET: 'target',
+}
 
 /**
  * Factory to create new DTOs and get route address.
@@ -84,4 +91,5 @@ export {
     Request,
     Response,
     Types,
+    TYPES,
 };

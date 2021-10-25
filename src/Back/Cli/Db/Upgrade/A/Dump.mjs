@@ -28,22 +28,12 @@ function Factory(spec) {
     const getTables = spec['TeqFw_Db_Back_Util#getTables'];
     /** @type {TeqFw_Db_Back_Util.itemsSelect|Function} */
     const itemsSelect = spec['TeqFw_Db_Back_Util#itemsSelect'];
-    /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Friend} */
-    const EAppFriend = spec['Fl32_Bwl_Back_Store_RDb_Schema_Friend#'];
-    /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Friend_Link} */
-    const EAppFriendLink = spec['Fl32_Bwl_Back_Store_RDb_Schema_Friend_Link#'];
-    /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Profile} */
-    const EAppProfile = spec['Fl32_Bwl_Back_Store_RDb_Schema_Profile#'];
-    /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Sign_In} */
-    const EAppSignIn = spec['Fl32_Bwl_Back_Store_RDb_Schema_Sign_In#'];
-    /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat} */
-    const EAppWeightStat = spec['Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat#'];
     /** @type {TeqFw_Web_Push_Back_Store_RDb_Schema_Subscript} */
     const metaWebPushSubscript = spec['TeqFw_Web_Push_Back_Store_RDb_Schema_Subscript$'];
     /** @type {TeqFw_User_Back_Store_RDb_Schema_User} */
     const metaUser = spec['TeqFw_User_Back_Store_RDb_Schema_User$'];
     /** @type {Fl32_Teq_User_Back_Store_RDb_Schema_Profile} */
-    const metaProfile = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Profile$'];
+    const metaUserProfile = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Profile$'];
     /** @type {Fl32_Teq_User_Back_Store_RDb_Schema_Auth_Password} */
     const metaAuthPass = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Auth_Password$'];
     /** @type {Fl32_Teq_User_Back_Store_RDb_Schema_Auth_Session} */
@@ -56,6 +46,16 @@ function Factory(spec) {
     const metaRefLink = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Ref_Link$'];
     /** @type {Fl32_Teq_User_Back_Store_RDb_Schema_Ref_Tree} */
     const metaRefTree = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Ref_Tree$'];
+    /** @type {Fl32_Bwl_Back_Store_RDb_Schema_Friend_Link} */
+    const metaFriendLink = spec['Fl32_Bwl_Back_Store_RDb_Schema_Friend_Link$'];
+    /** @type {Fl32_Bwl_Back_Store_RDb_Schema_Sign_In} */
+    const metaSignIn = spec['Fl32_Bwl_Back_Store_RDb_Schema_Sign_In$'];
+    /** @type {Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat} */
+    const metaWeightStat = spec['Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat$'];
+    /** @type {Fl32_Bwl_Back_Store_RDb_Schema_Friend} */
+    const metaFriend = spec['Fl32_Bwl_Back_Store_RDb_Schema_Friend$'];
+    /** @type {Fl32_Bwl_Back_Store_RDb_Schema_Profile} */
+    const metaAppProfile = spec['Fl32_Bwl_Back_Store_RDb_Schema_Profile$'];
 
     // DEFINE INNER FUNCTIONS
     /**
@@ -65,32 +65,37 @@ function Factory(spec) {
      */
     async function action() {
         const trx = await conn.startTransaction();
+        const T_APP_PROFILE = trx.getTableName(metaAppProfile);
         const T_AUTH_PASS = trx.getTableName(metaAuthPass);
         const T_AUTH_SESS = trx.getTableName(metaAuthSess);
+        const T_FRIEND = trx.getTableName(metaFriend);
+        const T_FRIEND_LINK = trx.getTableName(metaFriendLink);
         const T_ID_EMAIL = trx.getTableName(metaIdEmail);
         const T_ID_PHONE = trx.getTableName(metaIdPhone);
-        const T_PROFILE = trx.getTableName(metaProfile);
         const T_REF_LINK = trx.getTableName(metaRefLink);
         const T_REF_TREE = trx.getTableName(metaRefTree);
+        const T_SIGN_IN = trx.getTableName(metaSignIn);
         const T_USER = trx.getTableName(metaUser);
+        const T_USER_PROFILE = trx.getTableName(metaUserProfile);
         const T_WEB_PUSH_SUBSCRIPT = trx.getTableName(metaWebPushSubscript);
+        const T_WEIGHT_STAT = trx.getTableName(metaWeightStat);
 
         try {
             const result = {};
             const tables = await getTables(trx);
             // app data
-            result[EAppFriend.ENTITY] = await itemsSelect(trx, tables, EAppFriend.ENTITY);
-            result[EAppFriendLink.ENTITY] = await itemsSelect(trx, tables, EAppFriendLink.ENTITY);
-            result[EAppProfile.ENTITY] = await itemsSelect(trx, tables, EAppProfile.ENTITY);
-            result[EAppSignIn.ENTITY] = await itemsSelect(trx, tables, EAppSignIn.ENTITY);
-            result[EAppWeightStat.ENTITY] = await itemsSelect(trx, tables, EAppWeightStat.ENTITY);
+            result[T_FRIEND] = await itemsSelect(trx, tables, T_FRIEND);
+            result[T_FRIEND_LINK] = await itemsSelect(trx, tables, T_FRIEND_LINK);
+            result[T_APP_PROFILE] = await itemsSelect(trx, tables, T_APP_PROFILE);
+            result[T_SIGN_IN] = await itemsSelect(trx, tables, T_SIGN_IN);
+            result[T_WEIGHT_STAT] = await itemsSelect(trx, tables, T_WEIGHT_STAT);
             // users data
             result[T_USER] = await itemsSelect(trx, tables, T_USER);
             result[T_AUTH_PASS] = await itemsSelect(trx, tables, T_AUTH_PASS);
             result[T_AUTH_SESS] = await itemsSelect(trx, tables, T_AUTH_SESS);
             result[T_ID_EMAIL] = await itemsSelect(trx, tables, T_ID_EMAIL);
             result[T_ID_PHONE] = await itemsSelect(trx, tables, T_ID_PHONE);
-            result[T_PROFILE] = await itemsSelect(trx, tables, T_PROFILE);
+            result[T_USER_PROFILE] = await itemsSelect(trx, tables, T_USER_PROFILE);
             result[T_REF_LINK] = await itemsSelect(trx, tables, T_REF_LINK);
             result[T_REF_TREE] = await itemsSelect(trx, tables, T_REF_TREE);
             // web-push

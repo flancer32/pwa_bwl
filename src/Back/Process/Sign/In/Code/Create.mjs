@@ -22,14 +22,16 @@ const LIFETIME_MIN = 5;
 function Factory(spec) {
     /** @type {TeqFw_Db_Back_Api_RDb_ICrudEngine} */
     const crud = spec['TeqFw_Db_Back_Api_RDb_ICrudEngine$'];
-    /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Sign_In} */
-    const ESignIn = spec['Fl32_Bwl_Back_Store_RDb_Schema_Sign_In#'];
     /** @type {Fl32_Teq_User_Back_Store_RDb_Schema_Id_Email} */
     const metaIdEmail = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Id_Email$'];
+    /** @type {Fl32_Bwl_Back_Store_RDb_Schema_Sign_In} */
+    const metaSignIn = spec['Fl32_Bwl_Back_Store_RDb_Schema_Sign_In$'];
 
     // DEFINE WORKING VARS / PROPS
     /** @type {typeof Fl32_Teq_User_Back_Store_RDb_Schema_Id_Email.ATTR} */
     const A_ID_EMAIL = metaIdEmail.getAttributes();
+    /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Sign_In.ATTR} */
+    const A_SIGN_IN = metaSignIn.getAttributes();
 
     // DEFINE INNER FUNCTIONS
     /**
@@ -42,16 +44,15 @@ function Factory(spec) {
     async function process({trx, email}) {
         // DEFINE INNER FUNCTIONS
         /**
-         * @param trx
+         * @param {TeqFw_Db_Back_RDb_ITrans} trx
          * @returns {Promise<string>}
          */
         async function generateCode(trx) {
-            let code, rs;
+            let code, dto;
             do {
                 code = $crypto.randomBytes(CODE_LENGTH).toString('hex').toLowerCase();
-                const query = trx.from(ESignIn.ENTITY);
-                rs = await query.select().where(ESignIn.A_CODE, code);
-            } while (rs.length > 0);
+                dto = await crud.readOne(trx, metaSignIn, {[A_SIGN_IN.CODE]: code});
+            } while (dto !== null);
             return code;
         }
 
@@ -61,15 +62,14 @@ function Factory(spec) {
         const found = await crud.readOne(trx, metaIdEmail, {[A_ID_EMAIL.EMAIL]: email});
         if (found?.user_ref) {
             const userId = found.user_ref;
-            result = await generateCode(trx.getTrx());
+            result = await generateCode(trx);
             const dateExp = new Date();
             dateExp.setUTCMinutes(dateExp.getUTCMinutes() + LIFETIME_MIN);
-            await trx.getQuery(ESignIn.ENTITY)
-                .insert({
-                    [ESignIn.A_USER_REF]: userId,
-                    [ESignIn.A_CODE]: result,
-                    [ESignIn.A_DATE_EXPIRED]: dateExp,
-                });
+            await crud.create(trx, metaSignIn, {
+                [A_SIGN_IN.USER_REF]: userId,
+                [A_SIGN_IN.CODE]: result,
+                [A_SIGN_IN.DATE_EXPIRED]: dateExp,
+            });
         }
         // COMPOSE RESULT
         return result;

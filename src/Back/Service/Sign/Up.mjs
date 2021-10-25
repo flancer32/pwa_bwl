@@ -19,7 +19,7 @@ export default class Fl32_Bwl_Back_Service_Sign_Up {
         /** @type {Fl32_Bwl_Back_Defaults} */
         const DEF = spec['Fl32_Bwl_Back_Defaults$'];
         /** @type {TeqFw_Db_Back_RDb_IConnect} */
-        const rdb = spec['TeqFw_Db_Back_RDb_IConnect$'];
+        const conn = spec['TeqFw_Db_Back_RDb_IConnect$'];
         /** @type {TeqFw_Core_Shared_Util.formatUtcDateTime|function} */
         const formatUtcDateTime = spec['TeqFw_Core_Shared_Util#formatUtcDateTime'];
         /** @type {TeqFw_Web_Back_Util.cookieCreate|function} */
@@ -40,13 +40,14 @@ export default class Fl32_Bwl_Back_Service_Sign_Up {
         const procAppProfileSave = spec['Fl32_Bwl_Back_Process_Profile_Save$'];
         /** @type {Fl32_Bwl_Back_Process_Weight_Stat_Save.process|function} */
         const procWeightSave = spec['Fl32_Bwl_Back_Process_Weight_Stat_Save$'];
-        /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Profile} */
-        const EProfile = spec['Fl32_Bwl_Back_Store_RDb_Schema_Profile#'];
-        /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat} */
-        const EWeightStat = spec['Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat#'];
         /** @type {typeof Fl32_Teq_User_Shared_Service_Dto_User} */
         const DUser = spec['Fl32_Teq_User_Shared_Service_Dto_User#'];
-
+        /** @type {Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat} */
+        const metaWeightStat = spec['Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat$'];
+        /** @type {Fl32_Bwl_Back_Store_RDb_Schema_Profile} */
+        const metaAppProfile = spec['Fl32_Bwl_Back_Store_RDb_Schema_Profile$'];
+        /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat.STAT_TYPE} */
+        const TYPE_WEIGHT = spec['Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat#STAT_TYPE$'];
 
         // DEFINE INSTANCE METHODS
 
@@ -62,18 +63,20 @@ export default class Fl32_Bwl_Back_Service_Sign_Up {
                 // DEFINE INNER FUNCTIONS
 
                 /**
-                 * @param trx
+                 * @param {TeqFw_Db_Back_RDb_ITrans} trx
                  * @param {Fl32_Bwl_Shared_Service_Route_Sign_Up.Request} req
                  * @param {number} userId
                  * @return {Promise<void>}
                  */
                 async function addProfile(trx, req, userId) {
-                    const entity = new EProfile();
-                    entity[EProfile.A_AGE] = req.age;
-                    entity[EProfile.A_HEIGHT] = req.height;
-                    entity[EProfile.A_IS_FEMALE] = req.isFemale;
-                    entity[EProfile.A_USER_REF] = userId;
-                    await procAppProfileSave({trx, input: entity});
+                    // noinspection JSValidateTypes
+                    /** @type {Fl32_Bwl_Back_Store_RDb_Schema_Profile.Dto} */
+                    const input = metaAppProfile.createDto();
+                    input.age = req.age;
+                    input.height = req.height;
+                    input.is_female = req.isFemale;
+                    input.user_ref = userId;
+                    await procAppProfileSave({trx, input});
                 }
 
                 /**
@@ -91,12 +94,21 @@ export default class Fl32_Bwl_Back_Service_Sign_Up {
                     return await procCreate({trx, user});
                 }
 
+                /**
+                 * @param {TeqFw_Db_Back_RDb_ITrans} trx
+                 * @param {number} userId
+                 * @param {number} weight
+                 * @param {Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat.STAT_TYPE} type
+                 * @return {Promise<void>}
+                 */
                 async function addWeight(trx, userId, weight, type) {
-                    const payload = new EWeightStat();
-                    payload[EWeightStat.A_TYPE] = type;
-                    payload[EWeightStat.A_DATE] = formatUtcDateTime();
-                    payload[EWeightStat.A_USER_REF] = userId;
-                    payload[EWeightStat.A_VALUE] = weight;
+                    // noinspection JSValidateTypes
+                    /** @type {Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat.Dto} */
+                    const payload = metaWeightStat.createDto();
+                    payload.type = type;
+                    payload.date = formatUtcDateTime();
+                    payload.user_ref = userId;
+                    payload.value = weight;
                     await procWeightSave({trx, payload});
                 }
 
@@ -126,21 +138,21 @@ export default class Fl32_Bwl_Back_Service_Sign_Up {
                 const res = context.getOutData();
                 // const shared = context.getHandlersShare();
                 //
-                const trx = await rdb.startTransaction();
+                const trx = await conn.startTransaction();
                 /** @type {Fl32_Bwl_Shared_Service_Route_Sign_Up.Request} */
                 try {
                     // clean up expired links
                     await procRefCleanUp({trx});
                     // load link data by code
                     const code = req.refCode;
-                    /** @type {Fl32_Teq_User_Back_Store_RDb_Schema_Ref_Link} */
+                    /** @type {Fl32_Teq_User_Back_Store_RDb_Schema_Ref_Link.Dto} */
                     const linkData = await procRefGet({trx, code});
                     if (linkData) {
                         const parentId = linkData.user_ref;
                         const userId = await addUser(trx, req, parentId);
-                        await addProfile(trx.getTrx(), req, userId);
-                        await addWeight(trx.getTrx(), userId, req.weight, EWeightStat.DATA_TYPE_CURRENT);
-                        await addWeight(trx.getTrx(), userId, req.weight, EWeightStat.DATA_TYPE_TARGET);
+                        await addProfile(trx, req, userId);
+                        await addWeight(trx, userId, req.weight, TYPE_WEIGHT.CURRENT);
+                        await addWeight(trx, userId, req.weight, TYPE_WEIGHT.TARGET);
                         await procRefRemove({trx, code});
                         const {sessionId, cookie} = await initSession(trx, userId);
                         context.setOutHeader(H2.HTTP2_HEADER_SET_COOKIE, cookie);

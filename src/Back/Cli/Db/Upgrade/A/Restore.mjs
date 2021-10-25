@@ -26,22 +26,12 @@ function Factory(spec) {
     const serialsSet = spec['TeqFw_Db_Back_Util#serialsSet'];
     /** @type {TeqFw_Db_Back_Util.itemsInsert|Function} */
     const itemsInsert = spec['TeqFw_Db_Back_Util#itemsInsert'];
-    /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Friend} */
-    const EAppFriend = spec['Fl32_Bwl_Back_Store_RDb_Schema_Friend#'];
-    /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Friend_Link} */
-    const EAppFriendLink = spec['Fl32_Bwl_Back_Store_RDb_Schema_Friend_Link#'];
-    /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Profile} */
-    const EAppProfile = spec['Fl32_Bwl_Back_Store_RDb_Schema_Profile#'];
-    /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Sign_In} */
-    const EAppSignIn = spec['Fl32_Bwl_Back_Store_RDb_Schema_Sign_In#'];
-    /** @type {typeof Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat} */
-    const EAppWeightStat = spec['Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat#'];
     /** @type {TeqFw_Web_Push_Back_Store_RDb_Schema_Subscript} */
     const metaWebPushSubscript = spec['TeqFw_Web_Push_Back_Store_RDb_Schema_Subscript$'];
     /** @type {TeqFw_User_Back_Store_RDb_Schema_User} */
     const metaUser = spec['TeqFw_User_Back_Store_RDb_Schema_User$'];
     /** @type {Fl32_Teq_User_Back_Store_RDb_Schema_Profile} */
-    const metaProfile = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Profile$'];
+    const metaUserProfile = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Profile$'];
     /** @type {Fl32_Teq_User_Back_Store_RDb_Schema_Auth_Password} */
     const metaAuthPass = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Auth_Password$'];
     /** @type {Fl32_Teq_User_Back_Store_RDb_Schema_Auth_Session} */
@@ -54,7 +44,16 @@ function Factory(spec) {
     const metaRefLink = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Ref_Link$'];
     /** @type {Fl32_Teq_User_Back_Store_RDb_Schema_Ref_Tree} */
     const metaRefTree = spec['Fl32_Teq_User_Back_Store_RDb_Schema_Ref_Tree$'];
-
+    /** @type {Fl32_Bwl_Back_Store_RDb_Schema_Friend_Link} */
+    const metaFriendLink = spec['Fl32_Bwl_Back_Store_RDb_Schema_Friend_Link$'];
+    /** @type {Fl32_Bwl_Back_Store_RDb_Schema_Sign_In} */
+    const metaSignIn = spec['Fl32_Bwl_Back_Store_RDb_Schema_Sign_In$'];
+    /** @type {Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat} */
+    const metaWeightStat = spec['Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat$'];
+    /** @type {Fl32_Bwl_Back_Store_RDb_Schema_Friend} */
+    const metaFriend = spec['Fl32_Bwl_Back_Store_RDb_Schema_Friend$'];
+    /** @type {Fl32_Bwl_Back_Store_RDb_Schema_Profile} */
+    const metaAppProfile = spec['Fl32_Bwl_Back_Store_RDb_Schema_Profile$'];
 
     // DEFINE INNER FUNCTIONS
     /**
@@ -67,15 +66,20 @@ function Factory(spec) {
 
         // MAIN FUNCTIONALITY
         const trx = await connector.startTransaction();
+        const T_APP_PROFILE = trx.getTableName(metaAppProfile);
         const T_AUTH_PASS = trx.getTableName(metaAuthPass);
         const T_AUTH_SESS = trx.getTableName(metaAuthSess);
+        const T_FRIEND = trx.getTableName(metaFriend);
+        const T_FRIEND_LINK = trx.getTableName(metaFriendLink);
         const T_ID_EMAIL = trx.getTableName(metaIdEmail);
         const T_ID_PHONE = trx.getTableName(metaIdPhone);
-        const T_PROFILE = trx.getTableName(metaProfile);
         const T_REF_LINK = trx.getTableName(metaRefLink);
         const T_REF_TREE = trx.getTableName(metaRefTree);
+        const T_SIGN_IN = trx.getTableName(metaSignIn);
         const T_USER = trx.getTableName(metaUser);
+        const T_USER_PROFILE = trx.getTableName(metaUserProfile);
         const T_WEB_PUSH_SUBSCRIPT = trx.getTableName(metaWebPushSubscript);
+        const T_WEIGHT_STAT = trx.getTableName(metaWeightStat);
 
         try {
             // user
@@ -84,15 +88,15 @@ function Factory(spec) {
             await itemsInsert(trx, dump, T_AUTH_SESS);
             await itemsInsert(trx, dump, T_ID_EMAIL);
             await itemsInsert(trx, dump, T_ID_PHONE);
-            await itemsInsert(trx, dump, T_PROFILE);
+            await itemsInsert(trx, dump, T_USER_PROFILE);
             await itemsInsert(trx, dump, T_REF_LINK);
             await itemsInsert(trx, dump, T_REF_TREE);
             // app
-            await itemsInsert(trx, dump, EAppFriend.ENTITY);
-            await itemsInsert(trx, dump, EAppFriendLink.ENTITY);
-            await itemsInsert(trx, dump, EAppProfile.ENTITY);
-            await itemsInsert(trx, dump, EAppSignIn.ENTITY);
-            await itemsInsert(trx, dump, EAppWeightStat.ENTITY);
+            await itemsInsert(trx, dump, T_FRIEND);
+            await itemsInsert(trx, dump, T_FRIEND_LINK);
+            await itemsInsert(trx, dump, T_APP_PROFILE);
+            await itemsInsert(trx, dump, T_SIGN_IN);
+            await itemsInsert(trx, dump, T_WEIGHT_STAT);
             // web-push
             await itemsInsert(trx, dump, T_WEB_PUSH_SUBSCRIPT);
             // serials for Postgres

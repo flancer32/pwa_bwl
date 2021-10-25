@@ -42,7 +42,7 @@ export default class Fl32_Bwl_Back_Service_Sign_In_Code_Send {
                 const trx = await conn.startTransaction();
                 try {
                     const email = req.email;
-                    await procCleanUp({trx: trx.getTrx()});
+                    await procCleanUp({trx: trx});
                     const code = await procCreate({trx, email});
                     if (code !== null) res.isSent = await procEmail({to: email, code});
                     await trx.commit();
