@@ -24,7 +24,7 @@ function Factory(spec) {
     const logger = spec['TeqFw_Core_Shared_Logger$'];
     /** @type {TeqFw_Db_Back_Util.serialsGetOne|Function} */
     const serialsGetOne = spec['TeqFw_Db_Back_Util#serialsGetOne'];
-    /** @type {TeqFw_Db_Back_Util.getTables|Function} */
+    /** @type {TeqFw_Db_Back_Util.getTables|function} */
     const getTables = spec['TeqFw_Db_Back_Util#getTables'];
     /** @type {TeqFw_Db_Back_Util.itemsSelect|Function} */
     const itemsSelect = spec['TeqFw_Db_Back_Util#itemsSelect'];
