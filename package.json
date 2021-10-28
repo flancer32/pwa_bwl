@@ -28,13 +28,13 @@
     "version": "node ./bin/tequila.mjs core-version"
   },
   "dependencies": {
-    "@flancer32/teq_user": "github:flancer32/teq_user",
+    "@flancer32/teq_user": "*",
     "@teqfw/core": "*",
     "@teqfw/db": "*",
     "@teqfw/email": "github:teqfw/email",
     "@teqfw/i18n": "*",
     "@teqfw/web": "*",
-    "@teqfw/web-push": "github:teqfw/web-push",
+    "@teqfw/web-push": "*",
     "chart.js": "*",
     "chartjs-adapter-luxon": "*",
     "knex": "*",
