@@ -2,6 +2,7 @@
   "btn": {
     "add": "Add",
     "cancel": "Cancel",
+    "clean": "Clean",
     "delete": "Delete",
     "disable": "Disable",
     "enable": "Enable",
@@ -26,9 +27,14 @@
   },
   "route": {
     "friends": {
+      "add": {
+        "error": "Error is occurred.",
+        "success": "New friend is added.",
+        "wait": "Adding the new friend..."
+      },
       "active": "Active",
       "admin": "Admin",
-      "date": "Date",
+      "created": "Date",
       "id": "ID",
       "name": "Name",
       "share": {
@@ -43,7 +49,10 @@
     },
     "home": {
       "current": "Current (kg)",
-      "dataSet": "Data",
+      "dataSet": {
+        "label": "Data",
+        "personal": "Personal"
+      },
       "period": "Period",
       "start": "Start (kg)",
       "target": "Target (kg)"
@@ -136,6 +145,14 @@
         "target": "Set target weight (kg)"
       }
     },
+    "friends": {
+      "dialog": {
+        "add": {
+          "downline": "New user",
+          "friend": "Already registered"
+        }
+      }
+    },
     "settings": {
       "lang": {
         "en": "English",
@@ -146,7 +163,10 @@
         "title": "Web Push configuration"
       },
       "swConfig": {
-        "title": "Service Worker Configuration"
+        "title": "Service Worker Configuration",
+        "cache": {
+          "title": "Cache"
+        }
       }
     }
   }

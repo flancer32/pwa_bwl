@@ -31,7 +31,7 @@ export default function Factory(spec) {
     const template = `
 <div class="q-pa-xs q-gutter-xs">
     <lang/>
-    <push/>
+<!--    <push/>-->
     <sw-config/>
 </div>
 `;
