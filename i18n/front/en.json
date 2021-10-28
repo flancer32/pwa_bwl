@@ -144,6 +144,9 @@
       },
       "push": {
         "title": "Web Push configuration"
+      },
+      "swConfig": {
+        "title": "Service Worker Configuration"
       }
     }
   }

@@ -25,16 +25,14 @@ export default function Factory(spec) {
     const lang = spec['Fl32_Bwl_Front_Door_Pub_Widget_Settings_Lang$'];
     /** @type {Fl32_Bwl_Front_Door_Pub_Widget_Settings_Push.vueCompTmpl} */
     const push = spec['Fl32_Bwl_Front_Door_Pub_Widget_Settings_Push$'];
-    /** @type {TeqFw_Web_Front_Model_Sw_Control} */
-    const swControl = spec['TeqFw_Web_Front_Model_Sw_Control$'];
+    /** @type {Fl32_Bwl_Front_Door_Pub_Widget_Settings_SwConfig.vueCompTmpl} */
+    const swConfig = spec['Fl32_Bwl_Front_Door_Pub_Widget_Settings_SwConfig$'];
 
     const template = `
-<div>
+<div class="q-pa-xs q-gutter-xs">
     <lang/>
     <push/>
-    <q-btn :label="$t('btn.ok')" v-on:click="getStatus"></q-btn>
-    <q-btn :label="$t('btn.disable')" v-on:click="cacheDisable"></q-btn>
-    <q-btn :label="$t('btn.enable')" v-on:click="cacheEnable"></q-btn>
+    <sw-config/>
 </div>
 `;
 
@@ -49,18 +47,9 @@ export default function Factory(spec) {
         teq: {package: DEF.SHARED.NAME},
         name: NS,
         template,
-        components: {lang, push},
+        components: {lang, push, swConfig},
         methods: {
-            async getStatus() {
-                const res = await swControl.getCacheStatus();
-                console.log(`cache status: ${res}`);
-            },
-            async cacheDisable() {
-                const res = await swControl.setCacheStatus(false);
-            },
-            async cacheEnable() {
-                const res = await swControl.setCacheStatus(true);
-            }
+
         },
         async mounted() {
             // MAIN FUNCTIONALITY

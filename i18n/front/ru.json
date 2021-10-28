@@ -2,6 +2,7 @@
   "btn": {
     "add": "Добавить",
     "cancel": "Отмена",
+    "clean": "Очистить",
     "delete": "Удалить",
     "disable": "Выключить",
     "enable": "Включить",
@@ -161,6 +162,12 @@
       },
       "push": {
         "title": "Конфигурация Web Push"
+      },
+      "swConfig": {
+        "title": "Конфигурация Service Worker'а",
+        "cache": {
+          "title": "Кэширование"
+        }
       }
     }
   }
