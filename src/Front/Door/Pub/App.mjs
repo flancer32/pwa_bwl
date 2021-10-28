@@ -81,11 +81,11 @@ export default class Fl32_Bwl_Front_Door_Pub_App {
                 });
                 router.addRoute({
                     path: DEF.DOOR_PUB_ROUTE_FRIENDS,
-                    component: () => container.get('Fl32_Bwl_Front_Door_Pub_Route_Friends$')
+                    component: () => container.get('Fl32_Bwl_Front_Door_Pub_Widget_Friends_Route$')
                 });
                 router.addRoute({
                     path: DEF.DOOR_PUB_ROUTE_FRIENDS_ADD,
-                    component: () => container.get('Fl32_Bwl_Front_Door_Pub_Route_Friends_Add$'),
+                    component: () => container.get('Fl32_Bwl_Front_Door_Pub_Widget_Friends_Add$'),
                     props: true,
                 });
                 router.addRoute({
@@ -102,12 +102,12 @@ export default class Fl32_Bwl_Front_Door_Pub_App {
                 });
                 router.addRoute({
                     path: DEF.DOOR_PUB_ROUTE_SIGN_IN_CODE_CHECK,
-                    component: () => container.get('Fl32_Bwl_Front_Door_Pub_Route_SignIn_Code_Check$'),
+                    component: () => container.get('Fl32_Bwl_Front_Door_Pub_Widget_SignIn_Code_Check$'),
                     props: true,
                 });
                 router.addRoute({
                     path: DEF.DOOR_PUB_ROUTE_SIGN_IN_CODE_GET,
-                    component: () => container.get('Fl32_Bwl_Front_Door_Pub_Route_SignIn_Code_Get$')
+                    component: () => container.get('Fl32_Bwl_Front_Door_Pub_Widget_SignIn_Code_Get$')
                 });
 
                 app.use(router);

@@ -1,18 +1,18 @@
 /**
  * Root widget for 'Friends' route.
  *
- * @namespace Fl32_Bwl_Front_Door_Pub_Route_Friends
+ * @namespace Fl32_Bwl_Front_Door_Pub_Widget_Friends_Route
  */
 // MODULE'S VARS
-const NS = 'Fl32_Bwl_Front_Door_Pub_Route_Friends';
+const NS = 'Fl32_Bwl_Front_Door_Pub_Widget_Friends_Route';
 const FRIEND_ID = 'friendId';
 
 // MODULE'S FUNCTIONS
 /**
  * Factory to create template for new Vue component instances.
  *
- * @memberOf Fl32_Bwl_Front_Door_Pub_Route_Friends
- * @returns {Fl32_Bwl_Front_Door_Pub_Route_Friends.vueCompTmpl}
+ * @memberOf Fl32_Bwl_Front_Door_Pub_Widget_Friends_Route
+ * @returns {Fl32_Bwl_Front_Door_Pub_Widget_Friends_Route.vueCompTmpl}
  */
 function Factory(spec) {
     // EXTRACT DEPS
@@ -72,7 +72,7 @@ function Factory(spec) {
      * Template to create new component instances using Vue.
      *
      * @const {Object} vueCompTmpl
-     * @memberOf Fl32_Bwl_Front_Door_Pub_Route_Friends
+     * @memberOf Fl32_Bwl_Front_Door_Pub_Widget_Friends_Route
      */
     return {
         teq: {package: DEF.SHARED.NAME},
