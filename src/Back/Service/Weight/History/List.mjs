@@ -98,14 +98,14 @@ export default class Fl32_Bwl_Back_Service_Weight_History_List {
                             if (apiReq.dateFrom) build.where(A_WEIGHT_STAT.DATE, '>=', formatDate(apiReq.dateFrom));
                             if (apiReq.dateTo) build.where(A_WEIGHT_STAT.DATE, '<=', formatDate(apiReq.dateTo));
                             let type = (apiReq.type) && apiReq.type === EnumWeightType.TARGET
-                                ?TYPE_WEIGHT.TARGET : TYPE_WEIGHT.CURRENT ;
+                                ? TYPE_WEIGHT.TARGET : TYPE_WEIGHT.CURRENT;
                             build.where(A_WEIGHT_STAT.TYPE, type);
                         };
-                        const order = {
-                            [A_WEIGHT_STAT.DATE]: (apiReq.order === 'desc')? 'desc': 'asc'
-                        };
+                        const column = [A_WEIGHT_STAT.DATE];
+                        const order = (apiReq.order === 'desc') ? 'desc' : 'asc'
+                        const orderBy = [{column, order}];
                         /** @type {Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat.Dto[]} */
-                        const rs = await crud.readSet(trx, metaWeightStat, where, null, order);
+                        const rs = await crud.readSet(trx, metaWeightStat, where, null, orderBy);
                         for (const one of rs) {
                             const item = new DWeightItem();
                             item.date = formatDate(one.date);

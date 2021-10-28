@@ -85,7 +85,7 @@ export default class Fl32_Bwl_Back_Service_Profile_Get {
                         [A_WEIGHT_STAT.USER_REF]: userId,
                         [A_WEIGHT_STAT.TYPE]: type,
                     };
-                    const order = {[A_WEIGHT_STAT.DATE]: 'desc'};
+                    const order = [{column: [A_WEIGHT_STAT.DATE], order: 'desc'}];
                     /** @type {Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat.Dto[]} */
                     const found = await crud.readSet(trx, metaWeightStat, where, null, order, 1);
                     if (found.length === 1) res = found[0].value;
