@@ -17,8 +17,6 @@ export default class TeqFw_Bwl_Back_Api_Dto_Config_Local {
  */
 export class Factory {
     constructor(spec) {
-        /** @type {typeof TeqFw_Db_Back_Dto_Config_Local} */
-        const DDb = spec['TeqFw_Db_Back_Dto_Config_Local#'];
         /** @type {TeqFw_Db_Back_Dto_Config_Local.Factory} */
         const fDb = spec['TeqFw_Db_Back_Dto_Config_Local#Factory$'];
 
@@ -28,8 +26,7 @@ export class Factory {
          */
         this.create = function (data = null) {
             const res = new TeqFw_Bwl_Back_Api_Dto_Config_Local();
-            res.db = (data?.db instanceof DDb)
-                ? data.db : fDb.create(data?.db);
+            res.db = fDb.create(data?.db);
             return res;
         }
     }
