@@ -5,7 +5,7 @@
       "path": "./src"
     },
     "replace": {
-      "TeqFw_Web_Front_Api_Gate_IAjaxLed": {"ns": "Fl32_Bwl_Front_Model_Gate_AjaxLed", "area": "front"}
+      "TeqFw_Web_Front_Api_Gate_IAjaxLed": {"front": "Fl32_Bwl_Front_Model_Gate_AjaxLed"}
     }
   },
   "@teqfw/core": {
