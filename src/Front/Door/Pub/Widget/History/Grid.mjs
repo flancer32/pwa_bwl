@@ -23,14 +23,13 @@ const EVT_ROW_CLICK = 'onRowClick';
  */
 export default function Factory(spec) {
     // EXTRACT DEPS
+    const {ref, watch} = spec['TeqFw_Vue_Front_Lib_Vue'];
     /** @type {Fl32_Bwl_Front_Defaults} */
     const DEF = spec['Fl32_Bwl_Front_Defaults$'];
     /** @type {TeqFw_I18n_Front_Lib} */
     const i18n = spec['TeqFw_I18n_Front_Lib$'];
     /** @type {Fl32_Teq_User_Front_Model_Session} */
     const session = spec['Fl32_Teq_User_Front_Model_Session$'];
-    /** @type {TeqFw_Vue_Front_Lib} */
-    const VueLib = spec['TeqFw_Vue_Front_Lib$'];
     /** @type {Function|Fl32_Bwl_Shared_Util.formatDate} */
     const formatDate = spec['Fl32_Bwl_Shared_Util#formatDate'];
     /** @type {Fl32_Bwl_Front_DataSource_Weight} */
@@ -134,7 +133,6 @@ export default function Factory(spec) {
                     {name: PERCENT, label: this.$t('route.history.percent'), field: PERCENT, align: 'right',},
                 ];
                 // setup profile usage
-                const watch = VueLib.getVue().watch;
                 watch(modProfile.getWeightType(), (current, old) => {
                     this.loadHistory();
                 });
@@ -146,7 +144,6 @@ export default function Factory(spec) {
         },
         setup() {
             // setup grid related vars
-            const ref = VueLib.getVue().ref;
             const loading = ref(false);
             const rows = ref([]);
             return {

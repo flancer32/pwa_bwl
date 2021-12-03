@@ -7,14 +7,14 @@ const NS = 'Fl32_Bwl_Front_Door_Pub_App';
 export default class Fl32_Bwl_Front_Door_Pub_App {
     constructor(spec) {
         // EXTRACT DEPS
+        const {createApp} = spec['TeqFw_Vue_Front_Lib_Vue'];
+        const {createRouter, createWebHashHistory} = spec['TeqFw_Vue_Front_Lib_Router'];
         /** @type {Fl32_Bwl_Front_Defaults} */
         const DEF = spec['Fl32_Bwl_Front_Defaults$'];
-        /** @type {TeqFw_Vue_Front_Lib} */
-        const VueLib = spec['TeqFw_Vue_Front_Lib$'];
         /** @type {TeqFw_I18n_Front_Lib} */
         const I18nLib = spec['TeqFw_I18n_Front_Lib$'];
         /** @type {TeqFw_Ui_Quasar_Front_Lib} */
-        const QuasarLib = spec['TeqFw_Ui_Quasar_Front_Lib$'];
+        const quasar = spec['TeqFw_Ui_Quasar_Front_Lib'];
         /** @type {TeqFw_Di_Shared_Container} */
         const container = spec['TeqFw_Di_Shared_Container$'];
         /** @type {Fl32_Bwl_Front_Layout_Centered} */
@@ -27,10 +27,6 @@ export default class Fl32_Bwl_Front_Door_Pub_App {
         const session = spec['Fl32_Teq_User_Front_Model_Session$'];
 
         // DEFINE WORKING VARS
-        /** @type {{createApp}} */
-        const Vue = VueLib.getVue();
-        /** @type {{createRouter, createWebHashHistory}} */
-        const Router = VueLib.getRouter();
         let root; // root component for the application
 
         const template = `
@@ -62,15 +58,14 @@ export default class Fl32_Bwl_Front_Door_Pub_App {
             }
 
             function initQuasarUi(app) {
-                const quasar = QuasarLib.getQuasar()
                 app.use(quasar, {config: {}});
                 quasar.iconSet.set(quasar.iconSet.svgMaterialIcons);
             }
 
             function initRouter(app) {
                 /** @type {{addRoute}} */
-                const router = Router.createRouter({
-                    history: Router.createWebHashHistory(),
+                const router = createRouter({
+                    history: createWebHashHistory(),
                     routes: [],
                 });
 
@@ -121,7 +116,7 @@ export default class Fl32_Bwl_Front_Door_Pub_App {
             // MAIN FUNCTIONALITY
 
             // create root component
-            root = Vue.createApp({
+            root = createApp({
                 teq: {package: DEF.SHARED.NAME},
                 name: NS,
                 template,

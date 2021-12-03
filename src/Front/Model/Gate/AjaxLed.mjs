@@ -7,9 +7,8 @@ export default class Fl32_Bwl_Front_Model_Gate_AjaxLed {
     #data;
 
     constructor(spec) {
-        /** @type {TeqFw_Vue_Front_Lib} */
-        const VueLib = spec['TeqFw_Vue_Front_Lib$'];
-        this.#data = VueLib.getVue().ref(false);
+        const {ref} = spec['TeqFw_Vue_Front_Lib_Vue'];
+        this.#data = ref(false);
     }
 
     getData() {

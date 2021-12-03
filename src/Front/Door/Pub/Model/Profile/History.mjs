@@ -25,13 +25,11 @@ export default class Fl32_Bwl_Front_Door_Pub_Model_Profile_History {
 
     constructor(spec) {
         // EXTRACT DEPS
+        const {ref, unref} = spec['TeqFw_Vue_Front_Lib_Vue'];
         /** @type {typeof Fl32_Bwl_Front_Struct_Options_WeightType} */
         const Types = spec['Fl32_Bwl_Front_Struct_Options_WeightType#'];
-        /** @type {TeqFw_Vue_Front_Lib} */
-        const VueLib = spec['TeqFw_Vue_Front_Lib$'];
         // DEFINE WORKING VARS & PROPS
-        const ref = VueLib.getVue().ref;
-        this.#unref = VueLib.getVue().unref;
+        this.#unref = unref;
 
         // MAIN FUNCTIONALITY
         const store = self.localStorage;
