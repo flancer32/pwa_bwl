@@ -1,18 +1,18 @@
 /**
  * Email sign in code to user.
  *
- * @namespace Fl32_Bwl_Back_Process_Sign_In_Code_Email
+ * @namespace Fl32_Bwl_Back_Act_Sign_In_Code_Email
  */
 // MODULE'S VARS
-const NS = 'Fl32_Bwl_Back_Process_Sign_In_Code_Email';
+const NS = 'Fl32_Bwl_Back_Act_Sign_In_Code_Email';
 
 // MODULE'S FUNCTIONS
 /**
  * Factory to setup execution context and to create the processor.
  *
  * @param {TeqFw_Di_Shared_SpecProxy} spec
- * @constructs Fl32_Bwl_Back_Process_Sign_In_Code_Email.process
- * @memberOf Fl32_Bwl_Back_Process_Sign_In_Code_Email
+ * @constructs Fl32_Bwl_Back_Act_Sign_In_Code_Email.process
+ * @memberOf Fl32_Bwl_Back_Act_Sign_In_Code_Email
  */
 function Factory(spec) {
     /** @type {Fl32_Bwl_Back_Defaults} */
@@ -28,7 +28,7 @@ function Factory(spec) {
      * @param {String} to
      * @param {String} code
      * @returns {Promise<boolean>}
-     * @memberOf Fl32_Bwl_Back_Process_Sign_In_Code_Email
+     * @memberOf Fl32_Bwl_Back_Act_Sign_In_Code_Email
      */
     async function process({to, code}) {
         const local = config.getLocal();

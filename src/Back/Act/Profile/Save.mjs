@@ -1,18 +1,18 @@
 /**
  * Save application level profile.
  *
- * @namespace Fl32_Bwl_Back_Process_Profile_Save
+ * @namespace Fl32_Bwl_Back_Act_Profile_Save
  */
 // MODULE'S VARS
-const NS = 'Fl32_Bwl_Back_Process_Profile_Save';
+const NS = 'Fl32_Bwl_Back_Act_Profile_Save';
 
 // MODULE'S FUNCTIONS
 /**
  * Factory to setup execution context and to create the processor.
  *
  * @param {TeqFw_Di_Shared_SpecProxy} spec
- * @constructs Fl32_Bwl_Back_Process_Profile_Save.process
- * @memberOf Fl32_Bwl_Back_Process_Profile_Save
+ * @constructs Fl32_Bwl_Back_Act_Profile_Save.process
+ * @memberOf Fl32_Bwl_Back_Act_Profile_Save
  */
 function Factory(spec) {
     /** @type {TeqFw_Db_Back_Api_RDb_ICrudEngine} */
@@ -32,7 +32,7 @@ function Factory(spec) {
      * @param {TeqFw_Db_Back_RDb_ITrans} trx
      * @param {Fl32_Bwl_Back_Store_RDb_Schema_Profile.Dto} input
      * @returns {Promise<{output: {}, error: {}}>}
-     * @memberOf Fl32_Bwl_Back_Process_Profile_Save
+     * @memberOf Fl32_Bwl_Back_Act_Profile_Save
      */
     async function process({trx, input}) {
         // DEFINE INNER FUNCTIONS

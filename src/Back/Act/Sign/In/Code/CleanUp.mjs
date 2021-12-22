@@ -1,18 +1,18 @@
 /**
- * Remove one-time sign-in code.
+ * Clean up expired one-time sign in codes.
  *
- * @namespace Fl32_Bwl_Back_Process_Sign_In_Code_Remove
+ * @namespace Fl32_Bwl_Back_Act_Sign_In_Code_CleanUp
  */
 // MODULE'S VARS
-const NS = 'Fl32_Bwl_Back_Process_Sign_In_Code_Remove';
+const NS = 'Fl32_Bwl_Back_Act_Sign_In_Code_CleanUp';
 
 // MODULE'S FUNCTIONS
 /**
  * Factory to setup execution context and to create the processor.
  *
  * @param {TeqFw_Di_Shared_SpecProxy} spec
- * @constructs Fl32_Bwl_Back_Process_Sign_In_Code_Remove.process
- * @memberOf Fl32_Bwl_Back_Process_Sign_In_Code_Remove
+ * @constructs Fl32_Bwl_Back_Act_Sign_In_Code_CleanUp.process
+ * @memberOf Fl32_Bwl_Back_Act_Sign_In_Code_CleanUp
  */
 function Factory(spec) {
     /** @type {TeqFw_Db_Back_Api_RDb_ICrudEngine} */
@@ -26,15 +26,15 @@ function Factory(spec) {
 
     // DEFINE INNER FUNCTIONS
     /**
-     * Remove one-time sign-in code.
+     * Clean up expired one-time sign in codes.
+     *
      * @param {TeqFw_Db_Back_RDb_ITrans} trx
-     * @param {string} code
      * @returns {Promise<number>}
-     * @memberOf Fl32_Bwl_Back_Process_Sign_In_Code_Remove
+     * @memberOf Fl32_Bwl_Back_Act_Sign_In_Code_CleanUp
      */
-    async function process({trx, code}) {
-        const norm = code.trim().toLowerCase();
-        return await crud.deleteOne(trx, metaSignIn, {[A_SIGN_IN.CODE]: norm})
+    async function process({trx}) {
+        const where = (build) => build.where(A_SIGN_IN.DATE_EXPIRED, '<', new Date());
+        return await crud.deleteSet(trx, metaSignIn, where);
     }
 
     Object.defineProperty(process, 'name', {value: `${NS}.${process.name}`});

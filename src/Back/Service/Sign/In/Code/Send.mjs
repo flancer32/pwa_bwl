@@ -17,12 +17,12 @@ export default class Fl32_Bwl_Back_Service_Sign_In_Code_Send {
         const route = spec['Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Send#Factory$'];
         /** @type {TeqFw_Db_Back_RDb_IConnect} */
         const conn = spec['TeqFw_Db_Back_RDb_IConnect$'];
-        /** @type {Fl32_Bwl_Back_Process_Sign_In_Code_Create.process|function} */
-        const procCreate = spec['Fl32_Bwl_Back_Process_Sign_In_Code_Create$'];
-        /** @type {Fl32_Bwl_Back_Process_Sign_In_Code_CleanUp.process|function} */
-        const procCleanUp = spec['Fl32_Bwl_Back_Process_Sign_In_Code_CleanUp$'];
-        /** @type {Fl32_Bwl_Back_Process_Sign_In_Code_Email.process|function} */
-        const procEmail = spec['Fl32_Bwl_Back_Process_Sign_In_Code_Email$'];
+        /** @type {Fl32_Bwl_Back_Act_Sign_In_Code_Create.process|function} */
+        const procCreate = spec['Fl32_Bwl_Back_Act_Sign_In_Code_Create$'];
+        /** @type {Fl32_Bwl_Back_Act_Sign_In_Code_CleanUp.process|function} */
+        const procCleanUp = spec['Fl32_Bwl_Back_Act_Sign_In_Code_CleanUp$'];
+        /** @type {Fl32_Bwl_Back_Act_Sign_In_Code_Email.process|function} */
+        const procEmail = spec['Fl32_Bwl_Back_Act_Sign_In_Code_Email$'];
 
         // DEFINE INSTANCE METHODS
         this.getRouteFactory = () => route;

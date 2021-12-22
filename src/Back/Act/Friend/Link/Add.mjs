@@ -3,18 +3,18 @@
  *
  * Establish new friendship relation.
  *
- * @namespace Fl32_Bwl_Back_Process_Friend_Link_Add
+ * @namespace Fl32_Bwl_Back_Act_Friend_Link_Add
  */
 // MODULE'S VARS
-const NS = 'Fl32_Bwl_Back_Process_Friend_Link_Add';
+const NS = 'Fl32_Bwl_Back_Act_Friend_Link_Add';
 
 // MODULE'S FUNCTIONS
 /**
  * Factory to setup execution context and to create the processor.
  *
  * @param {TeqFw_Di_Shared_SpecProxy} spec
- * @constructs Fl32_Bwl_Back_Process_Friend_Link_Add.process
- * @memberOf Fl32_Bwl_Back_Process_Friend_Link_Add
+ * @constructs Fl32_Bwl_Back_Act_Friend_Link_Add.process
+ * @memberOf Fl32_Bwl_Back_Act_Friend_Link_Add
  */
 function Factory(spec) {
     // EXTRACT DEPS
@@ -34,7 +34,7 @@ function Factory(spec) {
      * @param {number} leaderId
      * @param {number} wingmanId
      * @return {Promise<Object>}
-     * @memberOf Fl32_Bwl_Back_Process_Friend_Link_Add
+     * @memberOf Fl32_Bwl_Back_Act_Friend_Link_Add
      */
     async function process({trx, leaderId, wingmanId}) {
         return await crud.create(trx, metaFriend, {

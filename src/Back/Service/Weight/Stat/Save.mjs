@@ -22,8 +22,8 @@ export default class Fl32_Bwl_Back_Service_Weight_Stat_Save {
         const conn = spec['TeqFw_Db_Back_RDb_IConnect$'];
         /** @type {Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save.Factory} */
         const route = spec['Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save#Factory$'];
-        /** @type {Fl32_Bwl_Back_Process_Weight_Stat_Save.process|function} */
-        const procSave = spec['Fl32_Bwl_Back_Process_Weight_Stat_Save$'];
+        /** @type {Fl32_Bwl_Back_Act_Weight_Stat_Save.process|function} */
+        const procSave = spec['Fl32_Bwl_Back_Act_Weight_Stat_Save$'];
         /** @type {Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat} */
         const metaWeightStat = spec['Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat$'];
         /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save.TYPES} */

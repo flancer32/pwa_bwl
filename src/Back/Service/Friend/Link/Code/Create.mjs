@@ -22,10 +22,10 @@ export default class Fl32_Bwl_Back_Service_Friend_Link_Code_Create {
         const rdb = spec['TeqFw_Db_Back_RDb_IConnect$'];
         /** @type {typeof Fl32_Bwl_Shared_Service_Dto_Friend_Link} */
         const DLink = spec['Fl32_Bwl_Shared_Service_Dto_Friend_Link#'];
-        /** @type {Fl32_Bwl_Back_Process_Friend_Link_Code_CleanUp.process|function} */
-        const procCleanUp = spec['Fl32_Bwl_Back_Process_Friend_Link_Code_CleanUp$'];
-        /** @type {Fl32_Bwl_Back_Process_Friend_Link_Code_Create.process|function} */
-        const procCreate = spec['Fl32_Bwl_Back_Process_Friend_Link_Code_Create$'];
+        /** @type {Fl32_Bwl_Back_Act_Friend_Link_Code_CleanUp.process|function} */
+        const procCleanUp = spec['Fl32_Bwl_Back_Act_Friend_Link_Code_CleanUp$'];
+        /** @type {Fl32_Bwl_Back_Act_Friend_Link_Code_Create.process|function} */
+        const procCreate = spec['Fl32_Bwl_Back_Act_Friend_Link_Code_Create$'];
         /** @type {Fl32_Bwl_Shared_Service_Route_Friend_Link_Code_Create.Factory} */
         const route = spec['Fl32_Bwl_Shared_Service_Route_Friend_Link_Code_Create#Factory$'];
 
@@ -55,7 +55,7 @@ export default class Fl32_Bwl_Back_Service_Friend_Link_Code_Create {
                     // don't start transaction if not required
                     const trx = await rdb.startTransaction();
                     try {
-                        await procCleanUp({trx: trx.getTrx()});
+                        await procCleanUp({trx});
                         const {link: code, dateExp} = await procCreate({trx, userId: user.id});
                         const link = new DLink();
                         link.code = code;

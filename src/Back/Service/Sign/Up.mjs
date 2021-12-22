@@ -27,19 +27,21 @@ export default class Fl32_Bwl_Back_Service_Sign_Up {
         /** @type {Fl32_Bwl_Shared_Service_Route_Sign_Up.Factory} */
         const route = spec['Fl32_Bwl_Shared_Service_Route_Sign_Up#Factory$'];
         /** @type {Fl32_Teq_User_Back_Process_Referral_Link_CleanUp.process|function} */
-        const procRefCleanUp = spec['Fl32_Teq_User_Back_Process_Referral_Link_CleanUp$'];
+        const aRefCleanUp = spec['Fl32_Teq_User_Back_Process_Referral_Link_CleanUp$'];
+        /** @type {Fl32_Bwl_Back_Act_Friend_Link_Add.process|function} */
+        const aFriendAdd = spec['Fl32_Bwl_Back_Act_Friend_Link_Add$'];
         /** @type {Fl32_Teq_User_Back_Process_Referral_Link_Get.process|function} */
-        const procRefGet = spec['Fl32_Teq_User_Back_Process_Referral_Link_Get$'];
+        const aRefGet = spec['Fl32_Teq_User_Back_Process_Referral_Link_Get$'];
         /** @type {Fl32_Teq_User_Back_Process_Referral_Link_Remove.process|function} */
-        const procRefRemove = spec['Fl32_Teq_User_Back_Process_Referral_Link_Remove$'];
+        const aRefRemove = spec['Fl32_Teq_User_Back_Process_Referral_Link_Remove$'];
         /** @type {Fl32_Teq_User_Back_Process_User_Create.process|function} */
-        const procCreate = spec['Fl32_Teq_User_Back_Process_User_Create$'];
+        const aCreate = spec['Fl32_Teq_User_Back_Process_User_Create$'];
         /** @type {Fl32_Teq_User_Back_Process_Session_Open} */
-        const procSessionOpen = spec['Fl32_Teq_User_Back_Process_Session_Open$'];
-        /** @type {Fl32_Bwl_Back_Process_Profile_Save.process|function} */
-        const procAppProfileSave = spec['Fl32_Bwl_Back_Process_Profile_Save$'];
-        /** @type {Fl32_Bwl_Back_Process_Weight_Stat_Save.process|function} */
-        const procWeightSave = spec['Fl32_Bwl_Back_Process_Weight_Stat_Save$'];
+        const aSessionOpen = spec['Fl32_Teq_User_Back_Process_Session_Open$'];
+        /** @type {Fl32_Bwl_Back_Act_Profile_Save.process|function} */
+        const aAppProfileSave = spec['Fl32_Bwl_Back_Act_Profile_Save$'];
+        /** @type {Fl32_Bwl_Back_Act_Weight_Stat_Save.process|function} */
+        const aWeightSave = spec['Fl32_Bwl_Back_Act_Weight_Stat_Save$'];
         /** @type {typeof Fl32_Teq_User_Shared_Service_Dto_User} */
         const DUser = spec['Fl32_Teq_User_Shared_Service_Dto_User#'];
         /** @type {Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat} */
@@ -76,7 +78,7 @@ export default class Fl32_Bwl_Back_Service_Sign_Up {
                     input.height = req.height;
                     input.is_female = req.isFemale;
                     input.user_ref = userId;
-                    await procAppProfileSave({trx, input});
+                    await aAppProfileSave({trx, input});
                 }
 
                 /**
@@ -91,7 +93,7 @@ export default class Fl32_Bwl_Back_Service_Sign_Up {
                     user.emails = [req.email];
                     if (req.phone) user.phones = [req.phone];
                     user.parentId = parentId;
-                    return await procCreate({trx, user});
+                    return await aCreate({trx, user});
                 }
 
                 /**
@@ -109,7 +111,7 @@ export default class Fl32_Bwl_Back_Service_Sign_Up {
                     payload.date = formatUtcDateTime();
                     payload.user_ref = userId;
                     payload.value = weight;
-                    await procWeightSave({trx, payload});
+                    await aWeightSave({trx, payload});
                 }
 
                 /**
@@ -119,7 +121,7 @@ export default class Fl32_Bwl_Back_Service_Sign_Up {
                  */
                 async function initSession(trx, userId) {
                     // generate user session
-                    const {output} = await procSessionOpen.exec({trx, userId});
+                    const {output} = await aSessionOpen.exec({trx, userId});
                     const sessionId = output.sessId;
                     // set session cookie
                     const cookie = cookieCreate({
@@ -142,18 +144,19 @@ export default class Fl32_Bwl_Back_Service_Sign_Up {
                 /** @type {Fl32_Bwl_Shared_Service_Route_Sign_Up.Request} */
                 try {
                     // clean up expired links
-                    await procRefCleanUp({trx});
+                    await aRefCleanUp({trx});
                     // load link data by code
                     const code = req.refCode;
                     /** @type {Fl32_Teq_User_Back_Store_RDb_Schema_Ref_Link.Dto} */
-                    const linkData = await procRefGet({trx, code});
+                    const linkData = await aRefGet({trx, code});
                     if (linkData) {
                         const parentId = linkData.user_ref;
                         const userId = await addUser(trx, req, parentId);
+                        await aFriendAdd({trx, leaderId: parentId, wingmanId: userId});
                         await addProfile(trx, req, userId);
                         await addWeight(trx, userId, req.weight, TYPE_WEIGHT.CURRENT);
                         await addWeight(trx, userId, req.weight, TYPE_WEIGHT.TARGET);
-                        await procRefRemove({trx, code});
+                        await aRefRemove({trx, code});
                         const {sessionId, cookie} = await initSession(trx, userId);
                         context.setOutHeader(H2.HTTP2_HEADER_SET_COOKIE, cookie);
                         res.sessionId = sessionId;

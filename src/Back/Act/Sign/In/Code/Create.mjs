@@ -1,13 +1,13 @@
 /**
  * Create one-time sign in code with limited lifetime.
  *
- * @namespace Fl32_Bwl_Back_Process_Sign_In_Code_Create
+ * @namespace Fl32_Bwl_Back_Act_Sign_In_Code_Create
  */
 // MODULE'S IMPORT
 import $crypto from 'crypto';
 
 // MODULE'S VARS
-const NS = 'Fl32_Bwl_Back_Process_Sign_In_Code_Create';
+const NS = 'Fl32_Bwl_Back_Act_Sign_In_Code_Create';
 const CODE_LENGTH = 16;
 const LIFETIME_MIN = 5;
 
@@ -16,8 +16,8 @@ const LIFETIME_MIN = 5;
  * Factory to setup execution context and to create the processor.
  *
  * @param {TeqFw_Di_Shared_SpecProxy} spec
- * @constructs Fl32_Bwl_Back_Process_Sign_In_Code_Create.process
- * @memberOf Fl32_Bwl_Back_Process_Sign_In_Code_Create
+ * @constructs Fl32_Bwl_Back_Act_Sign_In_Code_Create.process
+ * @memberOf Fl32_Bwl_Back_Act_Sign_In_Code_Create
  */
 function Factory(spec) {
     /** @type {TeqFw_Db_Back_Api_RDb_ICrudEngine} */
@@ -39,7 +39,7 @@ function Factory(spec) {
      * @param {TeqFw_Db_Back_RDb_ITrans} trx
      * @param {string} email
      * @returns {Promise<string>}
-     * @memberOf Fl32_Bwl_Back_Process_Sign_In_Code_Create
+     * @memberOf Fl32_Bwl_Back_Act_Sign_In_Code_Create
      */
     async function process({trx, email}) {
         // DEFINE INNER FUNCTIONS

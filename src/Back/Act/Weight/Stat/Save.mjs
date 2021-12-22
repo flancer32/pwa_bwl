@@ -1,18 +1,18 @@
 /**
  * Save weight stats data for the date.
  *
- * @namespace Fl32_Bwl_Back_Process_Weight_Stat_Save
+ * @namespace Fl32_Bwl_Back_Act_Weight_Stat_Save
  */
 // MODULE'S VARS
-const NS = 'Fl32_Bwl_Back_Process_Weight_Stat_Save';
+const NS = 'Fl32_Bwl_Back_Act_Weight_Stat_Save';
 
 // MODULE'S FUNCTIONS
 /**
  * Factory to setup execution context and to create the processor.
  *
  * @param {TeqFw_Di_Shared_SpecProxy} spec
- * @constructs Fl32_Bwl_Back_Process_Weight_Stat_Save.process
- * @memberOf Fl32_Bwl_Back_Process_Weight_Stat_Save
+ * @constructs Fl32_Bwl_Back_Act_Weight_Stat_Save.process
+ * @memberOf Fl32_Bwl_Back_Act_Weight_Stat_Save
  */
 function Factory(spec) {
     /** @type {TeqFw_Db_Back_Api_RDb_ICrudEngine} */
@@ -33,7 +33,7 @@ function Factory(spec) {
      * @param {TeqFw_Db_Back_RDb_ITrans} trx
      * @param {Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat.Dto} payload
      * @returns {Promise<{output: {}, error: {}}>}
-     * @memberOf Fl32_Bwl_Back_Process_Weight_Stat_Save
+     * @memberOf Fl32_Bwl_Back_Act_Weight_Stat_Save
      */
     async function process({trx, payload}) {
         // DEFINE INNER FUNCTIONS

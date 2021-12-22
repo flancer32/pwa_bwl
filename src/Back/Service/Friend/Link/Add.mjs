@@ -24,14 +24,14 @@ export default class Fl32_Bwl_Back_Service_Friend_Link_Add {
         const logger = spec['TeqFw_Core_Shared_Logger$'];
         /** @type {Fl32_Bwl_Shared_Service_Route_Friend_Link_Add.Factory} */
         const route = spec['Fl32_Bwl_Shared_Service_Route_Friend_Link_Add#Factory$'];
-        /** @type {Fl32_Bwl_Back_Process_Friend_Link_Code_CleanUp.process|function} */
-        const procCleanUp = spec['Fl32_Bwl_Back_Process_Friend_Link_Code_CleanUp$'];
-        /** @type {Fl32_Bwl_Back_Process_Friend_Link_Code_Get.process|function} */
-        const procGet = spec['Fl32_Bwl_Back_Process_Friend_Link_Code_Get$'];
-        /** @type {Fl32_Bwl_Back_Process_Friend_Link_Add.process|function} */
-        const procAdd = spec['Fl32_Bwl_Back_Process_Friend_Link_Add$'];
-        /** @type {Fl32_Bwl_Back_Process_Friend_Link_Code_Remove.process|function} */
-        const procRemove = spec['Fl32_Bwl_Back_Process_Friend_Link_Code_Remove$'];
+        /** @type {Fl32_Bwl_Back_Act_Friend_Link_Code_CleanUp.process|function} */
+        const procCleanUp = spec['Fl32_Bwl_Back_Act_Friend_Link_Code_CleanUp$'];
+        /** @type {Fl32_Bwl_Back_Act_Friend_Link_Code_Get.process|function} */
+        const procGet = spec['Fl32_Bwl_Back_Act_Friend_Link_Code_Get$'];
+        /** @type {Fl32_Bwl_Back_Act_Friend_Link_Add.process|function} */
+        const procAdd = spec['Fl32_Bwl_Back_Act_Friend_Link_Add$'];
+        /** @type {Fl32_Bwl_Back_Act_Friend_Link_Code_Remove.process|function} */
+        const procRemove = spec['Fl32_Bwl_Back_Act_Friend_Link_Code_Remove$'];
 
         // DEFINE INSTANCE METHODS
 

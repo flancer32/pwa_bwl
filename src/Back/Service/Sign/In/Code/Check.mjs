@@ -24,10 +24,10 @@ export default class Fl32_Bwl_Back_Service_Sign_In_Code_Check {
         const crud = spec['TeqFw_Db_Back_Api_RDb_ICrudEngine$'];
         /** @type {TeqFw_Web_Back_Util.cookieCreate|function} */
         const cookieCreate = spec['TeqFw_Web_Back_Util#cookieCreate'];
-        /** @type {Fl32_Bwl_Back_Process_Sign_In_Code_CleanUp.process|function} */
-        const procCodeCleanUp = spec['Fl32_Bwl_Back_Process_Sign_In_Code_CleanUp$'];
-        /** @type {Fl32_Bwl_Back_Process_Sign_In_Code_Remove.process|function} */
-        const procCodeRemove = spec['Fl32_Bwl_Back_Process_Sign_In_Code_Remove$'];
+        /** @type {Fl32_Bwl_Back_Act_Sign_In_Code_CleanUp.process|function} */
+        const procCodeCleanUp = spec['Fl32_Bwl_Back_Act_Sign_In_Code_CleanUp$'];
+        /** @type {Fl32_Bwl_Back_Act_Sign_In_Code_Remove.process|function} */
+        const procCodeRemove = spec['Fl32_Bwl_Back_Act_Sign_In_Code_Remove$'];
         /** @type {Fl32_Teq_User_Back_Process_Session_Open} */
         const procSessionOpen = spec['Fl32_Teq_User_Back_Process_Session_Open$'];
         /** @type {Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Check.Factory} */

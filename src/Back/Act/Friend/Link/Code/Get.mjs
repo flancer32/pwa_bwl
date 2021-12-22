@@ -1,22 +1,23 @@
 /**
  * TODO: don't use function factory for 'process' - there are some troubles with code lookup & refactoring in IDEA
  *
- * Remove used friendship relation link.
+ * Get friendship relation link.
  *
- * @namespace Fl32_Bwl_Back_Process_Friend_Link_Code_Remove
+ * @namespace Fl32_Bwl_Back_Act_Friend_Link_Code_Get
  */
 // MODULE'S VARS
-const NS = 'Fl32_Bwl_Back_Process_Friend_Link_Code_Remove';
+const NS = 'Fl32_Bwl_Back_Act_Friend_Link_Code_Get';
 
 // MODULE'S FUNCTIONS
 /**
  * Factory to setup execution context and to create the processor.
  *
  * @param {TeqFw_Di_Shared_SpecProxy} spec
- * @constructs Fl32_Bwl_Back_Process_Friend_Link_Code_Remove.process
- * @memberOf Fl32_Bwl_Back_Process_Friend_Link_Code_Remove
+ * @constructs Fl32_Bwl_Back_Act_Friend_Link_Code_Get.process
+ * @memberOf Fl32_Bwl_Back_Act_Friend_Link_Code_Get
  */
 function Factory(spec) {
+    // EXTRACT DEPS
     /** @type {TeqFw_Db_Back_Api_RDb_ICrudEngine} */
     const crud = spec['TeqFw_Db_Back_Api_RDb_ICrudEngine$'];
     /** @type {Fl32_Bwl_Back_Store_RDb_Schema_Friend_Link} */
@@ -30,12 +31,12 @@ function Factory(spec) {
     /**
      * @param {TeqFw_Db_Back_RDb_ITrans} trx
      * @param {string} code
-     * @returns {Promise<number>}
-     * @memberOf Fl32_Bwl_Back_Process_Friend_Link_Code_Remove
+     * @returns {Promise<Fl32_Bwl_Back_Store_RDb_Schema_Friend_Link.Dto|null>}
+     * @memberOf Fl32_Bwl_Back_Act_Friend_Link_Code_Get
      */
     async function process({trx, code}) {
         const norm = code.trim().toLowerCase();
-        return await crud.deleteOne(trx, metaFriendLink, {[A_FRIEND_LINK.CODE]: norm})
+        return await crud.readOne(trx, metaFriendLink, {[A_FRIEND_LINK.CODE]: norm});
     }
 
     // COMPOSE RESULT

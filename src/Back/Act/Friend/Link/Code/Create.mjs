@@ -3,13 +3,13 @@
  *
  * Create code to establish new friendship relation.
  *
- * @namespace Fl32_Bwl_Back_Process_Friend_Link_Code_Create
+ * @namespace Fl32_Bwl_Back_Act_Friend_Link_Code_Create
  */
 // MODULE'S IMPORT
 import $crypto from 'crypto';
 
 // MODULE'S VARS
-const NS = 'Fl32_Bwl_Back_Process_Friend_Link_Code_Create';
+const NS = 'Fl32_Bwl_Back_Act_Friend_Link_Code_Create';
 const CODE_LENGTH = 16;
 const LIFETIME_DAY = 1;
 
@@ -18,8 +18,8 @@ const LIFETIME_DAY = 1;
  * Factory to setup execution context and to create the processor.
  *
  * @param {TeqFw_Di_Shared_SpecProxy} spec
- * @constructs Fl32_Bwl_Back_Process_Friend_Link_Code_Create.process
- * @memberOf Fl32_Bwl_Back_Process_Friend_Link_Code_Create
+ * @constructs Fl32_Bwl_Back_Act_Friend_Link_Code_Create.process
+ * @memberOf Fl32_Bwl_Back_Act_Friend_Link_Code_Create
  */
 function Factory(spec) {
     /** @type {TeqFw_Db_Back_Api_RDb_ICrudEngine} */
@@ -36,7 +36,7 @@ function Factory(spec) {
      * @param {TeqFw_Db_Back_RDb_ITrans} trx
      * @param {number} userId
      * @returns {Promise<{link: string, dateExp: Date}>}
-     * @memberOf Fl32_Bwl_Back_Process_Friend_Link_Code_Create
+     * @memberOf Fl32_Bwl_Back_Act_Friend_Link_Code_Create
      */
     async function process({trx, userId}) {
         // DEFINE INNER FUNCTIONS
