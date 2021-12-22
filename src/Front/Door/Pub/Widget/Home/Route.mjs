@@ -22,16 +22,10 @@ function Factory(spec) {
     const session = spec['Fl32_Teq_User_Front_Model_Session$'];
     /** @type {Fl32_Bwl_Front_Door_Pub_Widget_Home_Chart} */
     const chart = spec['Fl32_Bwl_Front_Door_Pub_Widget_Home_Chart$'];
-    /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.IComponent} */
-    const topActions = spec['Fl32_Bwl_Front_Layout_TopActions$'];
     /** @type {TeqFw_Web_Front_WAPI_Gate} */
     const gate = spec['TeqFw_Web_Front_WAPI_Gate$'];
-    /** @type {Fl32_Teq_User_Shared_Service_Route_Sign_Out.Factory} */
-    const routeSignOut = spec['Fl32_Teq_User_Shared_Service_Route_Sign_Out#Factory$'];
     /** @type {Fl32_Bwl_Shared_WAPI_Friend_List.Factory} */
     const routeFriends = spec['Fl32_Bwl_Shared_WAPI_Friend_List#Factory$'];
-    /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.Item} */
-    const Action = spec['Fl32_Bwl_Front_Layout_TopActions#Item'];
     /** @type {Fl32_Bwl_Front_Widget_Edit_Weight.vueCompTmpl} */
     const editWeight = spec['Fl32_Bwl_Front_Widget_Edit_Weight$'];
     /** @type {Fl32_Bwl_Front_DataSource_Weight} */
@@ -221,24 +215,7 @@ function Factory(spec) {
             }
         },
         async mounted() {
-            // DEFINE INNER FUNCTIONS
-            /**
-             * Reset Top Actions on component re-mount.
-             */
-            function addTopActions() {
-                const actAdd = new Action();
-                actAdd.icon = 'logout';
-                actAdd.action = async function () {
-                    const req = routeSignOut.createReq();
-                    await gate.send(req, routeSignOut);
-                    self.location.reload();
-                };
-                topActions.setActions([actAdd]);
-            }
-
-            // MAIN FUNCTIONALITY
             if (await session.checkUserAuthenticated(this.$router)) {
-                addTopActions();
                 this.period.value = modProfileHome.periodId;
                 this.period.label = this.$t(`${I18N_PERIOD}.${modProfileHome.periodId}`);
                 this.setPeriods();
