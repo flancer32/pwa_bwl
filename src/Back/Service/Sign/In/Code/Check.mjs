@@ -10,7 +10,7 @@ import {constants as H2} from 'http2';
 const NS = 'Fl32_Bwl_Back_Service_Sign_In_Code_Check';
 
 /**
- * @implements TeqFw_Web_Back_Api_Service_IFactory
+ * @implements TeqFw_Web_Back_Api_WAPI_IFactory
  */
 export default class Fl32_Bwl_Back_Service_Sign_In_Code_Check {
 
@@ -45,7 +45,7 @@ export default class Fl32_Bwl_Back_Service_Sign_In_Code_Check {
         this.getService = function () {
             // DEFINE INNER FUNCTIONS
             /**
-             * @param {TeqFw_Web_Back_Api_Service_Context} context
+             * @param {TeqFw_Web_Back_Api_WAPI_Context} context
              * @return Promise<void>
              */
             async function service(context) {

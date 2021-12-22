@@ -31,7 +31,7 @@ echo "Re-install JS project."
 cd "${DIR_ROOT}" || exit 255
 npm install
 
-echo "Remove cloned dependencies (sources)."
+#echo "Remove cloned dependencies (sources)."
 #rm -fr "${DIR_OWN}/@teqfw"
 #rm -fr "${DIR_OWN}/@flancer32"
 
@@ -44,7 +44,6 @@ processRepo "teqfw/core"
 processRepo "teqfw/db"
 processRepo "teqfw/di"
 processRepo "teqfw/email"
-processRepo "teqfw/http2"
 processRepo "teqfw/i18n"
 processRepo "teqfw/ui-quasar"
 processRepo "teqfw/user"

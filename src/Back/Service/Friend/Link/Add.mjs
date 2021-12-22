@@ -10,7 +10,7 @@ import {constants as H2} from 'http2';
 const NS = 'Fl32_Bwl_Back_Service_Friend_Link_Add';
 
 /**
- * @implements TeqFw_Web_Back_Api_Service_IFactory
+ * @implements TeqFw_Web_Back_Api_WAPI_IFactory
  */
 export default class Fl32_Bwl_Back_Service_Friend_Link_Add {
 
@@ -40,7 +40,7 @@ export default class Fl32_Bwl_Back_Service_Friend_Link_Add {
         this.getService = function () {
             // DEFINE INNER FUNCTIONS
             /**
-             * @param {TeqFw_Web_Back_Api_Service_Context} context
+             * @param {TeqFw_Web_Back_Api_WAPI_Context} context
              * @return Promise<void>
              */
             async function service(context) {
@@ -51,10 +51,10 @@ export default class Fl32_Bwl_Back_Service_Friend_Link_Add {
                 const req = context.getInData();
                 /** @type {Fl32_Bwl_Shared_Service_Route_Friend_Link_Add.Response} */
                 const res = context.getOutData();
-                const shared = context.getHandlersShare();
+                const share = context.getHandlersShare();
                 //
                 /** @type {Fl32_Teq_User_Shared_Service_Dto_User} */
-                const user = shared[DEF.MOD_USER.HTTP_SHARE_CTX_USER];
+                const user = share.get(DEF.MOD_USER.SHARE_USER);
                 if (user) {
                     const trx = await rdb.startTransaction();
                     try {
