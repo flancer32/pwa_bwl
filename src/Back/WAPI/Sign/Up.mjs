@@ -18,6 +18,8 @@ export default class Fl32_Bwl_Back_WAPI_Sign_Up {
         // EXTRACT DEPS
         /** @type {Fl32_Bwl_Back_Defaults} */
         const DEF = spec['Fl32_Bwl_Back_Defaults$'];
+        /** @type {TeqFw_Core_Shared_Logger} */
+        const logger = spec['TeqFw_Core_Shared_Logger$'];
         /** @type {TeqFw_Db_Back_RDb_IConnect} */
         const conn = spec['TeqFw_Db_Back_RDb_IConnect$'];
         /** @type {TeqFw_Core_Shared_Util.formatUtcDateTime|function} */
@@ -121,8 +123,8 @@ export default class Fl32_Bwl_Back_WAPI_Sign_Up {
                  */
                 async function initSession(trx, userId) {
                     // generate user session
-                    const {output} = await aSessionOpen.exec({trx, userId});
-                    const sessionId = output.sessId;
+                    const {output: {sessId}} = await aSessionOpen.exec({trx, userId});
+                    const sessionId = sessId;
                     // set session cookie
                     const cookie = cookieCreate({
                         name: DEF.MOD_USER.SESSION_COOKIE_NAME,
@@ -160,6 +162,7 @@ export default class Fl32_Bwl_Back_WAPI_Sign_Up {
                         const {sessionId, cookie} = await initSession(trx, userId);
                         context.setOutHeader(H2.HTTP2_HEADER_SET_COOKIE, cookie);
                         res.sessionId = sessionId;
+                        logger.info(`Session '${sessionId.substr(0, 8)}...' for new user #${userId} is established.`);
                     }
                     await trx.commit();
                 } catch (error) {
