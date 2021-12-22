@@ -32,8 +32,8 @@ function Factory(spec) {
     const editGroup = spec['Fl32_Bwl_Front_Widget_Edit_Group$'];
     /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.Item} */
     const Action = spec['Fl32_Bwl_Front_Layout_TopActions#Item'];
-    /** @type {TeqFw_Web_Front_Service_Gate} */
-    const gate = spec['TeqFw_Web_Front_Service_Gate$'];
+    /** @type {TeqFw_Web_Front_WAPI_Gate} */
+    const gate = spec['TeqFw_Web_Front_WAPI_Gate$'];
     /** @type {Fl32_Teq_User_Shared_Service_Route_RefLink_Create.Factory} */
     const routeRefLinkCreate = spec['Fl32_Teq_User_Shared_Service_Route_RefLink_Create#Factory$'];
     /** @type {Fl32_Bwl_Shared_Service_Route_Friend_Link_Code_Create.Factory} */

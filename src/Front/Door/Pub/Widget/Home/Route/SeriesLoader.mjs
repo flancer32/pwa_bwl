@@ -5,7 +5,7 @@ export default class Fl32_Bwl_Front_Door_Pub_Widget_Home_Route_SeriesLoader {
     #WeightType;
     /** @type {typeof Fl32_Bwl_Front_Door_Pub_Widget_Home_Chart.Point} */
     #Point;
-    /** @type {TeqFw_Web_Front_Service_Gate} */
+    /** @type {TeqFw_Web_Front_WAPI_Gate} */
     #gate;
     /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_List.Factory} */
     #routeHistory;
@@ -15,7 +15,7 @@ export default class Fl32_Bwl_Front_Door_Pub_Widget_Home_Route_SeriesLoader {
         this.#ChartData = spec['Fl32_Bwl_Front_Door_Pub_Widget_Home_Chart#ChartData'];
         this.#WeightType = spec['Fl32_Bwl_Shared_Enum_Weight_Type$'];
         this.#Point = spec['Fl32_Bwl_Front_Door_Pub_Widget_Home_Chart#Point'];
-        this.#gate = spec['TeqFw_Web_Front_Service_Gate$'];
+        this.#gate = spec['TeqFw_Web_Front_WAPI_Gate$'];
         this.#routeHistory = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_List#Factory$'];
     }
 

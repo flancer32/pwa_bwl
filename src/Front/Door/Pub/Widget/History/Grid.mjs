@@ -34,8 +34,8 @@ export default function Factory(spec) {
     const formatDate = spec['Fl32_Bwl_Shared_Util#formatDate'];
     /** @type {Fl32_Bwl_Front_DataSource_Weight} */
     const dsWeights = spec['Fl32_Bwl_Front_DataSource_Weight$'];
-    /** @type {TeqFw_Web_Front_Service_Gate} */
-    const gate = spec['TeqFw_Web_Front_Service_Gate$'];
+    /** @type {TeqFw_Web_Front_WAPI_Gate} */
+    const gate = spec['TeqFw_Web_Front_WAPI_Gate$'];
     /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_List.Factory} */
     const routeList = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_List#Factory$'];
     /** @type {Fl32_Bwl_Front_Door_Pub_Model_Profile_History} */

@@ -17,8 +17,8 @@ export default function Factory(spec) {
     // EXTRACT DEPS
     /** @type {Fl32_Bwl_Front_Defaults} */
     const DEF = spec['Fl32_Bwl_Front_Defaults$'];
-    /** @type {TeqFw_Web_Front_Service_Gate} */
-    const gate = spec['TeqFw_Web_Front_Service_Gate$'];
+    /** @type {TeqFw_Web_Front_WAPI_Gate} */
+    const gate = spec['TeqFw_Web_Front_WAPI_Gate$'];
     /** @type {TeqFw_Web_Push_Shared_Service_Route_Load_ServerKey.Factory} */
     const routeKey = spec['TeqFw_Web_Push_Shared_Service_Route_Load_ServerKey#Factory$'];
     /** @type {TeqFw_Web_Push_Shared_Service_Route_Subscript_Save.Factory} */

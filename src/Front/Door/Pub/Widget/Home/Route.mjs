@@ -24,8 +24,8 @@ function Factory(spec) {
     const chart = spec['Fl32_Bwl_Front_Door_Pub_Widget_Home_Chart$'];
     /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.IComponent} */
     const topActions = spec['Fl32_Bwl_Front_Layout_TopActions$'];
-    /** @type {TeqFw_Web_Front_Service_Gate} */
-    const gate = spec['TeqFw_Web_Front_Service_Gate$'];
+    /** @type {TeqFw_Web_Front_WAPI_Gate} */
+    const gate = spec['TeqFw_Web_Front_WAPI_Gate$'];
     /** @type {Fl32_Teq_User_Shared_Service_Route_Sign_Out.Factory} */
     const routeSignOut = spec['Fl32_Teq_User_Shared_Service_Route_Sign_Out#Factory$'];
     /** @type {Fl32_Bwl_Shared_Service_Route_Friend_List.Factory} */

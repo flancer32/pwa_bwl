@@ -24,8 +24,8 @@ function Factory(spec) {
     /** @type {Fl32_Bwl_Front_Defaults} */
     const DEF = spec['Fl32_Bwl_Front_Defaults$'];
     const {isEmpty} = spec['TeqFw_Core_Shared_Util'];
-    /** @type {TeqFw_Web_Front_Service_Gate} */
-    const gate = spec['TeqFw_Web_Front_Service_Gate$'];
+    /** @type {TeqFw_Web_Front_WAPI_Gate} */
+    const gate = spec['TeqFw_Web_Front_WAPI_Gate$'];
     /** @type {Fl32_Teq_User_Shared_Service_Route_Check_Existence.Factory} */
     const routeExist = spec['Fl32_Teq_User_Shared_Service_Route_Check_Existence#Factory$'];
     /** @type {Fl32_Bwl_Shared_Service_Route_Sign_Up.Factory} */

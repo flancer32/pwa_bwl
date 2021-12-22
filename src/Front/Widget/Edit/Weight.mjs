@@ -29,8 +29,8 @@ function Factory(spec) {
     const i18n = spec['TeqFw_I18n_Front_Lib$'];
     /** @type {Fl32_Bwl_Front_Widget_Weight.vueCompTmpl} */
     const weight = spec['Fl32_Bwl_Front_Widget_Weight$'];
-    /** @type {TeqFw_Web_Front_Service_Gate} */
-    const gate = spec['TeqFw_Web_Front_Service_Gate$'];
+    /** @type {TeqFw_Web_Front_WAPI_Gate} */
+    const gate = spec['TeqFw_Web_Front_WAPI_Gate$'];
     /** @type {Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save.Factory} */
     const route = spec['Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save#Factory$'];
     /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save.Types} */

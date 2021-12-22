@@ -20,8 +20,8 @@ function Factory(spec) {
     const {formatUtcTime, isEmpty} = spec['TeqFw_Core_Shared_Util'];
     /** @type {Fl32_Bwl_Front_Door_Sign_Widget_RegForm} */
     const regForm = spec['Fl32_Bwl_Front_Door_Sign_Widget_RegForm$'];
-    /** @type {TeqFw_Web_Front_Service_Gate} */
-    const gate = spec['TeqFw_Web_Front_Service_Gate$'];
+    /** @type {TeqFw_Web_Front_WAPI_Gate} */
+    const gate = spec['TeqFw_Web_Front_WAPI_Gate$'];
     /** @type {Fl32_Teq_User_Shared_Service_Route_RefLink_Get.Factory} */
     const route = spec['Fl32_Teq_User_Shared_Service_Route_RefLink_Get#Factory$'];
 
