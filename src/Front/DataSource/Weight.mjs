@@ -8,8 +8,8 @@ export default class Fl32_Bwl_Front_DataSource_Weight {
         // EXTRACT DEPS
         /** @type {TeqFw_Web_Front_WAPI_Gate} */
         const gate = spec['TeqFw_Web_Front_WAPI_Gate$'];
-        /** @type {Fl32_Bwl_Shared_Service_Route_Profile_Get.Factory} */
-        const route = spec['Fl32_Bwl_Shared_Service_Route_Profile_Get#Factory$'];
+        /** @type {Fl32_Bwl_Shared_WAPI_Profile_Get.Factory} */
+        const route = spec['Fl32_Bwl_Shared_WAPI_Profile_Get#Factory$'];
 
         // DEFINE WORKING VARS / PROPS
         /** @type {number} */
@@ -22,7 +22,7 @@ export default class Fl32_Bwl_Front_DataSource_Weight {
         this.loadFromServer = async function (forced = false) {
             if ((current === undefined) || forced) {
                 // noinspection JSValidateTypes
-                /** @type {Fl32_Bwl_Shared_Service_Route_Profile_Get.Response} */
+                /** @type {Fl32_Bwl_Shared_WAPI_Profile_Get.Response} */
                 const res = await gate.send(route.createReq(), route);
                 if (res && res.profile) {
                     current = res.profile.weightCurrent;

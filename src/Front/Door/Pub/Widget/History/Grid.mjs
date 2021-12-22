@@ -36,8 +36,8 @@ export default function Factory(spec) {
     const dsWeights = spec['Fl32_Bwl_Front_DataSource_Weight$'];
     /** @type {TeqFw_Web_Front_WAPI_Gate} */
     const gate = spec['TeqFw_Web_Front_WAPI_Gate$'];
-    /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_List.Factory} */
-    const routeList = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_List#Factory$'];
+    /** @type {Fl32_Bwl_Shared_WAPI_Weight_History_List.Factory} */
+    const routeList = spec['Fl32_Bwl_Shared_WAPI_Weight_History_List#Factory$'];
     /** @type {Fl32_Bwl_Front_Door_Pub_Model_Profile_History} */
     const modProfile = spec['Fl32_Bwl_Front_Door_Pub_Model_Profile_History$'];
 
@@ -82,7 +82,7 @@ export default function Factory(spec) {
                 // DEFINE INNER FUNCTIONS
                 /**
                  *
-                 * @param {Fl32_Bwl_Shared_Service_Dto_Weight_History_Item[]} items
+                 * @param {Fl32_Bwl_Shared_Dto_Weight_History_Item[]} items
                  * @returns {[]}
                  */
                 function prepareItems(items) {
@@ -109,7 +109,7 @@ export default function Factory(spec) {
                 const req = routeList.createReq();
                 req.type = modProfile.weightType;
                 // noinspection JSValidateTypes
-                /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_List.Response} */
+                /** @type {Fl32_Bwl_Shared_WAPI_Weight_History_List.Response} */
                 const res = await gate.send(req, routeList);
                 if (res) {
                     this.rows = prepareItems(res.items);

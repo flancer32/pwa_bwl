@@ -27,10 +27,10 @@ export default function Factory(spec) {
     const Action = spec['Fl32_Bwl_Front_Layout_TopActions#Item'];
     /** @type {TeqFw_Web_Front_WAPI_Gate} */
     const gate = spec['TeqFw_Web_Front_WAPI_Gate$'];
-    /** @type {Fl32_Bwl_Shared_Service_Route_Weight_History_Remove.Factory} */
-    const routeRemove = spec['Fl32_Bwl_Shared_Service_Route_Weight_History_Remove#Factory$'];
-    /** @type {Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save.Factory} */
-    const routeSave = spec['Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save#Factory$'];
+    /** @type {Fl32_Bwl_Shared_WAPI_Weight_History_Remove.Factory} */
+    const routeRemove = spec['Fl32_Bwl_Shared_WAPI_Weight_History_Remove#Factory$'];
+    /** @type {Fl32_Bwl_Shared_WAPI_Weight_Stat_Save.Factory} */
+    const routeSave = spec['Fl32_Bwl_Shared_WAPI_Weight_Stat_Save#Factory$'];
     /** @type {Fl32_Bwl_Front_Door_Pub_Widget_History_Grid.vueCompTmpl} */
     const grid = spec['Fl32_Bwl_Front_Door_Pub_Widget_History_Grid$'];
     /** @type {Fl32_Bwl_Front_Door_Pub_Widget_History_ModeCfg.vueCompTmpl} */

@@ -23,8 +23,8 @@ function Factory(spec) {
     const layoutCentered = spec['Fl32_Bwl_Front_Layout_Centered$'];
     /** @type {TeqFw_Web_Front_WAPI_Gate} */
     const gate = spec['TeqFw_Web_Front_WAPI_Gate$'];
-    /** @type {Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Check.Factory} */
-    const route = spec['Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Check#Factory$'];
+    /** @type {Fl32_Bwl_Shared_WAPI_Sign_In_Code_Check.Factory} */
+    const route = spec['Fl32_Bwl_Shared_WAPI_Sign_In_Code_Check#Factory$'];
 
     // DEFINE WORKING VARS
     const template = `
@@ -60,7 +60,7 @@ function Factory(spec) {
             const req = route.createReq();
             req.code = this.code;
             // noinspection JSValidateTypes
-            /** @type {Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Check.Response} */
+            /** @type {Fl32_Bwl_Shared_WAPI_Sign_In_Code_Check.Response} */
             const res = await gate.send(req, route);
             if (res) {
                 await session.init();

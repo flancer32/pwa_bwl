@@ -31,10 +31,10 @@ function Factory(spec) {
     const weight = spec['Fl32_Bwl_Front_Widget_Weight$'];
     /** @type {TeqFw_Web_Front_WAPI_Gate} */
     const gate = spec['TeqFw_Web_Front_WAPI_Gate$'];
-    /** @type {Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save.Factory} */
-    const route = spec['Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save#Factory$'];
-    /** @type {typeof Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save.Types} */
-    const Types = spec['Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save#Types'];
+    /** @type {Fl32_Bwl_Shared_WAPI_Weight_Stat_Save.Factory} */
+    const route = spec['Fl32_Bwl_Shared_WAPI_Weight_Stat_Save#Factory$'];
+    /** @type {typeof Fl32_Bwl_Shared_WAPI_Weight_Stat_Save.Types} */
+    const Types = spec['Fl32_Bwl_Shared_WAPI_Weight_Stat_Save#Types'];
     /** @type {Function|Fl32_Bwl_Shared_Util.formatDate} */
     const formatDate = spec['Fl32_Bwl_Shared_Util#formatDate'];
 
@@ -97,7 +97,7 @@ function Factory(spec) {
         },
         props: { // API to get values from parent widget
             display: Boolean, // hide/display dialog from parent
-            type: String, // start, current, target weight (see Fl32_Bwl_Shared_Service_Route_Weight_Stat_Save.Types)
+            type: String, // start, current, target weight (see Fl32_Bwl_Shared_WAPI_Weight_Stat_Save.Types)
             weight: null, // initial weight
         },
         computed: {

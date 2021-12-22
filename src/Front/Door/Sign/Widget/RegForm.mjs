@@ -28,8 +28,8 @@ function Factory(spec) {
     const gate = spec['TeqFw_Web_Front_WAPI_Gate$'];
     /** @type {Fl32_Teq_User_Shared_Service_Route_Check_Existence.Factory} */
     const routeExist = spec['Fl32_Teq_User_Shared_Service_Route_Check_Existence#Factory$'];
-    /** @type {Fl32_Bwl_Shared_Service_Route_Sign_Up.Factory} */
-    const routeSignUp = spec['Fl32_Bwl_Shared_Service_Route_Sign_Up#Factory$'];
+    /** @type {Fl32_Bwl_Shared_WAPI_Sign_Up.Factory} */
+    const routeSignUp = spec['Fl32_Bwl_Shared_WAPI_Sign_Up#Factory$'];
 
     // DEFINE WORKING VARS
     const template = `
@@ -243,7 +243,7 @@ function Factory(spec) {
                 req.height = this.fldHeight;
                 req.weight = this.fldWeight;
                 // noinspection JSValidateTypes
-                /** @type {Fl32_Bwl_Shared_Service_Route_Sign_Up.Response} */
+                /** @type {Fl32_Bwl_Shared_WAPI_Sign_Up.Response} */
                 const res = await gate.send(req, routeSignUp);
                 if (res && res.sessionId) {
                     self.window.location.href = `/${DEF.SHARED.DOOR_PUB}/`;

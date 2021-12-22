@@ -36,12 +36,12 @@ function Factory(spec) {
     const gate = spec['TeqFw_Web_Front_WAPI_Gate$'];
     /** @type {Fl32_Teq_User_Shared_Service_Route_RefLink_Create.Factory} */
     const routeRefLinkCreate = spec['Fl32_Teq_User_Shared_Service_Route_RefLink_Create#Factory$'];
-    /** @type {Fl32_Bwl_Shared_Service_Route_Friend_Link_Code_Create.Factory} */
-    const routeFriendCodeCreate = spec['Fl32_Bwl_Shared_Service_Route_Friend_Link_Code_Create#Factory$'];
-    /** @type {Fl32_Bwl_Shared_Service_Route_Friend_List.Factory} */
-    const routeList = spec['Fl32_Bwl_Shared_Service_Route_Friend_List#Factory$'];
-    /** @type {typeof Fl32_Bwl_Shared_Service_Dto_Friend_List_Item} */
-    const DItem = spec['Fl32_Bwl_Shared_Service_Dto_Friend_List_Item#'];
+    /** @type {Fl32_Bwl_Shared_WAPI_Friend_Link_Code_Create.Factory} */
+    const routeFriendCodeCreate = spec['Fl32_Bwl_Shared_WAPI_Friend_Link_Code_Create#Factory$'];
+    /** @type {Fl32_Bwl_Shared_WAPI_Friend_List.Factory} */
+    const routeList = spec['Fl32_Bwl_Shared_WAPI_Friend_List#Factory$'];
+    /** @type {typeof Fl32_Bwl_Shared_Dto_Friend_List_Item} */
+    const DItem = spec['Fl32_Bwl_Shared_Dto_Friend_List_Item#'];
 
     // DEFINE WORKING VARS
     const template = `
@@ -107,7 +107,7 @@ function Factory(spec) {
                 async function addFriend() {
                     const req = new routeFriendCodeCreate.createReq();
                     // noinspection JSValidateTypes
-                    /** @type {Fl32_Bwl_Shared_Service_Route_Friend_Link_Code_Create.Response} */
+                    /** @type {Fl32_Bwl_Shared_WAPI_Friend_Link_Code_Create.Response} */
                     const res = await gate.send(req, routeFriendCodeCreate);
                     const code = res.link.code;
                     // compose URL to add new friend

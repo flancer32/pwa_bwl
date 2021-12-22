@@ -21,8 +21,8 @@ function Factory(spec) {
     const session = spec['Fl32_Teq_User_Front_Model_Session$'];
     /** @type {TeqFw_Web_Front_WAPI_Gate} */
     const gate = spec['TeqFw_Web_Front_WAPI_Gate$'];
-    /** @type {Fl32_Bwl_Shared_Service_Route_Friend_Link_Add.Factory} */
-    const route = spec['Fl32_Bwl_Shared_Service_Route_Friend_Link_Add#Factory$'];
+    /** @type {Fl32_Bwl_Shared_WAPI_Friend_Link_Add.Factory} */
+    const route = spec['Fl32_Bwl_Shared_WAPI_Friend_Link_Add#Factory$'];
 
     // DEFINE WORKING VARS
     const template = `
@@ -63,7 +63,7 @@ function Factory(spec) {
                 const req = route.createReq();
                 req.code = this.code;
                 // noinspection JSValidateTypes
-                /** @type {Fl32_Bwl_Shared_Service_Route_Friend_Link_Add.Response} */
+                /** @type {Fl32_Bwl_Shared_WAPI_Friend_Link_Add.Response} */
                 const res = await gate.send(req, route);
                 if (res) {
                     this.displaySuccess = res.success;

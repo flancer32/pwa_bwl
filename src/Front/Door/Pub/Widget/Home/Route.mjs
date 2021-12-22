@@ -28,8 +28,8 @@ function Factory(spec) {
     const gate = spec['TeqFw_Web_Front_WAPI_Gate$'];
     /** @type {Fl32_Teq_User_Shared_Service_Route_Sign_Out.Factory} */
     const routeSignOut = spec['Fl32_Teq_User_Shared_Service_Route_Sign_Out#Factory$'];
-    /** @type {Fl32_Bwl_Shared_Service_Route_Friend_List.Factory} */
-    const routeFriends = spec['Fl32_Bwl_Shared_Service_Route_Friend_List#Factory$'];
+    /** @type {Fl32_Bwl_Shared_WAPI_Friend_List.Factory} */
+    const routeFriends = spec['Fl32_Bwl_Shared_WAPI_Friend_List#Factory$'];
     /** @type {typeof Fl32_Bwl_Front_Layout_TopActions.Item} */
     const Action = spec['Fl32_Bwl_Front_Layout_TopActions#Item'];
     /** @type {Fl32_Bwl_Front_Widget_Edit_Weight.vueCompTmpl} */
@@ -161,7 +161,7 @@ function Factory(spec) {
                 const result = [{label: this.$t('route.home.dataSet.personal'), value: DEF.DEF_DATA_SET_ID}];
                 const req = routeFriends.createReq();
                 // noinspection JSValidateTypes
-                /** @type {Fl32_Bwl_Shared_Service_Route_Friend_List.Response} */
+                /** @type {Fl32_Bwl_Shared_WAPI_Friend_List.Response} */
                 const res = await gate.send(req, routeFriends);
                 if (res && Array.isArray(res.items)) {
                     for (const one of res.items) {

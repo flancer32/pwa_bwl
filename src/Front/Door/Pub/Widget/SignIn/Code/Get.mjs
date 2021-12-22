@@ -24,8 +24,8 @@ function Factory(spec) {
     const layoutCentered = spec['Fl32_Bwl_Front_Layout_Centered$'];
      /** @type {TeqFw_Web_Front_WAPI_Gate} */
     const gate = spec['TeqFw_Web_Front_WAPI_Gate$'];
-    /** @type {Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Send.Factory} */
-    const route = spec['Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Send#Factory$'];
+    /** @type {Fl32_Bwl_Shared_WAPI_Sign_In_Code_Send.Factory} */
+    const route = spec['Fl32_Bwl_Shared_WAPI_Sign_In_Code_Send#Factory$'];
 
     // DEFINE WORKING VARS
     const template = `
@@ -84,7 +84,7 @@ function Factory(spec) {
                 const req = route.createReq();
                 req.email = this.fldEmail;
                 // noinspection JSValidateTypes
-                /** @type {Fl32_Bwl_Shared_Service_Route_Sign_In_Code_Send.Response} */
+                /** @type {Fl32_Bwl_Shared_WAPI_Sign_In_Code_Send.Response} */
                 const res = await gate.send(req, route);
                 this.loading = false;
                 const opts = {email: this.fldEmail};
