@@ -45,7 +45,7 @@ export default class Fl32_Bwl_Back_WAPI_Weight_History_List {
         this.getService = function () {
             // DEFINE INNER FUNCTIONS
             /**
-             * @param {TeqFw_Web_Back_Api_WAPI_Context} context
+             * @param {TeqFw_Web_Back_Handler_WAPI_Context} context
              * @return Promise<void>
              */
             async function service(context) {
@@ -53,7 +53,7 @@ export default class Fl32_Bwl_Back_WAPI_Weight_History_List {
 
                 /**
                  * @param {TeqFw_Db_Back_RDb_ITrans} trx
-                 * @param {Fl32_Teq_User_Shared_Service_Dto_User} user
+                 * @param {Fl32_Teq_User_Shared_Dto_User} user
                  * @param {Fl32_Bwl_Shared_WAPI_Weight_History_List.Request} apiReq
                  * @return {Promise<*[]>}
                  */
@@ -125,7 +125,7 @@ export default class Fl32_Bwl_Back_WAPI_Weight_History_List {
                 //
                 const trx = await conn.startTransaction();
                 try {
-                    /** @type {Fl32_Teq_User_Shared_Service_Dto_User} */
+                    /** @type {Fl32_Teq_User_Shared_Dto_User} */
                     const user = share.get(DEF.MOD_USER.SHARE_USER);
                     if (user) {
                         res.items = await selectItems(trx, user, req);

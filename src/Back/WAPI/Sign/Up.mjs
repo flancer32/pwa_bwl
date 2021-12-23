@@ -44,8 +44,8 @@ export default class Fl32_Bwl_Back_WAPI_Sign_Up {
         const aAppProfileSave = spec['Fl32_Bwl_Back_Act_Profile_Save$'];
         /** @type {Fl32_Bwl_Back_Act_Weight_Stat_Save.process|function} */
         const aWeightSave = spec['Fl32_Bwl_Back_Act_Weight_Stat_Save$'];
-        /** @type {typeof Fl32_Teq_User_Shared_Service_Dto_User} */
-        const DUser = spec['Fl32_Teq_User_Shared_Service_Dto_User#'];
+        /** @type {typeof Fl32_Teq_User_Shared_Dto_User} */
+        const DUser = spec['Fl32_Teq_User_Shared_Dto_User#'];
         /** @type {Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat} */
         const metaWeightStat = spec['Fl32_Bwl_Back_Store_RDb_Schema_Weight_Stat$'];
         /** @type {Fl32_Bwl_Back_Store_RDb_Schema_Profile} */
@@ -60,7 +60,7 @@ export default class Fl32_Bwl_Back_WAPI_Sign_Up {
         this.getService = function () {
             // DEFINE INNER FUNCTIONS
             /**
-             * @param {TeqFw_Web_Back_Api_WAPI_Context} context
+             * @param {TeqFw_Web_Back_Handler_WAPI_Context} context
              * @return Promise<void>
              */
             async function service(context) {

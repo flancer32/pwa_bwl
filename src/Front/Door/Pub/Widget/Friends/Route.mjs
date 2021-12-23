@@ -34,8 +34,8 @@ function Factory(spec) {
     const Action = spec['Fl32_Bwl_Front_Layout_TopActions#Item'];
     /** @type {TeqFw_Web_Front_WAPI_Gate} */
     const gate = spec['TeqFw_Web_Front_WAPI_Gate$'];
-    /** @type {Fl32_Teq_User_Shared_Service_Route_RefLink_Create.Factory} */
-    const routeRefLinkCreate = spec['Fl32_Teq_User_Shared_Service_Route_RefLink_Create#Factory$'];
+    /** @type {Fl32_Teq_User_Shared_WAPI_RefLink_Create.Factory} */
+    const routeRefLinkCreate = spec['Fl32_Teq_User_Shared_WAPI_RefLink_Create#Factory$'];
     /** @type {Fl32_Bwl_Shared_WAPI_Friend_Link_Code_Create.Factory} */
     const routeFriendCodeCreate = spec['Fl32_Bwl_Shared_WAPI_Friend_Link_Code_Create#Factory$'];
     /** @type {Fl32_Bwl_Shared_WAPI_Friend_List.Factory} */
@@ -137,7 +137,7 @@ function Factory(spec) {
                     // get referral link with limited lifetime
                     const req = routeRefLinkCreate.createReq();
                     // noinspection JSValidateTypes
-                    /** @type {Fl32_Teq_User_Shared_Service_Route_RefLink_Create.Response} */
+                    /** @type {Fl32_Teq_User_Shared_WAPI_RefLink_Create.Response} */
                     const res = await gate.send(req, routeRefLinkCreate);
                     const code = res.link.refCode;
                     // compose URL to sign up

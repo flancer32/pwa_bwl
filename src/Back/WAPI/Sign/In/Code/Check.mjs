@@ -47,7 +47,7 @@ export default class Fl32_Bwl_Back_WAPI_Sign_In_Code_Check {
         this.getService = function () {
             // DEFINE INNER FUNCTIONS
             /**
-             * @param {TeqFw_Web_Back_Api_WAPI_Context} context
+             * @param {TeqFw_Web_Back_Handler_WAPI_Context} context
              * @return Promise<void>
              */
             async function service(context) {

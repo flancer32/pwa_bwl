@@ -26,8 +26,8 @@ function Factory(spec) {
     const {isEmpty} = spec['TeqFw_Core_Shared_Util'];
     /** @type {TeqFw_Web_Front_WAPI_Gate} */
     const gate = spec['TeqFw_Web_Front_WAPI_Gate$'];
-    /** @type {Fl32_Teq_User_Shared_Service_Route_Check_Existence.Factory} */
-    const routeExist = spec['Fl32_Teq_User_Shared_Service_Route_Check_Existence#Factory$'];
+    /** @type {Fl32_Teq_User_Shared_WAPI_Check_Existence.Factory} */
+    const routeExist = spec['Fl32_Teq_User_Shared_WAPI_Check_Existence#Factory$'];
     /** @type {Fl32_Bwl_Shared_WAPI_Sign_Up.Factory} */
     const routeSignUp = spec['Fl32_Bwl_Shared_WAPI_Sign_Up#Factory$'];
 
@@ -201,7 +201,7 @@ function Factory(spec) {
              * Send request to server to check data existence.
              *
              * @param {String} value
-             * @param {String} type @see Fl32_Teq_User_Shared_Service_Route_Check_Existence.Request.TYPE_...
+             * @param {String} type @see Fl32_Teq_User_Shared_WAPI_Check_Existence.Request.TYPE_...
              * @param {Boolean} fireError 'true' - error on exist (for `email`), 'false' - otherwise (for `refCode`)
              * @param {String} msg i18n-key for error message
              * @returns {Promise<void>}
@@ -217,7 +217,7 @@ function Factory(spec) {
                         req.type = type;
                         req.value = value;
                         // noinspection JSValidateTypes
-                        /** @type {Fl32_Teq_User_Shared_Service_Route_Check_Existence.Response} */
+                        /** @type {Fl32_Teq_User_Shared_WAPI_Check_Existence.Response} */
                         const res = await gate.send(req, routeExist);
                         me.loading[type] = false;
                         if (res && (res.exist === fireError)) {

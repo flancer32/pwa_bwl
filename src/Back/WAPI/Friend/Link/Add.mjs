@@ -40,7 +40,7 @@ export default class Fl32_Bwl_Back_WAPI_Friend_Link_Add {
         this.getService = function () {
             // DEFINE INNER FUNCTIONS
             /**
-             * @param {TeqFw_Web_Back_Api_WAPI_Context} context
+             * @param {TeqFw_Web_Back_Handler_WAPI_Context} context
              * @return Promise<void>
              */
             async function service(context) {
@@ -53,7 +53,7 @@ export default class Fl32_Bwl_Back_WAPI_Friend_Link_Add {
                 const res = context.getOutData();
                 const share = context.getHandlersShare();
                 //
-                /** @type {Fl32_Teq_User_Shared_Service_Dto_User} */
+                /** @type {Fl32_Teq_User_Shared_Dto_User} */
                 const user = share.get(DEF.MOD_USER.SHARE_USER);
                 if (user) {
                     const trx = await rdb.startTransaction();

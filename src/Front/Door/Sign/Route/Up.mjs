@@ -22,8 +22,8 @@ function Factory(spec) {
     const regForm = spec['Fl32_Bwl_Front_Door_Sign_Widget_RegForm$'];
     /** @type {TeqFw_Web_Front_WAPI_Gate} */
     const gate = spec['TeqFw_Web_Front_WAPI_Gate$'];
-    /** @type {Fl32_Teq_User_Shared_Service_Route_RefLink_Get.Factory} */
-    const route = spec['Fl32_Teq_User_Shared_Service_Route_RefLink_Get#Factory$'];
+    /** @type {Fl32_Teq_User_Shared_WAPI_RefLink_Get.Factory} */
+    const route = spec['Fl32_Teq_User_Shared_WAPI_RefLink_Get#Factory$'];
 
     // DEFINE WORKING VARS
     const template = `
@@ -99,7 +99,7 @@ function Factory(spec) {
                 const req = route.createReq();
                 req.code = this.refCode;
                 // noinspection JSValidateTypes
-                /** @type {Fl32_Teq_User_Shared_Service_Route_RefLink_Get.Response} */
+                /** @type {Fl32_Teq_User_Shared_WAPI_RefLink_Get.Response} */
                 const res = await gate.send(req, route);
                 if (res.link?.refCode === this.refCode) {
                     this.parent = res.link.parent;
