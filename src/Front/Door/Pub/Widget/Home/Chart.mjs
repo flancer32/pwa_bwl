@@ -1,5 +1,8 @@
 /**
  * Display data series as line chart.
+ * Define structures 'Point' & 'ChartData' to pass data to this widget.
+ *
+ * Various charts list: https://code.tutsplus.com/articles/best-free-javascript-charts-libraries--cms-37458
  *
  * @namespace Fl32_Bwl_Front_Door_Pub_Widget_Home_Chart
  */
@@ -19,12 +22,20 @@ class ChartData {
     namePrimary;
     /** @type {string} */
     nameSecondary;
-    /** @type {boolean} */
+    /**
+     * @type {boolean}
+     * @deprecated  we don't need normalization anymore with 2 Y axes
+     */
     normalize;
     /** @type {Point[]} */
     primary;
     /** @type {Point[]} */
     secondary;
+    /**
+     * 2 Y-axes are used to display friend's data
+     * @type {boolean}
+     */
+    useSecondY;
 }
 
 Object.defineProperty(ChartData, 'name', {value: `${NS}.${ChartData.name}`});
@@ -149,14 +160,15 @@ function Factory(spec) {
                     }
 
                     // MAIN FUNCTIONALITY
+                    const norm = false;
                     const labels = chartData.labels;
                     const parent = document.getElementById(DOM_ID_CHART).parentElement;
                     const width = parent.offsetWidth;
                     const maxPoints = Math.floor(width / 15);
                     const xStart = chartData.labels[0].getTime();
                     const xEnd = chartData.labels[chartData.labels.length - 1].getTime();
-                    const primary = prepareSeries(chartData.primary, chartData.normalize, xStart, xEnd, maxPoints);
-                    const secondary = prepareSeries(chartData.secondary, chartData.normalize, xStart, xEnd, maxPoints);
+                    const primary = prepareSeries(chartData.primary, norm, xStart, xEnd, maxPoints);
+                    const secondary = prepareSeries(chartData.secondary, norm, xStart, xEnd, maxPoints);
                     const datasets = [];
                     // add primary data set to chart
                     datasets.push({
@@ -168,14 +180,15 @@ function Factory(spec) {
                         pointRadius: 2,
                     });
                     // add secondary data set to chart
-                    datasets.push({
+                    const ds2 = {
                         borderColor: 'rgba(0, 12, 128, 0.8)',
                         borderWidth: 2,
                         data: secondary,
                         fill: false,
                         label: chartData.nameSecondary,
                         pointRadius: 2,
-                    });
+                    };
+                    datasets.push(ds2);
                     const options = {
                         aspectRatio: 2, // default, should be computed
                         cubicInterpolationMode: 'monotone',
@@ -198,13 +211,32 @@ function Factory(spec) {
                                         month: 'yy/MM'
                                     }
                                 },
-                                ticks: {font: {size: 10}}
+                                ticks: {
+                                    font: {size: 10}
+                                }
                             },
                             y: {
-                                ticks: {font: {size: 10}}
-                            }
+                                position: 'left',
+                                ticks: {
+                                    font: {size: 10}
+                                }
+                            },
                         },
                     };
+                    if (chartData.useSecondY) {
+                        ds2.yAxisID = 'y1';
+                        options.scales.y.ticks.color = 'rgba(250, 12, 128, 0.8)';
+                        options.scales.y1 = {
+                            position: 'right',
+                            grid: {
+                                drawOnChartArea: false, // only want the grid lines for one axis to show up
+                            },
+                            ticks: {
+                                color: 'rgba(0, 12, 128, 0.8)',
+                                font: {size: 10}
+                            }
+                        };
+                    }
                     // place chart to display
                     const ctx = document.getElementById(DOM_ID_CHART).getContext('2d');
                     if (chart) chart.destroy();
@@ -220,7 +252,6 @@ function Factory(spec) {
                 draw(current);
             }
         },
-        async mounted() {},
     };
 }
 
