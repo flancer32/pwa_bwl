@@ -26,9 +26,9 @@ export default function Factory(spec) {
          */
         async function initDb() {
             /** @type {TeqFw_Bwl_Back_Api_Dto_Config_Local} */
-            const cfg = config.getLocal(DEF.DESC_NODE);
-            await connect.init(cfg.db);
-            container.set('TeqFw_Db_Back_RDb_IConnect$', connect); // set as interface
+            // const cfg = config.getLocal(DEF.DESC_NODE);
+            // await connect.init(cfg.db);
+            // container.set('TeqFw_Db_Back_RDb_IConnect$', connect); // set as interface
         }
 
         // MAIN FUNCTIONALITY

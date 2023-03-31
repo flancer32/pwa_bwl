@@ -15,8 +15,8 @@ const NS = 'Fl32_Bwl_Back_Act_Profile_Save';
  * @memberOf Fl32_Bwl_Back_Act_Profile_Save
  */
 function Factory(spec) {
-    /** @type {TeqFw_Db_Back_Api_RDb_ICrudEngine} */
-    const crud = spec['TeqFw_Db_Back_Api_RDb_ICrudEngine$'];
+    /** @type {TeqFw_Db_Back_Api_RDb_CrudEngine} */
+    const crud = spec['TeqFw_Db_Back_Api_RDb_CrudEngine$'];
     /** @type {Fl32_Bwl_Back_Store_RDb_Schema_Profile} */
     const metaAppProfile = spec['Fl32_Bwl_Back_Store_RDb_Schema_Profile$'];
 

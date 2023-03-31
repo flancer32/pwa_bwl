@@ -26,8 +26,8 @@ export default function Factory(spec) {
     const logger = spec['TeqFw_Core_Shared_Logger$'];
     /** @type {TeqFw_Core_Back_Config} */
     const config = spec['TeqFw_Core_Back_Config$'];
-    /** @type {TeqFw_Db_Back_Api_RDb_ISchema} */
-    const dbSchema = spec['TeqFw_Db_Back_Api_RDb_ISchema$'];
+    /** @type {TeqFw_Db_Back_Api_RDb_Schema} */
+    const dbSchema = spec['TeqFw_Db_Back_Api_RDb_Schema$'];
     /** @type {TeqFw_Db_Back_Dem_Load} */
     const demLoad = spec['TeqFw_Db_Back_Dem_Load$'];
 
@@ -41,7 +41,7 @@ export default function Factory(spec) {
         logger.pause(false);
         try {
             // load DEMs then drop/create all tables
-            const path = config.getBoot().projectRoot;
+            const path = config.getPathToRoot();
             const {dem, cfg} = await demLoad.exec({path});
             await dbSchema.setDem({dem});
             await dbSchema.setCfg({cfg});

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 ##
-#   Rebuild JS project with modules being placed to inner folders.
+#   Rebuild JS project with the latest versions of custom modules being linked from './node_modules/' folder.
 ##
 # root directory (relative to the current shell script, not to the execution point)
 DIR_ROOT=${DIR_ROOT:-$(cd "$(dirname "$0")/../../" && pwd)}
@@ -29,11 +29,7 @@ rm -fr "${DIR_NODE}" "${DIR_ROOT}/package-lock.json"
 
 echo "Re-install JS project."
 cd "${DIR_ROOT}" || exit 255
-npm install
-
-#echo "Remove cloned dependencies (sources)."
-#rm -fr "${DIR_OWN}/@teqfw"
-#rm -fr "${DIR_OWN}/@flancer32"
+npm install --omit=optional
 
 echo "Clone dependencies from github to inner folders."
 mkdir -p "${DIR_OWN}/@teqfw/"
@@ -49,6 +45,7 @@ processRepo "teqfw/ui-quasar"
 processRepo "teqfw/user"
 processRepo "teqfw/vue"
 processRepo "teqfw/web"
+processRepo "teqfw/web-event"
 processRepo "teqfw/web-push"
 
 echo ""

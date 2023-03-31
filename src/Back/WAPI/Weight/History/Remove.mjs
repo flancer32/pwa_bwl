@@ -19,8 +19,8 @@ export default class Fl32_Bwl_Back_WAPI_Weight_History_Remove {
         const DEF = spec['Fl32_Bwl_Back_Defaults$'];
         /** @type {TeqFw_Db_Back_RDb_IConnect} */
         const conn = spec['TeqFw_Db_Back_RDb_IConnect$'];
-        /** @type {TeqFw_Db_Back_Api_RDb_ICrudEngine} */
-        const crud = spec['TeqFw_Db_Back_Api_RDb_ICrudEngine$'];
+        /** @type {TeqFw_Db_Back_Api_RDb_CrudEngine} */
+        const crud = spec['TeqFw_Db_Back_Api_RDb_CrudEngine$'];
         /** @type {Function|TeqFw_Core_Shared_Util.formatDate} */
         const formatDate = spec['TeqFw_Core_Shared_Util#formatDate'];
         /** @type {Fl32_Bwl_Shared_WAPI_Weight_History_Remove.Factory} */

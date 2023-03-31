@@ -28,8 +28,8 @@ function Factory(spec) {
     const connector = spec['TeqFw_Db_Back_RDb_IConnect$'];
     /** @type {TeqFw_Core_Shared_Logger} */
     const logger = spec['TeqFw_Core_Shared_Logger$'];
-    /** @type {TeqFw_Db_Back_Api_RDb_ICrudEngine} */
-    const crud = spec['TeqFw_Db_Back_Api_RDb_ICrudEngine$'];
+    /** @type {TeqFw_Db_Back_Api_RDb_CrudEngine} */
+    const crud = spec['TeqFw_Db_Back_Api_RDb_CrudEngine$'];
     /** @type {Fl32_Bwl_Back_Cli_Db_Z_Restruct.action|function} */
     const actRestruct = spec['Fl32_Bwl_Back_Cli_Db_Z_Restruct$'];
     /** @type {TeqFw_User_Back_Store_RDb_Schema_User} */

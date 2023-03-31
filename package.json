@@ -37,6 +37,7 @@
     "@teqfw/user": "*",
     "@teqfw/vue": "*",
     "@teqfw/web": "*",
+    "@teqfw/web-event": "*",
     "@teqfw/web-push": "*",
     "chart.js": "*",
     "chartjs-adapter-luxon": "*",

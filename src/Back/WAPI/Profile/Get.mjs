@@ -20,8 +20,8 @@ export default class Fl32_Bwl_Back_WAPI_Profile_Get {
         const DEF = spec['Fl32_Bwl_Back_Defaults$'];
         /** @type {TeqFw_Db_Back_RDb_IConnect} */
         const conn = spec['TeqFw_Db_Back_RDb_IConnect$'];
-        /** @type {TeqFw_Db_Back_Api_RDb_ICrudEngine} */
-        const crud = spec['TeqFw_Db_Back_Api_RDb_ICrudEngine$'];
+        /** @type {TeqFw_Db_Back_Api_RDb_CrudEngine} */
+        const crud = spec['TeqFw_Db_Back_Api_RDb_CrudEngine$'];
         /** @type {Fl32_Bwl_Shared_WAPI_Profile_Get.Factory} */
         const route = spec['Fl32_Bwl_Shared_WAPI_Profile_Get#Factory$'];
         /** @type {typeof Fl32_Bwl_Shared_Dto_Profile} */

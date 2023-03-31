@@ -17,8 +17,8 @@ const NS = 'Fl32_Bwl_Back_Act_Friend_Link_Code_Remove';
  * @memberOf Fl32_Bwl_Back_Act_Friend_Link_Code_Remove
  */
 function Factory(spec) {
-    /** @type {TeqFw_Db_Back_Api_RDb_ICrudEngine} */
-    const crud = spec['TeqFw_Db_Back_Api_RDb_ICrudEngine$'];
+    /** @type {TeqFw_Db_Back_Api_RDb_CrudEngine} */
+    const crud = spec['TeqFw_Db_Back_Api_RDb_CrudEngine$'];
     /** @type {Fl32_Bwl_Back_Store_RDb_Schema_Friend_Link} */
     const metaFriendLink = spec['Fl32_Bwl_Back_Store_RDb_Schema_Friend_Link$'];
 

@@ -22,8 +22,8 @@ export default class Fl32_Bwl_Back_WAPI_Sign_In_Code_Check {
         const logger = spec['TeqFw_Core_Shared_Logger$'];
         /** @type {TeqFw_Db_Back_RDb_IConnect} */
         const conn = spec['TeqFw_Db_Back_RDb_IConnect$'];
-        /** @type {TeqFw_Db_Back_Api_RDb_ICrudEngine} */
-        const crud = spec['TeqFw_Db_Back_Api_RDb_ICrudEngine$'];
+        /** @type {TeqFw_Db_Back_Api_RDb_CrudEngine} */
+        const crud = spec['TeqFw_Db_Back_Api_RDb_CrudEngine$'];
         /** @type {TeqFw_Web_Back_Util.cookieCreate|function} */
         const cookieCreate = spec['TeqFw_Web_Back_Util#cookieCreate'];
         /** @type {Fl32_Bwl_Back_Act_Sign_In_Code_CleanUp.process|function} */
